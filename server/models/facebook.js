@@ -3,10 +3,10 @@ let Scehma = mongoose.Schema;
 
 let Facebook = new Scehma({
     fbUserURL: {
-        type: URL
+        type: String
     },
     fbPhoto: {
-        type: URL,
+        type: String,
     },
     fbUserName: {
         type: String,

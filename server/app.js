@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var userDetail = require('./routes/twitter');
 var fbRouter = require('./routes/facebook');
+var instagramRouter = require('./routes/instagram')
+var google = require('./routes/google');
 var transcation_id = require('./routes/transaction_detail');
 
 
@@ -31,6 +33,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/twitter', userDetail);
 app.use('/facebook', fbRouter);
+app.use('/instagram', instagramRouter)
+app.use('/google',google)
 /** TOKEN_EXCHANGE_API */
 app.use('/transaction', transcation_id);
 
