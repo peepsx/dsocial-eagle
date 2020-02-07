@@ -23,11 +23,9 @@ export default class Telegram extends React.Component {
         script.setAttribute('data-onauth', 'TelegramLoginWidget.dataOnauth(user)');
         script.async = true;
         this.instance.appendChild(script);
-    }
-
-    componentWillReceiveProps(props) {
         console.log('psops value', props)
         console.log('real button',document.getElementById('widget_login'))
+
         if(document.getElementById('widget_login')) {
             const realBtn = document.getElementById('widget_login').children[0];
             const fakeBtn = document.getElementById('fake_button');
@@ -42,7 +40,6 @@ export default class Telegram extends React.Component {
     };
 
     render() {
-        console.log('props recieved inside render', this.props)
         return (
             <React.Fragment>
                 <a className="btn btn-block btn-outline-light border py-4 h-100" onClick={this.handleClick} id="fake_button">
