@@ -32,7 +32,7 @@ export default class First extends React.Component {
                             authCallback={this.twitterHandler}
                             consumerKey={process.env.twitter_consumer_key}
                             consumerSecret={process.env.twitter_consumer_secret_key}
-                            callbackUrl={"http://localhost:3000/"}
+                            callbackUrl={"https://air.arisen.network/"}
                             children={<Twitter />}
                         />
                     </div>

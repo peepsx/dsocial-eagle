@@ -23,7 +23,6 @@ export default class Facebook extends React.Component {
                     alert('User Login failed')
                 }
             }, {
-                scope: 'email,user_photos',
                 return_scoper: true,
             });
         }

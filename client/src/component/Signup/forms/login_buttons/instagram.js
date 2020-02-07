@@ -3,7 +3,7 @@ import React from 'react';
 export default class Instagram extends React.Component {
 
     handleInstaClick = () => {
-        // window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://www.devgenesis.com/&scope=user_profile&response_type=code','_blank')
+        window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code','_blank')
         const code = 'AQA1rLxFKkXHu4LPvlNjAOx1ILno-lx_4YQ8XncIpxYnbjxKtfhdMUjeVQ8_VDnhZFYI19RD7_qCsUBk9V4Rn-lBC4qu9GWlTfFng6JrEikO_oKvNjR_wiXrl9m8IvrmmWJTzfKYbQ7hJTXBIbbc3hV3FQDjr4c_tzH1p79FjlQLpDFxBKb4tPyIW4pFeu0IfNrxhIZgTG9hX9I8gpFEvoISQDtlHJDBtyRPEyGuRtzGmg'
         const data = new FormData()
         data.append('client_id', process.env.instagram_client_id);
