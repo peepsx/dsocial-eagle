@@ -13,6 +13,7 @@ import { API } from '../../js/api_list';
 export default class First extends React.Component {
     constructor(props) {
         super(props);
+        this.handleSave = this.handleSave.bind(this);
         this.state = {
             fbData: '',
         }
@@ -25,7 +26,7 @@ export default class First extends React.Component {
         console.log('Props Recieved:', props)
     }
 
-    handleSave = (userData) => {
+    handleSave(userData) {
         console.log('user data', userData)
         if (userData && userData.data) {
             this.setState({ fbData: userData.data })
