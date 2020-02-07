@@ -17,22 +17,13 @@ export default class Telegram extends React.Component {
         const script = document.createElement('script');
         script.src = 'https://telegram.org/js/telegram-widget.js?4';
         script.setAttribute('data-telegram-login', 'ArisenIO_bot');
-        script.setAttribute('data-size', 'large');
+        script.setAttribute('data-size', 'small');
         script.setAttribute('data-request-access', "write");
         script.setAttribute('data-userpic', false);
         script.setAttribute('data-onauth', 'TelegramLoginWidget.dataOnauth(user)');
         script.async = true;
         this.instance.appendChild(script);
-        
-        console.log('real button',document.getElementById('widget_login'))
 
-        if(document.getElementById('widget_login')) {
-            const realBtn = document.getElementById('widget_login').children[0];
-            const fakeBtn = document.getElementById('fake_button');
-            fakeBtn.addEventListener('click', () => {
-                realBtn.click();
-            })
-        }
     }
 
     handleTelegramResponse(response) {
@@ -42,20 +33,18 @@ export default class Telegram extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <a className="btn btn-block btn-outline-light border py-4 h-100" onClick={this.handleClick} id="fake_button">
-                    <img className="icon mb-3" src="assets/img/arisen/telegram.png" alt="google" />
-                    <span className="h6 mb-0 d-block">Telegram <br />Community</span>
+                <a className="btn btn-block btn-outline-light border py-4 h-100" type="button">
+                    {/* <img className="icon mb-3" src="assets/img/arisen/telegram.png" alt="google" /> */}
+                    {/* <span className="h6 mb-0 d-block">Telegram <br />Community</span> */}
+                    <div
+                        className={this.props.className}
+                        ref={component => {
+                            this.instance = component;
+                        }}
+                    >
+                        {this.props.children}
+                    </div>
                 </a>
-                <div
-                    id="real_button"
-                    // hidden={true}
-                    className={this.props.className}
-                    ref={component => {
-                        this.instance = component;
-                    }}
-                >
-                    {this.props.children}
-                </div>
             </React.Fragment>
         )
     }
