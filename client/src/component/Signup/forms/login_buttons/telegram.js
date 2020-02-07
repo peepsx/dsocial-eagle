@@ -32,20 +32,14 @@ export default class Telegram extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
-                <a className="btn btn-block btn-outline-light border py-4 h-100" type="button">
-                    {/* <img className="icon mb-3" src="assets/img/arisen/telegram.png" alt="google" /> */}
-                    {/* <span className="h6 mb-0 d-block">Telegram <br />Community</span> */}
-                    <div
-                        className={this.props.className}
-                        ref={component => {
-                            this.instance = component;
-                        }}
-                    >
-                        {this.props.children}
-                    </div>
-                </a>
-            </React.Fragment>
+            <div
+                className={this.props.className}
+                ref={component => {
+                    this.instance = component;
+                }}
+            >
+                {this.props.children}
+            </div>
         )
     }
 }

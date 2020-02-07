@@ -56,10 +56,11 @@ export default class First extends React.Component {
                     <div className="col-sm mb-3 mb-sm-0">
                         <Google />
                     </div>
-                    <div className="col-sm mb-3 mb-sm-0">
-                        <Telegram />
-                    </div>
                 </div>
+                    <div className="d-flex justify-content-end mt-2">
+                        <p className="d-flex">Join our Telegram Community: <Telegram /></p>
+                        
+                    </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next">Next Step</button>
                     <button onClick={this.clickbot}>click bot</button>
