@@ -22,7 +22,7 @@ export default class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             console.log('fb user data', fbData);
-                            this.props.handleSave('recieved',fbData);
+                            this.props.handleSave(fbData);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -38,6 +38,7 @@ export default class Facebook extends React.Component {
     }
 
     render() {
+        console.log('props value', this.props)
         return (
             <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
