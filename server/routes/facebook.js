@@ -2,15 +2,6 @@ var express = require('express');
 var router = express.Router();
 const FB = require('../models/facebook')
 
-
-// router.post('/', (req, res, next) => {
-//     let data = req.body
-//     console.log('data from front', data);
-//     res.json([
-//         { status: 'succesfully recieved' }
-//     ])
-// })
-
 router.post('/fb',async (req,res,next)=>{
     console.log(req.body)
     let { fbUserURL, fbPhoto,fbUserName, fbUserLocation} = req.body;

@@ -10,6 +10,9 @@ let User = new Scehma({
     ariser_username:{
         type:String,
         required: true
+    },
+    ip_address:{
+        type:String
     }
 })
 
