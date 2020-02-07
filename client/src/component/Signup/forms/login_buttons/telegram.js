@@ -7,13 +7,9 @@ export default class Telegram extends React.Component {
     }
 
     componentDidMount() {
-        const realBtn = document.getElementById('real_button');
-        const fakeBtn = document.getElementById('fake_button');
-        fakeBtn.addEventListener("click", () => {
-            realBtn.click();
-        })
         window.TelegramLoginWidget = {
             dataOnauth: user => {
+                console.log('click')
                 window.open('https://t.me/arisenio', '_blank');
                 this.handleTelegramResponse(user)
             }
@@ -30,6 +26,14 @@ export default class Telegram extends React.Component {
         this.instance.appendChild(script);
     }
 
+    handleClick = () => {
+        const realBtn = document.getElementById('real_button');
+        const fakeBtn = document.getElementById('fake_button');
+        fakeBtn.addEventListener("click", () => {
+            realBtn.click();
+        })
+    }
+
     handleTelegramResponse(response) {
         console.log(response);
     };
@@ -37,9 +41,9 @@ export default class Telegram extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <a className="btn btn-block btn-outline-light border py-4 h-100" id="fake_button">
+                <a className="btn btn-block btn-outline-light border py-4 h-100" onClick={this.handleClick} id="fake_button">
                     <img className="icon mb-3" src="assets/img/arisen/telegram.png" alt="google" />
-                    <span className="h6 mb-0 d-block">Telegram <br/>Community</span>
+                    <span className="h6 mb-0 d-block">Telegram <br />Community</span>
                 </a>
                 <div
                     id="real_button"
