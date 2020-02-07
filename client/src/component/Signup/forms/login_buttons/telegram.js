@@ -7,12 +7,6 @@ export default class Telegram extends React.Component {
     }
 
     componentDidMount() {
-        const realBtn = document.getElementById('widget_login').children[0];
-        const fakeBtn = document.getElementById('fake_button');
-        fakeBtn.addEventListener("click", () => {
-            realBtn.click();
-        })
-
         window.TelegramLoginWidget = {
             dataOnauth: user => {
                 window.open('https://t.me/arisenio', '_blank');
@@ -31,6 +25,16 @@ export default class Telegram extends React.Component {
         this.instance.appendChild(script);
     }
 
+    componentWillReceiveProps(props) {
+        if(props.className) {
+            const realBtn = document.getElementById('widget_login').children[0];
+            const fakeBtn = document.getElementById('fake_button');
+            fakeBtn.addEventListener("click", () => {
+                realBtn.click();
+            })
+        }
+    }
+
     handleTelegramResponse(response) {
         console.log(response);
     };
@@ -44,7 +48,7 @@ export default class Telegram extends React.Component {
                 </a>
                 <div
                     id="real_button"
-                    // hidden={true}
+                    hidden={true}
                     className={this.props.className}
                     ref={component => {
                         this.instance = component;
