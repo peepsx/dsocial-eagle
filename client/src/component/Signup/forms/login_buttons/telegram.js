@@ -23,7 +23,7 @@ export default class Telegram extends React.Component {
         script.setAttribute('data-onauth', 'TelegramLoginWidget.dataOnauth(user)');
         script.async = true;
         this.instance.appendChild(script);
-        console.log('psops value', props)
+        
         console.log('real button',document.getElementById('widget_login'))
 
         if(document.getElementById('widget_login')) {
