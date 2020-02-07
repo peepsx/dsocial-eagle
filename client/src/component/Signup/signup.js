@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import './signup.scss'
-import First from './sub/first';
-import Second from './sub/second';
-import Third from './sub/third';
-import Fourth from './sub/fourth';
-import Fifth from './sub/fifth';
+import './signup.css'
+import First from './forms/first';
+import Second from './forms/second';
+import Third from './forms/third';
+import Fourth from './forms/fourth';
+import Fifth from './forms/fifth';
 
 export default class Signup extends Component {
     constructor(props) {

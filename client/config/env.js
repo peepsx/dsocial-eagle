@@ -23,6 +23,11 @@ function getClientEnvironment(publicUrl) {
       'PUBLIC_URL': publicUrl,
       'twitter_consumer_key': process.env.twitter_consumer_key,
       'twitter_consumer_secret_key': process.env.twitter_consumer_secret_key,
+      'instagram_client_id': process.env.instagram_client_id,
+      'google_client_id': process.env.google_client_id,
+      'instagram_client_secret_id': process.env.instagram_client_secret_id,
+      'youtube_channel_id': process.env.youtube_channel_id,
+      'callback_url': process.env.callback_url
     });
   // Stringify all values so we can feed into Webpack DefinePlugin
   var stringified = {
