@@ -17,7 +17,7 @@ export default class Telegram extends React.Component {
         const script = document.createElement('script');
         script.src = 'https://telegram.org/js/telegram-widget.js?4';
         script.setAttribute('data-telegram-login', 'ArisenIO_bot');
-        script.setAttribute('data-size', 'small');
+        script.setAttribute('data-size', 'medium');
         script.setAttribute('data-request-access', "write");
         script.setAttribute('data-userpic', false);
         script.setAttribute('data-onauth', 'TelegramLoginWidget.dataOnauth(user)');
@@ -32,14 +32,14 @@ export default class Telegram extends React.Component {
 
     render() {
         return (
-            <div
+            <a
                 className={this.props.className}
                 ref={component => {
                     this.instance = component;
                 }}
             >
                 {this.props.children}
-            </div>
+            </a>
         )
     }
 }

@@ -22,20 +22,21 @@ export default class First extends React.Component {
     clickbot = (e) => {
         e.preventDefault();
         Axios.get(`https://api.telegram.org/${process.env.telegram_bot_hash}/getUpdates`)
-        .then(response => {
-            for (let i of response.data.result) {
-                console.log(i)
-                console.log('bot updates values', i.message.chat.id)
+            .then(response => {
+                for (let i of response.data.result) {
+                    console.log(i)
+                    console.log('bot updates values', i.message.chat.id)
+                }
             }
-        }
-        )
+            )
     }
 
     render() {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <p className="lead">Please login with the accounts given below.</p>
+                    <span className="h4 d-block">Please login with the accounts given below.</span>
+                    <p className="h6 lead">( All fields mandatory )</p>
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
@@ -57,10 +58,9 @@ export default class First extends React.Component {
                         <Google />
                     </div>
                 </div>
-                    <div className="d-flex justify-content-end mt-2">
-                        <p className="d-flex">Join our Telegram Community: <Telegram /></p>
-                        
-                    </div>
+                <div className="d-flex justify-content-end mt-2">
+                    <p className="d-flex">Join our Telegram Community: <Telegram /></p>
+                </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next">Next Step</button>
                     <button onClick={this.clickbot}>click bot</button>
