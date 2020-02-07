@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const FB = require('../models/facebook')
 
-router.post('/fb',async (req,res,next)=>{
+router.post('/facebook_detail',async (req,res,next)=>{
     console.log(req.body)
     let { fbUserURL, fbPhoto,fbUserName, fbUserLocation} = req.body;
     let findOne = await FB.findOne({fbUserName: fbUserName})
