@@ -28,7 +28,8 @@ function getClientEnvironment(publicUrl) {
       'instagram_client_secret_id': process.env.instagram_client_secret_id,
       'youtube_channel_id': process.env.youtube_channel_id,
       'callback_url': process.env.callback_url,
-      'telegram_bot_hash': process.env.telegram_bot_hash
+      'telegram_bot_hash': process.env.telegram_bot_hash,
+      'API_URL': process.env.API_URL
     });
   // Stringify all values so we can feed into Webpack DefinePlugin
   var stringified = {

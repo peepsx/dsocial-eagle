@@ -2,8 +2,15 @@ import React from 'react';
 import Axios from 'axios';
 
 export default class Facebook extends React.Component {
+    constructor(props){
+        super(props);
+    }
 
-    handleFbClick = () => {
+    componentWillReceiveProps(props){
+        console.log('props recieved',props);
+    }
+
+    handleFbClick = (e) => {
         if (window.FB) {
             window.FB.login(function (response) {
                 if (response.status === 'connected') {
@@ -15,6 +22,7 @@ export default class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             console.log('fb user data', fbData);
+                            this.props.handleSave('recieved',fbData);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -26,11 +34,12 @@ export default class Facebook extends React.Component {
                 return_scoper: true,
             });
         }
+
     }
 
     render() {
         return (
-            <button onClick={this.handleFbClick} className="btn btn-block btn-outline-light border py-4 h-100">
+            <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>
             </button>

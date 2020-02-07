@@ -6,7 +6,7 @@ export default class Google extends React.Component {
         window.gapi.load('auth2', function () {
             /* Ready. Make a call to gapi.auth2.init or some other API */
             window.gapi.auth2.init({
-                client_id: process.env.google_client_id + '.apps.googleusercontent.com',
+                client_id: process.env.google_client_id,
                 // cookiepolicy: 'single_host_origin',
             }).then(() => {
                 const auth2 = window.gapi.auth2.getAuthInstance();
