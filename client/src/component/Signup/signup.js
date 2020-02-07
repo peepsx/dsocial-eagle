@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './signup.scss'
+import './signup.css'
 import First from './forms/first';
 import Second from './forms/second';
 import Third from './forms/third';
