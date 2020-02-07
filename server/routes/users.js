@@ -4,7 +4,7 @@ const {UserAuth} = require('../models/user')
 
 router.post('/users-details', async (req,res, next)=>{
     let {useremail,ariser_username} = req.body
-    console.log(req.body)
+    console.log(req.body,'ipAdderess',req.ip)
 
     let ipAddress = await UserAuth.find({ip_address: req.ip})
         if(ipAddress.length) {
