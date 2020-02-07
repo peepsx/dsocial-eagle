@@ -7,7 +7,7 @@ export default class Telegram extends React.Component {
     }
 
     componentDidMount() {
-        const realBtn = document.getElementById('real_button');
+        const realBtn = document.getElementById('widget_login').children[0];
         const fakeBtn = document.getElementById('fake_button');
         fakeBtn.addEventListener("click", () => {
             realBtn.click();
