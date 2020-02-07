@@ -7,6 +7,7 @@ router.post('/users-details', async (req,res, next)=>{
     console.log(req.body,'ipAdderess',req.ip)
 
     let ipAddress = await UserAuth.find({ip_address: req.ip})
+    console.log('find ip adderess',ipAddress.length)
         if(ipAddress.length) {
             return res.status(200).send({
                 message: 'This ip-address has been used please change your ip first'
