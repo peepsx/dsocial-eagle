@@ -1,7 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
-// import TelegramLoginButton from 'react-telegram-login';
-
 
 export default class Telegram extends React.Component {
     constructor(props) {
@@ -10,6 +7,11 @@ export default class Telegram extends React.Component {
     }
 
     componentDidMount() {
+        const realBtn = document.getElementById('real_button');
+        const fakeBtn = document.getElementById('fake_button');
+        fakeBtn.addEventListener("click", () => {
+            realBtn.click();
+        })
         window.TelegramLoginWidget = {
             dataOnauth: user => {
                 window.open('https://t.me/arisenio', '_blank');
@@ -32,25 +34,16 @@ export default class Telegram extends React.Component {
         console.log(response);
     };
 
-    clickbot = (e) => {
-        e.preventDefault();
-        Axios.get('https://api.telegram.org/bot946537247:AAFlbC8hjvaPYHQHL9DI86Q1Yt7h73svrP4/getUpdates')
-            .then(response => {
-                for (let i of response.data.result) {
-                    console.log(i)
-                    console.log('values', i.message.chat.id)
-                }
-            }
-            )
-    }
-
     render() {
         return (
-            <a className="btn btn-outline-light border">
-                <button onClick={this.clickbot}>click bot</button>
-                {/* <img className="icon mb-3" src="assets/img/arisen/telegram.png" alt="google" />
-            <span className="h6 mb-0 d-block">Telegram Community</span> */}
+            <React.Fragment>
+                <a className="btn btn-block btn-outline-light border py-4 h-100" id="fake_button">
+                    <img className="icon mb-3" src="assets/img/arisen/telegram.png" alt="google" />
+                    <span className="h6 mb-0 d-block">Telegram <br/>Community</span>
+                </a>
                 <div
+                    id="real_button"
+                    hidden={true}
                     className={this.props.className}
                     ref={component => {
                         this.instance = component;
@@ -58,8 +51,7 @@ export default class Telegram extends React.Component {
                 >
                     {this.props.children}
                 </div>
-                {/* <TelegramLoginButton dataOnauth={this.handleTelegramResponse} botName="ArisenIO_bot" /> */}
-            </a>
+            </React.Fragment>
         )
     }
 }

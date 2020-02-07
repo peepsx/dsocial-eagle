@@ -6,6 +6,7 @@ import Facebook from './login_buttons/facebook';
 import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
+import Axios from 'axios';
 
 
 export default class First extends React.Component {
@@ -15,6 +16,19 @@ export default class First extends React.Component {
 
     componentWillReceiveProps(props) {
         console.log('Props Recieved:', props)
+    }
+
+
+    clickbot = (e) => {
+        e.preventDefault();
+        Axios.get(`https://api.telegram.org/${process.env.telegram_bot_hash}/getUpdates`)
+        .then(response => {
+            for (let i of response.data.result) {
+                console.log(i)
+                console.log('bot updates values', i.message.chat.id)
+            }
+        }
+        )
     }
 
     render() {
@@ -42,12 +56,13 @@ export default class First extends React.Component {
                     <div className="col-sm mb-3 mb-sm-0">
                         <Google />
                     </div>
-                </div>
-                <div>
-                    <Telegram />
+                    <div className="col-sm mb-3 mb-sm-0">
+                        <Telegram />
+                    </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next">Next Step</button>
+                    <button onClick={this.clickbot}>click bot</button>
                 </div>
             </div>
         )
