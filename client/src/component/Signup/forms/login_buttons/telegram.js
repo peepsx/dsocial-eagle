@@ -26,9 +26,10 @@ export default class Telegram extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        console.log('psops value', props)
+        console.log('real button',document.getElementById('widget_login'))
         if(document.getElementById('widget_login')) {
             const realBtn = document.getElementById('widget_login').children[0];
-            console.log('real button',document.getElementById('widget_login'))
             const fakeBtn = document.getElementById('fake_button');
             fakeBtn.addEventListener('click', () => {
                 realBtn.click();
@@ -41,6 +42,7 @@ export default class Telegram extends React.Component {
     };
 
     render() {
+        console.log('props recieved inside render', this.props)
         return (
             <React.Fragment>
                 <a className="btn btn-block btn-outline-light border py-4 h-100" onClick={this.handleClick} id="fake_button">
