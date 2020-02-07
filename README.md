@@ -1,4 +1,3 @@
-README.md:
 # Arisen Air Drop dApp
 This is the code for Arisen's air drop system, launching on February 19th, 2020 via [air.arisen.network](https://air.arisen.network). Development of this system has been sponsored by @peeps.
 
@@ -8,19 +7,19 @@ It can easily be used for giving away other digital assets on the Arisen network
 
 Below are some of the features and integrations included within the air drop dApp:
 
-Facebook
+### ***Facebook
 -- User must login with Facebook, LIKE the [@ArisenCoin Facebook page](https://facebook.com/#) and share a pre-written post about ArisenCoin to their Facebook friends.
 
-Twitter
+### ***Twitter
 -- User must login with Twitter, follow the [@ArisenCoin Twitter page](https://twitter.com/arisencoin) and share a pre-written post about ArisenCoin to their Twitter followers.
 
-Instagram
+### ***Instagram
 -- User must login with Instagram and follow the [@ArisenCoin Instagram page](https://instagram.com/arisencoin).
 
-Google
+### ***Google
 -- User is forced to login with their Google account and subscribe to ArisenCoin's YouTube channel.
 
-Discord
+### ***Discord
 -- User must login with Discord and join the [Arisen Discord Community](https://discord.com).
 
 Arisen Blockchain
