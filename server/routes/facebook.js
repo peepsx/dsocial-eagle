@@ -7,7 +7,7 @@ router.post('/fb',async (req,res,next)=>{
     let { fbUserURL, fbPhoto,fbUserName, fbUserLocation} = req.body;
     let findOne = await FB.findOne({fbUserName: fbUserName})
 
-     if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && !findOne ) {
+     if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && !findOne ==null ) {
 
             let newFbUser = new FB({
                 fbUserURL: fbUserURL,
