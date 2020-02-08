@@ -62,12 +62,14 @@ export default class First extends React.Component {
 
     handleGoogleDataSave = (userData,check) => {
         if (userData && check) {
-            console.log('inside google',userData.QT && userData.Qt.zu);
+            const valueParse = Object.values(userData)[2];
+            const email = Object.values(valueParse)[5]
+            console.log('inside google',email);
             Axios({
                 url: API.google_detai,
                 method: 'POST',
                 data: {
-                    GmailAddress: userData.Qt.zu
+                    GmailAddress: email
                 }
             })
                 .then(response => {
