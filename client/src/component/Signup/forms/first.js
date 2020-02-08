@@ -20,7 +20,6 @@ export default class First extends React.Component {
         Axios.get(`https://api.telegram.org/${process.env.telegram_bot_hash}/getUpdates`)
             .then(response => {
                 for (let i of response.data.result) {
-                    console.log(i)
                     console.log('bot updates values', i.message.chat.id)
                 }
             }
