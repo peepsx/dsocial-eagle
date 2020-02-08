@@ -1,24 +1,40 @@
 import React from 'react';
 
 export default class Instagram extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            instaCode: '',
+        }
+    }
+    componentDidMount() {
+        const link = window.location.href;
+        if (link.includes('code=')) {
+            const codeLink = link.slice(link.indexOf('code=') + 1, link.length - 2);
+            this.setState({ instaCode: codeLink });
+        }
+        console.log('link from instagram', link)
+    }
 
     handleInstaClick = () => {
-        window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code',"_self")
-        const code = 'AQA1rLxFKkXHu4LPvlNjAOx1ILno-lx_4YQ8XncIpxYnbjxKtfhdMUjeVQ8_VDnhZFYI19RD7_qCsUBk9V4Rn-lBC4qu9GWlTfFng6JrEikO_oKvNjR_wiXrl9m8IvrmmWJTzfKYbQ7hJTXBIbbc3hV3FQDjr4c_tzH1p79FjlQLpDFxBKb4tPyIW4pFeu0IfNrxhIZgTG9hX9I8gpFEvoISQDtlHJDBtyRPEyGuRtzGmg'
+        window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code', "_self")
+        const code = this.state.instaCode;
+        console.log('code instagram',code)
         const data = new FormData()
         data.append('client_id', process.env.instagram_client_id);
         data.append('client_secret', process.env.instagram_client_secret_id);
         data.append('grant_type', 'authorization_code');
         data.append('redirect_uri', 'https://www.devgenesis.com/');
         data.append('code', code);
-
-        fetch('https://api.instagram.com/oauth/access_token', {
-            method: 'POST',
-            body: data
-        })
-            .then(res => res.json())
-            .then(response => console.log('response in access', response))
-            .catch(err => console.log('error', err))
+        if (this.state.instaCode !== "") {
+            fetch('https://api.instagram.com/oauth/access_token', {
+                method: 'POST',
+                body: data
+            })
+                .then(res => res.json())
+                .then(response => console.log('response in access', response))
+                .catch(err => console.log('error', err))
+        }
     }
 
 
