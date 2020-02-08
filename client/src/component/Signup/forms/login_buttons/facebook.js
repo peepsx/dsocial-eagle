@@ -4,13 +4,10 @@ import Axios from 'axios';
 export default class Facebook extends React.Component {
     constructor(props){
         super(props);
+        this.handleFbClick = this.handleFbClick.bind(this);
     }
 
-    componentWillReceiveProps(props){
-        console.log('props recieved',props);
-    }
-
-    handleFbClick = (e) => {
+    handleFbClick() {
         if (window.FB) {
             window.FB.login(function (response) {
                 if (response.status === 'connected') {
@@ -20,13 +17,14 @@ export default class Facebook extends React.Component {
                         method: 'GET',
                         url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
                     })
-                        .then((fbData) => {
-                            console.log('fb user data', fbData);
-                            this.props.handleSave(fbData);
-                        })
-                        .catch(err => {
-                            console.error('Error', err);
-                        })
+                    .then((fbData) => {
+                        console.log('props data when called',this.props)
+                        console.log('fb user data', fbData);
+                        return this.props.handleSave(fbData);
+                    })
+                    .catch(err => {
+                        console.error('Error', err);
+                    })
                 } else {
                     alert('User Login failed')
                 }
@@ -34,7 +32,7 @@ export default class Facebook extends React.Component {
                 return_scoper: true,
             });
         }
-
+        
     }
 
     render() {
