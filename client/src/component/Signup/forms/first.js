@@ -60,7 +60,7 @@ export default class First extends React.Component {
         }
     }
 
-    handleGoogleDataSave = (userData) => {
+    handleGoogleDataSave = (userData,check) => {
         if (userData && check) {
             console.log('inside google',userData.QT && userData.Qt.zu);
             Axios({
