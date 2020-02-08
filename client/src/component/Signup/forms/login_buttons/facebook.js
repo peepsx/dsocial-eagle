@@ -11,7 +11,7 @@ class Facebook extends React.Component {
             fbUserData: '',
         }
 
-        this.handleFbClick = this.handleFbClick.bind(this);
+        // this.handleFbClick = this.handleFbClick.bind(this);
         this.handleSave = this.handleSave.bind(this);
     }
 
@@ -37,9 +37,9 @@ class Facebook extends React.Component {
         }
     }
 
-    handleFbClick() {
+    handleFbClick = () => {
         if (window.FB) {
-            window.FB.login(function (response) {
+            window.FB.login((response) => {
                 if (response.status === 'connected') {
                     const userId = response.authResponse.userID.replace(/"/, ""),
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
@@ -49,6 +49,7 @@ class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             console.log('fb user data', fbData);
+                            console.log('this console', this);
                             this.setState({
                                 fbUserData: fbData
                             })
