@@ -12,6 +12,7 @@ export default class Google extends React.Component {
                 const auth2 = window.gapi.auth2.getAuthInstance();
                 auth2.signIn().then(res => {
                     console.log('after sign in response', res)
+                    this.props.handleGoogleDataSave(res,false);
                 })
             })
         });

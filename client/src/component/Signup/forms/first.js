@@ -11,10 +11,11 @@ import { API } from '../../js/api_list';
 
 
 export default class First extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            fbData:'',
+        this.state = {
+            fbData: '',
+            googleData: '',
         }
     }
 
@@ -33,14 +34,16 @@ export default class First extends React.Component {
             )
     }
 
-    handleFbDataSave = (userData,check) => {
+    handleFbDataSave = (userData, check) => {
         if (userData && check) {
+            console.log('inside fb',userData.data && userData.data);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/json'},
+                    'Accept': 'application/json'
+                },
                 data: {
                     fbUserURL: "dummy url",
                     fbPhoto: userData.data.picture.data.url,
@@ -54,37 +57,40 @@ export default class First extends React.Component {
                 .catch(err => {
                     console.error('Error', err);
                 })
-        } else if(userData && !check) {
+        } else if (userData && !check) {
             this.setState({
-                fbData:userData
+                fbData: userData
             })
         }
     }
 
-    // handleTwitter = (userData) => {
-    //     if (userData && check) {
-    //         Axios({
-    //             url: API.facebook_detail,
-    //             method: 'POST',
-    //             data: {
-    //                 fbUserURL: "dummy url",
-    //                 fbPhoto: userData.data.picture.data.url,
-    //                 fbUserName: userData.data.name,
-    //                 fbUserLocation: 'noida'
-    //             }
-    //         })
-    //             .then(response => {
-    //                 console.log('Data save facebook', response);
-    //             })
-    //             .catch(err => {
-    //                 console.error('Error', err);
-    //             })
-    //     } else if(userData && !check) {
-    //         this.setState({
-    //             fbData:userData
-    //         })
-    //     }
-    // }
+    handleGoogleDataSave = (userData) => {
+        if (userData && check) {
+            console.log('inside google',userData.QT && userData.Qt.zu);
+            Axios({
+                url: API.google_detai,
+                method: 'POST',
+                data: {
+                    GmailAddress: userData.Qt.zu
+                }
+            })
+                .then(response => {
+                    console.log('Data save Google', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        } else if (userData && !check) {
+            this.setState({
+                googleData: userData
+            })
+        }
+    }
+
+    handleSubmitChecks = (data,check) => {
+        this.handleFbDataSave(data.fbData,check);
+        this.handleGoogleDataSave(data.googleData,check);
+    }
 
     render() {
         return (
@@ -95,7 +101,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Facebook handleFbDataSave={this.handleFbDataSave}/>
+                        <Facebook handleFbDataSave={this.handleFbDataSave} />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
@@ -110,7 +116,7 @@ export default class First extends React.Component {
                         <Instagram />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Google />
+                        <Google handleGoogleDataSave={this.handleGoogleDataSave} />
                     </div>
                 </div>
                 <div className="d-flex justify-content-end mt-2">
@@ -121,7 +127,7 @@ export default class First extends React.Component {
                     <button onClick={this.clickbot}>click bot</button>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-warning" onClick={this.handleFbDataSave.bind(this,this.state.fbData,true)} type="button">Submit Test</button>
+                    <button className="btn btn-warning" onClick={this.handleSubmitChecks.bind(this, this.state, true)} type="button">Submit Test</button>
                 </div>
             </div>
         )
