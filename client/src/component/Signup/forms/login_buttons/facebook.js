@@ -1,41 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
-import { API } from '../../../js/api_list'
 
 
 class Facebook extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fbUserData: '',
-        }
-
-        // this.handleFbClick = this.handleFbClick.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-    }
-
-    handleSave() {
-        const userData = this.state.fbUserData;
-        if (userData && userData.data) {
-            Axios({
-                url: API.facebook_detail,
-                method: 'POST',
-                data: {
-                    fbUserURL: "dummy url",
-                    fbPhoto: userData.data.picture.data.url,
-                    fbUserName: userData.data.name,
-                    fbUserLocation: 'noida'
-                }
-            })
-                .then(response => {
-                    console.log('Data save facebook', response);
-                })
-                .catch(err => {
-                    console.error('Error', err);
-                })
-        }
-    }
 
     handleFbClick = () => {
         if (window.FB) {
@@ -49,10 +16,7 @@ class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             console.log('fb user data', fbData);
-                            console.log('this console', this);
-                            this.setState({
-                                fbUserData: fbData
-                            })
+                            this.props.handleFbDataSave(fbData);
                         })
                         .catch(err => {
                             console.error('Error', err);

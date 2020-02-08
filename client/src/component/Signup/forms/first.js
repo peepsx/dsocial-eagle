@@ -7,6 +7,7 @@ import Facebook from './login_buttons/facebook';
 import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
+import { API } from '../../js/loginCalls';
 
 
 export default class First extends React.Component {
@@ -26,6 +27,28 @@ export default class First extends React.Component {
             )
     }
 
+    handleFbDataSave = (userData) => {
+        if (userData && userData.data) {
+            console.log('user data inside',userData)
+            Axios({
+                url: API.facebook_detail,
+                method: 'POST',
+                data: {
+                    fbUserURL: "dummy url",
+                    fbPhoto: userData.data.picture.data.url,
+                    fbUserName: userData.data.name,
+                    fbUserLocation: 'noida'
+                }
+            })
+                .then(response => {
+                    console.log('Data save facebook', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        }
+    }
+
     render() {
         return (
             <div className="card-body py-4">
@@ -35,7 +58,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Facebook />
+                        <Facebook handleFbDataSave={this.handleFbDataSave}/>
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
