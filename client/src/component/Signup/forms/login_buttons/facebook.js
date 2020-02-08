@@ -49,7 +49,7 @@ class Facebook extends React.Component {
                     })
                         .then(function(fbData) {
                             // console.log('fb user data', fbData);
-                            this.setstate({
+                            this.setState({
                                 fbUserData:fbData.data
                             })
                         })
