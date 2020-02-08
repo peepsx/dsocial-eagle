@@ -7,10 +7,16 @@ import Facebook from './login_buttons/facebook';
 import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
-import { API } from '../../js/loginCalls';
+import { API } from '../../js/api_list';
 
 
 export default class First extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            fbData:'',
+        }
+    }
 
     twitterHandler = (err, authData) => {
         console.log('response', err, authData)
@@ -27,8 +33,9 @@ export default class First extends React.Component {
             )
     }
 
-    handleFbDataSave = (userData) => {
-        if (userData && userData.data) {
+    handleFbDataSave = (userData,check) => {
+        console.log('api',API)
+        if (userData && check) {
             console.log('user data inside',userData)
             Axios({
                 url: API.facebook_detail,
@@ -46,6 +53,10 @@ export default class First extends React.Component {
                 .catch(err => {
                     console.error('Error', err);
                 })
+        } else if(userData && !check) {
+            this.setState({
+                fbData:userData
+            })
         }
     }
 
@@ -84,7 +95,7 @@ export default class First extends React.Component {
                     <button onClick={this.clickbot}>click bot</button>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-warning" type="button">Submit Test</button>
+                    <button className="btn btn-warning" onClick={this.handleFbDataSave.bind(this,this.state.fbData,true)} type="button">Submit Test</button>
                 </div>
             </div>
         )

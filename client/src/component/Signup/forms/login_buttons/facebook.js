@@ -16,7 +16,7 @@ class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             console.log('fb user data', fbData);
-                            this.props.handleFbDataSave(fbData);
+                            this.props.handleFbDataSave(fbData, false);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -31,18 +31,12 @@ class Facebook extends React.Component {
 
     }
 
-
-
     render() {
-        console.log('props value', this.state)
         return (
-            <React.Fragment>
-                <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
-                    <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                    <span className="h6 mb-0 d-block">Facebook</span>
-                </button>
-                <button onClick={this.handleSave} type="button">Test click save</button>
-            </React.Fragment>
+            <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
+                <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
+                <span className="h6 mb-0 d-block">Facebook</span>
+            </button>
         )
     }
 }
