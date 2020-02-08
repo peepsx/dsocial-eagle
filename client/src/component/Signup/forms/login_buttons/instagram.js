@@ -10,17 +10,17 @@ export default class Instagram extends React.Component {
     componentDidMount() {
         const link = window.location.href;
         if (link.includes('code=')) {
-            const codeLink = link.slice(link.indexOf('code=') + 1, link.length - 2);
+            const codeLink = link.slice(link.indexOf('code=') + 5, (link.length) - 2);
             this.setState({ instaCode: codeLink });
         }
     }
 
     handleInstaClick = () => {
+        console.log('instagram code', this.state.instaCode)
         if (this.state.instaCode !== "") {
             window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code', "_self")
         }
         const code = this.state.instaCode;
-        console.log('code instagram', code)
         const data = new FormData()
         data.append('client_id', process.env.instagram_client_id);
         data.append('client_secret', process.env.instagram_client_secret_id);
