@@ -7,49 +7,12 @@ import Facebook from './login_buttons/facebook';
 import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
-// import { API } from '../../js/api_list';
 
 
 export default class First extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleSave = this.handleSave.bind(this);
-        this.state = {
-            fbData: '',
-        }
-    }
+
     twitterHandler = (err, authData) => {
         console.log('response', err, authData)
-    }
-
-    componentWillReceiveProps(props) {
-        console.log('Props Recieved:', props)
-    }
-
-    handleSave(userData) {
-        console.log('user data', userData)
-        if (userData && userData.data) {
-            this.setState({ fbData: userData.data })
-        }
-        console.log('state value', this.state)
-        // if (this.state.fbData !== "") {
-        //     Axios({
-        //         url: API.facebook_detail,
-        //         method: 'POST',
-        //         data: {
-        //             fbUserURL: "dummy url",
-        //             fbPhoto: this.state.fbData.picture.data.url,
-        //             fbUserName: this.state.fbData.name,
-        //             fbUserLocation: 'noida'
-        //         }
-        //     })
-        //     .then(response => {
-        //         console.log('Data save facebook', response);
-        //     })
-        //     .catch(err => {
-        //         console.error('Error', err);
-        //     })
-            // }
     }
 
     clickbot = (e) => {
@@ -65,7 +28,6 @@ export default class First extends React.Component {
     }
 
     render() {
-        // console.log('save vale', this.handleSave())
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">

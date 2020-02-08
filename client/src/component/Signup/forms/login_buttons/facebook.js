@@ -1,8 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
+import {API} from '../../../js/api_list'
+
 
 export default class Facebook extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handleFbClick = this.handleFbClick.bind(this);
     }
@@ -17,14 +19,13 @@ export default class Facebook extends React.Component {
                         method: 'GET',
                         url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
                     })
-                    .then((fbData) => {
-                        console.log('props data when called',this.props)
-                        console.log('fb user data', fbData);
-                        return this.props.handleSave(fbData);
-                    })
-                    .catch(err => {
-                        console.error('Error', err);
-                    })
+                        .then((fbData) => {
+                            console.log('fb user data', fbData);
+                            this.handleSave(fbData);
+                        })
+                        .catch(err => {
+                            console.error('Error', err);
+                        })
                 } else {
                     alert('User Login failed')
                 }
@@ -32,8 +33,31 @@ export default class Facebook extends React.Component {
                 return_scoper: true,
             });
         }
-        
+
     }
+
+    handleSave = (userData) => {
+        console.log('user data', userData);
+        if (userData && userData.data) {
+            Axios({
+                url: API.facebook_detail,
+                method: 'POST',
+                data: {
+                    fbUserURL: "dummy url",
+                    fbPhoto: userData.data.picture.data.url,
+                    fbUserName: userData.data.name,
+                    fbUserLocation: 'noida'
+                }
+            })
+            .then(response => {
+                console.log('Data save facebook', response);
+            })
+            .catch(err => {
+                console.error('Error', err);
+            })
+        }
+    }
+
 
     render() {
         console.log('props value', this.props)
