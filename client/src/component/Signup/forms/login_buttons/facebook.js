@@ -1,12 +1,39 @@
 import React from 'react';
 import Axios from 'axios';
-import {API} from '../../../js/api_list'
+import { API } from '../../../js/api_list'
 
 
-export default class Facebook extends React.Component {
+class Facebook extends React.Component {
     constructor(props) {
         super(props);
         this.handleFbClick = this.handleFbClick.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.state = {
+            fbUserData: '',
+        }
+    }
+
+    handleSave() {
+        const userData = this.state.fbUserData
+        console.log('user data', userData);
+        if (userData && userData.data) {
+            Axios({
+                url: API.facebook_detail,
+                method: 'POST',
+                data: {
+                    fbUserURL: "dummy url",
+                    fbPhoto: userData.data.picture.data.url,
+                    fbUserName: userData.data.name,
+                    fbUserLocation: 'noida'
+                }
+            })
+                .then(response => {
+                    console.log('Data save facebook', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        }
     }
 
     handleFbClick() {
@@ -14,14 +41,17 @@ export default class Facebook extends React.Component {
             window.FB.login(function (response) {
                 if (response.status === 'connected') {
                     console.log('response', response)
-                    const userId = response.authResponse.userID.replace(/"/, ""), userAccessToken = response.authResponse.accessToken.replace(/"/, "");
+                    const userId = response.authResponse.userID.replace(/"/, ""),
+                        userAccessToken = response.authResponse.accessToken.replace(/"/, "");
                     Axios({
                         method: 'GET',
                         url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
                     })
-                        .then((fbData) => {
-                            console.log('fb user data', fbData);
-                            this.handleSave(fbData);
+                        .then(function(fbData) {
+                            // console.log('fb user data', fbData);
+                            this.setstate({
+                                fbUserData:fbData.data
+                            })
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -36,36 +66,20 @@ export default class Facebook extends React.Component {
 
     }
 
-    handleSave = (userData) => {
-        console.log('user data', userData);
-        if (userData && userData.data) {
-            Axios({
-                url: API.facebook_detail,
-                method: 'POST',
-                data: {
-                    fbUserURL: "dummy url",
-                    fbPhoto: userData.data.picture.data.url,
-                    fbUserName: userData.data.name,
-                    fbUserLocation: 'noida'
-                }
-            })
-            .then(response => {
-                console.log('Data save facebook', response);
-            })
-            .catch(err => {
-                console.error('Error', err);
-            })
-        }
-    }
 
 
     render() {
         console.log('props value', this.props)
         return (
+            <React.Fragment>
             <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>
             </button>
+            <a onClick={this.handleSave} type="button">click save</a>
+            </React.Fragment>
         )
     }
 }
+
+export default Facebook;
