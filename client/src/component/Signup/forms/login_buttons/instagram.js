@@ -17,7 +17,7 @@ export default class Instagram extends React.Component {
 
     handleInstaClick = () => {
         console.log('instagram code', this.state.instaCode)
-        if (this.state.instaCode !== "") {
+        if (this.state.instaCode === "") {
             window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code', "_self")
         }
         const code = this.state.instaCode;
