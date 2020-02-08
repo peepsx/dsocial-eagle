@@ -35,7 +35,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Facebook handleSave={this.handleSave} />
+                        <Facebook />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
@@ -61,7 +61,7 @@ export default class First extends React.Component {
                     <button onClick={this.clickbot}>click bot</button>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-warning" onClick={this.handleSave} type="button">Submit Test</button>
+                    <button className="btn btn-warning" type="button">Submit Test</button>
                 </div>
             </div>
         )

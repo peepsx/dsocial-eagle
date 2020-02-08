@@ -6,42 +6,41 @@ import { API } from '../../../js/api_list'
 class Facebook extends React.Component {
     constructor(props) {
         super(props);
-        this.handleFbClick = this.handleFbClick.bind(this);
-        this.handleSave = this.handleSave.bind(this);
+
         this.state = {
             fbUserData: '',
         }
+
+        this.handleFbClick = this.handleFbClick.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     handleSave() {
-        this.setState({
-            fbUserData: 'blank user'
-        })
-        // if (userData && userData.data) {
-        //     Axios({
-        //         url: API.facebook_detail,
-        //         method: 'POST',
-        //         data: {
-        //             fbUserURL: "dummy url",
-        //             fbPhoto: userData.data.picture.data.url,
-        //             fbUserName: userData.data.name,
-        //             fbUserLocation: 'noida'
-        //         }
-        //     })
-        //         .then(response => {
-        //             console.log('Data save facebook', response);
-        //         })
-        //         .catch(err => {
-        //             console.error('Error', err);
-        //         })
-        // }
+        const userData = this.state.fbUserData;
+        if (userData && userData.data) {
+            Axios({
+                url: API.facebook_detail,
+                method: 'POST',
+                data: {
+                    fbUserURL: "dummy url",
+                    fbPhoto: userData.data.picture.data.url,
+                    fbUserName: userData.data.name,
+                    fbUserLocation: 'noida'
+                }
+            })
+                .then(response => {
+                    console.log('Data save facebook', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        }
     }
 
     handleFbClick() {
         if (window.FB) {
             window.FB.login(function (response) {
                 if (response.status === 'connected') {
-                    console.log('response', response)
                     const userId = response.authResponse.userID.replace(/"/, ""),
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
                     Axios({
@@ -50,6 +49,9 @@ class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             console.log('fb user data', fbData);
+                            this.setState({
+                                fbUserData: fbData
+                            })
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -70,11 +72,11 @@ class Facebook extends React.Component {
         console.log('props value', this.state)
         return (
             <React.Fragment>
-            <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
-                <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                <span className="h6 mb-0 d-block">Facebook</span>
-            </button>
-            <a onClick={this.handleSave} type="button">click save</a>
+                <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
+                    <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
+                    <span className="h6 mb-0 d-block">Facebook</span>
+                </button>
+                <button onClick={this.handleSave} type="button">Test click save</button>
             </React.Fragment>
         )
     }
