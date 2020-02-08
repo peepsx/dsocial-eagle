@@ -14,26 +14,27 @@ class Facebook extends React.Component {
     }
 
     handleSave() {
-        const userData = this.state.fbUserData
-        console.log('user data', userData);
-        if (userData && userData.data) {
-            Axios({
-                url: API.facebook_detail,
-                method: 'POST',
-                data: {
-                    fbUserURL: "dummy url",
-                    fbPhoto: userData.data.picture.data.url,
-                    fbUserName: userData.data.name,
-                    fbUserLocation: 'noida'
-                }
-            })
-                .then(response => {
-                    console.log('Data save facebook', response);
-                })
-                .catch(err => {
-                    console.error('Error', err);
-                })
-        }
+        this.setState({
+            fbUserData: 'blank user'
+        })
+        // if (userData && userData.data) {
+        //     Axios({
+        //         url: API.facebook_detail,
+        //         method: 'POST',
+        //         data: {
+        //             fbUserURL: "dummy url",
+        //             fbPhoto: userData.data.picture.data.url,
+        //             fbUserName: userData.data.name,
+        //             fbUserLocation: 'noida'
+        //         }
+        //     })
+        //         .then(response => {
+        //             console.log('Data save facebook', response);
+        //         })
+        //         .catch(err => {
+        //             console.error('Error', err);
+        //         })
+        // }
     }
 
     handleFbClick() {
@@ -47,11 +48,8 @@ class Facebook extends React.Component {
                         method: 'GET',
                         url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
                     })
-                        .then(function(fbData) {
-                            // console.log('fb user data', fbData);
-                            this.setState({
-                                fbUserData:fbData.data
-                            })
+                        .then((fbData) => {
+                            console.log('fb user data', fbData);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -69,7 +67,7 @@ class Facebook extends React.Component {
 
 
     render() {
-        console.log('props value', this.props)
+        console.log('props value', this.state)
         return (
             <React.Fragment>
             <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
