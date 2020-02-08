@@ -25,6 +25,7 @@ class Facebook extends React.Component {
                     alert('User Login failed')
                 }
             }, {
+                scope:'user_link,user_location',
                 return_scoper: true,
             });
         }

@@ -34,9 +34,7 @@ export default class First extends React.Component {
     }
 
     handleFbDataSave = (userData,check) => {
-        console.log('api',API)
         if (userData && check) {
-            console.log('user data inside',userData)
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
@@ -59,6 +57,31 @@ export default class First extends React.Component {
             })
         }
     }
+
+    // handleTwitter = (userData) => {
+    //     if (userData && check) {
+    //         Axios({
+    //             url: API.facebook_detail,
+    //             method: 'POST',
+    //             data: {
+    //                 fbUserURL: "dummy url",
+    //                 fbPhoto: userData.data.picture.data.url,
+    //                 fbUserName: userData.data.name,
+    //                 fbUserLocation: 'noida'
+    //             }
+    //         })
+    //             .then(response => {
+    //                 console.log('Data save facebook', response);
+    //             })
+    //             .catch(err => {
+    //                 console.error('Error', err);
+    //             })
+    //     } else if(userData && !check) {
+    //         this.setState({
+    //             fbData:userData
+    //         })
+    //     }
+    // }
 
     render() {
         return (
