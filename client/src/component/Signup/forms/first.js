@@ -38,6 +38,9 @@ export default class First extends React.Component {
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'},
                 data: {
                     fbUserURL: "dummy url",
                     fbPhoto: userData.data.picture.data.url,
