@@ -29,7 +29,6 @@ router.post('/google-detail', async(req,res,next)=>{
                 message:"Already Register"
             })
         }
-
     }
     catch(e) {
         res.status(404).send({
