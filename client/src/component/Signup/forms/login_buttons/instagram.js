@@ -31,7 +31,7 @@ export default class Instagram extends React.Component {
         data.append('grant_type', 'authorization_code');
         data.append('redirect_uri', 'https://air.arisen.network/');
         data.append('code', code);
-        if (this.state.instaCode !== "") {
+        if (code !== "") {
             fetch('https://api.instagram.com/oauth/access_token', {
                 method: 'POST',
                 body: data
