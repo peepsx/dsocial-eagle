@@ -5,11 +5,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
-  <script async src="https://apis.google.com/js/api:client.js"></script>
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/oauth-1.0a@2.2.6/oauth-1.0a.min.js"></script>
+
+  <!-- google API sdk --> 
+  <script async src="https://apis.google.com/js/api:client.js"></script>
+  <!-- Facebook like button API sdk-->
+  <!-- <script
+    src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=468523490724494&autoLogAppEvents=1">
+  </script> -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0"></script>
+
+  <!-- youtube subscribe button API sdk--> 
+ <script src="https://apis.google.com/js/platform.js"></script>
+ <!-- twitter login button API sdk -->
+ <script async src="https://platform.twitter.com/widgets.js" ></script>
  
   <!--
       Notice the use of %PUBLIC_URL% in the tag above.
@@ -28,11 +41,6 @@
 
 <body>
   <div id="root"></div>
-  <script src="https://apis.google.com/js/platform.js"></script>
-  <script async src="https://platform.twitter.com/widgets.js" ></script>
-  <script async
-    src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=468523490724494&autoLogAppEvents=1">
-  </script>
 
   <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
   <script type="text/javascript" src="./assets/js/popper.min.js"></script>

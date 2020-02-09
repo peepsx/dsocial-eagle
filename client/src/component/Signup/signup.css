@@ -23,3 +23,7 @@
     border: 1px solid #e9ecef;
     border-top: 1px solid #e9ecef !important;
 }
+
+.mw-10{
+    max-width: 10% !important;
+}
