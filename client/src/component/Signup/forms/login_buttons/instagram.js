@@ -8,26 +8,30 @@ export default class Instagram extends React.Component {
         }
     }
     componentDidMount() {
+        console.log('install component call')
         const link = window.location.href;
         if (link.includes('code=')) {
             const codeLink = link.slice(link.indexOf('code=') + 5, (link.length) - 2);
             this.setState({ instaCode: codeLink });
+            this.instaUserDataCall(codeLink);
         }
     }
 
     handleInstaClick = () => {
         console.log('instagram code', this.state.instaCode)
         if (this.state.instaCode === "") {
-            window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code', "_self")
+            window.open(`https://api.instagram.com/oauth/authorize?client_id=${process.env.instagram_client_id}&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code`, "_self")
         }
-        const code = this.state.instaCode;
+    }
+
+    instaUserDataCall = (code) => {;
         const data = new FormData()
         data.append('client_id', process.env.instagram_client_id);
         data.append('client_secret', process.env.instagram_client_secret_id);
         data.append('grant_type', 'authorization_code');
-        data.append('redirect_uri', 'https://www.devgenesis.com/');
+        data.append('redirect_uri', 'https://air.arisen.network/');
         data.append('code', code);
-        if (this.state.instaCode !== "") {
+        if (code !== "") {
             fetch('https://api.instagram.com/oauth/access_token', {
                 method: 'POST',
                 body: data
@@ -37,7 +41,6 @@ export default class Instagram extends React.Component {
                 .catch(err => console.log('error', err))
         }
     }
-
 
     render() {
         return (

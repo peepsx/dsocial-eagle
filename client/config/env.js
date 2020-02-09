@@ -29,6 +29,7 @@ function getClientEnvironment(publicUrl) {
       'youtube_channel_id': process.env.youtube_channel_id,
       'callback_url': process.env.callback_url,
       'telegram_bot_hash': process.env.telegram_bot_hash,
+      'facebook_client_id': process.env.facebook_client_id,
       'API_URL': process.env.API_URL
     });
   // Stringify all values so we can feed into Webpack DefinePlugin
