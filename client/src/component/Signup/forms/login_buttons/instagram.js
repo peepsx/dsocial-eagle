@@ -8,6 +8,7 @@ export default class Instagram extends React.Component {
         }
     }
     componentDidMount() {
+        console.log('install component call')
         const link = window.location.href;
         if (link.includes('code=')) {
             const codeLink = link.slice(link.indexOf('code=') + 5, (link.length) - 2);
@@ -18,7 +19,7 @@ export default class Instagram extends React.Component {
     handleInstaClick = () => {
         console.log('instagram code', this.state.instaCode)
         if (this.state.instaCode === "") {
-            window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code', "_self")
+            window.open('https://api.instagram.com/oauth/authorize?client_id=185483479189128&redirect_uri=hhttps://air.arisen.network/&scope=user_profile&response_type=code', "_self")
         }
         const code = this.state.instaCode;
         const data = new FormData()
