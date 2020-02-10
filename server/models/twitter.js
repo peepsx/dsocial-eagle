@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 let Twitter = new Schema({
     username:{
         type:String,
-        required:true
     },
     followerscount:{
         type:Number
@@ -14,7 +13,7 @@ let Twitter = new Schema({
     profileDescription:{
         type:String
     }
-})
+}, {timestamps: true})
 
 
 let TwitterAuth = mongoose.model('twitter', Twitter)
