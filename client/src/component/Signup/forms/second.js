@@ -50,7 +50,7 @@ export default class Second extends React.Component {
                                 <span className="h6 mb-0 d-block">Youtube Channel</span>
                                 <div className="mt-2 ">
                                     <a
-                                        style={{width:85}}
+                                        style={{ width: 85 }}
                                         className="g-ytsubscribe "
                                         data-channelid="UC2foi1ia54oj0TxlkDYXV9g"
                                         data-layout="default"
@@ -62,7 +62,7 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next">Next Step</button>
+                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${process.env.callback_url}#third`)}>Next Step</button>
                 </div>
             </div>
         )

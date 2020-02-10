@@ -1,6 +1,16 @@
 import React from 'react'
 
 export default class Third extends React.Component {
+    handleShare = () => {
+        window.FB.ui({
+            method: 'share',
+            href: 'https://air.arisen.network/',
+          }, (response) => {console.log('consloe',response)});
+
+//           https://graph.facebook.com/546349135390552/feed
+//   ?message=Hello Fans!
+//   &access_token=your-access-token
+    }
     render() {
         return (
             <div className="card-body py-4">
@@ -11,7 +21,7 @@ export default class Third extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
                         <div className="list-group">
-                            <a href="#" className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a href="#" onClick={this.handleShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Facebook friends</span>

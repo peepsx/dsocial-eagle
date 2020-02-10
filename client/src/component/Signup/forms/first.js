@@ -36,7 +36,7 @@ export default class First extends React.Component {
 
     handleFbDataSave = (userData, check) => {
         if (userData && check) {
-            console.log('inside fb',userData.data && userData.data);
+            console.log('inside fb', userData.data && userData.data);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
@@ -60,11 +60,11 @@ export default class First extends React.Component {
         }
     }
 
-    handleGoogleDataSave = (userData,check) => {
+    handleGoogleDataSave = (userData, check) => {
         if (userData && check) {
             const valueParse = Object.values(userData)[2];
             const email = Object.values(valueParse)[5]
-            console.log('inside google',email);
+            console.log('inside google', email);
             Axios({
                 url: API.google_detai,
                 method: 'POST',
@@ -85,9 +85,9 @@ export default class First extends React.Component {
         }
     }
 
-    handleSubmitChecks = (data,check) => {
-        this.handleFbDataSave(data.fbData,check);
-        this.handleGoogleDataSave(data.googleData,check);
+    handleSubmitChecks = (data, check) => {
+        this.handleFbDataSave(data.fbData, check);
+        this.handleGoogleDataSave(data.googleData, check);
     }
 
     render() {
@@ -106,7 +106,7 @@ export default class First extends React.Component {
                             authCallback={this.twitterHandler}
                             consumerKey={process.env.twitter_consumer_key}
                             consumerSecret={process.env.twitter_consumer_secret_key}
-                            callbackUrl={"https://air.arisen.network/"}
+                            callbackUrl={process.env.callback_url}
                             children={<Twitter />}
                         />
                     </div>
@@ -121,7 +121,7 @@ export default class First extends React.Component {
                     <p className="d-flex">Join our Telegram Community: <span className="ml-1"><Telegram /></span></p>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next">Next Step</button>
+                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${process.env.callback_url}#second`)}>Next Step</button>
                     <button onClick={this.clickbot}>click bot</button>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
