@@ -5,7 +5,7 @@ export default class Third extends React.Component {
         window.FB.ui({
             method: 'share',
             // appID
-            href: 'https://air.arisen.network/',
+            href: 'https://air.arisen.network/#third',
           }, (response) => {console.log('consloe',response)});
 
 //           https://graph.facebook.com/546349135390552/feed

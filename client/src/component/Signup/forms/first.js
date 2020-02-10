@@ -95,7 +95,7 @@ export default class First extends React.Component {
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span className="h4 d-block">Please login with the platforms given below.</span>
-                    <p className="h6 lead">( All fields mandatory )</p>
+                    <p className="h6">( All fields mandatory )</p>
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
