@@ -8,7 +8,7 @@ router.post('/facebook_detail',async (req,res,next)=>{
         let { fbUserURL, fbPhoto,fbUserName, fbUserLocation} = req.body;
         let findOne = await faceAuth.findOne({fbUserName: fbUserName})
     
-         if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && !findOne ==null ) {
+         if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && findOne == null ) {
     
                 let newFbUser = new faceAuth({
                     fbUserURL: fbUserURL,
