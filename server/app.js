@@ -3,13 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var indexRouter = require('./routes/index');
 var twitter = require('./routes/twitter');
 var fbRouter = require('./routes/facebook');
 var instagramRouter = require('./routes/instagram')
 var google = require('./routes/google');
 var users = require('./routes/users')
-var transcation_id = require('./routes/transaction_detail');
+var transcation_id = require('./routes/rsn_transfer');
 var testapi = require('./routes/test_api');
 
 var CORS = require('cors');
@@ -17,9 +16,6 @@ var app = express();
 const bodyParser = require('body-parser');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.use(bodyParser.json());
 app.use(CORS());
 app.use(logger('dev'));
@@ -30,7 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Api Routes
 app.use('/api', testapi);
-app.use('/', indexRouter);
 app.use('/twitter', twitter);
 app.use('/facebook', fbRouter);
 app.use('/instagram', instagramRouter)

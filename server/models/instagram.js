@@ -13,4 +13,6 @@ let Instagram = new Scehma({
 })
 
 let InstaAuth = mongoose.model("instagram", Instagram)
-module.exports = InstaAuth
+module.exports = {
+    InstaAuth
+}
