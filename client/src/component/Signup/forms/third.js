@@ -4,6 +4,7 @@ export default class Third extends React.Component {
     handleShare = () => {
         window.FB.ui({
             method: 'share',
+            // appID
             href: 'https://air.arisen.network/',
           }, (response) => {console.log('consloe',response)});
 
@@ -21,14 +22,14 @@ export default class Third extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
                         <div className="list-group">
-                            <a href="#" onClick={this.handleShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a onClick={this.handleShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Facebook friends</span>
                                 </div>
                                 <i className="material-icons d-block">keyboard_arrow_right</i>
                             </a>
-                            <a href="#" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a  className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Twitter followers </span>
