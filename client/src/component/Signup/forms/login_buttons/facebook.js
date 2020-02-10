@@ -1,12 +1,16 @@
 import React from 'react';
 import Axios from 'axios';
 
+import {API} from '../../../js/api_list';
+import { env } from '../../../config/config';
+
 let IsMount = false;
 
 class Facebook extends React.Component {
     componentDidMount() {
+        console.log('prpoces',env)
         window.FB.init({
-            appId: process.env.facebook_client_id,
+            appId: env.facebook_client_id,
             autoLogAppEvents: true,
             xfbml: true,
             version: 'v6.0'
@@ -25,8 +29,7 @@ class Facebook extends React.Component {
                         url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
-                            console.log('fb user data', fbData);
-                            this.props.handleFbDataSave(fbData, false);
+                            this.handleFbDataSave(fbData);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -40,6 +43,28 @@ class Facebook extends React.Component {
             });
         }
 
+    }
+
+    handleFbDataSave = (userData) => {
+        if (userData && userData.data) {
+            console.log('inside fb', userData.data && userData.data);
+            Axios({
+                url: API.facebook_detail,
+                method: 'POST',
+                data: {
+                    fbUserURL: "dummy url",
+                    fbPhoto: userData.data.picture.data.url,
+                    fbUserName: userData.data.name,
+                    fbUserLocation: 'noida'
+                }
+            })
+                .then(response => {
+                    console.log('Data save facebook', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        }
     }
 
     render() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { env } from '../../../config/config';
 
 export default class Instagram extends React.Component {
     constructor(props) {
@@ -18,14 +19,14 @@ export default class Instagram extends React.Component {
 
     handleInstaClick = () => {
         if (this.state.instaCode === "") {
-            window.open(`https://api.instagram.com/oauth/authorize?client_id=${process.env.instagram_client_id}&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code`, "_self")
+            window.open(`https://api.instagram.com/oauth/authorize?client_id=${env.instagram_client_id}&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code`, "_self")
         }
     }
 
     instaUserDataCall = (code) => {;
         const data = new FormData()
-        data.append('client_id', process.env.instagram_client_id);
-        data.append('client_secret', process.env.instagram_client_secret_id);
+        data.append('client_id', env.instagram_client_id);
+        data.append('client_secret', env.instagram_client_secret_id);
         data.append('grant_type', 'authorization_code');
         data.append('redirect_uri', 'https://air.arisen.network/');
         data.append('code', code);

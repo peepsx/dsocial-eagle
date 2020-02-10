@@ -1,4 +1,5 @@
 import React from 'react'
+import { env } from '../../config/config'
 
 export default class Second extends React.Component {
 
@@ -63,7 +64,7 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${process.env.callback_url}#third`)}>Next Step</button>
+                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${env.callback_url}#third`)}>Next Step</button>
                 </div>
             </div>
         )

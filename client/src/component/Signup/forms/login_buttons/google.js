@@ -1,4 +1,8 @@
 import React from 'react';
+import Axios from 'axios';
+
+import {API} from '../../../js/api_list';
+import { env } from '../../../config/config';
 
 export default class Google extends React.Component {
 
@@ -6,16 +10,36 @@ export default class Google extends React.Component {
         window.gapi.load('auth2',() => {
             /* Ready. Make a call to gapi.auth2.init or some other API */
             window.gapi.auth2.init({
-                client_id: process.env.google_client_id,
+                client_id: env.google_client_id,
                 cookiepolicy: 'single_host_origin',
             }).then(() => {
                 const auth2 = window.gapi.auth2.getAuthInstance();
                 auth2.signIn().then(res => {
-                    console.log('after sign in response', res)
-                    this.props.handleGoogleDataSave(res,false);
+                    this.handleGoogleDataSave(res);
                 })
             })
         });
+    }
+
+    handleGoogleDataSave = (userData) => {
+        if (userData && userData.data) {
+            const valueParse = Object.values(userData)[2];
+            const email = Object.values(valueParse)[5]
+            console.log('inside google', email);
+            Axios({
+                url: API.google_detai,
+                method: 'POST',
+                data: {
+                    GmailAddress: email
+                }
+            })
+                .then(response => {
+                    console.log('Data save Google', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        }
     }
 
     render() {

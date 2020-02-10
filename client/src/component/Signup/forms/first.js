@@ -7,8 +7,7 @@ import Facebook from './login_buttons/facebook';
 import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
-import { API } from '../../js/api_list';
-
+import { env } from '../../config/config';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -25,69 +24,13 @@ export default class First extends React.Component {
 
     clickbot = (e) => {
         e.preventDefault();
-        Axios.get(`https://api.telegram.org/${process.env.telegram_bot_hash}/getUpdates`)
+        Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getUpdates`)
             .then(response => {
                 for (let i of response.data.result) {
                     console.log('bot updates values', i.message.chat.id)
                 }
             }
             )
-    }
-
-    handleFbDataSave = (userData, check) => {
-        if (userData && check) {
-            console.log('inside fb', userData.data && userData.data);
-            Axios({
-                url: API.facebook_detail,
-                method: 'POST',
-                data: {
-                    fbUserURL: "dummy url",
-                    fbPhoto: userData.data.picture.data.url,
-                    fbUserName: userData.data.name,
-                    fbUserLocation: 'noida'
-                }
-            })
-                .then(response => {
-                    console.log('Data save facebook', response);
-                })
-                .catch(err => {
-                    console.error('Error', err);
-                })
-        } else if (userData && !check) {
-            this.setState({
-                fbData: userData
-            })
-        }
-    }
-
-    handleGoogleDataSave = (userData, check) => {
-        if (userData && check) {
-            const valueParse = Object.values(userData)[2];
-            const email = Object.values(valueParse)[5]
-            console.log('inside google', email);
-            Axios({
-                url: API.google_detai,
-                method: 'POST',
-                data: {
-                    GmailAddress: email
-                }
-            })
-                .then(response => {
-                    console.log('Data save Google', response);
-                })
-                .catch(err => {
-                    console.error('Error', err);
-                })
-        } else if (userData && !check) {
-            this.setState({
-                googleData: userData
-            })
-        }
-    }
-
-    handleSubmitChecks = (data, check) => {
-        this.handleFbDataSave(data.fbData, check);
-        this.handleGoogleDataSave(data.googleData, check);
     }
 
     render() {
@@ -104,9 +47,9 @@ export default class First extends React.Component {
                     <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
                             authCallback={this.twitterHandler}
-                            consumerKey={process.env.twitter_consumer_key}
-                            consumerSecret={process.env.twitter_consumer_secret_key}
-                            callbackUrl={process.env.callback_url}
+                            consumerKey={env.twitter_consumer_key}
+                            consumerSecret={env.twitter_consumer_secret_key}
+                            callbackUrl={'https://air.arisen.network/'}
                             children={<Twitter />}
                         />
                     </div>
@@ -121,11 +64,8 @@ export default class First extends React.Component {
                     <p className="d-flex">*Join our Telegram Community: <span className="ml-1"><Telegram /></span></p>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${process.env.callback_url}#second`)}>Next Step</button>
+                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${env.callback_url}#second`)}>Next Step</button>
                     <button onClick={this.clickbot}>click bot</button>
-                </div>
-                <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-warning" onClick={this.handleSubmitChecks.bind(this, this.state, true)} type="button">Submit Test</button>
                 </div>
             </div>
         )
