@@ -3,6 +3,20 @@ import Axios from 'axios';
 
 
 class Facebook extends React.Component {
+    constructor(props) {
+        super(props);
+        
+    }
+    componentDidMount() {
+        window.fbAsyncInit = () => {
+            window.FB.init({
+                appId: process.env.facebook_client_id,
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v6.0'
+            });
+        };
+    }
 
     handleFbClick = () => {
         if (window.FB) {

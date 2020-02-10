@@ -94,7 +94,7 @@ export default class First extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Please login with the accounts given below.</span>
+                    <span className="h4 d-block">Please login with the platforms given below.</span>
                     <p className="h6 lead">( All fields mandatory )</p>
                 </div>
                 <div className="row">
@@ -118,7 +118,7 @@ export default class First extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-end mt-2">
-                    <p className="d-flex">Join our Telegram Community: <span className="ml-1"><Telegram /></span></p>
+                    <p className="d-flex">*Join our Telegram Community: <span className="ml-1"><Telegram /></span></p>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${process.env.callback_url}#second`)}>Next Step</button>
