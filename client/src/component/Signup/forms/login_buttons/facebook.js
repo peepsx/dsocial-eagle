@@ -1,25 +1,21 @@
 import React from 'react';
 import Axios from 'axios';
 
+let IsMount = false;
 
 class Facebook extends React.Component {
-    constructor(props) {
-        super(props);
-        
-    }
     componentDidMount() {
-        window.fbAsyncInit = () => {
-            window.FB.init({
-                appId: process.env.facebook_client_id,
-                autoLogAppEvents: true,
-                xfbml: true,
-                version: 'v6.0'
-            });
-        };
+        window.FB.init({
+            appId: process.env.facebook_client_id,
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v6.0'
+        });
+        IsMount = true;
     }
 
     handleFbClick = () => {
-        if (window.FB) {
+        if (window.FB && IsMount) {
             window.FB.login((response) => {
                 if (response.status === 'connected') {
                     const userId = response.authResponse.userID.replace(/"/, ""),
