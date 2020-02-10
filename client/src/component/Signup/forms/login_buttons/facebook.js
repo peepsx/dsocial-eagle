@@ -10,7 +10,7 @@ class Facebook extends React.Component {
     componentDidMount() {
         window.fbAsyncInit = () => {
             window.FB.init({
-                appId: '468523490724494',
+                appId: process.env.facebook_client_id,
                 autoLogAppEvents: true,
                 xfbml: true,
                 version: 'v6.0'
