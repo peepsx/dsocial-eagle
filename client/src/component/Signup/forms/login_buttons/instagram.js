@@ -56,7 +56,8 @@ export default class Instagram extends React.Component {
             url:API.instagram_detail,
             method:'POST',
             data:{
-                username:res.username
+                username:res.username,
+                id : res.id
             }
         }).then(res => console.log('response',res))
         .catch(err => console.error('Error:',err))
