@@ -12,7 +12,7 @@ class Facebook extends React.Component {
             appId: env.facebook_client_id,
             autoLogAppEvents: true,
             xfbml: true,
-            version: 'v6.0'
+            version: 'v3.3'
         });
         IsMount = true;
     }
@@ -25,7 +25,8 @@ class Facebook extends React.Component {
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
                     Axios({
                         method: 'GET',
-                        url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
+                        // url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
+                        url:`https://graph.facebook.com/v3.3/${userId}?fields=id,name,location,link,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData);
