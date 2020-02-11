@@ -1,11 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const {googleAuth} = require('../models/google')
-
+const validator = require('validator')
 
 
 router.post('/google-detail', async(req,res,next)=>{
     let {GmailAddress} = req.body
+    
+    if(!validator.isEmail(GmailAddress)) {
+        return res.status(401).send({
+            status: false,
+            message: 'Email is not valid'
+        })
+    }
 
     let UserName = await googleAuth.findOne({GmailAddress:GmailAddress})
 
