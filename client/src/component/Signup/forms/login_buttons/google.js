@@ -17,6 +17,7 @@ export default class Google extends React.Component {
                 console.log('auth value',auth2)
                 auth2.signIn().then(res => {
                     console.log('response',res)
+                    window.res = res;
                     this.handleGoogleDataSave(res);
                 })
             })
