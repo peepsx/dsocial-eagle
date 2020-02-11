@@ -8,6 +8,7 @@ import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
+import { API } from '../../js/api_list';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export default class First extends React.Component {
     }
 
     twitterHandler = (err, authData) => {
-        console.log('response', err, authData)
+        this.handleTwitDataSave(authData);
     }
 
     clickbot = (e) => {
@@ -31,6 +32,25 @@ export default class First extends React.Component {
                 }
             }
             )
+    }
+
+    handleTwitDataSave = (userData) => {
+        console.log('twitter data inside',userData)
+        if (userData && userData.screen_name) {
+            Axios({
+                url:API.twitter_detail,
+                method: 'POST',
+                data: {
+                    username:userData.screen_name
+                }
+            })
+                .then(response => {
+                    console.log('Data save Twitter', response);
+                })
+                .catch(err => {
+                    console.error('Error', err);
+                })
+        }
     }
 
     render() {

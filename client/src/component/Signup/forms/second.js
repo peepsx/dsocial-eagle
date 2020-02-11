@@ -31,7 +31,7 @@ export default class Second extends React.Component {
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Twitter Handle</span>
                                 <div className="mt-2">
-                                    <a href="https://twitter.com/Ashutos83977501?ref_src=twsrc%5Etfw" className="twitter-follow-button"
+                                    <a href="https://twitter.com/ArisenCoin" className="twitter-follow-button"
                                         data-show-screen-name="false"
                                         data-show-count="false"
                                         data-size="large"
