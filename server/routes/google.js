@@ -7,14 +7,14 @@ const validator = require('validator')
 router.post('/google-detail', async(req,res,next)=>{
     let {GmailAddress} = req.body
     
-    if(!validator.isEmail(GmailAddress)) {
+    if(!validator.isEmail(GmailAddress[0])) {
         return res.status(401).send({
             status: false,
             message: 'Email is not valid'
         })
     }
 
-    let UserName = await googleAuth.findOne({GmailAddress:GmailAddress})
+    let UserName = await googleAuth.findOne({GmailAddress:GmailAddress[0]})
 
     try{
     
