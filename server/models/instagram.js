@@ -2,11 +2,11 @@ let mongoose = require('mongoose');
 let Scehma = mongoose.Schema;
 
 let Instagram = new Scehma({
-    followerCount: {
+    folower: {
         type: Number,
         
     },
-    Username: {
+    username: {
         type: String
     }
 
