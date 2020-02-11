@@ -54,6 +54,7 @@ export default class Instagram extends React.Component {
         console.log('instagram data username',res)
         Axios({
             url:API.instagram_detail,
+            method:'POST',
             data:{
                 username:res.username
             }
