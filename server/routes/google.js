@@ -6,7 +6,7 @@ const validator = require('validator')
 
 router.post('/google-detail', async(req,res,next)=>{
     let {GmailAddress} = req.body
-    console.log(GmailAddress[0])
+
     if(!validator.isEmail(GmailAddress[0])) {
         return res.status(401).send({
             status: false,
@@ -18,9 +18,9 @@ router.post('/google-detail', async(req,res,next)=>{
 
     try{
     
-        if(GmailAddress && UserName == null){
+        if(GmailAddress[0] && UserName == null){
             let newGmail = new googleAuth({
-                GmailAddress:GmailAddress 
+                GmailAddress:GmailAddress[0] 
             })
             newGmail.save()
                     .then(() => {
