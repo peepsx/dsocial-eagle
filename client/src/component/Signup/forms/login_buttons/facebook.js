@@ -8,8 +8,7 @@ let IsMount = false;
 
 class Facebook extends React.Component {
     componentDidMount() {
-        console.log('prpoces',env)
-        window.FB.init({
+            window.FB.init({
             appId: env.facebook_client_id,
             autoLogAppEvents: true,
             xfbml: true,
