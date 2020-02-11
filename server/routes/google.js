@@ -6,7 +6,7 @@ const validator = require('validator')
 
 router.post('/google-detail', async(req,res,next)=>{
     let {GmailAddress} = req.body
-    
+    console.log(GmailAddress)
     if(!validator.isEmail(GmailAddress[0])) {
         return res.status(401).send({
             status: false,
