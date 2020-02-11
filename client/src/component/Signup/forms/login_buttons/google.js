@@ -14,7 +14,9 @@ export default class Google extends React.Component {
                 cookiepolicy: 'single_host_origin',
             }).then(() => {
                 const auth2 = window.gapi.auth2.getAuthInstance();
+                console.log('auth value',auth2)
                 auth2.signIn().then(res => {
+                    console.log('response',res)
                     this.handleGoogleDataSave(res);
                 })
             })
