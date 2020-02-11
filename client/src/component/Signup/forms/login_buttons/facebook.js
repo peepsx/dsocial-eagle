@@ -3,6 +3,7 @@ import Axios from 'axios';
 
 import {API} from '../../../js/api_list';
 import { env } from '../../../config/config';
+import Swal from 'sweetalert2';
 
 let IsMount = false;
 
@@ -60,6 +61,16 @@ class Facebook extends React.Component {
             })
                 .then(response => {
                     console.log('Data save facebook', response);
+                    const title = response.data.message;
+                    const icon = response.data.sucess ? 'success' : 'warning';
+                    Swal.fire({
+                        title: title,
+                        icon: icon,
+                        showCancelButton: true,
+                        confirmButtonText: 'next',
+                      }).then((result) => {
+                        
+                      })
                 })
                 .catch(err => {
                     console.error('Error', err);
@@ -69,7 +80,7 @@ class Facebook extends React.Component {
 
     render() {
         return (
-            <button onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
+            <button id="fbLoginBtn" onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>
             </button>

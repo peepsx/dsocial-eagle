@@ -17,7 +17,6 @@ export default class Google extends React.Component {
                 console.log('auth value',auth2)
                 auth2.signIn().then(res => {
                     console.log('response',res)
-                    window.res = res;
                     this.handleGoogleDataSave(res);
                 })
             })
@@ -25,10 +24,10 @@ export default class Google extends React.Component {
     }
 
     handleGoogleDataSave = (userData) => {
-        if (userData && userData.data) {
-            const valueParse = Object.values(userData)[2];
-            const email = Object.values(valueParse)[5]
-            console.log('inside google', email);
+        if (userData) {
+            const data = JSON.stringify(userData);
+            const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+            console.log('email google')
             Axios({
                 url: API.google_detai,
                 method: 'POST',

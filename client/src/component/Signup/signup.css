@@ -27,3 +27,7 @@
 .mw-10{
     max-width: 10% !important;
 }
+
+.b-none {
+    border: none !important;
+}

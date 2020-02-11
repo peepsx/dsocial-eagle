@@ -35,13 +35,13 @@ export default class First extends React.Component {
     }
 
     handleTwitDataSave = (userData) => {
-        console.log('twitter data inside',userData)
+        console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
             Axios({
-                url:API.twitter_detail,
+                url: API.twitter_detail,
                 method: 'POST',
                 data: {
-                    username:userData.screen_name
+                    username: userData.screen_name
                 }
             })
                 .then(response => {
@@ -81,7 +81,11 @@ export default class First extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-end mt-2">
-                    <p className="d-flex">*Join our Telegram Community: <span className="ml-1"><Telegram /></span></p>
+                    <p className="d-flex">*Join our Telegram Community:
+                        <span className="ml-1">
+                            <Telegram />
+                        </span>
+                    </p>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${env.callback_url}#second`)}>Next Step</button>
