@@ -31,13 +31,15 @@ router.post('/twitter-details', async(req,res)=>{
           TwitterNew.save()
           .then(()=>{
               res.status(200).send({
+                  success: true,
                   message:'Twitter user saved Sucessfully'
               })
           }).catch(e=>{
               console.log('Something Went Wrong')
           })
         } else {
-            res.status(401).send({
+            res.status(200).send({
+                success: false,
                 message:"Already Register"
             })
         }

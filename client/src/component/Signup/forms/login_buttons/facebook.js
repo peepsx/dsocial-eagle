@@ -46,8 +46,8 @@ class Facebook extends React.Component {
     }
 
     handleFbDataSave = (userData) => {
+        console.log('inside fb', userData);
         if (userData && userData.data) {
-            console.log('inside fb', userData.data && userData.data);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
