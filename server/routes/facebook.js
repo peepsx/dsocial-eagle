@@ -21,6 +21,7 @@ router.post('/facebook_detail',async (req,res,next)=>{
                     .then(() => {
                         res.status(200).send(
                             {
+                                success: true,
                                 message: 'Sucessfully saved'
                             }
                         )
@@ -33,6 +34,7 @@ router.post('/facebook_detail',async (req,res,next)=>{
          }
          else {
             return res.status(200).send({
+                 success: false, 
                  message: "Already Reigster"
              })
          }
