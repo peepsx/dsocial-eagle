@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-require('dotenv').config()
 
 import './theme.css'
 import Signup from './component/Signup/signup';
