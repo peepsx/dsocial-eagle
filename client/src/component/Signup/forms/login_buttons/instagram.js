@@ -1,5 +1,7 @@
 import React from 'react';
 import { env } from '../../../config/config';
+import Axios from 'axios';
+import { API } from '../../../js/api_list';
 
 export default class Instagram extends React.Component {
     constructor(props) {
@@ -23,7 +25,7 @@ export default class Instagram extends React.Component {
         }
     }
 
-    instaUserDataCall = (code) => {;
+    instaUserDataCall = (code) => {
         const data = new FormData()
         data.append('client_id', env.instagram_client_id);
         data.append('client_secret', env.instagram_client_secret_id);
@@ -36,17 +38,36 @@ export default class Instagram extends React.Component {
                 body: data
             })
                 .then(res => res.json())
-                .then(response => console.log('response in access', response))
+                .then(response => this.instaUserName(response))
                 .catch(err => console.log('error', err))
         }
     }
 
-    render() {
-        return (
-            <button onClick={this.handleInstaClick} className="btn btn-block btn-outline-light border py-4 h-100" type="button">
-                <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
-                <span className="h6 mb-0 d-block">Instagram</span>
-            </button>
-        )
+    instaUserName = (response) => {
+        console.log('response', response)
+        fetch(`https://graph.instagram.com/${response.user_id}?fields=username,id&access_token=${response.access_token.replace(/"/, "")}`)
+            .then(res => res.json())
+            .then(res => this.instagramDataSave(res))
     }
+
+    instagramDataSave = (res) => {
+        console.log('instagram data username',res)
+        Axios({
+            url:API.instagram_detail,
+            method:'POST',
+            data:{
+                username:res.username
+            }
+        }).then(res => console.log('response',res))
+        .catch(err => console.error('Error:',err))
+    }
+
+        render() {
+    return (
+        <button onClick={this.handleInstaClick} className="btn btn-block btn-outline-light border py-4 h-100" type="button">
+            <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
+            <span className="h6 mb-0 d-block">Instagram</span>
+        </button>
+    )
+}
 }
