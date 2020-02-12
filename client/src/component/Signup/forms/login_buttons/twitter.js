@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class Button extends React.Component {
     render() {
-        console.log('props value',this.props.nextBtnStatus)
         return (
             <button 
                 className="btn btn-block btn-outline-light border py-4 h-100"

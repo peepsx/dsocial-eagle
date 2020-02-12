@@ -58,7 +58,6 @@ export default class Google extends React.Component {
     }
 
     render() {
-        console.log('this props value', this.props)
         return (
             <button 
                 onClick={this.handleGoogleClick} 

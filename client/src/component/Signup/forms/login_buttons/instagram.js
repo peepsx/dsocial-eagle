@@ -80,7 +80,6 @@ export default class Instagram extends React.Component {
     }
 
     render() {
-        console.log('this props value', this.props)
         return (
             <button
                 onClick={this.handleInstaClick}

@@ -82,7 +82,6 @@ class Facebook extends React.Component {
     }
 
     render() {
-        console.log('this props value', this.props);
         return (
             <button
                 id="fbLoginBtn"
