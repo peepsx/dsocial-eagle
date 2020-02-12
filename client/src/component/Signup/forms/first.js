@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
 import TwitterLogin from "react-twitter-login";
 
 import Twitter from './login_buttons/twitter';
@@ -16,6 +17,7 @@ export default class First extends React.Component {
         this.state = {
             fbData: '',
             googleData: '',
+            nextBtnStatus: '',
         }
     }
 
@@ -46,11 +48,29 @@ export default class First extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Twitter', response);
+                    if (response.status === 200) {
+                        const title = response.data.message;
+                        const icon = response.data.sucess ? 'success' : 'warning';
+                        Swal.fire({
+                            title: title,
+                            icon: icon,
+                            showCancelButton: false,
+                            confirmButtonText: 'next',
+                        }).then(() => {
+                            this.handleNextShowBtn('Instagram')
+                        })
+                    }
                 })
                 .catch(err => {
                     console.error('Error', err);
                 })
         }
+    }
+
+    handleNextShowBtn = (status) => {
+        this.setState({
+            nextBtnStatus: status
+        })
     }
 
     render() {
@@ -62,33 +82,50 @@ export default class First extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Facebook handleFbDataSave={this.handleFbDataSave} />
+                        <Facebook
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
+                        />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
                             consumerSecret={env.twitter_consumer_secret_key}
-                            callbackUrl={'https://air.arisen.network/'}
-                            children={<Twitter />}
+                            callbackUrl={'https://air.arisen.network'}
+                            children={
+                                <Twitter
+                                    nextBtnStatus={this.state.nextBtnStatus}
+                                />
+                            }
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Instagram />
+                        <Instagram
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
+                        />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Google handleGoogleDataSave={this.handleGoogleDataSave} />
+                        <Google
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
+                        />
                     </div>
                 </div>
                 <div className="d-flex justify-content-end mt-2">
                     <p className="d-flex">*Join our Telegram Community:
                         <span className="ml-1">
-                            <Telegram />
+                            <Telegram nextBtnStatus={this.state.nextBtnStatus} />
                         </span>
                     </p>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next" onClick={() => window.location.replace(`${env.callback_url}#second`)}>Next Step</button>
+                    <button
+                        className="btn btn-primary sw-btn-next"
+                        onClick={() => window.location.replace(`${env.callback_url}#second`)}
+                    >Next Step
+                    </button>
                     <button onClick={this.clickbot}>click bot</button>
                 </div>
             </div>
