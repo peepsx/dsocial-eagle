@@ -3,6 +3,10 @@ import { env } from '../../config/config'
 
 export default class Second extends React.Component {
 
+    handleClickLink = () => {
+        window.open('https://www.facebook.com/3DModels.48/','fbPage',"width=400, height=600")
+    }
+
     render() {
         return (
             <div className="card-body py-4">
@@ -43,7 +47,7 @@ export default class Second extends React.Component {
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                                 <span className="h6 mb-0 d-block">Instagram Page</span>
-                                <a className="btn btn-sm btn-danger mt-2 hover-white" type="button">Follow</a>
+                                <a onClick={this.handleClickLink} className="btn btn-sm btn-danger mt-2 hover-white" type="button">Follow</a>
                             </button>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
