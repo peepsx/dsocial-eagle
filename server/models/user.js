@@ -14,6 +14,8 @@ let User = new Scehma({
     ip_address:{
         type:String
     }
+}, {
+    timestamps: true
 })
 
 
