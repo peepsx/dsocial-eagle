@@ -27,7 +27,7 @@ export default class Google extends React.Component {
         if (userData) {
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-            console.log('email google')
+            console.log('email google',email)
             Axios({
                 url: API.google_detai,
                 method: 'POST',
