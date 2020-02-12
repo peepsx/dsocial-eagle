@@ -13,6 +13,8 @@ let Instagram = new Scehma({
         type: String
     }
 
+}, {
+    timestamps: true
 })
 
 let InstaAuth = mongoose.model("instagram", Instagram)

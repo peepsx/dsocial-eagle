@@ -13,6 +13,8 @@ let RSN = new Schema({
     account_from_transfer: {
         type: String,
     }
+}, {
+    timestamps: true
 })
 
 let Rsn_Transfer = mongoose.model('rsntransfer', RSN)

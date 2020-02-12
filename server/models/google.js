@@ -7,6 +7,8 @@ let Google = new Scehma({
     GmailAddress:{
         type:String
     }
+}, {
+    timestamps: true
 })
 
 

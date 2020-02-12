@@ -13,7 +13,9 @@ let Twitter = new Schema({
     profileDescription:{
         type:String
     }
-}, {timestamps: true})
+}, {
+    timestamps: true
+})
 
 
 let TwitterAuth = mongoose.model('twitter', Twitter)
