@@ -1,15 +1,15 @@
 import React from 'react';
 import Axios from 'axios';
-
-import {API} from '../../../js/api_list';
-import { env } from '../../../config/config';
 import Swal from 'sweetalert2';
+
+import { API } from '../../../js/api_list';
+import { env } from '../../../config/config';
 
 let IsMount = false;
 
 class Facebook extends React.Component {
     componentDidMount() {
-            window.FB.init({
+        window.FB.init({
             appId: env.facebook_client_id,
             autoLogAppEvents: true,
             xfbml: true,
@@ -27,7 +27,7 @@ class Facebook extends React.Component {
                     Axios({
                         method: 'GET',
                         // url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
-                        url:`https://graph.facebook.com/v3.3/${userId}?fields=id,name,location,link,picture{url}&access_token=${userAccessToken}`
+                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,location,link,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData);
@@ -39,9 +39,9 @@ class Facebook extends React.Component {
                     alert('User Login failed')
                 }
             }, {
-                scope:'user_link,user_location',
-                return_scoper: true,
-            });
+                    scope: 'user_link,user_location',
+                    return_scoper: true,
+                });
         }
 
     }
@@ -61,26 +61,36 @@ class Facebook extends React.Component {
             })
                 .then(response => {
                     console.log('Data save facebook', response);
-                    const title = response.data.message;
-                    const icon = response.data.sucess ? 'success' : 'warning';
-                    Swal.fire({
-                        title: title,
-                        icon: icon,
-                        showCancelButton: true,
-                        confirmButtonText: 'next',
-                      }).then((result) => {
-                        
-                      })
+                    if (response.status === 200) {
+                        const title = response.data.message;
+                        const icon = response.data.sucess ? 'success' : 'warning';
+                        Swal.fire({
+                            title: title,
+                            icon: icon,
+                            showCancelButton: false,
+                            confirmButtonText: 'next',
+                        }).then(() => {
+                            this.props.handleNextShowBtn('Twitter')
+                        })
+                    }
                 })
                 .catch(err => {
                     console.error('Error', err);
                 })
+
         }
     }
 
     render() {
+        console.log('this props value', this.props);
         return (
-            <button id="fbLoginBtn" onClick={this.handleFbClick} type="button" className="btn btn-block btn-outline-light border py-4 h-100">
+            <button
+                id="fbLoginBtn"
+                onClick={this.handleFbClick}
+                type="button"
+                className="btn btn-block btn-outline-light border py-4 h-100"
+                disabled={!(this.props.nextBtnStatus === '')}
+            >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>
             </button>

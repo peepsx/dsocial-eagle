@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
 
 import {API} from '../../../js/api_list';
 import { env } from '../../../config/config';
@@ -37,6 +38,18 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Google', response);
+                    if (response.status === 200) {
+                        const title = response.data.message;
+                        const icon = response.data.sucess ? 'success' : 'warning';
+                        Swal.fire({
+                            title: title,
+                            icon: icon,
+                            showCancelButton: false,
+                            confirmButtonText: 'next',
+                        }).then(() => {
+                            this.props.handleNextShowBtn('Telegram')
+                        })
+                    }
                 })
                 .catch(err => {
                     console.error('Error', err);
@@ -45,8 +58,14 @@ export default class Google extends React.Component {
     }
 
     render() {
+        console.log('this props value', this.props)
         return (
-            <button onClick={this.handleGoogleClick} className="btn btn-block btn-outline-light border py-4 h-100" type="button">
+            <button 
+                onClick={this.handleGoogleClick} 
+                className="btn btn-block btn-outline-light border py-4 h-100" 
+                type="button"
+                disabled={!(this.props.nextBtnStatus === 'Google')}
+            >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>
             </button>
