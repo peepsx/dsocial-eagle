@@ -7,24 +7,8 @@ import Third from './forms/third';
 import Fourth from './forms/fourth';
 import Fifth from './forms/fifth';
 
+
 export default class Signup extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleChange = this.handleChange.bind(this);
-        this.state = {
-            email: '',
-            arisenUsername: '',
-            data: '',
-        }
-    }
-
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
     render() {
         return (
             <section className="height-100 bg-gradient-3 p-3">

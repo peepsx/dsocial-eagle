@@ -1,15 +1,26 @@
 import React from 'react'
 import { env } from '../../config/config';
+import { connect } from 'react-redux';
 
-export default class Third extends React.Component {
+class Third extends React.Component {
+
     handleShare = () => {
         window.FB.ui({
-            appID:env.facebook_client_id,
+            appID: env.facebook_client_id,
             method: 'feed',
-            quote:'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.',
+            quote: 'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.',
             link: 'https://air.arisen.network/',
         }, (response) => { console.log('consloe', response) });
 
+    }
+
+    handleTweet = () => {
+        const text = 'Get 500 free %23ArisenCoin (RSN) and learn more about the %23blockchain that defied all odds. https://air.arisen.network'
+        window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
+    }
+
+    handleNextStep = () => {
+        console.log('props value', this.props)
     }
 
     render() {
@@ -29,7 +40,7 @@ export default class Third extends React.Component {
                                 </div>
                                 <i className="material-icons d-block">keyboard_arrow_right</i>
                             </a>
-                            <a id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Twitter followers </span>
@@ -38,15 +49,6 @@ export default class Third extends React.Component {
                             </a>
                         </div>
                     </div>
-                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-                        className="twitter-share-button"
-                        data-size="large"
-                        data-text="&quot;Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.&quot;"
-                        data-url='https://air.arisen.network/'
-                        id="realTweetBtn"
-                        data-show-count="false"
-                    >Tweet
-                </a>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next">Next Step</button>
@@ -55,3 +57,12 @@ export default class Third extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (storeData) => {
+    return {
+        storeData
+    }
+}
+const StoreThird = connect(mapStateToProps, {})(Third);
+
+export default StoreThird;
