@@ -60,17 +60,31 @@ router.post('/twitter-details', async(req,res)=>{
  
 })
 
-router.post('/share-twitter-status', async (req, res) => {
-    let {status} = req.body;
-    console.log('Share-twitter',typeof status)
-    if(!status || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
+router.post('/share-social-status', async (req, res) => {
+    let {status, screenname } = req.body;
+    screenname = 'GauravS72615257'
+    status = '[]'
+    console.log('Share', status, screenname)
+    if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
+    let twitter = await TwitterAuth.findOne({username: screenname});
+    let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
+
+    if(api.data[0].text !== process.env.text && twitter.username !== api.data[0].user.screen_name) {
+        return res.status(200).send({
+            success: false,
+            message: 'Please login with twitter first!'
+        })
+    }
+
     try {
-        if(status == '[]') {
-            res.status(200).send({
-                success: true,
-                message: 'user share or post with thier friends successfully!'
-            })
+        if(status == '[]' && twitter && twitter !== null) {
+            if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
+                res.status(200).send({
+                    success: true,
+                    message: 'user share or post with thier friends successfully!'
+                })
+            }
         } else {
             res.status(200).send({
                 success: false,
