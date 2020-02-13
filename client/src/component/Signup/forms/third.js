@@ -1,8 +1,16 @@
 import React from 'react'
 import { env } from '../../config/config';
 import { connect } from 'react-redux';
+import Axios from 'axios';
+import { API } from '../../js/api_list';
 
 class Third extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            fbPostResponse: '',
+        }
+    }
 
     handleShare = () => {
         window.FB.ui({
@@ -10,7 +18,10 @@ class Third extends React.Component {
             method: 'feed',
             quote: 'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.',
             link: 'https://air.arisen.network/',
-        }, (response) => { console.log('consloe', response) });
+        }, (response) => {
+            console.log('facebook facebook response', response);
+            this.setState({ fbPostResponse: response });
+        });
 
     }
 
@@ -21,6 +32,14 @@ class Third extends React.Component {
 
     handleNextStep = () => {
         console.log('props value', this.props)
+        // Axios({
+        //     method:'POST',
+        //     url: API.user_share_validation,
+        //     data: {
+        //         status: this.state.fbPostResponse,
+        //         screenname: this.props.storeData[0]
+        //     }
+        // })
     }
 
     render() {
@@ -60,7 +79,7 @@ class Third extends React.Component {
 
 const mapStateToProps = (storeData) => {
     return {
-        storeData
+        storeData:storeData.userAccountReducer
     }
 }
 const StoreThird = connect(mapStateToProps, {})(Third);
