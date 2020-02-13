@@ -10,6 +10,8 @@ import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
 import { API } from '../../js/api_list';
+import store from '../../../store/store';
+import { twitAction } from '../../../store/action/action';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -24,21 +26,22 @@ export default class First extends React.Component {
     twitterHandler = (err, authData) => {
         this.handleTwitDataSave(authData);
     }
-
+    
     clickbot = (e) => {
         e.preventDefault();
         Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getUpdates`)
-            .then(response => {
-                for (let i of response.data.result) {
-                    console.log('bot updates values', i.message.chat.id)
-                }
+        .then(response => {
+            for (let i of response.data.result) {
+                console.log('bot updates values', i.message.chat.id)
             }
-            )
+        }
+        )
     }
-
+    
     handleTwitDataSave = (userData) => {
         console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
+            store.dispatch(twitAction(userData.screen_name));
             Axios({
                 url: API.twitter_detail,
                 method: 'POST',
