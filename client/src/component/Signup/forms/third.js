@@ -1,21 +1,12 @@
 import React from 'react'
+import { env } from '../../config/config';
 
 export default class Third extends React.Component {
-    componentDidMount() {
-        if (document.getElementById('realTweetBtn')) {
-            const real = document.getElementById('realTweetBtn');
-            const fake = document.getElementById('fakeTweetBtn');
-            fake.addEventListener('click',() => {
-                real.click();
-            })
-        }
-    }
     handleShare = () => {
-        const a =  'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds. https://air.arisen.network';
         window.FB.ui({
+            appID:env.facebook_client_id,
             method: 'feed',
-            source:a,
-            // appID
+            quote:'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.',
             link: 'https://air.arisen.network/',
         }, (response) => { console.log('consloe', response) });
 
@@ -50,9 +41,8 @@ export default class Third extends React.Component {
                     <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
                         className="twitter-share-button"
                         data-size="large"
-                        data-text="&quot;Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds. https://air.arisen.network.&quot;"
-                        data-url={false}
-                        hidden={true}
+                        data-text="&quot;Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.&quot;"
+                        data-url='https://air.arisen.network/'
                         id="realTweetBtn"
                         data-show-count="false"
                     >Tweet
