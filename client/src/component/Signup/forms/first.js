@@ -126,7 +126,7 @@ export default class First extends React.Component {
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button
                         className="btn btn-primary sw-btn-next"
-                        onClick={() => window.location.replace(`${env.callback_url}#second`)}
+                        onClick={() => window.location.replace(`${env.liveStatus}#second`)}
                     >Next Step
                     </button>
                     <button onClick={this.clickbot}>click bot</button>

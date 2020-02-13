@@ -1,5 +1,6 @@
-
+const status = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://air.arisen.network'
 export const env = {
+    liveStatus                      : status,
     twitter_consumer_key            : process.env.REACT_APP_TWITTER_CONSUMER_KEY,
     twitter_consumer_secret_key     : process.env.REACT_APP_TWITTER_CONSUMER_SECRET_KEY,
     instagram_client_id             : process.env.REACT_APP_INSTAGRAM_CLIENT_ID,
