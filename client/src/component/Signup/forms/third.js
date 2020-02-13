@@ -51,7 +51,7 @@ class Third extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next">Next Step</button>
+                    <button className="btn btn-primary sw-btn-next" onClick={this.handleNextStep}>Next Step</button>
                 </div>
             </div>
         )
