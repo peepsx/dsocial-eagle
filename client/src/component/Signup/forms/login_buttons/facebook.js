@@ -4,8 +4,6 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../../js/api_list';
 import { env } from '../../../config/config';
-import { fbAction } from '../../../../store/action/action';
-import store from '../../../../store/store';
 
 let IsMount = false;
 
@@ -33,7 +31,6 @@ class Facebook extends React.Component {
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData);
-                            store.dispatch(fbAction(fbData));
                         })
                         .catch(err => {
                             console.error('Error', err);

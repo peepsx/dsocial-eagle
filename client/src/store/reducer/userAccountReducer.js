@@ -1,8 +1,6 @@
-export const userAccountReducer = (state = '', action) => {
-    console.log('payload data', action.payload)
+export const userAccountReducer = (state = [], action) => {
     switch (action.type) {
-        case 'FB_DATA': return action.payload;
-        case 'TWIT_DATA': return action.payload;
+        case 'TWIT_DATA': return [...state,action.payload];
         default: return state;
     }
 }
