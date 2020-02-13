@@ -4,7 +4,7 @@ import { env } from '../../config/config'
 export default class Second extends React.Component {
 
     handleClickLink = () => {
-        window.open('https://www.facebook.com/3DModels.48/','fbPage',"width=400, height=600")
+        window.open('https://www.instagram.com/ashutoshsingh174/','_blank',"toolbar=yes,scrollbars=yes,resizable=yes,width=500, height=600")
     }
 
     render() {

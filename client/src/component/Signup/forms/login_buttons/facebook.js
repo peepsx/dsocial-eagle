@@ -39,7 +39,7 @@ class Facebook extends React.Component {
                     alert('User Login failed')
                 }
             }, {
-                    scope: 'user_link,user_location',
+                    scope: 'user_link,user_location,user_posts',
                     return_scoper: true,
                 });
         }
