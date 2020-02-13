@@ -11,11 +11,12 @@ export default class Third extends React.Component {
         }
     }
     handleShare = () => {
+        const a =  'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds. https://air.arisen.network';
         window.FB.ui({
-            method: 'share',
+            method: 'feed',
+            source:a,
             // appID
-            description: 'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds. https://air.arisen.network',
-            href: 'https://air.arisen.network/#third',
+            link: 'https://air.arisen.network/',
         }, (response) => { console.log('consloe', response) });
 
     }
