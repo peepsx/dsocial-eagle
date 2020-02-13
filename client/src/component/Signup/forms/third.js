@@ -31,15 +31,17 @@ class Third extends React.Component {
     }
 
     handleNextStep = () => {
-        console.log('props value', this.props)
-        // Axios({
-        //     method:'POST',
-        //     url: API.user_share_validation,
-        //     data: {
-        //         status: this.state.fbPostResponse,
-        //         screenname: this.props.storeData[0]
-        //     }
-        // })
+        console.log('props value', this.props, "and statet",this.state.fbPostResponse)
+        Axios({
+            method: 'POST',
+            url: API.user_share_validation,
+            data: {
+                status: this.state.fbPostResponse,
+                screenname: this.props.storeData[0]
+            }
+        })
+            .then(res => console.log('Validation response', res))
+            .catch(err => console.error('Error', err))
     }
 
     render() {
@@ -79,7 +81,7 @@ class Third extends React.Component {
 
 const mapStateToProps = (storeData) => {
     return {
-        storeData:storeData.userAccountReducer
+        storeData: storeData.userAccountReducer
     }
 }
 const StoreThird = connect(mapStateToProps, {})(Third);
