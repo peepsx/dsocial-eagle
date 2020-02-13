@@ -10,6 +10,7 @@ var google = require('./routes/google');
 var users = require('./routes/users')
 var transcation_id = require('./routes/rsn_transfer');
 var testapi = require('./routes/test_api');
+var fbshare = require('./routes/share_facebook');
 
 var CORS = require('cors');
 var app = express();
@@ -31,6 +32,7 @@ app.use('/facebook', fbRouter);
 app.use('/instagram', instagramRouter)
 app.use('/google',google)
 app.use('/users',users)
+app.use('/fbshare', fbshare)
 /** TOKEN_EXCHANGE_API */
 app.use('/transaction', transcation_id);
 
