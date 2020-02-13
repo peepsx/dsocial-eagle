@@ -27,7 +27,7 @@ class Facebook extends React.Component {
                     Axios({
                         method: 'GET',
                         // url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
-                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,location,link,picture{url}&access_token=${userAccessToken}`
+                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,location,posts,link,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData);
