@@ -1,18 +1,25 @@
 import React from 'react'
 
 export default class Third extends React.Component {
+    componentDidMount() {
+        if (document.getElementById('realTweetBtn')) {
+            const real = document.getElementById('realTweetBtn');
+            const fake = document.getElementById('fakeTweetBtn');
+            fake.addEventListener('click',() => {
+                real.click();
+            })
+        }
+    }
     handleShare = () => {
         window.FB.ui({
             method: 'share',
             // appID
+            description: 'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds. https://air.arisen.network',
             href: 'https://air.arisen.network/#third',
-          }, (response) => {console.log('consloe',response)});
+        }, (response) => { console.log('consloe', response) });
 
-//           https://graph.facebook.com/546349135390552/feed
-//   ?message=Hello Fans!
-//   &access_token=your-access-token
     }
-    
+
     render() {
         return (
             <div className="card-body py-4">
@@ -30,7 +37,7 @@ export default class Third extends React.Component {
                                 </div>
                                 <i className="material-icons d-block">keyboard_arrow_right</i>
                             </a>
-                            <a  className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Twitter followers </span>
@@ -39,6 +46,16 @@ export default class Third extends React.Component {
                             </a>
                         </div>
                     </div>
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                        className="twitter-share-button"
+                        data-size="large"
+                        data-text="&quot;Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds. https://air.arisen.network.&quot;"
+                        data-url={false}
+                        hidden={true}
+                        id="realTweetBtn"
+                        data-show-count="false"
+                    >Tweet
+                </a>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-primary sw-btn-next">Next Step</button>
