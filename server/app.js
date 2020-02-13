@@ -33,6 +33,7 @@ app.use('/instagram', instagramRouter)
 app.use('/google',google)
 app.use('/users',users)
 app.use('/fbshare', fbshare)
+app.use('/twshare', twitter)
 /** TOKEN_EXCHANGE_API */
 app.use('/transaction', transcation_id);
 
