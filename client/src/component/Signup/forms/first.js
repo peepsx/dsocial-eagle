@@ -101,7 +101,7 @@ export default class First extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Please login with the platforms given below.</span>
+                    <span className="h4 d-block">Please go through all the platforms given below.</span>
                     <p className="h6">( All fields mandatory )</p>
                 </div>
                 <div className="row">
@@ -134,6 +134,7 @@ export default class First extends React.Component {
                         <Google
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
+                            handleNextShowBtn={this.handleNextShowBtn}
                         />
                     </div>
                 </div>
@@ -151,6 +152,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-primary"
                         onClick={this.checkTelegramUser}
+                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>

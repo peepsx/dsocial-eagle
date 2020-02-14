@@ -3,6 +3,7 @@ import { env } from '../../config/config';
 import { connect } from 'react-redux';
 import Axios from 'axios';
 import { API } from '../../js/api_list';
+import Swal from 'sweetalert2';
 
 class Third extends React.Component {
     constructor(props) {
@@ -42,9 +43,18 @@ class Third extends React.Component {
             }
         })
         .then(res => {
-            console.log('Validation response', res);
-            if(res.data.success) {
-                window.open(env.liveStatus+'/#fourth','_self');
+            console.log('Validation response', res);        
+            if(res.status === 200) {
+                Swal.fire({
+                    title: res.data.message,
+                    icon: res.data.success ? 'success' : 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: 'Next',
+                }).then(() => {
+                    if (res.data.success) {
+                        window.open(env.liveStatus + '/#fourth', '_self');
+                    }
+                })
             }
         })
             .catch(err => console.error('Error', err))
