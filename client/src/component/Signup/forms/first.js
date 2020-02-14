@@ -20,17 +20,27 @@ export default class First extends React.Component {
             fbData: '',
             googleData: '',
             nextBtnStatus: '',
+            teleUserid: '',
         }
     }
 
     twitterHandler = (err, authData) => {
         this.handleTwitDataSave(authData);
     }
+
+    getTelegramValue = (teleData) => {
+        this.setState({
+            teleUserid: teleData
+        })
+    }
     
     clickbot = (e) => {
         e.preventDefault();
-        Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getUpdates`)
-        .then(response => console.log('console bot',response))
+        Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
+        .then(res => {
+            console.log('console bot',res);
+        })
+        .catch(err => console.error('Bot Error : ',err))
     }
     
     handleTwitDataSave = (userData) => {
@@ -114,7 +124,10 @@ export default class First extends React.Component {
                 <div className="d-flex justify-content-end mt-2">
                     <p className="d-flex">*Join our Telegram Community:
                         <span className="ml-1">
-                            <Telegram nextBtnStatus={this.state.nextBtnStatus} />
+                            <Telegram 
+                                nextBtnStatus={this.state.nextBtnStatus} 
+                                getTelegramValue={this.getTelegramValue}
+                            />
                         </span>
                     </p>
                 </div>

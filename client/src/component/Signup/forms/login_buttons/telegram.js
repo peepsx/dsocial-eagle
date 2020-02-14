@@ -28,6 +28,7 @@ export default class Telegram extends React.Component {
 
     handleTelegramResponse(response) {
         console.log(response);
+        this.props.getTelegramValue(response.id);
     };
 
     render() {
