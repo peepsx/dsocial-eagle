@@ -9,7 +9,7 @@ var T = new Twit({
     access_token_secret: process.env.access_token_secret,
   });
 const {TwitterAuth} = require('../models/twitter');
-const {TwitterAuth} = require('../models/facebook');
+const {faceAuth} = require('../models/facebook');
 
 router.post('/twitter-details', async(req,res)=>{
     let {username} = req.body
