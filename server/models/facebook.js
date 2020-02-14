@@ -14,6 +14,10 @@ let Facebook = new Scehma({
     },
     fbUserLocation: {
         type: String
+    },
+    follower: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

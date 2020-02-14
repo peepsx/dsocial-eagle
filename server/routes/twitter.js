@@ -1,14 +1,15 @@
 require('dotenv').config();
-const express = require('express')
-var Twit = require('twit')
-const router = express.Router()
+const express = require('express');
+var Twit = require('twit');
+const router = express.Router();
 var T = new Twit({
     consumer_key: process.env.consumer_key,
     consumer_secret: process.env.consumer_secret,
     access_token: process.env.access_token,
     access_token_secret: process.env.access_token_secret,
-  })
-const {TwitterAuth} = require('../models/twitter')
+  });
+const {TwitterAuth} = require('../models/twitter');
+const {TwitterAuth} = require('../models/facebook');
 
 router.post('/twitter-details', async(req,res)=>{
     let {username} = req.body
@@ -80,23 +81,23 @@ router.post('/share-social-status', async (req, res) => {
     try {
         if(status == '[]' && twitter && twitter !== null) {
             if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
-                res.status(200).send({
+               return res.status(200).send({
                     success: true,
                     message: 'user share or post with thier friends successfully!'
                 })
             }
         } else {
-            res.status(200).send({
-                success: false,
-                message: 'user have not share or post with thier friends!'
-            })
+           return res.status(200).send({
+                    success: false,
+                    message: 'user have not share or post with thier friends!'
+                })
         }
     } catch(e) {
         console.log('ERROR WHILE SHARE_WITH_FACEBOOK', e)
-        res.status(401).send({
-            success: false,
-            message: 'ERROR WHILE SHARE_WITH_FACEBOOK'
-        })
+      return  res.status(401).send({
+                success: false,
+                message: 'ERROR WHILE SHARE_WITH_FACEBOOK'
+            })
     }
 })
 
