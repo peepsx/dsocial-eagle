@@ -7,7 +7,7 @@ let User = new Scehma({
         type:String,
         required: true
     },
-    ariser_username:{
+    arisen_username:{
         type:String,
         required: true
     },
