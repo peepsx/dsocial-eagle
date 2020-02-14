@@ -5,5 +5,6 @@ export const API = {
     google_detai            : url+'/google/google-detail',
     twitter_detail          : url+'/twitter/twitter-details',
     instagram_detail        : url+'/instagram/instagram-details',
-    user_share_validation   : url+'/validation/share-social-status'
+    user_share_validation   : url+'/validation/share-social-status',
+    arisen_user_detail      : url+'/users/users-details'
 }
