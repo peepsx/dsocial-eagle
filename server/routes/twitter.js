@@ -63,8 +63,7 @@ router.post('/twitter-details', async(req,res)=>{
 
 router.post('/share-social-status', async (req, res) => {
     let {status, screenname } = req.body;
-    screenname = 'GauravS72615257'
-    status = '[]'
+
     console.log('Share', status, screenname)
     if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
