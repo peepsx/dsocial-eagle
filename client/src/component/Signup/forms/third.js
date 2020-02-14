@@ -32,7 +32,7 @@ class Third extends React.Component {
 
     handleNextStep = (e) => {
         e.preventDefault();
-        console.log('props value', this.props, "and statet",this.state.fbPostResponse)
+        console.log('props value', this.props.storeData[0], "and statet",this.state.fbPostResponse)
         Axios({
             method: 'POST',
             url: API.user_share_validation,
