@@ -81,7 +81,7 @@ router.post('/share-social-status', async (req, res) => {
     }
 
     try {
-        console.log(Array.isArray(status) , !status.length)
+
         if(Array.isArray(status) && !status.length) {
             if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
                
@@ -89,7 +89,7 @@ router.post('/share-social-status', async (req, res) => {
                
                return res.status(200).send({
                     success: true,
-                    message: 'user share or post with thier friends successfully!'
+                    message: 'user share or post with their friends successfully!'
                 })
             }
         }
