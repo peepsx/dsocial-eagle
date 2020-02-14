@@ -26,7 +26,7 @@ router.post('/twitter-details', async(req,res)=>{
           let TwitterNew = new TwitterAuth({
             username:username,
             followerscount: count.data.ids.length,
-            profileDescription: description.data[0].description
+            profileDescription: description.data[0].description || undefined
           })
 
           TwitterNew.save()
