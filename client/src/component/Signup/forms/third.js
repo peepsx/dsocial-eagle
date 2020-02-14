@@ -75,14 +75,14 @@ class Third extends React.Component {
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Facebook friends</span>
                                 </div>
-                                <i className="material-icons d-block">keyboard_arrow_right</i>
+                                <i className="fas fa-chevron-right"/>
                             </a>
                             <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share with Twitter followers </span>
                                 </div>
-                                <i className="material-icons d-block">keyboard_arrow_right</i>
+                                <i className="fas fa-chevron-right"/>
                             </a>
                         </div>
                     </div>

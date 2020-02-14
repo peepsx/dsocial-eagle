@@ -1,10 +1,49 @@
 import React from 'react'
+import Axios from 'axios';
+import { API } from '../../js/api_list';
 
 export default class Fourth extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            arisen_username: '',
+        }
+    }
+
     handleSignup = (e) => {
         e.preventDefault();
-        window.open('https://signup.arisen.network/','_blank','width=400,height=600')
+        window.open('https://signup.arisen.network/', '_blank', 'width=400,height=600')
     }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleSave = (e) => {
+        e.preventDefault();
+        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+        if (email && email[0] && this.state.arisen_username !== '') {
+            console.log('email', email[0], this.state.arisen_username)
+            Axios({
+                method: 'post',
+                url: API.arisen_user_detail,
+                data: {
+                    arisen_username:this.state.arisen_username,
+                    email: email[0]
+                }
+            })
+            .then(res => {
+                console.log('response from account arisen',res);
+            })
+            .catch(err => {
+                console.error('Error :',err);
+            })
+        }
+    }
+
     render() {
         return (
             <div className="p-0 d-flex bg-white align-items-lg-center">
@@ -13,19 +52,35 @@ export default class Fourth extends React.Component {
                         <h1 className="h4 text-center">Arisen Account</h1>
                         <div className="form-group">
                             <label htmlFor="email">Email:</label>
-                            <input id="email" type="email" className="form-control" placeholder="Enter your email address" />
+                            <input
+                                name="email"
+                                id="email"
+                                type="email"
+                                className="form-control"
+                                placeholder="Enter your email address"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                            />
                         </div>
                         <div className="form-group mb-3">
                             <div className="d-flex justify-content-between">
                                 <label htmlFor="password" className="text-dark">Arisen Username:</label>
                             </div>
-                            <input id="password" type="password" className="form-control" placeholder="Enter your username" />
+                            <input
+                                name="arisen_username"
+                                id="username"
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter your arisen username"
+                                value={this.state.arisen_username}
+                                onChange={this.handleChange}
+                            />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-primary" type="submit">Log in</button>
+                            <button className="btn btn-block btn-lg btn-primary" type="submit" onClick={this.handleSave}>Log in</button>
                         </div>
                         <div className="text-center text-small mt-3">
-                            <span>Don't have an account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up here</button></span>
+                            <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>
                         </div>
                     </div>
                 </div>

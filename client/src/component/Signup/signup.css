@@ -24,10 +24,18 @@
     border-top: 1px solid #e9ecef !important;
 }
 
-.mw-10{
+.mw-10 {
     max-width: 10% !important;
 }
 
 .b-none {
     border: none !important;
+}
+
+.color-white {
+    color: white;
+}
+
+.fs-20{
+    font-size: 20px;
 }

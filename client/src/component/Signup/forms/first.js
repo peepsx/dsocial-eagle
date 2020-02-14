@@ -49,7 +49,7 @@ export default class First extends React.Component {
                         confirmButtonText: 'Next',
                     }).then(() => {
                         if (res.data.ok) {
-                            window.open(env.liveStatus + '/#second', '_self');
+                            window.open(env.liveStatus + '#second', '_self');
                         }
                     })
                 })
