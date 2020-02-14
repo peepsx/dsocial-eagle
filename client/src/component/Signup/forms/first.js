@@ -134,7 +134,6 @@ export default class First extends React.Component {
                         <Google
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
-                            handleNextShowBtn={this.handleNextShowBtn}
                         />
                     </div>
                 </div>
