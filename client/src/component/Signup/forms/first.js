@@ -33,16 +33,32 @@ export default class First extends React.Component {
             teleUserid: teleData
         })
     }
-    
-    clickbot = (e) => {
+
+    checkTelegramUser = (e) => {
         e.preventDefault();
-        Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
-        .then(res => {
-            console.log('console bot',res);
-        })
-        .catch(err => console.error('Bot Error : ',err))
+        if (this.state.teleUserid !== '') {
+            Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
+                .then(res => {
+                    console.log('console bot', res);
+                    const title = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group .'
+                    const icon = res.data.ok ? 'success' : 'warning'
+                    Swal.fire({
+                        title,
+                        icon,
+                        showCancelButton: false,
+                        confirmButtonText: 'Next',
+                    }).then(() => {
+                        if (res.data.ok) {
+                            window.open(env.liveStatus + '/#second', '_self');
+                        }
+                    })
+                })
+                .catch(err => console.error('Bot Error : ', err))
+        } else {
+            alert('join telegram first');
+        }
     }
-    
+
     handleTwitDataSave = (userData) => {
         console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
@@ -85,7 +101,7 @@ export default class First extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Please login with the platforms given below.</span>
+                    <span className="h4 d-block">Please go through all the platforms given below.</span>
                     <p className="h6">( All fields mandatory )</p>
                 </div>
                 <div className="row">
@@ -124,8 +140,8 @@ export default class First extends React.Component {
                 <div className="d-flex justify-content-end mt-2">
                     <p className="d-flex">*Join our Telegram Community:
                         <span className="ml-1">
-                            <Telegram 
-                                nextBtnStatus={this.state.nextBtnStatus} 
+                            <Telegram
+                                nextBtnStatus={this.state.nextBtnStatus}
                                 getTelegramValue={this.getTelegramValue}
                             />
                         </span>
@@ -133,11 +149,11 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button
-                        className="btn btn-primary sw-btn-next"
-                        onClick={() => window.location.replace(`${env.liveStatus}#second`)}
+                        className="btn btn-primary"
+                        onClick={this.checkTelegramUser}
+                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
-                    <button onClick={this.clickbot}>click bot</button>
                 </div>
             </div>
         )
