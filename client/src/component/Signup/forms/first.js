@@ -36,23 +36,27 @@ export default class First extends React.Component {
 
     checkTelegramUser = (e) => {
         e.preventDefault();
-        Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
-            .then(res => {
-                console.log('console bot', res);
-                const title = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group .'
-                const icon = res.data.ok ? 'success' : 'warning'
-                Swal.fire({
-                    title,
-                    icon,
-                    showCancelButton: false,
-                    confirmButtonText: 'Next',
-                }).then(() => {
-                    if (res.data.ok) {
-                        window.open(env.liveStatus + '/#second','_self');
-                    }
+        if (this.state.teleUserid !== '') {
+            Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
+                .then(res => {
+                    console.log('console bot', res);
+                    const title = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group .'
+                    const icon = res.data.ok ? 'success' : 'warning'
+                    Swal.fire({
+                        title,
+                        icon,
+                        showCancelButton: false,
+                        confirmButtonText: 'Next',
+                    }).then(() => {
+                        if (res.data.ok) {
+                            window.open(env.liveStatus + '/#second', '_self');
+                        }
+                    })
                 })
-            })
-            .catch(err => console.error('Bot Error : ', err))
+                .catch(err => console.error('Bot Error : ', err))
+        } else {
+            alert('join telegram first');
+        }
     }
 
     handleTwitDataSave = (userData) => {
