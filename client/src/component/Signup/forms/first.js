@@ -30,12 +30,7 @@ export default class First extends React.Component {
     clickbot = (e) => {
         e.preventDefault();
         Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getUpdates`)
-        .then(response => {
-            for (let i of response.data.result) {
-                console.log('bot updates values', i.message.chat.id)
-            }
-        }
-        )
+        .then(response => console.log('console bot',response))
     }
     
     handleTwitDataSave = (userData) => {

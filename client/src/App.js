@@ -8,15 +8,15 @@ import { env } from './component/config/config';
 class App extends Component {
   componentDidMount() {
     window.FB.init({
-        appId: env.facebook_client_id,
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v3.3'
+      appId: env.facebook_client_id,
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v3.3'
     });
-}
+  }
   render() {
     return (
-      <Signup />
+        <Signup />
     );
   }
 }
