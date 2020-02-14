@@ -23,7 +23,7 @@ router.post('/users-details', async (req, res, next) => {
         })
     }
 
-    let UserOne = await UserAuth.findOne({ useremail: email, arisen_username: arisen_username })
+    let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
     try {
         axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${arisen_username}`)
             .then((lookup) => {
@@ -31,7 +31,7 @@ router.post('/users-details', async (req, res, next) => {
                 if(lookup.data.details.account_name === arisen_username) {
                     if (email && arisen_username && UserOne == null) {
                             let NewUser = new UserAuth({
-                                useremail: email,
+                                email: email,
                                 arisen_username: arisen_username,
                                 ip_address: req.ip
                             })
