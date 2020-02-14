@@ -39,7 +39,7 @@ router.post('/users-details', async (req, res, next) => {
                             let NewUser = new UserAuth({
                                 email: email,
                                 arisen_username: arisen_username,
-                                ip_address: ip4 || ip6 || undefined 
+                                ip_address: req.connection.remoteAddress
                             })
                             NewUser.save()
                                 .then(() => {
