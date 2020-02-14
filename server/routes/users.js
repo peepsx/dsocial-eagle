@@ -5,13 +5,13 @@ var validator = require('validator');
 let axios = require('axios');
 
 router.post('/users-details', async (req, res, next) => {
-    let { useremail, arisen_username } = req.body
+    let { email, arisen_username } = req.body
 
-    if(!useremail || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
+    if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: req.ip })
     // console.log('find ip adderess', ipAddress.length)
-    if (!validator.isEmail(useremail)) {
+    if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
     else if (arisen_username.length >= 12) {
@@ -23,15 +23,15 @@ router.post('/users-details', async (req, res, next) => {
         })
     }
 
-    let UserOne = await UserAuth.findOne({ useremail: useremail, arisen_username: arisen_username })
+    let UserOne = await UserAuth.findOne({ useremail: email, arisen_username: arisen_username })
     try {
         axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${arisen_username}`)
             .then((lookup) => {
-                console.log(lookup.data.details.account_name === arisen_username, useremail && arisen_username && UserOne == null)
+
                 if(lookup.data.details.account_name === arisen_username) {
-                    if (useremail && arisen_username && UserOne == null) {
+                    if (email && arisen_username && UserOne == null) {
                             let NewUser = new UserAuth({
-                                useremail: useremail,
+                                useremail: email,
                                 arisen_username: arisen_username,
                                 ip_address: req.ip
                             })
