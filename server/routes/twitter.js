@@ -69,6 +69,8 @@ router.post('/share-social-status', async (req, res) => {
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
     let twitter = await TwitterAuth.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
+    console.log(api.data, api.data.length)
+    if(Array.isArray(api.data) && !api.data.length) return res.status(200).send({success: false,message: 'Please login with twitter first!'})
 
     if(api.data[0].text !== process.env.text && twitter.username !== api.data[0].user.screen_name) {
         return res.status(200).send({
