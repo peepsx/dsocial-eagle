@@ -12,6 +12,10 @@ let Twitter = new Schema({
     },
     profileDescription:{
         type:String
+    },
+    follower: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

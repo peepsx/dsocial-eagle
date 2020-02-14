@@ -1,14 +1,15 @@
 require('dotenv').config();
-const express = require('express')
-var Twit = require('twit')
-const router = express.Router()
+const express = require('express');
+var Twit = require('twit');
+const router = express.Router();
 var T = new Twit({
     consumer_key: process.env.consumer_key,
     consumer_secret: process.env.consumer_secret,
     access_token: process.env.access_token,
     access_token_secret: process.env.access_token_secret,
-  })
-const {TwitterAuth} = require('../models/twitter')
+  });
+const {TwitterAuth} = require('../models/twitter');
+const {faceAuth} = require('../models/facebook');
 
 router.post('/twitter-details', async(req,res)=>{
     let {username} = req.body
@@ -25,7 +26,7 @@ router.post('/twitter-details', async(req,res)=>{
           let TwitterNew = new TwitterAuth({
             username:username,
             followerscount: count.data.ids.length,
-            profileDescription: description.data[0].description
+            profileDescription: description.data[0].description || undefined
           })
 
           TwitterNew.save()
@@ -62,13 +63,13 @@ router.post('/twitter-details', async(req,res)=>{
 
 router.post('/share-social-status', async (req, res) => {
     let {status, screenname } = req.body;
-    screenname = 'GauravS72615257'
-    status = '[]'
-    console.log('Share', status, screenname)
+
     if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
     let twitter = await TwitterAuth.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
+
+    if(Array.isArray(api.data) && !api.data.length) return res.status(200).send({success: false,message: 'Please login with twitter first!'})
 
     if(api.data[0].text !== process.env.text && twitter.username !== api.data[0].user.screen_name) {
         return res.status(200).send({
@@ -78,25 +79,28 @@ router.post('/share-social-status', async (req, res) => {
     }
 
     try {
-        if(status == '[]' && twitter && twitter !== null) {
+        if(Array.isArray(status) && !status.length && twitter && twitter !== null) {
             if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
-                res.status(200).send({
+               
+                await TwitterAuth.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
+               
+               return res.status(200).send({
                     success: true,
                     message: 'user share or post with thier friends successfully!'
                 })
             }
         } else {
-            res.status(200).send({
-                success: false,
-                message: 'user have not share or post with thier friends!'
-            })
+           return res.status(200).send({
+                    success: false,
+                    message: 'user have not share or post with thier friends!'
+                })
         }
     } catch(e) {
         console.log('ERROR WHILE SHARE_WITH_FACEBOOK', e)
-        res.status(401).send({
-            success: false,
-            message: 'ERROR WHILE SHARE_WITH_FACEBOOK'
-        })
+      return  res.status(401).send({
+                success: false,
+                message: 'ERROR WHILE SHARE_WITH_FACEBOOK'
+            })
     }
 })
 
