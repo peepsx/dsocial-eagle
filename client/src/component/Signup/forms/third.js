@@ -30,7 +30,8 @@ class Third extends React.Component {
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
     }
 
-    handleNextStep = () => {
+    handleNextStep = (e) => {
+        e.preventDefault();
         console.log('props value', this.props, "and statet",this.state.fbPostResponse)
         Axios({
             method: 'POST',
@@ -40,7 +41,8 @@ class Third extends React.Component {
                 screenname: this.props.storeData[0]
             }
         })
-            .then(res => console.log('Validation response', res))
+        .then(res => console.log('Validation response', res))
+        // window.open(env.liveStatus+'/#fourth','_self')
             .catch(err => console.error('Error', err))
     }
 
@@ -72,7 +74,7 @@ class Third extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next" onClick={this.handleNextStep}>Next Step</button>
+                    <button className="btn btn-primary" onClick={this.handleNextStep}>Next Step</button>
                 </div>
             </div>
         )

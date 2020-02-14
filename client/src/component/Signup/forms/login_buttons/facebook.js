@@ -3,23 +3,10 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 
 import { API } from '../../../js/api_list';
-import { env } from '../../../config/config';
-
-let IsMount = false;
 
 class Facebook extends React.Component {
-    componentDidMount() {
-        window.FB.init({
-            appId: env.facebook_client_id,
-            autoLogAppEvents: true,
-            xfbml: true,
-            version: 'v3.3'
-        });
-        IsMount = true;
-    }
-
     handleFbClick = () => {
-        if (window.FB && IsMount) {
+        if (window.FB) {
             window.FB.login((response) => {
                 if (response.status === 'connected') {
                     const userId = response.authResponse.userID.replace(/"/, ""),

@@ -30,12 +30,7 @@ export default class First extends React.Component {
     clickbot = (e) => {
         e.preventDefault();
         Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getUpdates`)
-        .then(response => {
-            for (let i of response.data.result) {
-                console.log('bot updates values', i.message.chat.id)
-            }
-        }
-        )
+        .then(response => console.log('console bot',response))
     }
     
     handleTwitDataSave = (userData) => {
@@ -126,7 +121,7 @@ export default class First extends React.Component {
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button
                         className="btn btn-primary sw-btn-next"
-                        onClick={() => window.location.replace(`${env.callback_url}#second`)}
+                        onClick={() => window.location.replace(`${env.liveStatus}#second`)}
                     >Next Step
                     </button>
                     <button onClick={this.clickbot}>click bot</button>
