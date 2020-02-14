@@ -28,7 +28,7 @@ export default class Fourth extends React.Component {
         if (email && email[0] && this.state.arisen_username !== '') {
             console.log('email', email[0], this.state.arisen_username)
             Axios({
-                method: 'get',
+                method: 'post',
                 url: API.arisen_user_detail,
                 data: {
                     arisen_username:this.state.arisen_username,
