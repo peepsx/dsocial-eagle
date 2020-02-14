@@ -41,8 +41,12 @@ class Third extends React.Component {
                 screenname: this.props.storeData[0]
             }
         })
-        .then(res => console.log('Validation response', res))
-        // window.open(env.liveStatus+'/#fourth','_self')
+        .then(res => {
+            console.log('Validation response', res);
+            if(res.data.success) {
+                window.open(env.liveStatus+'/#fourth','_self');
+            }
+        })
             .catch(err => console.error('Error', err))
     }
 
