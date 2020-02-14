@@ -3,10 +3,16 @@ var router = express.Router();
 const { UserAuth } = require('../models/user');
 var validator = require('validator');
 let axios = require('axios');
+const publicIp = require('public-ip');
+ 
 
 router.post('/users-details', async (req, res, next) => {
-    let { email, arisen_username } = req.body
 
+    let { email, arisen_username } = req.body
+    let ip4 = await publicIp.v4();
+    let ip6 = await publicIp.v6();
+    let ip;
+    
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: req.ip })
@@ -33,7 +39,7 @@ router.post('/users-details', async (req, res, next) => {
                             let NewUser = new UserAuth({
                                 email: email,
                                 arisen_username: arisen_username,
-                                ip_address: req.ip
+                                ip_address: ip4 || ip6 || undefined 
                             })
                             NewUser.save()
                                 .then(() => {
