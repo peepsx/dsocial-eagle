@@ -80,7 +80,7 @@ router.post('/share-social-status', async (req, res) => {
     }
 
     try {
-        if(status == '[]' && twitter && twitter !== null) {
+        if(Array.isArray(status) && !status.length && twitter && twitter !== null) {
             if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
                return res.status(200).send({
                     success: true,
