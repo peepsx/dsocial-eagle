@@ -69,6 +69,8 @@ router.post('/share-social-status', async (req, res) => {
     let twitter = await TwitterAuth.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
 
+    if(!twitter || twitter == null) return res.status(404).send({success: false, message: 'Please complete first step'})
+
     if(Array.isArray(api.data) && !api.data.length) return res.status(200).send({success: false,message: 'Please login with twitter first!'})
 
     if(api.data[0].text !== process.env.text && twitter.username !== api.data[0].user.screen_name) {
@@ -79,7 +81,8 @@ router.post('/share-social-status', async (req, res) => {
     }
 
     try {
-        if(Array.isArray(status) && !status.length && twitter && twitter !== null) {
+        console.log(Array.isArray(status) , !status.length)
+        if(Array.isArray(status) && !status.length) {
             if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
                
                 await TwitterAuth.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
@@ -89,12 +92,8 @@ router.post('/share-social-status', async (req, res) => {
                     message: 'user share or post with thier friends successfully!'
                 })
             }
-        } else {
-           return res.status(200).send({
-                    success: false,
-                    message: 'user have not share or post with thier friends!'
-                })
         }
+
     } catch(e) {
         console.log('ERROR WHILE SHARE_WITH_FACEBOOK', e)
       return  res.status(401).send({
