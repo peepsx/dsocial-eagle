@@ -111,6 +111,12 @@ export default class First extends React.Component {
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
+                        <Instagram
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
+                        />
+                    </div>
+                    <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -121,12 +127,6 @@ export default class First extends React.Component {
                                     nextBtnStatus={this.state.nextBtnStatus}
                                 />
                             }
-                        />
-                    </div>
-                    <div className="col-sm mb-3 mb-sm-0">
-                        <Instagram
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">

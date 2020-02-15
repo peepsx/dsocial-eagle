@@ -23,7 +23,8 @@ export default class Instagram extends React.Component {
 
     handleInstaClick = () => {
         if (this.state.instaCode === "") {
-            window.open(`https://api.instagram.com/oauth/authorize?client_id=${env.instagram_client_id}&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code`, "_self")
+            const authwindow = window.open(`https://api.instagram.com/oauth/authorize?client_id=${env.instagram_client_id}&redirect_uri=https://air.arisen.network&scope=user_profile&response_type=code`, "authWindow")
+            window.auth = authwindow
         }
     }
 
