@@ -59,8 +59,8 @@ class Facebook extends React.Component {
                 })
                 .catch(err => {
                     console.error(err);
-                    if (!err.data.success) {
-                        toast(err.data.message, {
+                    if (!err.success) {
+                        toast(err.message, {
                             type: 'warning',
                             autoClose: 4000,
                             onClose: this.props.handleNextShowBtn('Twitter')
