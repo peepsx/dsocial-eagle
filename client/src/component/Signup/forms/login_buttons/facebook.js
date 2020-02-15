@@ -59,8 +59,8 @@ class Facebook extends React.Component {
                 })
                 .catch(err => {
                     console.error(err);
-                    if (!err.success) {
-                        toast(err.message, {
+                    if (err.message.includes('status code 403')) {
+                        toast("User already registered", {
                             type: 'warning',
                             autoClose: 4000,
                             onClose: this.props.handleNextShowBtn('Twitter')
