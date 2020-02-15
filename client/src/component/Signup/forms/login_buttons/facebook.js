@@ -24,7 +24,10 @@ class Facebook extends React.Component {
                             console.error('Error', err);
                         })
                 } else {
-                    alert('User Login failed')
+                    toast("Facebook login failed",{
+                        type: 'warning',
+                        autoClose:2000,
+                    })
                 }
             }, {
                 scope: 'user_link,user_location,user_posts,user_likes',
@@ -40,6 +43,7 @@ class Facebook extends React.Component {
                 url: API.facebook_detail,
                 method: 'POST',
                 data: {
+                    id: userData.data.id,
                     fbUserURL: "dummy url",
                     fbPhoto: userData.data.picture.data.url,
                     fbUserName: userData.data.name,
