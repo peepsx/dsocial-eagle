@@ -11,16 +11,15 @@ router.post('/users-details', async (req, res, next) => {
     let { email, arisen_username } = req.body
     let ip4 = await publicIp.v4();
     let ip6 = await publicIp.v6();
-    let ip;
     
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
-    let ipAddress = await UserAuth.find({ ip_address: req.ip })
+    let ipAddress = await UserAuth.find({ ip_address: ip4 | ip6 })
     // console.log('find ip adderess', ipAddress.length)
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
-    else if (arisen_username.length >= 12) {
+    else if (arisen_username.length > 12) {
         return res.status(400).json("Invalid Username")
     }
     else if (ipAddress.length) {
