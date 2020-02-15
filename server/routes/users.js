@@ -7,17 +7,17 @@ let {RSN_TRANSFER} = require('../middleware/RSN_TRANSFER');
 
 router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
 
-    let { email, arisen_username } = req.body
+    let { email, arisen_username, ip } = req.body
 
     let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
-    if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
+    if(!email || !arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
-    let ipAddress = await UserAuth.find({ ip_address: req.ip})
+    let ipAddress = await UserAuth.find({ ip_address: ip.ip4 === ip.ip6 ? ip.ip4 : ip.ip6})
 
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
-    else if (UserOne) {
+    else if (ipAddress[0]) {
         return res.status(403).json("User already exists!")
     }
     else if (ipAddress[0]) {
@@ -35,7 +35,7 @@ router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
                             let NewUser = new UserAuth({
                                 email: email,
                                 arisen_username: arisen_username,
-                                ip_address: req.ip
+                                ip_address: ip.ip4 === ip.ip6 ? ip.ip4 : ip.ip6
                             })
                             NewUser.save()
                                 .then(() => {
