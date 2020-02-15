@@ -12,6 +12,7 @@ router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
     let { email, arisen_username } = req.body
     let ip4 = await publicIp.v4();
     let ip6 = await publicIp.v6();
+    let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
     
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
@@ -20,8 +21,8 @@ router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
-    else if (arisen_username.length !== 12) {
-        return res.status(400).json("Invalid Username")
+    else if (UserOne) {
+        return res.status(403).json("User already exists!")
     }
     else if (ipAddress.ip_address) {
         return res.status(200).send({
@@ -29,7 +30,6 @@ router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
         })
     }
 
-    let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
     try {
         axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${arisen_username}`)
             .then((lookup) => {
