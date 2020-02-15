@@ -24,6 +24,7 @@ class Third extends React.Component {
             this.setState({ fbPostResponse: response });
         });
 
+
     }
 
     handleTweet = () => {
@@ -73,14 +74,14 @@ class Third extends React.Component {
                             <a onClick={this.handleShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share with Facebook friends</span>
+                                    <span className="mb-0 h6 mb-0">Share pre-written ost with Facebook friends</span>
                                 </div>
                                 <i className="fas fa-chevron-right"/>
                             </a>
                             <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share with Twitter followers </span>
+                                    <span className="mb-0 h6 mb-0">Share pre-written Tweet with Twitter followers </span>
                                 </div>
                                 <i className="fas fa-chevron-right"/>
                             </a>

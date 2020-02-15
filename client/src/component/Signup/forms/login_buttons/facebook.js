@@ -1,8 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 import { API } from '../../../js/api_list';
+import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
@@ -47,18 +48,11 @@ class Facebook extends React.Component {
             })
                 .then(response => {
                     console.log('Data save facebook', response);
-                    if (response.status === 200) {
-                        const title = response.data.message;
-                        const icon = response.data.sucess ? 'success' : 'warning';
-                        Swal.fire({
-                            title: title,
-                            icon: icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'next',
-                        }).then(() => {
-                            this.props.handleNextShowBtn('Twitter')
+                        toast(response.data.message,{
+                            type:response.data.success ? 'success' : 'warning',
+                            autoClose:1000,
+                            onClose: this.props.handleNextShowBtn('Twitter')
                         })
-                    }
                 })
                 .catch(err => {
                     console.error('Error', err);
