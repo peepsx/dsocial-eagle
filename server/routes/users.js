@@ -4,20 +4,18 @@ const { UserAuth } = require('../models/user');
 var validator = require('validator');
 let axios = require('axios');
 let {RSN_TRANSFER} = require('../middleware/RSN_TRANSFER');
-const publicIp = require('public-ip');
+const requestIp = require('request-ip');
  
 
 router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
 
     let { email, arisen_username } = req.body
-    let ip4 = await publicIp.v4();
-    let ip6 = await publicIp.v6();
     let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
-    
+    const clientIp = requestIp.getClientIp(req);
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
-    let ipAddress = await UserAuth.find({ ip_address: ip4 | ip6 })
-    console.log('find ip adderess', ipAddress, ip4 | ip6);
+    let ipAddress = await UserAuth.find({ ip_address: clientIp})
+    console.log('find ip adderess', ipAddress, clientIp);
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
@@ -39,7 +37,7 @@ router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
                             let NewUser = new UserAuth({
                                 email: email,
                                 arisen_username: arisen_username,
-                                ip_address: ip4 | ip6
+                                ip_address: clientIp
                             })
                             NewUser.save()
                                 .then(() => {
