@@ -9,7 +9,7 @@ import { env } from './component/config/config';
 
 class App extends Component {
   componentDidMount() {
-    window.FB.init({
+    window.FB.init({                // Initialising Facebook connectivity
       appId: env.facebook_client_id,
       autoLogAppEvents: true,
       xfbml: true,
@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <ToastContainer />
+        <ToastContainer />            {/*  Initiate Toaster instance */}
         <Signup />
       </React.Fragment>
     );

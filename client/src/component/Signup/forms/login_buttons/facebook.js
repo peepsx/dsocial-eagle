@@ -1,6 +1,5 @@
 import React from 'react';
 import Axios from 'axios';
-// import Swal from 'sweetalert2';
 
 import { API } from '../../../js/api_list';
 import { toast } from 'react-toastify';
@@ -24,9 +23,9 @@ class Facebook extends React.Component {
                             console.error('Error', err);
                         })
                 } else {
-                    toast("Facebook login failed",{
+                    toast("Facebook login failed", {
                         type: 'warning',
-                        autoClose:2000,
+                        autoClose: 3000,
                     })
                 }
             }, {
@@ -52,16 +51,22 @@ class Facebook extends React.Component {
             })
                 .then(response => {
                     console.log('Data save facebook', response);
-                        toast(response.data.message,{
-                            type:response.data.success ? 'success' : 'warning',
-                            autoClose:3000,
-                            onClose: this.props.handleNextShowBtn('Twitter')
-                        })
+                    toast(response.data.message, {
+                        type: 'success',
+                        autoClose: 4000,
+                        onClose: this.props.handleNextShowBtn('Twitter')
+                    })
                 })
                 .catch(err => {
-                    console.error('Error', err);
+                    console.error(err);
+                    if (!err.data.success) {
+                        toast(err.data.message, {
+                            type: 'warning',
+                            autoClose: 4000,
+                            onClose: this.props.handleNextShowBtn('Twitter')
+                        })
+                    }
                 })
-
         }
     }
 
