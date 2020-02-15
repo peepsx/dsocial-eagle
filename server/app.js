@@ -14,7 +14,15 @@ var testapi = require('./routes/test_api');
 var CORS = require('cors');
 var app = express();
 const bodyParser = require('body-parser');
+const requestIp = require('request-ip');
+app.use(requestIp.mw())
+ 
+app.use(function(req, res, next) {
+    const ip = req.clientIp;
+    console.log('IP ADREES', ip)
 
+next()
+})
 // view engine setup
 app.use(bodyParser.json());
 app.use(CORS());
