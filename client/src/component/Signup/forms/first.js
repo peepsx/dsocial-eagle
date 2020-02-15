@@ -47,11 +47,10 @@ export default class First extends React.Component {
                         icon,
                         showCancelButton: false,
                         confirmButtonText: 'Next',
-                    }).then(() => {
-                        if (res.data.ok) {
-                            window.open(env.liveStatus + '#second', '_self');
-                        }
                     })
+                    if (res.data.ok) {
+                        window.open(env.liveStatus + '/#second', '_self');
+                    }
                 })
                 .catch(err => console.error('Bot Error : ', err))
         } else {
@@ -81,7 +80,7 @@ export default class First extends React.Component {
                             showCancelButton: false,
                             confirmButtonText: 'next',
                         }).then(() => {
-                            this.handleNextShowBtn('Instagram')
+                            this.handleNextShowBtn('Google')
                         })
                     }
                 })
@@ -112,6 +111,12 @@ export default class First extends React.Component {
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
+                        <Instagram
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
+                        />
+                    </div>
+                    <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -122,12 +127,6 @@ export default class First extends React.Component {
                                     nextBtnStatus={this.state.nextBtnStatus}
                                 />
                             }
-                        />
-                    </div>
-                    <div className="col-sm mb-3 mb-sm-0">
-                        <Instagram
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
@@ -151,7 +150,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-primary"
                         onClick={this.checkTelegramUser}
-                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                        // disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>

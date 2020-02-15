@@ -8,6 +8,7 @@ export default class Fourth extends React.Component {
         this.state = {
             email: '',
             arisen_username: '',
+            error: false,
         }
     }
 
@@ -26,21 +27,31 @@ export default class Fourth extends React.Component {
         e.preventDefault();
         const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
         if (email && email[0] && this.state.arisen_username !== '') {
+            this.setState({ error: false })
             console.log('email', email[0], this.state.arisen_username)
             Axios({
                 method: 'post',
                 url: API.arisen_user_detail,
                 data: {
-                    arisen_username:this.state.arisen_username,
+                    arisen_username: this.state.arisen_username,
                     email: email[0]
                 }
             })
-            .then(res => {
-                console.log('response from account arisen',res);
-            })
-            .catch(err => {
-                console.error('Error :',err);
-            })
+                .then(res => {
+                    console.log('response from account arisen', res);
+                })
+                .catch(err => {
+                    console.error('Error :', err);
+                })
+        } else {
+            if (!email) {
+                this.setState({
+                    error: true
+                })
+            }
+            if (this.state.arisen_username === '' || this.state.email === '') {
+                alert('All fields required !!');
+            }
         }
     }
 
@@ -61,6 +72,7 @@ export default class Fourth extends React.Component {
                                 value={this.state.email}
                                 onChange={this.handleChange}
                             />
+                            {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
                         </div>
                         <div className="form-group mb-3">
                             <div className="d-flex justify-content-between">
