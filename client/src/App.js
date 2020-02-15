@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './theme.css'
 import Signup from './component/Signup/signup';
@@ -16,7 +18,10 @@ class App extends Component {
   }
   render() {
     return (
+      <React.Fragment>
+        <ToastContainer />
         <Signup />
+      </React.Fragment>
     );
   }
 }

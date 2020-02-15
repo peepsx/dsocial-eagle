@@ -1,8 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 import { API } from '../../../js/api_list';
+import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
@@ -23,7 +24,10 @@ class Facebook extends React.Component {
                             console.error('Error', err);
                         })
                 } else {
-                    alert('User Login failed')
+                    toast("Facebook login failed",{
+                        type: 'warning',
+                        autoClose:2000,
+                    })
                 }
             }, {
                 scope: 'user_link,user_location,user_posts,user_likes',
@@ -39,6 +43,7 @@ class Facebook extends React.Component {
                 url: API.facebook_detail,
                 method: 'POST',
                 data: {
+                    id: userData.data.id,
                     fbUserURL: "dummy url",
                     fbPhoto: userData.data.picture.data.url,
                     fbUserName: userData.data.name,
@@ -47,18 +52,11 @@ class Facebook extends React.Component {
             })
                 .then(response => {
                     console.log('Data save facebook', response);
-                    if (response.status === 200) {
-                        const title = response.data.message;
-                        const icon = response.data.sucess ? 'success' : 'warning';
-                        Swal.fire({
-                            title: title,
-                            icon: icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'next',
-                        }).then(() => {
-                            this.props.handleNextShowBtn('Twitter')
+                        toast(response.data.message,{
+                            type:response.data.success ? 'success' : 'warning',
+                            autoClose:3000,
+                            onClose: this.props.handleNextShowBtn('Twitter')
                         })
-                    }
                 })
                 .catch(err => {
                     console.error('Error', err);

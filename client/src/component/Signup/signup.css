@@ -47,3 +47,7 @@
 .c-red {
     color: red;
 }
+
+[class*='height-']{
+    display: block !important;
+}
