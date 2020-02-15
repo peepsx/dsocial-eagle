@@ -36,6 +36,14 @@
     color: white;
 }
 
-.fs-20{
+.fs-20 {
     font-size: 20px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.c-red {
+    color: red;
 }

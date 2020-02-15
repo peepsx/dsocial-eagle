@@ -47,11 +47,10 @@ export default class First extends React.Component {
                         icon,
                         showCancelButton: false,
                         confirmButtonText: 'Next',
-                    }).then(() => {
-                        if (res.data.ok) {
-                            window.open(env.liveStatus + '#second', '_self');
-                        }
                     })
+                    if (res.data.ok) {
+                        window.open(env.liveStatus + '#second', '_self');
+                    }
                 })
                 .catch(err => console.error('Bot Error : ', err))
         } else {
