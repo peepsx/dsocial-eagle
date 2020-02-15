@@ -3,7 +3,7 @@ const Scehma = mongoose.Schema;
 
 
 let User = new Scehma({
-    useremail:{
+    email:{
         type:String,
         required: true
     },
