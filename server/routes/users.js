@@ -3,10 +3,11 @@ var router = express.Router();
 const { UserAuth } = require('../models/user');
 var validator = require('validator');
 let axios = require('axios');
+let {RSN_TRANSFER} = require('../middleware/RSN_TRANSFER');
 const publicIp = require('public-ip');
  
 
-router.post('/users-details', async (req, res, next) => {
+router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
 
     let { email, arisen_username } = req.body
     let ip4 = await publicIp.v4();
@@ -15,14 +16,14 @@ router.post('/users-details', async (req, res, next) => {
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: ip4 | ip6 })
-    // console.log('find ip adderess', ipAddress.length)
+    console.log('find ip adderess', ipAddress, ip4 | ip6);
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
-    else if (arisen_username.length > 12) {
+    else if (arisen_username.length !== 12) {
         return res.status(400).json("Invalid Username")
     }
-    else if (ipAddress.length) {
+    else if (ipAddress.ip_address) {
         return res.status(200).send({
             message: 'This ip-address has been used please change your ip first'
         })
@@ -38,7 +39,7 @@ router.post('/users-details', async (req, res, next) => {
                             let NewUser = new UserAuth({
                                 email: email,
                                 arisen_username: arisen_username,
-                                ip_address: req.connection.remoteAddress
+                                ip_address: ip4 | ip6
                             })
                             NewUser.save()
                                 .then(() => {
