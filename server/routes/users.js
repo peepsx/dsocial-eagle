@@ -3,33 +3,31 @@ var router = express.Router();
 const { UserAuth } = require('../models/user');
 var validator = require('validator');
 let axios = require('axios');
-const publicIp = require('public-ip');
+let {RSN_TRANSFER} = require('../middleware/RSN_TRANSFER');
+const requestIp = require('request-ip');
  
 
-router.post('/users-details', async (req, res, next) => {
+router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
 
     let { email, arisen_username } = req.body
-    let ip4 = await publicIp.v4();
-    let ip6 = await publicIp.v6();
-    let ip;
-    
+    let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
+    const clientIp = requestIp.getClientIp(req);
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
-    let ipAddress = await UserAuth.find({ ip_address: req.ip })
-    // console.log('find ip adderess', ipAddress.length)
+    let ipAddress = await UserAuth.find({ ip_address: clientIp})
+    console.log('find ip adderess', ipAddress, clientIp);
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
-    else if (arisen_username.length >= 12) {
-        return res.status(400).json("Invalid Username")
+    else if (UserOne) {
+        return res.status(403).json("User already exists!")
     }
-    else if (ipAddress.length) {
+    else if (ipAddress.ip_address) {
         return res.status(200).send({
             message: 'This ip-address has been used please change your ip first'
         })
     }
 
-    let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
     try {
         axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${arisen_username}`)
             .then((lookup) => {
@@ -39,7 +37,7 @@ router.post('/users-details', async (req, res, next) => {
                             let NewUser = new UserAuth({
                                 email: email,
                                 arisen_username: arisen_username,
-                                ip_address: req.connection.remoteAddress
+                                ip_address: clientIp
                             })
                             NewUser.save()
                                 .then(() => {
