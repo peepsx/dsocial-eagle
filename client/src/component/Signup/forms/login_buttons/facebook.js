@@ -50,7 +50,7 @@ class Facebook extends React.Component {
                     console.log('Data save facebook', response);
                         toast(response.data.message,{
                             type:response.data.success ? 'success' : 'warning',
-                            autoClose:1000,
+                            autoClose:3000,
                             onClose: this.props.handleNextShowBtn('Twitter')
                         })
                 })
