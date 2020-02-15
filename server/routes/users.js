@@ -16,7 +16,7 @@ router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
-    else if (ipAddress[0]) {
+    else if (UserOne) {
         return res.status(403).json("User already exists!")
     }
     else if (ipAddress[0]) {
