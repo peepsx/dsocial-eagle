@@ -5,12 +5,15 @@ const {faceAuth} = require('../models/facebook')
 router.post('/facebook_detail',async (req,res,next)=>{
     console.log(req.body)
     try {
-        let { fbUserURL, fbPhoto,fbUserName, fbUserLocation} = req.body;
-        let findOne = await faceAuth.findOne({fbUserName: fbUserName})
-    
-         if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && findOne == null ) {
+        let { fbUserURL, fbPhoto,fbUserName, fbUserLocation, id} = req.body;
+        let findOne = await faceAuth.findOne({facebookid: id})
+
+        if(findOne) return res.status(403).send({success: false, message: 'User already exists'})
+        
+        if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && id) {
     
                 let newFbUser = new faceAuth({
+                    facebookid: id,
                     fbUserURL: fbUserURL,
                     fbPhoto: fbPhoto,
                     fbUserName: fbUserName,
@@ -22,7 +25,7 @@ router.post('/facebook_detail',async (req,res,next)=>{
                         res.status(200).send(
                             {
                                 success: true,
-                                message: 'Sucessfully saved'
+                                message: 'Facebook details has been saved successfully'
                             }
                         )
                     })
@@ -33,9 +36,9 @@ router.post('/facebook_detail',async (req,res,next)=>{
     
          }
          else {
-            return res.status(200).send({
+            return res.status(400).send({
                  success: false, 
-                 message: "Already Reigster"
+                 message: "Fields are missing"
              })
          }
     } catch(e) {

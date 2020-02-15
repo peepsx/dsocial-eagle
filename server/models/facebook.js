@@ -2,6 +2,11 @@ let mongoose = require('mongoose');
 let Scehma = mongoose.Schema;
 
 let Facebook = new Scehma({
+    facebookid: {
+        type: String,
+        required: true,
+        unique: true
+    },
     fbUserURL: {
         type: String
     },

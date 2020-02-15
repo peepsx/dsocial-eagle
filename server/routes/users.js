@@ -10,19 +10,20 @@ const requestIp = require('request-ip');
 router.post('/users-details', /**[RSN_TRANSFER] ,*/ async (req, res, next) => {
 
     let { email, arisen_username } = req.body
+
     let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
     const clientIp = requestIp.getClientIp(req);
     if(!email || !arisen_username) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: clientIp})
-    console.log('find ip adderess', ipAddress, clientIp);
+
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
     }
     else if (UserOne) {
         return res.status(403).json("User already exists!")
     }
-    else if (ipAddress.ip_address) {
+    else if (ipAddress[0]) {
         return res.status(200).send({
             message: 'This ip-address has been used please change your ip first'
         })
