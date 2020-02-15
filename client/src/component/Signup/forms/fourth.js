@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios';
+
 import { API } from '../../js/api_list';
 
 export default class Fourth extends React.Component {
@@ -9,7 +10,23 @@ export default class Fourth extends React.Component {
             email: '',
             arisen_username: '',
             error: false,
+            ip: {
+                v4: '',
+                v6: ''
+            },
         }
+    }
+
+    async componentDidMount() {
+        const ip = { v4: '', v6: '' }
+        await fetch('https://api.ipify.org/')
+            .then(res => res.text())
+            .then(res => ip.v4 = res)
+
+        await fetch('https://api6.ipify.org/')
+            .then(res => res.text())
+            .then(res => ip.v6 = res)
+        this.setState({ip})
     }
 
     handleSignup = (e) => {
@@ -34,7 +51,8 @@ export default class Fourth extends React.Component {
                 url: API.arisen_user_detail,
                 data: {
                     arisen_username: this.state.arisen_username,
-                    email: email[0]
+                    email: email[0],
+                    ip: this.state.ip
                 }
             })
                 .then(res => {
