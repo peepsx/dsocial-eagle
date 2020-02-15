@@ -80,7 +80,7 @@ export default class First extends React.Component {
                             showCancelButton: false,
                             confirmButtonText: 'next',
                         }).then(() => {
-                            this.handleNextShowBtn('Instagram')
+                            this.handleNextShowBtn('Google')
                         })
                     }
                 })
