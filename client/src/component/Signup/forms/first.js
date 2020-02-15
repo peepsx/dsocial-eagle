@@ -49,7 +49,7 @@ export default class First extends React.Component {
                         confirmButtonText: 'Next',
                     })
                     if (res.data.ok) {
-                        window.open(env.liveStatus + '#second', '_self');
+                        window.open(env.liveStatus + '/#second', '_self');
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
@@ -150,7 +150,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-primary"
                         onClick={this.checkTelegramUser}
-                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                        // disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>
