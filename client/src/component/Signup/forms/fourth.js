@@ -52,7 +52,14 @@ export default class Fourth extends React.Component {
                 data: {
                     arisen_username: this.state.arisen_username,
                     email: email[0],
-                    ip: this.state.ip
+                    ip: this.state.ip,
+                    userDetails: {
+                        fbUserId: localStorage.getItem('fbUserId'),
+                        googleEmail: localStorage.getItem('googleEmail'),
+                        instaUserId: localStorage.getItem('instaUserId'),
+                        teleUserId: localStorage.getItem('teleUserId'),
+                        twitterScreenName: localStorage.getItem('twitterName')
+                    }
                 }
             })
                 .then(res => {

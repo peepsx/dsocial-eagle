@@ -74,7 +74,7 @@ export default class Third extends React.Component {
                             <a onClick={this.handleShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share pre-written ost with Facebook friends</span>
+                                    <span className="mb-0 h6 mb-0">Share pre-written post with Facebook friends</span>
                                 </div>
                                 <i className="fas fa-chevron-right"/>
                             </a>
