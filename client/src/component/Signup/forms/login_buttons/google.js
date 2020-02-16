@@ -39,22 +39,20 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Google', response);
-                    if (response.status === 200) {
-                        this.props.handleNextShowBtn('Telegram');
-                        const title = response.data.message;
-                        const icon = response.data.sucess ? 'success' : 'warning';
-                        Swal.fire({
-                            title: title,
-                            icon: icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'next',
-                        }).then(() => {
-                            this.props.handleNextShowBtn('Telegram')
-                        })
-                    }
+                    toast.success(response.data.message, {
+                        autoClose: 3000,
+                        onClose: this.handleNextShowBtn('Telegram')
+                    })
                 })
                 .catch(err => {
                     console.error('Error', err);
+                    if (err.message.includes('status code 403')) {
+                        toast("User already registered", {
+                            type: 'warning',
+                            autoClose: 3000,
+                            onClose: this.props.handleNextShowBtn('Telegram')
+                        })
+                    }
                 })
         }
     }

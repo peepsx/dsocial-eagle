@@ -10,6 +10,7 @@ import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
 import { API } from '../../js/api_list';
+import { toast } from 'react-toastify';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -59,7 +60,7 @@ export default class First extends React.Component {
     handleTwitDataSave = (userData) => {
         console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
-            localStorage.setItem('twitterName',userData.screen_name);
+            localStorage.setItem('twitterName', userData.screen_name);
             Axios({
                 url: API.twitter_detail,
                 method: 'POST',
@@ -69,21 +70,20 @@ export default class First extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Twitter', response);
-                    if (response.status === 200) {
-                        const title = response.data.message;
-                        const icon = response.data.sucess ? 'success' : 'warning';
-                        Swal.fire({
-                            title: title,
-                            icon: icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'next',
-                        }).then(() => {
-                            this.handleNextShowBtn('Instagram')
-                        })
-                    }
+                    toast.success(response.data.message, {
+                        autoClose: 3000,
+                        onClose: this.handleNextShowBtn('Instagram')
+                    })
                 })
                 .catch(err => {
                     console.error('Error', err);
+                    if (err.message.includes('status code 403')) {
+                        toast("User already registered", {
+                            type: 'warning',
+                            autoClose: 3000,
+                            onClose: this.props.handleNextShowBtn('Twitter')
+                        })
+                    }
                 })
         }
     }
@@ -148,7 +148,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-primary"
                         onClick={this.checkTelegramUser}
-                        // disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                    // disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>
