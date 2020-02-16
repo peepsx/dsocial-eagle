@@ -1,9 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 
 import {API} from '../../../js/api_list';
 import { env } from '../../../config/config';
+import { toast } from 'react-toastify';
 
 export default class Google extends React.Component {
 
