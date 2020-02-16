@@ -2,6 +2,7 @@ import React from 'react'
 import Axios from 'axios';
 
 import { API } from '../../js/api_list';
+import { toast } from 'react-toastify';
 
 export default class Fourth extends React.Component {
     constructor(props) {
@@ -75,7 +76,10 @@ export default class Fourth extends React.Component {
                 })
             }
             if (this.state.arisen_username === '' || this.state.email === '') {
-                alert('All fields required !!');
+                toast("All fields required", {
+                    type: 'warning',
+                    autoClose: 3000,
+                })
             }
         }
     }
