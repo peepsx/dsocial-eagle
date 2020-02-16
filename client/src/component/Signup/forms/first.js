@@ -10,8 +10,6 @@ import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
 import { API } from '../../js/api_list';
-import store from '../../../store/store';
-import { twitAction } from '../../../store/action/action';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -61,7 +59,7 @@ export default class First extends React.Component {
     handleTwitDataSave = (userData) => {
         console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
-            store.dispatch(twitAction(userData.screen_name));
+            localStorage.setItem('twitterName',userData.screen_name);
             Axios({
                 url: API.twitter_detail,
                 method: 'POST',
@@ -80,7 +78,7 @@ export default class First extends React.Component {
                             showCancelButton: false,
                             confirmButtonText: 'next',
                         }).then(() => {
-                            this.handleNextShowBtn('Google')
+                            this.handleNextShowBtn('Instagram')
                         })
                     }
                 })
@@ -111,12 +109,6 @@ export default class First extends React.Component {
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Instagram
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
-                        />
-                    </div>
-                    <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -127,6 +119,12 @@ export default class First extends React.Component {
                                     nextBtnStatus={this.state.nextBtnStatus}
                                 />
                             }
+                        />
+                    </div>
+                    <div className="col-sm mb-3 mb-sm-0">
+                        <Instagram
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">

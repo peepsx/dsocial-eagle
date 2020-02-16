@@ -38,6 +38,7 @@ class Facebook extends React.Component {
     handleFbDataSave = (userData) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
+            localStorage.setItem('fbUserId',userData.data.id);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',

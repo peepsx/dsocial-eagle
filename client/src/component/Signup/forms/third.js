@@ -1,11 +1,11 @@
 import React from 'react'
-import { env } from '../../config/config';
-import { connect } from 'react-redux';
 import Axios from 'axios';
-import { API } from '../../js/api_list';
 import Swal from 'sweetalert2';
 
-class Third extends React.Component {
+import { API } from '../../js/api_list';
+import { env } from '../../config/config';
+
+export default class Third extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,17 +34,17 @@ class Third extends React.Component {
 
     handleNextStep = (e) => {
         e.preventDefault();
-        console.log('props value', this.props.storeData[0], "and statet",this.state.fbPostResponse)
+        console.log('props value', localStorage.getItem('twitterName'))
         Axios({
             method: 'POST',
             url: API.user_share_validation,
             data: {
                 status: this.state.fbPostResponse,
-                screenname: this.props.storeData[0]
+                screenname: localStorage.getItem('twitterName')
             }
         })
         .then(res => {
-            console.log('Validation response', res);        
+            console.log('Validation response', res);      
             if(res.status === 200) {
                 Swal.fire({
                     title: res.data.message,
@@ -95,12 +95,3 @@ class Third extends React.Component {
         )
     }
 }
-
-const mapStateToProps = (storeData) => {
-    return {
-        storeData: storeData.userAccountReducer
-    }
-}
-const StoreThird = connect(mapStateToProps, {})(Third);
-
-export default StoreThird;

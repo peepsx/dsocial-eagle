@@ -54,6 +54,7 @@ export default class Instagram extends React.Component {
 
     instagramDataSave = (res) => {
         console.log('instagram data username', res)
+        localStorage.setItem('instaUserId',res.id);
         Axios({
             url: API.instagram_detail,
             method: 'POST',
