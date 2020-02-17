@@ -74,7 +74,7 @@ router.post('/share-social-status', async (req, res) => {
 
     if(!twitter || twitter == null) return res.status(404).send({success: false, message: 'Please complete first step'})
 
-    if(twitter.follower) return res.status(403).send({success: false, message: 'You have already share with your friend'})
+    // if(twitter.follower) return res.status(403).send({success: false, message: 'You have already share with your friend'})
     
     if(Array.isArray(api.data) && !api.data.length) return res.status(200).send({success: false,message: 'Please login with twitter first!'})
 
