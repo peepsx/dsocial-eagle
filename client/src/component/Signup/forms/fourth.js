@@ -37,7 +37,8 @@ export default class Fourth extends React.Component {
 
     handleChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            error:true,
         })
     }
 
@@ -77,7 +78,7 @@ export default class Fourth extends React.Component {
             }
             if (this.state.arisen_username === '' || this.state.email === '') {
                 toast("All fields required", {
-                    type: 'warning',
+                    type: 'error',
                     autoClose: 3000,
                 })
             }
