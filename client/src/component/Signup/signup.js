@@ -6,9 +6,30 @@ import Second from './forms/second';
 import Third from './forms/third';
 import Fourth from './forms/fourth';
 import Fifth from './forms/fifth';
+import { env } from '../config/config';
 
 
 export default class Signup extends Component {
+
+    componentDidMount() {
+        const hashUrl = window.location.hash;
+        const fbData = localStorage.getItem('fbUserId');
+        const googleEmail = localStorage.getItem('googleEmail');
+        const instaUserId = localStorage.getItem('instaUserId');
+        const teleUsrId = localStorage.getItem('teleUsrId');
+        const twitterName = localStorage.getItem('twitterName');
+        if(hashUrl.length > 0) {
+            if(!fbData && !googleEmail && !instaUserId && !teleUsrId && !twitterName) {
+                window.location.replace(env.liveStatus);
+            }
+        }
+        window.addEventListener('hashchange',() => {
+            if(!fbData && !googleEmail && !instaUserId && !teleUsrId && !twitterName) {
+                window.location.replace(env.liveStatus);
+            }
+        })
+    }
+
     render() {
         return (
             <section className="height-100 bg-gradient-3 p-3">
@@ -20,7 +41,7 @@ export default class Signup extends Component {
                                 <img className="w-15" src="assets/img/arisen/arisenLogo.png" alt="Logo" />
                             </div>
                             <form className="wizard card">
-                                <ul className="nav nav-tabs card-header text-center bg-light p-0">
+                                <ul className="nav nav-tabs card-header text-center bg-light p-0" id="navActive">
                                     <li className="nav-item flex-fill">
                                         <a className="nav-link" href="#first">1. Air Drop Setup</a>
                                     </li>

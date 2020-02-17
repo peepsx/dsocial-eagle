@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
+import { toast } from 'react-toastify';
 
 export default class Third extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class Third extends React.Component {
         }
     }
 
-    handleShare = () => {
+    handleFbShare = () => {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
@@ -23,8 +24,6 @@ export default class Third extends React.Component {
             console.log('facebook facebook response', response);
             this.setState({ fbPostResponse: response });
         });
-
-
     }
 
     handleTweet = () => {
@@ -35,61 +34,70 @@ export default class Third extends React.Component {
     handleNextStep = (e) => {
         e.preventDefault();
         console.log('props value', localStorage.getItem('twitterName'))
-        Axios({
-            method: 'POST',
-            url: API.user_share_validation,
-            data: {
-                status: this.state.fbPostResponse,
-                screenname: localStorage.getItem('twitterName')
-            }
-        })
-        .then(res => {
-            console.log('Validation response', res);      
-            if(res.status === 200) {
-                Swal.fire({
-                    title: res.data.message,
-                    icon: res.data.success ? 'success' : 'warning',
-                    showCancelButton: false,
-                    confirmButtonText: 'Next',
-                }).then(() => {
-                    if (res.data.success) {
-                        window.open(env.liveStatus + '/#fourth', '_self');
+        if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
+            Axios({
+                method: 'POST',
+                url: API.user_share_validation,
+                data: {
+                    status: this.state.fbPostResponse,
+                    screenname: localStorage.getItem('twitterName')
+                }
+            })
+                .then(res => {
+                    console.log('Validation response', res);
+                    if (res.status === 200) {
+                        Swal.fire({
+                            title: res.data.success ? 'Successful' : 'Error',
+                            text: res.data.message,
+                            icon: res.data.success ? 'success' : 'error',
+                            showCancelButton: false,
+                            confirmButtonText: 'Next',
+                        }).then(() => {
+                            if (res.data.success) {
+                                window.open(env.liveStatus + '/#fourth', '_self');
+                            }
+                        })
                     }
                 })
-            }
-        })
-            .catch(err => console.error('Error', err))
+                .catch(err => console.error('Error', err))
+        } else {
+            toast.warn('All tasks are mandatory', {
+                autoClose: 3000,
+            })
+        }
     }
 
     render() {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    {/* <span className="h3 d-block">How can we contact you?</span> */}
-                    <p className="lead">Share with your friends</p>
+                    <p className="lead">Share pre-written with your friends</p>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
                         <div className="list-group">
-                            <a onClick={this.handleShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share pre-written post with Facebook friends</span>
+                                    <span className="mb-0 h6 mb-0">Share Post with Facebook friends</span>
                                 </div>
-                                <i className="fas fa-chevron-right"/>
+                                <i className="fas fa-chevron-right" />
                             </a>
                             <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share pre-written Tweet with Twitter followers </span>
+                                    <span className="mb-0 h6 mb-0">Share Tweet with Twitter followers </span>
                                 </div>
-                                <i className="fas fa-chevron-right"/>
+                                <i className="fas fa-chevron-right" />
                             </a>
                         </div>
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary" onClick={this.handleNextStep}>Next Step</button>
+                    <button className="btn btn-custom h-2 w-8"
+                        onClick={this.handleNextStep}
+                    >Next Step
+                    </button>
                 </div>
             </div>
         )

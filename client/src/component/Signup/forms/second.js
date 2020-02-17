@@ -78,7 +78,7 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-primary sw-btn-next"
+                    <button className="btn btn-custom sw-btn-next h-2 w-8"
                         onClick={() => window.location.replace(`${env.liveStatus}#third`)}>Next Step</button>
                 </div>
             </div>

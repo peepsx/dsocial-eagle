@@ -53,7 +53,13 @@ export default class First extends React.Component {
                 })
                 .catch(err => console.error('Bot Error : ', err))
         } else {
-            alert('join telegram first');
+            Swal.fire({
+                title:'Error',
+                text:'Please join our telegram group!!',
+                icon:"error",
+                showCancelButton: false,
+                confirmButtonText: 'Next',
+            })
         }
     }
 
@@ -146,7 +152,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-custom h-2 w-8   "
                         onClick={this.checkTelegramUser}
                     // disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
