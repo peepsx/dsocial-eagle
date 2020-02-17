@@ -6,7 +6,6 @@ import Second from './forms/second';
 import Third from './forms/third';
 import Fourth from './forms/fourth';
 import Fifth from './forms/fifth';
-import { env } from '../config/config';
 
 
 export default class Signup extends Component {
