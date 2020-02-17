@@ -38,7 +38,7 @@ class Facebook extends React.Component {
     handleFbDataSave = (userData) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
-            localStorage.setItem('fbUserId',userData.data.id);
+            localStorage.setItem('fbUserId', userData.data.id);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
@@ -78,7 +78,7 @@ class Facebook extends React.Component {
                 onClick={this.handleFbClick}
                 type="button"
                 className="btn btn-block btn-outline-light border py-4 h-100"
-            // disabled={!(this.props.nextBtnStatus === '')}
+                disabled={!(this.props.nextBtnStatus === '')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>

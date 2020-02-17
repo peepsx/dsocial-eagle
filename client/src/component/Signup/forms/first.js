@@ -48,15 +48,15 @@ export default class First extends React.Component {
                         confirmButtonText: 'Next',
                     })
                     if (res.data.ok) {
-                        window.location.replace(env.liveStatus+'/#second');
+                        window.location.replace(env.liveStatus + '/#second');
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
         } else {
             Swal.fire({
-                title:'Error',
-                text:'Please join our telegram group!!',
-                icon:"error",
+                title: 'Error',
+                text: 'Please join our telegram group!!',
+                icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Next',
             })
@@ -154,7 +154,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8   "
                         onClick={this.checkTelegramUser}
-                    // disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>
