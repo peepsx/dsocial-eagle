@@ -19,7 +19,7 @@ module.exports = {
         }
         let facebook = await faceAuth.findOne({facebookid: fbUserId});
         let google = await googleAuth.findOne({GmailAddress: googleEmail});
-        let instagram = await InstaAuth.findOne({Username: instaUserId});
+        let instagram = await InstaAuth.findOne({id: instaUserId});
         let twitter = await TwitterAuth.findOne({username: twitterScreenName});
         
         if(!facebook.facebookid || !facebook.fbUserURL || !facebook.fbPhoto || !facebook.fbUserName || !facebook.fbUserLocation) {
