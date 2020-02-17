@@ -5,7 +5,7 @@ let { TwitterAuth } = require('../models/twitter')
 let { UserAuth } = require('../models/user')
 module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
-        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body;
+        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails;
         if( !googleEmail || !instaUserId || !twitterScreenName || !teleUserId || !fbUserId) {
             return res.status(200).send({
                 success: false,
@@ -17,9 +17,9 @@ module.exports = {
                 message: 'Fields are missing'
             })
         }
-        let facebook = await faceAuth.findOne({fbUserName: fbUserId});
+        let facebook = await faceAuth.findOne({facebookid: fbUserId});
         let google = await googleAuth.findOne({GmailAddress: googleEmail});
-        let instagram = await InstaAuth.findOne({Username: instaUserId});
+        let instagram = await InstaAuth.findOne({id: instaUserId});
         let twitter = await TwitterAuth.findOne({username: twitterScreenName});
         
         if(!facebook.facebookid || !facebook.fbUserURL || !facebook.fbPhoto || !facebook.fbUserName || !facebook.fbUserLocation) {
@@ -32,15 +32,15 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Google'
             })
-        } else if(!google.id || !google.follower || !google.username) {
+        } else if(!instagram.id || !instagram.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Instagram'
             })
-        } else if(!twitter.username || !twitter.followercount || !twitter.profileDescription) {
+        } else if(!twitter.username || !twitter.profileDescription) {
             return res.status(401).send({
                 success: false,
-                message: 'Please Login with Instagram'
+                message: 'Please Login with Twitter'
             })
         } else {
             next();
