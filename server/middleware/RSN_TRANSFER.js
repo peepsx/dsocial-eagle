@@ -5,7 +5,7 @@ let { TwitterAuth } = require('../models/twitter')
 let { UserAuth } = require('../models/user')
 module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
-        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body;
+        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails;
         if( !googleEmail || !instaUserId || !twitterScreenName || !teleUserId || !fbUserId) {
             return res.status(200).send({
                 success: false,
