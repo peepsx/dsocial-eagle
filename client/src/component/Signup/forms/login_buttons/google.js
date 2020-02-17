@@ -41,7 +41,7 @@ export default class Google extends React.Component {
                     console.log('Data save Google', response);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.handleNextShowBtn('Telegram')
+                        onClose: this.props.handleNextShowBtn('Telegram')
                     })
                 })
                 .catch(err => {

@@ -83,11 +83,17 @@
     background: linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
-
+.btn-custom:hover{
+    color: white;
+}
 .h-2{
 height: 2.5em;
 }
 
 .w-8 {
     width: 8em;
+}
+
+.c-pointer{
+    cursor: pointer;
 }
