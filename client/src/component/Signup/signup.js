@@ -20,12 +20,12 @@ export default class Signup extends Component {
         const twitterName = localStorage.getItem('twitterName');
         if(hashUrl.length > 1) {
             if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
-                window.location.replace(env.liveStatus);
+                window.location.hash=""
             }
         }
         window.addEventListener('hashchange',() => {
             if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
-                window.location.replace(env.liveStatus);
+                window.location.hash=""
             }
         })
     }
