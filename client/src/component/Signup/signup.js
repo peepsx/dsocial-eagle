@@ -16,7 +16,7 @@ export default class Signup extends Component {
         const fbData = localStorage.getItem('fbUserId');
         const googleEmail = localStorage.getItem('googleEmail');
         const instaUserId = localStorage.getItem('instaUserId');
-        const teleUsrId = localStorage.getItem('teleUsrId');
+        const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
         if(hashUrl.length > 1) {
             if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
@@ -24,7 +24,7 @@ export default class Signup extends Component {
             }
         }
         window.addEventListener('hashchange',() => {
-            if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
+            if(!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
                 window.location.hash=""
             }
         })
