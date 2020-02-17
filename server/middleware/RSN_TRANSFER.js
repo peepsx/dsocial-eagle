@@ -5,31 +5,45 @@ let { TwitterAuth } = require('../models/twitter')
 let { UserAuth } = require('../models/user')
 module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
-        let { username, mailaddress,  instausername, twitterusername, arisen } = req.body;
-        if(!username || !mailaddress || !instausername || !twitterusername || !arisen) {
+        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body;
+        if( !googleEmail || !instaUserId || !twitterScreenName || !teleUserId || !fbUserId) {
             return res.status(200).send({
                 success: false,
                 message: 'Fields are missing'
             })
         }
-        if(username == undefined || mailaddress == undefined || instausername == undefined || twitterusername == undefined || arisen == undefined) {
+        if(fbUserId == undefined  || googleEmail == undefined || instaUserId == undefined || twitterScreenName == undefined) {
             return res.status(200).send({
                 message: 'Fields are missing'
             })
         }
-        let facebook = await faceAuth.findOne({fbUserName: username});
-        let google = await googleAuth.findOne({GmailAddress: mailaddress});
-        let instagram = await InstaAuth.findOne({Username: instausername});
-        let twitter = await TwitterAuth.findOne({username: twitterusername});
-        let rsn_user = await UserAuth.findOne({ariser_username: arisen});
-
-        if(facebook && google && instagram && twitter && rsn_user && rsn_user.ariser_username.length == 12) {
-            next()
+        let facebook = await faceAuth.findOne({fbUserName: fbUserId});
+        let google = await googleAuth.findOne({GmailAddress: googleEmail});
+        let instagram = await InstaAuth.findOne({Username: instaUserId});
+        let twitter = await TwitterAuth.findOne({username: twitterScreenName});
+        
+        if(!facebook.facebookid || !facebook.fbUserURL || !facebook.fbPhoto || !facebook.fbUserName || !facebook.fbUserLocation) {
+            return res.status(401).send({
+                success: false,
+                message: 'Please Login with Facebook'
+            })
+        } else if(!google.GmailAddress) {
+            return res.status(401).send({
+                success: false,
+                message: 'Please Login with Google'
+            })
+        } else if(!google.id || !google.follower || !google.username) {
+            return res.status(401).send({
+                success: false,
+                message: 'Please Login with Instagram'
+            })
+        } else if(!twitter.username || !twitter.followercount || !twitter.profileDescription) {
+            return res.status(401).send({
+                success: false,
+                message: 'Please Login with Instagram'
+            })
         } else {
-            return res.status(200).send({
-                success: false,
-                message: 'Please complete air drop task'
-            })
+            next();
         }
     }
 }
