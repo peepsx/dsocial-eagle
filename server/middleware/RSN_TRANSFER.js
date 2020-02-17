@@ -32,15 +32,15 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Google'
             })
-        } else if(!instagram.id || !instagram.follower || !instagram.username) {
+        } else if(!instagram.id || !instagram.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Instagram'
             })
-        } else if(!twitter.username || !twitter.followercount || !twitter.profileDescription) {
+        } else if(!twitter.username || !twitter.profileDescription) {
             return res.status(401).send({
                 success: false,
-                message: 'Please Login with Instagram'
+                message: 'Please Login with Twitter'
             })
         } else {
             next();
