@@ -17,7 +17,7 @@ module.exports = {
                 message: 'Fields are missing'
             })
         }
-        let facebook = await faceAuth.findOne({fbUserName: fbUserId});
+        let facebook = await faceAuth.findOne({facebookid: fbUserId});
         let google = await googleAuth.findOne({GmailAddress: googleEmail});
         let instagram = await InstaAuth.findOne({Username: instaUserId});
         let twitter = await TwitterAuth.findOne({username: twitterScreenName});
@@ -32,7 +32,7 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Google'
             })
-        } else if(!google.id || !google.follower || !google.username) {
+        } else if(!instagram.id || !instagram.follower || !instagram.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Instagram'
