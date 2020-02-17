@@ -1,9 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 
 import { env } from '../../../config/config';
 import { API } from '../../../js/api_list';
+import { toast } from 'react-toastify';
 
 export default class Instagram extends React.Component {
     constructor(props) {
@@ -54,6 +54,7 @@ export default class Instagram extends React.Component {
 
     instagramDataSave = (res) => {
         console.log('instagram data username', res)
+        localStorage.setItem('instaUserId', res.id);
         Axios({
             url: API.instagram_detail,
             method: 'POST',
@@ -63,20 +64,22 @@ export default class Instagram extends React.Component {
             }
         }).then(response => {
             console.log('response insta datasave', response);
-            if (response.status === 200) {
-                const title = response.data.message;
-                const icon = response.data.sucess ? 'success' : 'warning';
-                Swal.fire({
-                    title: title,
-                    icon: icon,
-                    showCancelButton: false,
-                    confirmButtonText: 'next',
-                }).then(() => {
-                    this.props.handleNextShowBtn('Google')
-                })
-            }
+            toast(response.data.message, {
+                type: 'success',
+                autoClose: 3000,
+                onClose: this.props.handleNextShowBtn('Twitter')
+            })
         })
-            .catch(err => console.error('Error:', err))
+            .catch(err => {
+                console.error('Error:', err)
+                if (err.message.includes('status code 403')) {
+                    toast("User already registered", {
+                        type: 'warning',
+                        autoClose: 3000,
+                        onClose: this.props.handleNextShowBtn('Twitter')
+                    })
+                }
+            })
     }
 
     render() {
@@ -85,7 +88,7 @@ export default class Instagram extends React.Component {
                 onClick={this.handleInstaClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                // disabled={!(this.props.nextBtnStatus === 'Instagram')}
+            // disabled={!(this.props.nextBtnStatus === 'Instagram')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                 <span className="h6 mb-0 d-block">Instagram</span>

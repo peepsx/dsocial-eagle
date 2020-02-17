@@ -10,8 +10,7 @@ import Google from './login_buttons/google';
 import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
 import { API } from '../../js/api_list';
-import store from '../../../store/store';
-import { twitAction } from '../../../store/action/action';
+import { toast } from 'react-toastify';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -54,14 +53,20 @@ export default class First extends React.Component {
                 })
                 .catch(err => console.error('Bot Error : ', err))
         } else {
-            alert('join telegram first');
+            Swal.fire({
+                title:'Error',
+                text:'Please join our telegram group!!',
+                icon:"error",
+                showCancelButton: false,
+                confirmButtonText: 'Next',
+            })
         }
     }
 
     handleTwitDataSave = (userData) => {
         console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
-            store.dispatch(twitAction(userData.screen_name));
+            localStorage.setItem('twitterName', userData.screen_name);
             Axios({
                 url: API.twitter_detail,
                 method: 'POST',
@@ -71,21 +76,20 @@ export default class First extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Twitter', response);
-                    if (response.status === 200) {
-                        const title = response.data.message;
-                        const icon = response.data.sucess ? 'success' : 'warning';
-                        Swal.fire({
-                            title: title,
-                            icon: icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'next',
-                        }).then(() => {
-                            this.handleNextShowBtn('Google')
-                        })
-                    }
+                    toast.success(response.data.message, {
+                        autoClose: 3000,
+                        onClose: this.handleNextShowBtn('Instagram')
+                    })
                 })
                 .catch(err => {
                     console.error('Error', err);
+                    if (err.message.includes('status code 403')) {
+                        toast("User already registered", {
+                            type: 'warning',
+                            autoClose: 3000,
+                            onClose: this.props.handleNextShowBtn('Twitter')
+                        })
+                    }
                 })
         }
     }
@@ -111,12 +115,6 @@ export default class First extends React.Component {
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
-                        <Instagram
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
-                        />
-                    </div>
-                    <div className="col-sm mb-3 mb-sm-0">
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -127,6 +125,12 @@ export default class First extends React.Component {
                                     nextBtnStatus={this.state.nextBtnStatus}
                                 />
                             }
+                        />
+                    </div>
+                    <div className="col-sm mb-3 mb-sm-0">
+                        <Instagram
+                            handleNextShowBtn={this.handleNextShowBtn}
+                            nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
@@ -148,9 +152,9 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-custom h-2 w-8   "
                         onClick={this.checkTelegramUser}
-                        // disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                    // disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>

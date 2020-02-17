@@ -48,6 +48,46 @@
     color: red;
 }
 
-[class*='height-']{
+[class*='height-'] {
     display: block !important;
+}
+
+.swal2-popup {
+    max-width: 25em !important;
+    border-radius: 1.3125em !important;
+}
+
+.swal2-title {
+    font-size: 1.7em !important;
+}
+
+.swal2-styled.swal2-confirm {
+    border-radius: 1.4em !important;
+    background: -moz-linear-gradient(16deg, #FFC107 0%, #ff721f 40%, #FF9800 100%) !important;
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(16deg, #FFC107 0%, #ff721f 40%, #FF9800 100%) !important;
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(16deg, #FFC107 0%, #ff721f 40%, #FF9800 100%) !important;
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+
+.btn-custom {
+    color: white;
+    border: none;
+    border-radius: .5em;
+    background: -moz-linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.h-2{
+height: 2.5em;
+}
+
+.w-8 {
+    width: 8em;
 }

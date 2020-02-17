@@ -20,11 +20,11 @@ export default class Fifth extends React.Component {
                         before submitting your proposal request. You will recieve a personal response within 24 hours.
                     </p> */}
                     <hr />
-                    <div className="custom-control custom-checkbox mb-3">
+                    {/* <div className="custom-control custom-checkbox mb-3">
                         <input type="checkbox" className="custom-control-input" id="privact-policy-agree" />
                         <label className="custom-control-label" htmlFor="privact-policy-agree">I have read and agree to the Privacy Policy</label>
-                    </div>
-                    <a className="btn btn-primary" type="submit" href="#">Done</a>
+                    </div> */}
+                    <a className="btn btn-custom" type="submit" href="#">Done</a>
                 </div>
             </div>
         )

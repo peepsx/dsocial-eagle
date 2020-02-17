@@ -38,6 +38,7 @@ class Facebook extends React.Component {
     handleFbDataSave = (userData) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
+            localStorage.setItem('fbUserId',userData.data.id);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
@@ -53,16 +54,16 @@ class Facebook extends React.Component {
                     console.log('Data save facebook', response);
                     toast(response.data.message, {
                         type: 'success',
-                        autoClose: 4000,
+                        autoClose: 3000,
                         onClose: this.props.handleNextShowBtn('Twitter')
                     })
                 })
                 .catch(err => {
                     console.error(err);
-                    if (!err.data.success) {
-                        toast(err.data.message, {
+                    if (err.message.includes('status code 403')) {
+                        toast("User already registered", {
                             type: 'warning',
-                            autoClose: 4000,
+                            autoClose: 3000,
                             onClose: this.props.handleNextShowBtn('Twitter')
                         })
                     }

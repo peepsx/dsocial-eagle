@@ -2,6 +2,7 @@ import React from 'react'
 import Axios from 'axios';
 
 import { API } from '../../js/api_list';
+import { toast } from 'react-toastify';
 
 export default class Fourth extends React.Component {
     constructor(props) {
@@ -52,7 +53,14 @@ export default class Fourth extends React.Component {
                 data: {
                     arisen_username: this.state.arisen_username,
                     email: email[0],
-                    ip: this.state.ip
+                    ip: this.state.ip,
+                    userDetails: {
+                        fbUserId: localStorage.getItem('fbUserId'),
+                        googleEmail: localStorage.getItem('googleEmail'),
+                        instaUserId: localStorage.getItem('instaUserId'),
+                        teleUserId: localStorage.getItem('teleUserId'),
+                        twitterScreenName: localStorage.getItem('twitterName')
+                    }
                 }
             })
                 .then(res => {
@@ -68,7 +76,10 @@ export default class Fourth extends React.Component {
                 })
             }
             if (this.state.arisen_username === '' || this.state.email === '') {
-                alert('All fields required !!');
+                toast("All fields required", {
+                    type: 'warning',
+                    autoClose: 3000,
+                })
             }
         }
     }
@@ -107,7 +118,7 @@ export default class Fourth extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-primary" type="submit" onClick={this.handleSave}>Log in</button>
+                            <button className="btn btn-block btn-lg btn-custom" type="submit" onClick={this.handleSave}>Log in</button>
                         </div>
                         <div className="text-center text-small mt-3">
                             <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>
