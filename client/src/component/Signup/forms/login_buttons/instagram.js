@@ -67,7 +67,7 @@ export default class Instagram extends React.Component {
             toast(response.data.message, {
                 type: 'success',
                 autoClose: 3000,
-                onClose: this.props.handleNextShowBtn('Twitter')
+                onClose: this.props.handleNextShowBtn('Google')
             })
         })
             .catch(err => {
@@ -76,7 +76,7 @@ export default class Instagram extends React.Component {
                     toast("User already registered", {
                         type: 'warning',
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Twitter')
+                        onClose: this.props.handleNextShowBtn('Google')
                     })
                 }
             })
