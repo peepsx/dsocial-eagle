@@ -5,7 +5,7 @@ let Instagram = new Scehma({
     id: {
         type: String
     },
-    folower: {
+    follower: {
         type: Number,
         
     },
