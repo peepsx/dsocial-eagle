@@ -48,7 +48,7 @@ export default class First extends React.Component {
                         confirmButtonText: 'Next',
                     })
                     if (res.data.ok) {
-                        window.open(env.liveStatus + '/#second', '_self');
+                        window.location.hash="#second";
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))

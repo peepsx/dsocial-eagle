@@ -54,7 +54,7 @@ export default class Third extends React.Component {
                             confirmButtonText: 'Next',
                         }).then(() => {
                             if (res.data.success) {
-                                window.open(env.liveStatus + '/#fourth', '_self');
+                                window.location.hash = "#fourth";
                             }
                         })
                     }
