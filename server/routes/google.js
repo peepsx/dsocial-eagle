@@ -20,25 +20,26 @@ router.post('/google-detail', async(req,res,next)=>{
     
         if(GmailAddress[0] && UserName == null){
             let newGmail = new googleAuth({
-                GmailAddress:GmailAddress[0] 
+                GmailAddress:GmailAddress[0]
             })
             newGmail.save()
                     .then(() => {
                         res.status(200).send({
-                            message: 'Sucessfully saved'
+                            success: true,
+                            message: 'Google details saved'
                         })
                     })
                     .catch(e => {
-                        console.log('Somrthing went wrong')
+                        console.log('Something went wrong')
                     })
         } else {
-            res.status(401).send({
+            res.status(403).send({
                 message:"Already Register"
             })
         }
     }
     catch(e) {
-        res.status(404).send({
+        res.status(500).send({
             message: "Something went Wrong"
         })
     }

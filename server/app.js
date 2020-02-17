@@ -9,6 +9,7 @@ var instagramRouter = require('./routes/instagram')
 var google = require('./routes/google');
 var users = require('./routes/users')
 var transcation_id = require('./routes/rsn_transfer');
+var telgramapi= require('./routes/telegaramapi');
 var testapi = require('./routes/test_api');
 
 var CORS = require('cors');
@@ -31,6 +32,7 @@ app.use('/instagram', instagramRouter)
 app.use('/google',google)
 app.use('/users',users)
 app.use('/validation', twitter)
+app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
 app.use('/transaction', transcation_id);
 
