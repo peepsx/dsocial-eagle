@@ -24,28 +24,33 @@ module.exports = {
                      message: `user not found ${arisen_username}`
                 }   )
             }
-        rsn.transfer(process.env.TRASFERUSER, arisen_username, process.env.AMOUNT, '', config)
-            .then(async (transfer) => {
-                let rsn_transfered = new Rsn_Transfer({
-                    user: id,
-                    amount: process.env.AMOUNT,
-                    account_from_transfer: process.env.TRASFERUSER
-                })
-                if(transfer) {
-                  await rsn_transfered.save();
-                    return resolve({
-                      success: true,
-                      message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`
-                    })
+                return   resolve({
+                        success: true,
+                        message: `Rsn successfully transfer`
+                   }   )
                 }
-            })
-            .catch(e => {
-                console.log(e)
-                callback(null, {
-                    success: false,
+        // rsn.transfer(process.env.TRASFERUSER, arisen_username, process.env.AMOUNT, '', config)
+        //     .then(async (transfer) => {
+        //         let rsn_transfered = new Rsn_Transfer({
+        //             user: id,
+        //             amount: process.env.AMOUNT,
+        //             account_from_transfer: process.env.TRASFERUSER
+        //         })
+        //         if(transfer) {
+        //           await rsn_transfered.save();
+        //             return resolve({
+        //               success: true,
+        //               message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`
+        //             })
+        //         }
+        //     })
+        //     .catch(e => {
+        //         console.log(e)
+        //         callback(null, {
+        //             success: false,
 
-                })
-            })
+        //         })
+        //     })
       })
     }
 }

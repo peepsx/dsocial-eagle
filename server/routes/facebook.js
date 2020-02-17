@@ -3,7 +3,7 @@ var router = express.Router();
 const {faceAuth} = require('../models/facebook')
 
 router.post('/facebook_detail',async (req,res,next)=>{
-    console.log(req.body)
+
     try {
         let { fbUserURL, fbPhoto,fbUserName, fbUserLocation, id} = req.body;
         let findOne = await faceAuth.findOne({facebookid: id})
