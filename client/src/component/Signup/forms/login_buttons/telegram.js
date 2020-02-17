@@ -1,4 +1,6 @@
 import React from 'react';
+import Axios from 'axios';
+import { API } from '../../../js/api_list';
 
 export default class Telegram extends React.Component {
     constructor(props) {
@@ -30,7 +32,22 @@ export default class Telegram extends React.Component {
         console.log('telegram',response);
         this.props.getTelegramValue(response.id);
         localStorage.setItem('teleUserId',response.id);
+        this.teleDataSave(response);
     };
+
+    teleDataSave = (userData) => {
+        Axios({
+            url:API.telegram_user_detail,
+            method:'post',
+            data: {
+                id: userData.id, 
+                firstname: userData.first_name, 
+                last_name: userData.last_name
+            }
+        })
+        .then(res => console.log('telegram dtata save',res))
+        .catch(err => console.error(err))
+    }
 
     render() {
         return (
