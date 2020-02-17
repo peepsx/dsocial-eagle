@@ -41,7 +41,7 @@ export default class Telegram extends React.Component {
             method:'post',
             data: {
                 id: userData.id, 
-                firstname: userData.first_name, 
+                first_name: userData.first_name, 
                 last_name: userData.last_name
             }
         })
