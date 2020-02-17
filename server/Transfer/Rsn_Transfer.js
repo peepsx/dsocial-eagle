@@ -27,8 +27,8 @@ module.exports = {
                 return   resolve({
                         success: true,
                         message: `Rsn successfully transfer`
-                   }   )
-                }
+                   })
+                   
         // rsn.transfer(process.env.TRASFERUSER, arisen_username, process.env.AMOUNT, '', config)
         //     .then(async (transfer) => {
         //         let rsn_transfered = new Rsn_Transfer({
