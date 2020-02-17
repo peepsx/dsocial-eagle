@@ -18,13 +18,13 @@ export default class Signup extends Component {
         const instaUserId = localStorage.getItem('instaUserId');
         const teleUsrId = localStorage.getItem('teleUsrId');
         const twitterName = localStorage.getItem('twitterName');
-        if(hashUrl.length > 0) {
-            if(!fbData && !googleEmail && !instaUserId && !teleUsrId && !twitterName) {
+        if(hashUrl.length > 1) {
+            if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
                 window.location.replace(env.liveStatus);
             }
         }
         window.addEventListener('hashchange',() => {
-            if(!fbData && !googleEmail && !instaUserId && !teleUsrId && !twitterName) {
+            if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
                 window.location.replace(env.liveStatus);
             }
         })

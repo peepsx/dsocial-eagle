@@ -1,5 +1,4 @@
 import React from 'react'
-import { env } from '../../config/config'
 
 export default class Second extends React.Component {
 
