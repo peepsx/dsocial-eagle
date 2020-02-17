@@ -19,7 +19,7 @@ export default class Signup extends Component {
         const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
         if(hashUrl.length > 1) {
-            if(!fbData || !googleEmail || !instaUserId || !teleUsrId || !twitterName) {
+            if(!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
                 window.location.hash=""
             }
         }
