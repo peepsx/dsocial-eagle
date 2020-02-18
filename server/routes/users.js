@@ -6,7 +6,7 @@ let axios = require('axios');
 let { RSN_TRANSFER } = require('../middleware/RSN_TRANSFER'); 
 let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
-router.post('/users-details',/** [RSN_TRANSFER] ,*/  async (req, res) => {
+router.post('/users-details', [RSN_TRANSFER],  async (req, res) => {
 
     let { email, arisen_username, ip } = req.body
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
