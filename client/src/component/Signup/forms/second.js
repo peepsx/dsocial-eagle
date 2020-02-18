@@ -1,4 +1,6 @@
 import React from 'react'
+import Axios from 'axios'
+import { API } from '../../js/api_list'
 
 export default class Second extends React.Component {
 
@@ -12,6 +14,25 @@ export default class Second extends React.Component {
 
     handleYoutubeLink = () => {
         window.open('https://www.youtube.com/channel/UC1Ixz0mAUa8XuGBToWW5kcA', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+    }
+
+    handleTwitClick = (e) => {
+        e.preventDefault();
+        Axios({
+            url:API.validation_follower,
+            method: 'POST',
+            data: {
+                screen_name: localStorage.getItem('twitterName')
+            }
+        })
+        .then(response => {
+            console.log('twitter',response)
+            if(response.data.success) {
+                localStorage.setItem('secondStatus',true)
+            }
+        })
+        .catch(err => console.log(err))
+        // window.location.hash="#third"
     }
 
     render() {
@@ -38,7 +59,7 @@ export default class Second extends React.Component {
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Twitter Handle</span>
                                 <div className="mt-2">
-                                    <a href="https://twitter.com/ArisenCoin" className="twitter-follow-button"
+                                    <a onClick={this.handleTwitClick} href="https://twitter.com/ArisenCoin" className="twitter-follow-button"
                                         data-show-screen-name="false"
                                         data-show-count="false"
                                         data-size="large"
@@ -77,8 +98,8 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom sw-btn-next h-2 w-8"
-                        onClick={() => window.location.hash="#third"}>Next Step</button>
+                    <button className="btn btn-custom h-2 w-8"
+                        onClick={() => window.location.hash = '#third'}>Next Step</button>
                 </div>
             </div>
         )

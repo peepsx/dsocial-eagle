@@ -55,6 +55,7 @@ export default class Third extends React.Component {
                         }).then(() => {
                             if (res.data.success) {
                                 window.location.hash = "#fourth";
+                                localStorage.setItem('thirdStatus',true)
                             }
                         })
                     }
