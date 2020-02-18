@@ -13,7 +13,7 @@ export default class Fifth extends React.Component {
                         <h2 className="mt-auto mb-auto ml-2">Congrulations</h2>
                     </div>
                     <span className="h5 d-block">500 RSN is successfully transfered to you Arisen Account.</span>
-                    <a className="h6 d-block" href="https://data.arisen.network">Click here to check transaction.</a>
+                    <a className="d-block mb-2 mt-2" href="https://data.arisen.network">Click here to check transaction.</a>
                     <span className="h4 d-block">Thanks for providing your details.</span>
                     {/* <p className="lead">Please ensure you read our
                         <a href="#">Privacy Policy</a>
