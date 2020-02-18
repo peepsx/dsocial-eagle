@@ -17,22 +17,22 @@ export default class Second extends React.Component {
     }
 
     handleTwitClick = () => {
-        console.log('instide click',localStorage.getItem('twitterName'))
+        window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        console.log('instide click', localStorage.getItem('twitterName'))
         Axios({
-            url:API.validation_follower,
+            url: API.validation_follower,
             method: 'POST',
             data: {
                 screen_name: localStorage.getItem('twitterName')
             }
         })
-        .then(response => {
-            console.log('twitter',response)
-            if(response.data.success) {
-                localStorage.setItem('secondStatus',true)
-            }
-        })
-        .catch(err => console.log(err))
-        // window.location.hash="#third"
+            .then(response => {
+                console.log('twitter', response)
+                if (response.data.success) {
+                    localStorage.setItem('secondStatus', true)
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -48,7 +48,7 @@ export default class Second extends React.Component {
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Facebook Page</span>
-                                <a onClick={this.handleFacebookLink} className="btn btn-sm btn-primary mt-2 hover-white" type="button">
+                                <a onClick={this.handleFacebookLink} className="btn btn-sm btn-facebook mt-2 hover-white" type="button">
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like
                                 </a>
@@ -58,13 +58,10 @@ export default class Second extends React.Component {
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Twitter Handle</span>
-                                <div className="mt-2">
-                                    <a onClick={this.handleTwitClick} href="https://twitter.com/ArisenCoin" className="twitter-follow-button"
-                                        data-show-screen-name="false"
-                                        data-show-count="false"
-                                        data-size="large"
-                                    ></a>
-                                </div>
+                                    <a onClick={this.handleTwitClick} className="btn btn-sm btn-twitter mt-2 hover-white" type="button">
+                                        <i className="fab fa-twitter mr-1" />
+                                        Follow
+                                    </a>
                             </button>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
@@ -73,7 +70,8 @@ export default class Second extends React.Component {
                                 <span className="h6 mb-0 d-block">Instagram Page</span>
                                 <a onClick={this.handleInstagramLink} className="btn btn-sm btn-danger mt-2 hover-white" type="button">
                                     <i className="fab fa-instagram mr-1" />
-                                    Follow</a>
+                                    Follow
+                                </a>
                             </button>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
