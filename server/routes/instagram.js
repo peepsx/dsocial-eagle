@@ -7,13 +7,13 @@ router.post('/instagram-details',async (req,res)=>{
         let { username, id } = req.body;
 
         if(!username && !id ) {
-            return res.status(200).send({
+            return res.status(400).send({
                 success: false,
                 message: "Fields are missing"
             })
         }
         if(username == undefined || id == undefined || username == null || id == null ) {
-            return res.status(200).send({
+            return res.status(400).send({
                 success: false,
                 message: 'Fields are missing'
             })
@@ -24,7 +24,7 @@ router.post('/instagram-details',async (req,res)=>{
             let instaUser = await InstaAuth.findOne({username: username});
             
             if(instaUser && instaUser !== null) {
-                return res.status(200).send({
+                return res.status(403).send({
                     success: false,
                     nextstep: 'next',
                     message: 'User already register please try with new user'
@@ -46,7 +46,7 @@ router.post('/instagram-details',async (req,res)=>{
 
                     })
                     .catch(err => {
-                        return res.status(200).send({
+                        return res.status(401).send({
                             success: false,
                             message: 'Something went wrong while saving User Data'
                         })
@@ -60,9 +60,9 @@ router.post('/instagram-details',async (req,res)=>{
 
         } catch(e) {
             console.log(e);
-            return res.status(401).send({
+            return res.status(500).send({
                 success: false,
-                message: 'Something went wrong!'
+                message: 'Server Error!'
             })
         }
 })

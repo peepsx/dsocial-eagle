@@ -41,7 +41,7 @@ router.post('/twitter-details', async(req,res)=>{
 
           TwitterNew.save()
           .then(async ()=>{
-              
+
               await faceAuth.findOneAndUpdate({facebookid: id},
                     {$set: {fbUserLocation: description.data[0].location}},
                     {new: true});
@@ -135,7 +135,7 @@ router.post('/follower', async (req, res) => {
             message: 'User follow our twitter platform'
         });
        } else {
-        return res.status(400).send({
+        return res.status(200).send({
             success: false,
             message: 'Please Follow all platform!'
         });
