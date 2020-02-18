@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let ipSchema = new Schema({
     ip_address: {
-        type: String,
+        type: [String],
         required: true,
         unique: true
     }
