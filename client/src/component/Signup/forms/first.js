@@ -71,7 +71,8 @@ export default class First extends React.Component {
                 url: API.twitter_detail,
                 method: 'POST',
                 data: {
-                    username: userData.screen_name
+                    username: userData.screen_name,
+                    id: localStorage.getItem('fbUserId')
                 }
             })
                 .then(response => {
