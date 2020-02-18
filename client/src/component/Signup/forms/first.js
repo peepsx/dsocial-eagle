@@ -39,13 +39,15 @@ export default class First extends React.Component {
             Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                 .then(res => {
                     console.log('console bot', res);
-                    const title = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group .'
-                    const icon = res.data.ok ? 'success' : 'warning'
+                    const title = res.data.ok ? 'Success' : 'Error';
+                    const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group !!';
+                    const icon = res.data.ok ? 'success' : 'error';
                     Swal.fire({
                         title,
+                        text,
                         icon,
                         showCancelButton: false,
-                        confirmButtonText: 'Next',
+                        confirmButtonText: 'Proceed',
                     })
                     if (res.data.ok) {
                         window.location.hash="#second";

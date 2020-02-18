@@ -8,7 +8,7 @@ import { env } from '../../config/config';
 export default class Second extends React.Component {
 
     handleInstagramLink = () => {
-        window.open('https://www.instagram.com/ashutoshsingh174/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
     }
 
     handleFacebookLink = () => {
@@ -36,10 +36,18 @@ export default class Second extends React.Component {
             })
                 .then(response => {
                     console.log('twitter', response)
-                    if (response.data.success) {
-                        localStorage.setItem('secondStatus', true);
-                        window.location.hash = "#third"
-                    }
+                    localStorage.setItem('secondStatus', true);
+                        const title = response.data.success ? 'Success' : 'Error';
+                        const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
+                        const icon = response.data.success ? 'success' : 'error';
+                        Swal.fire({
+                            title,
+                            text,
+                            icon,
+                            showCancelButton: false,
+                            confirmButtonText: 'Done',
+                        })
+                        response.data.success && (window.location.hash = "#third");
                 })
                 .catch(err => console.log(err))
         } else {

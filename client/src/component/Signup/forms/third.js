@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
-import { toast } from 'react-toastify';
 
 export default class Third extends React.Component {
     constructor(props) {
@@ -63,8 +62,12 @@ export default class Third extends React.Component {
                     })
                     .catch(err => console.error('Error', err))
             } else {
-                toast.warn('All tasks are mandatory', {
-                    autoClose: 3000,
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please share post on facebook and twitter !!',
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
                 })
             }
         } else {
