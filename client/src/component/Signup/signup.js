@@ -25,12 +25,13 @@ export default class Signup extends Component {
             }
         }
         window.addEventListener('hashchange', () => {
+            const hash = window.location.hash;
             if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
                 console.log(!fbData,!googleEmail,!instaUserId,!teleUserId,!twitterName)
                 window.location.hash = ""
-            } else if (!secondStatus) {
+            } else if ((hash ==='#third' || hash === '#fourth') && !secondStatus) {
                 window.location.hash = "#second"
-            } else if (!thirdStatus) {
+            } else if (hash === '#fourth' && !thirdStatus) {
                 window.location.hash = "#third"
             }
         })
