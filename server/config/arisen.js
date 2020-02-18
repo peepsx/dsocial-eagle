@@ -7,7 +7,7 @@ module.exports = {
     keyProvider: keys.rsn_pk, // WIF string or array of keys..
     httpEndpoint: process.env.NODE_URL,
     expireInSeconds: 60,
-    broadcast: false,
+    broadcast: true,
     authorization: process.env.AUTHORIZED_BY + '@active',
     debug: true, // API activity
     sign: true,

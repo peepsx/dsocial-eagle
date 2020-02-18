@@ -11,6 +11,7 @@ var users = require('./routes/users')
 var transcation_id = require('./routes/rsn_transfer');
 var telgramapi= require('./routes/telegaramapi');
 var testapi = require('./routes/test_api');
+var ip = require('./routes/ip');
 
 var CORS = require('cors');
 var app = express();
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Api Routes
+app.use('/', ip);
 app.use('/api', testapi);
 app.use('/twitter', twitter);
 app.use('/facebook', fbRouter);
