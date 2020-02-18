@@ -16,8 +16,8 @@ export default class Second extends React.Component {
         window.open('https://www.youtube.com/channel/UC1Ixz0mAUa8XuGBToWW5kcA', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
     }
 
-    handleTwitClick = (e) => {
-        e.preventDefault();
+    handleTwitClick = () => {
+        console.log('instide click',localStorage.getItem('twitterName'))
         Axios({
             url:API.validation_follower,
             method: 'POST',
