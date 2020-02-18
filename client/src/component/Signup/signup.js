@@ -11,30 +11,30 @@ import Fifth from './forms/fifth';
 export default class Signup extends Component {
 
     componentDidMount() {
-        // const hashUrl = window.location.hash;
-        // const fbData = localStorage.getItem('fbUserId');
-        // const googleEmail = localStorage.getItem('googleEmail');
-        // const instaUserId = localStorage.getItem('instaUserId');
-        // const teleUserId = localStorage.getItem('teleUserId');
-        // const twitterName = localStorage.getItem('twitterName');
-        // const thirdStatus = localStorage.getItem('thirdStatus');
-        // const secondStatus = localStorage.getItem('secondStatus');
-        // if (hashUrl.length > 1) {
-        //     if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
-        //         window.location.hash = ""
-        //     }
-        // }
-        // window.addEventListener('hashchange', () => {
-        //     const hash = window.location.hash;
-        //     if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
-        //         console.log(!fbData,!googleEmail,!instaUserId,!teleUserId,!twitterName)
-        //         window.location.hash = ""
-        //     } else if ((hash ==='#third' || hash === '#fourth') && !secondStatus) {
-        //         window.location.hash = "#second"
-        //     } else if (hash === '#fourth' && !thirdStatus) {
-        //         window.location.hash = "#third"
-        //     }
-        // })
+        const hashUrl = window.location.hash;
+        const fbData = localStorage.getItem('fbUserId');
+        const googleEmail = localStorage.getItem('googleEmail');
+        const instaUserId = localStorage.getItem('instaUserId');
+        const teleUserId = localStorage.getItem('teleUserId');
+        const twitterName = localStorage.getItem('twitterName');
+        const thirdStatus = localStorage.getItem('thirdStatus');
+        const secondStatus = localStorage.getItem('secondStatus');
+        if (hashUrl.length > 1) {
+            if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
+                window.location.hash = ""
+            }
+        }
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash;
+            if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
+                console.log(!fbData,!googleEmail,!instaUserId,!teleUserId,!twitterName)
+                window.location.hash = ""
+            } else if ((hash ==='#third' || hash === '#fourth') && !secondStatus) {
+                window.location.hash = "#second"
+            } else if (hash === '#fourth' && !thirdStatus) {
+                window.location.hash = "#third"
+            }
+        })
     }
 
     render() {
