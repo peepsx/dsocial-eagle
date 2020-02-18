@@ -1,4 +1,6 @@
 import React from 'react'
+import Axios from 'axios'
+import { API } from '../../js/api_list'
 
 export default class Second extends React.Component {
 
@@ -12,6 +14,20 @@ export default class Second extends React.Component {
 
     handleYoutubeLink = () => {
         window.open('https://www.youtube.com/channel/UC1Ixz0mAUa8XuGBToWW5kcA', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+    }
+
+    handleSecondNext = (e) => {
+        e.preventDefault();
+        Axios({
+            url:API.validation_follower,
+            method: 'POST',
+            data: {
+                screen_name: localStorage.getItem('twitterName')
+            }
+        })
+        .then(response => console.log('response from twitter',response))
+        .catch(err => console.log(err))
+        // window.location.hash="#third"
     }
 
     render() {
@@ -77,8 +93,8 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom sw-btn-next h-2 w-8"
-                        onClick={() => window.location.hash="#third"}>Next Step</button>
+                    <button className="btn btn-custom h-2 w-8"
+                        onClick={this.handleSecondNext}>Next Step</button>
                 </div>
             </div>
         )

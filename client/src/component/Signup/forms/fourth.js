@@ -27,7 +27,7 @@ export default class Fourth extends React.Component {
         await fetch('https://api6.ipify.org/')
             .then(res => res.text())
             .then(res => ip.v6 = res)
-        this.setState({ip})
+        this.setState({ip});
     }
 
     handleSignup = (e) => {
