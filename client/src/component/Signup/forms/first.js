@@ -89,7 +89,7 @@ export default class First extends React.Component {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.handleNextShowBtn('Twitter')
+                            onClose: this.handleNextShowBtn('Instagram')
                         })
                     }
                 })

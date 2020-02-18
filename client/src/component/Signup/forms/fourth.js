@@ -39,7 +39,7 @@ export default class Fourth extends React.Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
-            error:true,
+            error:false,
         })
     }
 
@@ -73,17 +73,7 @@ export default class Fourth extends React.Component {
                         console.error('Error :', err);
                     })
             } else {
-                if (!email) {
-                    this.setState({
-                        error: true
-                    })
-                }
-                if (this.state.arisen_username === '' || this.state.email === '') {
-                    toast("All fields required", {
-                        type: 'error',
-                        autoClose: 3000,
-                    })
-                }
+                this.formValidation();
             }
         } else {
             Swal.fire({
@@ -94,6 +84,21 @@ export default class Fourth extends React.Component {
                 confirmButtonText: 'Okay',
             })
                 .then(() => window.location.hash = '#third')
+        }
+    }
+
+    formValidation = () => {
+        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+        if (!email) {
+            this.setState({
+                error: true
+            })
+        }
+        if (this.state.arisen_username === '' || this.state.email === '') {
+            toast("All fields are mandatory", {
+                type: 'error',
+                autoClose: 3000,
+            })
         }
     }
 
