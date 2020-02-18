@@ -8,15 +8,25 @@ var T = new Twit({
     access_token: process.env.access_token,
     access_token_secret: process.env.access_token_secret,
   });
+let getTwitterFollowers = require('get-twitter-followers');
+let tokens = {
+    consumer_key: process.env.consumer_key,
+    consumer_secret: process.env.consumer_secret,
+    access_token: process.env.access_token,
+    access_token_secret: process.env.access_token_secret,
+}
+
 const {TwitterAuth} = require('../models/twitter');
 const {faceAuth} = require('../models/facebook');
 
 router.post('/twitter-details', async(req,res)=>{
-    let {username} = req.body
+    let {username, id} = req.body
+
+    if(!username || !id) return res.status(400).send({success: false, message: 'Fields are missing'})
     try{
 
         let description = await T.get('users/search', { q: username })
-    
+        console.log('Location', description.data[0].location)
         let count = await T.get('followers/ids', { screen_name: username })
     
         let TwitterUserOne = await TwitterAuth.findOne({username:username})
@@ -30,7 +40,12 @@ router.post('/twitter-details', async(req,res)=>{
           })
 
           TwitterNew.save()
-          .then(()=>{
+          .then(async ()=>{
+              
+              await faceAuth.findOneAndUpdate({facebookid: id},
+                    {$set: {fbUserLocation: description.data[0].location}},
+                    {new: true});
+
               res.status(200).send({
                   success: true,
                   message:'Twitter user saved Sucessfully'
@@ -39,7 +54,7 @@ router.post('/twitter-details', async(req,res)=>{
               console.log('Something Went Wrong')
           })
         } else {
-            res.status(200).send({
+            res.status(403).send({
                 success: false,
                 message:"Already Register"
             })
@@ -108,5 +123,30 @@ router.post('/share-social-status', async (req, res) => {
     }
 })
 
+router.post('/follower', async (req, res) => {
+    let { screen_name } = req.body;
+    if(!screen_name) return  res.status(400).send({success: false, message: 'Fields is missing!'})
+    try {
+       let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
+       let twit = follower.map(twitter => twitter.screen_name);
+       if(twit.indexOf(screen_name) !== -1) {
+        return res.status(200).send({
+            success: true,
+            message: 'User follow our twitter platform'
+        });
+       } else {
+        return res.status(400).send({
+            success: false,
+            message: 'Please Follow all platform!'
+        });
+       }
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).send({
+            success: false,
+            message: 'Server Error'
+        });
+    }
+})
 
 module.exports = router
