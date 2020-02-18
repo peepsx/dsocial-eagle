@@ -9,7 +9,7 @@ let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 router.post('/users-details', [RSN_TRANSFER] , async (req, res) => {
 
     let { email, arisen_username, ip } = req.body
-    let UserOne = await UserAuth.findOne({ email: email, arisen_username: arisen_username })
+    let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
     if(!email || !arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6})
