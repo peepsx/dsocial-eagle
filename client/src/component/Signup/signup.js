@@ -17,22 +17,15 @@ export default class Signup extends Component {
         const instaUserId = localStorage.getItem('instaUserId');
         const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
-        const thirdStatus = localStorage.getItem('thirdStatus');
-        const secondStatus = localStorage.getItem('secondStatus');
         if (hashUrl.length > 1) {
             if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
                 window.location.hash = ""
             }
         }
         window.addEventListener('hashchange', () => {
-            const hash = window.location.hash;
             if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
-                console.log(!fbData,!googleEmail,!instaUserId,!teleUserId,!twitterName)
+                console.log(!fbData,!googleEmail,!instaUserId,!teleUserId,!twitterName);
                 window.location.hash = ""
-            } else if ((hash ==='#third' || hash === '#fourth') && !secondStatus) {
-                window.location.hash = "#second"
-            } else if (hash === '#fourth' && !thirdStatus) {
-                window.location.hash = "#third"
             }
         })
     }
@@ -47,7 +40,7 @@ export default class Signup extends Component {
                             <div className="text-center">
                                 <img className="w-15" src="assets/img/arisen/arisenLogo.png" alt="Logo" />
                             </div>
-                            <form className="wizard card">
+                            <form className="wizard card" autoComplete="off">
                                 <ul className="nav nav-tabs card-header text-center bg-light p-0" id="navActive">
                                     <li className="nav-item flex-fill">
                                         <a className="nav-link" href="#first">1. Air Drop Setup</a>

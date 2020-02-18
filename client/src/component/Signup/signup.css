@@ -97,3 +97,13 @@ height: 2.5em;
 .c-pointer{
     cursor: pointer;
 }
+
+.btn-twitter {
+    background-color: #01aeef;
+    border-color: #01aeef;
+}
+
+.btn-facebook {
+    background-color: #45619c;
+    border-color: #45619c;
+}

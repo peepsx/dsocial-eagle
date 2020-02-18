@@ -34,37 +34,48 @@ export default class Third extends React.Component {
     handleNextStep = (e) => {
         e.preventDefault();
         console.log('props value', localStorage.getItem('twitterName'))
-        if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
-            Axios({
-                method: 'POST',
-                url: API.user_share_validation,
-                data: {
-                    status: this.state.fbPostResponse,
-                    screenname: localStorage.getItem('twitterName')
-                }
-            })
-                .then(res => {
-                    console.log('Validation response', res);
-                    if (res.status === 200) {
-                        Swal.fire({
-                            title: res.data.success ? 'Successful' : 'Error',
-                            text: res.data.message,
-                            icon: res.data.success ? 'success' : 'error',
-                            showCancelButton: false,
-                            confirmButtonText: 'Next',
-                        }).then(() => {
-                            if (res.data.success) {
-                                window.location.hash = "#fourth";
-                                localStorage.setItem('thirdStatus',true)
-                            }
-                        })
+        if(localStorage.getItem('secondStatus')) {
+            if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
+                Axios({
+                    method: 'POST',
+                    url: API.user_share_validation,
+                    data: {
+                        status: this.state.fbPostResponse,
+                        screenname: localStorage.getItem('twitterName')
                     }
                 })
-                .catch(err => console.error('Error', err))
+                    .then(res => {
+                        console.log('Validation response', res);
+                        if (res.status === 200) {
+                            Swal.fire({
+                                title: res.data.success ? 'Successful' : 'Error',
+                                text: res.data.message,
+                                icon: res.data.success ? 'success' : 'error',
+                                showCancelButton: false,
+                                confirmButtonText: 'Next',
+                            }).then(() => {
+                                if (res.data.success) {
+                                    window.location.hash = "#fourth";
+                                    localStorage.setItem('thirdStatus',true)
+                                }
+                            })
+                        }
+                    })
+                    .catch(err => console.error('Error', err))
+            } else {
+                toast.warn('All tasks are mandatory', {
+                    autoClose: 3000,
+                })
+            }
         } else {
-            toast.warn('All tasks are mandatory', {
-                autoClose: 3000,
+            Swal.fire({
+                title: 'Error',
+                text: 'Please complete step 2!!',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
             })
+                .then(() => window.location.hash = '#second')
         }
     }
 

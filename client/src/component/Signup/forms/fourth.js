@@ -3,6 +3,7 @@ import Axios from 'axios';
 
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 export default class Fourth extends React.Component {
     constructor(props) {
@@ -38,50 +39,66 @@ export default class Fourth extends React.Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
-            error:true,
+            error:false,
         })
     }
 
     handleSave = (e) => {
         e.preventDefault();
         const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        if (email && email[0] && this.state.arisen_username !== '') {
-            this.setState({ error: false })
-            console.log('email', email[0], this.state.arisen_username)
-            Axios({
-                method: 'post',
-                url: API.arisen_user_detail,
-                data: {
-                    arisen_username: this.state.arisen_username,
-                    email: email[0],
-                    ip: this.state.ip,
-                    userDetails: {
-                        fbUserId: localStorage.getItem('fbUserId'),
-                        googleEmail: localStorage.getItem('googleEmail'),
-                        instaUserId: localStorage.getItem('instaUserId'),
-                        teleUserId: localStorage.getItem('teleUserId'),
-                        twitterScreenName: localStorage.getItem('twitterName')
+        if(localStorage.getItem('thirdStatus')) {
+            if (email && email[0] && this.state.arisen_username !== '') {
+                this.setState({ error: false })
+                console.log('email', email[0], this.state.arisen_username)
+                Axios({
+                    method: 'post',
+                    url: API.arisen_user_detail,
+                    data: {
+                        arisen_username: this.state.arisen_username,
+                        email: email[0],
+                        ip: this.state.ip,
+                        userDetails: {
+                            fbUserId: localStorage.getItem('fbUserId'),
+                            googleEmail: localStorage.getItem('googleEmail'),
+                            instaUserId: localStorage.getItem('instaUserId'),
+                            teleUserId: localStorage.getItem('teleUserId'),
+                            twitterScreenName: localStorage.getItem('twitterName')
+                        }
                     }
-                }
-            })
-                .then(res => {
-                    console.log('response from account arisen', res);
                 })
-                .catch(err => {
-                    console.error('Error :', err);
-                })
+                    .then(res => {
+                        console.log('response from account arisen', res);
+                    })
+                    .catch(err => {
+                        console.error('Error :', err);
+                    })
+            } else {
+                this.formValidation();
+            }
         } else {
-            if (!email) {
-                this.setState({
-                    error: true
-                })
-            }
-            if (this.state.arisen_username === '' || this.state.email === '') {
-                toast("All fields required", {
-                    type: 'error',
-                    autoClose: 3000,
-                })
-            }
+            Swal.fire({
+                title: 'Error',
+                text: 'Please complete step 3!!',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+                .then(() => window.location.hash = '#third')
+        }
+    }
+
+    formValidation = () => {
+        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+        if (!email) {
+            this.setState({
+                error: true
+            })
+        }
+        if (this.state.arisen_username === '' || this.state.email === '') {
+            toast("All fields are mandatory", {
+                type: 'error',
+                autoClose: 3000,
+            })
         }
     }
 
