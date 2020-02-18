@@ -3,7 +3,7 @@ let config = require('../config/arisen');
 let RSN = require('arisenjsv1');
 let { UserAuth } = require('../models/user');
 let rsn = new RSN(config)
-
+let { Rsn_Transfer } = require('../models/transfer');
 
 module.exports = {
     Rsn_Transfer: async (arisen_username, id) => {
@@ -19,33 +19,30 @@ module.exports = {
             let arisen = await UserAuth.findOne({arisen_username});
 
             if(!arisen) {
-             return   reject({
+             return reject({
                      success: false,
                      message: `user not found ${arisen_username}`
-                }   )
+                })
             }
-              console.log(process.env.AMOUNT, typeof process.env.AMOUNT, process.env.AUTHORIZED_BY + '@active')            
               rsn.transfer(process.env.TRASFERUSER, arisen_username, process.env.AMOUNT, '', config)
                   .then(async (transfer) => {
-                    console.log("TRANSFER", transfer)
                       let rsn_transfered = new Rsn_Transfer({
                           user: id,
                           amount: process.env.AMOUNT,
-                          account_from_transfer: process.env.TRASFERUSER
+                          account_from_transfer: process.env.TRASFERUSER,
+                          transaction_id: transfer.transaction_id
                       })
-                      if(transfer) {
                         await rsn_transfered.save();
                           return resolve({
                             success: true,
                             message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`
                           })
-                      }
                   })
                   .catch(e => {
                       console.log(e)
-                      callback(null, {
+                      reject(null, {
                           success: false,
-
+                          message: 'Server Error'
                       })
                   })
             })
