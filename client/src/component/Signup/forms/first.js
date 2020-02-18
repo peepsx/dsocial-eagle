@@ -48,7 +48,8 @@ export default class First extends React.Component {
                         confirmButtonText: 'Next',
                     })
                     if (res.data.ok) {
-                        window.location.replace(env.liveStatus + '/#second');
+                        window.location.hash="#second";
+                        localStorage.setItem('firstStatus',true)
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
@@ -58,7 +59,7 @@ export default class First extends React.Component {
                 text: 'Please join our telegram group!!',
                 icon: "error",
                 showCancelButton: false,
-                confirmButtonText: 'Next',
+                confirmButtonText: 'Okay',
             })
         }
     }
@@ -88,7 +89,7 @@ export default class First extends React.Component {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.props.handleNextShowBtn('Twitter')
+                            onClose: this.handleNextShowBtn('Twitter')
                         })
                     }
                 })
