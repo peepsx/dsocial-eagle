@@ -12,6 +12,11 @@ let RSN = new Schema({
     },
     account_from_transfer: {
         type: String,
+        required: true
+    },
+    transaction_id: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true
