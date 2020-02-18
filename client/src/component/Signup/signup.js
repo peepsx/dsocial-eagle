@@ -27,8 +27,7 @@ export default class Signup extends Component {
         window.addEventListener('hashchange', () => {
             if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
                 window.location.hash = ""
-            }
-            if (!secondStatus) {
+            } else if (!secondStatus) {
                 window.location.hash = "#second"
             } else if (!thirdStatus) {
                 window.location.hash = "#third"
