@@ -6,27 +6,46 @@ import { API } from '../../js/api_list';
 import { env } from '../../config/config';
 
 export default class Second extends React.Component {
+    constructor(props) {
+        super(props); 
+        this.state={
+            count = 0,
+        }
+    }
 
     handleInstagramLink = () => {
         window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count:this.state.count + 1
+        })
     }
 
     handleFacebookLink = () => {
         window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count:this.state.count + 1
+        })
     }
 
     handleYoutubeLink = () => {
         window.open('https://www.youtube.com/channel/UC1Ixz0mAUa8XuGBToWW5kcA', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count:this.state.count + 1
+        })
     }
 
     handleTwitClick = () => {
         window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count:this.state.count + 1
+        })
     }
 
     nextButtonValidation = (e) => {
         e.preventDefault();
         console.log('instide click', localStorage.getItem('twitterName'))
         if (localStorage.getItem('firstStatus')) {
+            if(this.state.count >= 4) {
             Axios({
                 url: API.validation_follower,
                 method: 'POST',
@@ -50,6 +69,15 @@ export default class Second extends React.Component {
                         response.data.success && (window.location.hash = "#third");
                 })
                 .catch(err => console.log(err))
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Like and Follow first!!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            }
         } else {
             Swal.fire({
                 title: 'Error',
