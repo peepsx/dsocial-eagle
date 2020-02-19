@@ -106,7 +106,7 @@ export default class Fourth extends React.Component {
         return (
             <div className="p-0 d-flex bg-white align-items-lg-center">
                 <div className="row no-gutters flex-fill justify-content-center">
-                    <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 b-1 mt-4 mb-4">
+                    <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
                         <h1 className="h4 text-center">Arisen Account</h1>
                         <div className="form-group">
                             <label htmlFor="email">Email:</label>
@@ -114,7 +114,7 @@ export default class Fourth extends React.Component {
                                 name="email"
                                 id="email"
                                 type="email"
-                                className="form-control"
+                                className="form-control b-none"
                                 placeholder="Enter your email address"
                                 value={this.state.email}
                                 onChange={this.handleChange}
@@ -129,7 +129,7 @@ export default class Fourth extends React.Component {
                                 name="arisen_username"
                                 id="username"
                                 type="text"
-                                className="form-control"
+                                className="form-control b-none"
                                 placeholder="Enter your arisen username"
                                 value={this.state.arisen_username}
                                 onChange={this.handleChange}
