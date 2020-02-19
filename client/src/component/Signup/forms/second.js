@@ -88,6 +88,16 @@ export default class Second extends React.Component {
             })
                 .then(() => window.open(env.liveStatus, '_self'))
         }
+        this.facebookLikesValid();
+    }
+
+    facebookLikesValid =() => {
+        Axios({
+            url:'https://graph.facebook.com/v6.0/me/accounts',
+            method:'POST',
+        })
+        .then(res => console.log('page respones',res))
+        .catch(err => console.error(err))
     }
 
     render() {
