@@ -28,7 +28,7 @@ export default class Fourth extends React.Component {
         await fetch('https://api6.ipify.org/')
             .then(res => res.text())
             .then(res => ip.v6 = res)
-        this.setState({ip});
+        this.setState({ ip });
     }
 
     handleSignup = (e) => {
@@ -39,14 +39,14 @@ export default class Fourth extends React.Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
-            error:false,
+            error: false,
         })
     }
 
     handleSave = (e) => {
         e.preventDefault();
         const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        if(localStorage.getItem('thirdStatus')) {
+        if (localStorage.getItem('thirdStatus')) {
             if (email && email[0] && this.state.arisen_username !== '') {
                 this.setState({ error: false })
                 console.log('email', email[0], this.state.arisen_username)
