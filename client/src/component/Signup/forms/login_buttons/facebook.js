@@ -29,7 +29,7 @@ class Facebook extends React.Component {
                     })
                 }
             }, {
-                scope: 'user_link,user_location,user_posts,user_likes,manage_pages',
+                scope: 'user_link,user_location,user_posts,user_likes,manage_pages,read_insights',
                 return_scoper: true,
             });
         }
