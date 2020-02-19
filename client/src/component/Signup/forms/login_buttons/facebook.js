@@ -3,6 +3,7 @@ import Axios from 'axios';
 
 import { API } from '../../../js/api_list';
 import { toast } from 'react-toastify';
+import { getFbPageToken } from '../../../js/fbPageApi';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
@@ -11,10 +12,10 @@ class Facebook extends React.Component {
                 if (response.status === 'connected') {
                     const userId = response.authResponse.userID.replace(/"/, ""),
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
+                        getFbPageToken(userId,userAccessToken);
                     Axios({
                         method: 'GET',
-                        // url: `https://graph.facebook.com/v5.0/${userId}?fields=name,email,link,picture,location{location{city,state,country}}&access_token=${userAccessToken}`
-                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,location,posts,likes,link,picture{url}&access_token=${userAccessToken}`
+                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData);
@@ -29,7 +30,7 @@ class Facebook extends React.Component {
                     })
                 }
             }, {
-                scope: 'user_link,user_location,user_posts,user_likes,manage_pages,read_insights',
+                scope: 'manage_pages,read_insights',
                 return_scoper: true,
             });
         }
