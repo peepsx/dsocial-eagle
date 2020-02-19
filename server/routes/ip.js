@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 
         let oldIp = await Ip.findOne({ip_address: {$in: address}});
 
-        if(oldIp) return res.status(403).send({success: false, message: 'This ip has been blocked please change your Ip'});
+        if(oldIp) return res.status(200).send({success: false, message: 'This ip has been blocked please change your Ip'});
 
         res.status(200).send({
             success: true
