@@ -2,7 +2,7 @@ import Axios from "axios"
 
 export const getFbPageToken = (id, userAccessToken) => {
     console.log('access token and id insife page token',id, userAccessToken);
-    Axios.get(`https://graph.facebook.com/${id}/accounts?access_toke=${userAccessToken}`)
+    Axios.get(`https://graph.facebook.com/${id}/accounts?access_token=${userAccessToken}`)
     .then(res => {
         console.log('Page access toke and id ',res);
         getFbPageCount(res.data[0].id, res.data[0].access_token)
