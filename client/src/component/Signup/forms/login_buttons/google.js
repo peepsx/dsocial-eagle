@@ -17,14 +17,19 @@ export default class Google extends React.Component {
                 const auth2 = window.gapi.auth2.getAuthInstance();
                 auth2.signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" }).then(res => {
                     console.log('response',res)
+                    for( let i of res) {
+                        if(i && i.access_token){
+                            console.log('called',i.access_token)
+                            this.handleGoogleDataSave(res,i.access_token);
+                        }
+                    }
                     window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest");
-                    this.handleGoogleDataSave(res);
                 })
             })
         });
     }
 
-    handleGoogleDataSave = (userData) => {
+    handleGoogleDataSave = (userData,access_token) => {
         if (userData) {
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
@@ -34,7 +39,8 @@ export default class Google extends React.Component {
                 url: API.google_detai,
                 method: 'POST',
                 data: {
-                    GmailAddress: email
+                    GmailAddress: email,
+                    access_token
                 }
             })
                 .then(response => {
