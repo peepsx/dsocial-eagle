@@ -1,5 +1,7 @@
+require('dotenv').config();
 var express = require('express');
 var router = express.Router();
+let axios = require('axios');
 const {faceAuth} = require('../models/facebook');
 let generator = require('generate-password');
 let bcrypt = require('bcryptjs');
@@ -12,14 +14,16 @@ router.post('/facebook_detail',async (req, res)=>{
     });
 
     try {
-        let { fbUserURL, fbPhoto,fbUserName, fbUserLocation, id} = req.body;
+        let { fbUserURL, fbPhoto,fbUserName, fbUserLocation, id, access_token} = req.body;
         let findOne = await faceAuth.findOne({facebookid: id})
-
         if(findOne) return res.status(403).send({success: false, message: 'User already exists'})
         let salt = await bcrypt.genSalt(10);
         let hash = await bcrypt.hash(password, salt);
         
-        if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && id) {
+        if(fbUserURL && fbPhoto && fbUserName && fbUserLocation && id && access_token) {
+
+                let valid = await axios.get(process.env.URL+access_token);
+                if(!valid) return res.status(404).send({success: false, message: 'User not found'})
                 let newFbUser = new faceAuth({
                     facebookid: id,
                     fbUserURL: fbUserURL,
