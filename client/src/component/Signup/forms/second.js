@@ -47,7 +47,7 @@ export default class Second extends React.Component {
             "mine": true
         })
             .then(function (response) {
-                console.log("Response", response);
+                console.log("Response", response.result.items[0].snippet.title);
             })
     }
 
