@@ -42,7 +42,7 @@ export default class Second extends React.Component {
     }
 
     getSubscriberCount = () => {
-        gapi.client.youtube.subscriptions.list({
+        window.gapi.client.youtube.subscriptions.list({
             "part": "snippet,contentDetails",
             "mine": true
         })
