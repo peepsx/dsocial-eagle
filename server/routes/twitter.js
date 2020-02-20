@@ -26,7 +26,6 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     try{
 
         let description = await T.get('users/search', { q: username });
-        console.log('Location', description.data[0].location);
         let count = await T.get('followers/ids', { screen_name: username })
     
         let TwitterUserOne = await TwitterAuth.findOne({username:username})

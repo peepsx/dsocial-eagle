@@ -1,13 +1,14 @@
+require('dotenv').config();
 const express = require('express')
 const router = express.Router()
 const {googleAuth} = require('../models/google')
 const validator = require('validator');
 let { Access_Token } = require('../middleware/RSN_TRANSFER')
-
+let axios = require('axios');
 
 router.post('/google-detail', [Access_Token], async(req,res,next)=>{
     
-    let {GmailAddress} = req.body
+    let {GmailAddress, access_token} = req.body
 
     if(!validator.isEmail(GmailAddress[0])) {
         return res.status(401).send({
@@ -19,7 +20,9 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
     let UserName = await googleAuth.findOne({GmailAddress:GmailAddress[0]})
 
     try{
-    
+        let valid = await axios.get(process.env.GOOGLE_API_URL+access_token);
+        if(!valid) return res.status(404).send({success: false, message: 'google mail id is not valid'})
+        
         if(GmailAddress[0] && UserName == null){
             let newGmail = new googleAuth({
                 GmailAddress:GmailAddress[0]

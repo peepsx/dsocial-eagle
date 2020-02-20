@@ -31,7 +31,6 @@ router.post('/instagram-details', [Access_Token], async (req,res)=>{
                     message: 'User already register please try with new user'
                 })
             }
-            console.log('jajsjsjj', detail.data.graphql.user.edge_followed_by.count)
             if(detail && instaUser == null && detail.data !== undefined && detail.data !== null) {
                 let newInsta = new InstaAuth({
                     id: id,
