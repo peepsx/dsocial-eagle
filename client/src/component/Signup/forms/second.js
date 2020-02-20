@@ -55,7 +55,7 @@ export default class Second extends React.Component {
     nextButtonValidation = async(e) => {
         e.preventDefault();
         console.log('call funciton',this.getSubscriberCount());
-        console.log('subscriber',subscriberName);
+        console.log('subscriber',this.getSubscriberCount);
         if (localStorage.getItem('firstStatus')) {
             if (this.state.count >= 4 && subscriberName === 'Gaurav Shakya') {
                 Axios({
