@@ -43,44 +43,20 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        let youtubeTitle;
-        await window.gapi.client.youtube.subscriptions.list({
-            "part": "snippet,contentDetails",
-            "mine": true
-        })
-            .then((response) => {
-                console.log('outside',response)
-                youtubeTitle = response.result.items && response.result.items[0].snippet.title;
+        if (localStorage.getItem('firstStatus')) {
+            let youtubeTitle;
+            await window.gapi.client.youtube.subscriptions.list({
+                "part": "snippet,contentDetails",
+                "mine": true
             })
-            
+                .then((response) => {
+                    youtubeTitle = response.result.items && response.result.items[0].snippet.title;
+                })
+
             console.log("Response", youtubeTitle);
 
-        if (localStorage.getItem('firstStatus')) {
             if (this.state.count >= 4 && youtubeTitle === 'Gaurav Shakya') {
-                await Axios({
-                    url: API.validation_follower,
-                    method: 'POST',
-                    data: {
-                        screen_name: localStorage.getItem('twitterName')
-                    }
-                })
-                    .then(response => {
-                        this.getFBPageLikesCount();
-                        console.log('twitter', response)
-                        localStorage.setItem('secondStatus', true);
-                        const title = response.data.success ? 'Success' : 'Error';
-                        const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
-                        const icon = response.data.success ? 'success' : 'error';
-                        Swal.fire({
-                            title,
-                            text,
-                            icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'Done',
-                        })
-                        response.data.success && (window.location.hash = "#third");
-                    })
-                    .catch(err => console.log(err))
+                this.apiCall();
             } else {
                 Swal.fire({
                     title: 'Error',
@@ -100,6 +76,32 @@ export default class Second extends React.Component {
             })
                 .then(() => window.open(env.liveStatus, '_self'))
         }
+    }
+
+    apiCall = () => {
+        Axios({
+            url: API.validation_follower,
+            method: 'POST',
+            data: {
+                screen_name: localStorage.getItem('twitterName')
+            }
+        })
+            .then(response => {
+                console.log('twitter', response)
+                localStorage.setItem('secondStatus', true);
+                const title = response.data.success ? 'Success' : 'Error';
+                const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
+                const icon = response.data.success ? 'success' : 'error';
+                Swal.fire({
+                    title,
+                    text,
+                    icon,
+                    showCancelButton: false,
+                    confirmButtonText: 'Done',
+                })
+                response.data.success && (window.location.hash = "#third");
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
