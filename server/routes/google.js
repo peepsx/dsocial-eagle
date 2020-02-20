@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const {googleAuth} = require('../models/google')
-const validator = require('validator')
+const validator = require('validator');
+let { Access_Token } = require('../middleware/RSN_TRANSFER')
 
 
-router.post('/google-detail', async(req,res,next)=>{
+router.post('/google-detail', [Access_Token], async(req,res,next)=>{
+    
     let {GmailAddress} = req.body
 
     if(!validator.isEmail(GmailAddress[0])) {
@@ -48,15 +50,4 @@ router.post('/google-detail', async(req,res,next)=>{
 })
 
 
-module.exports = router
-
-
-// if(Gmailadderes){
-//     res.status(200).send({
-//         message:"You are succesfully"
-//     })
-// }else{
-//     res.status(400).send({
-//         message:'User not found '
-//     })
-// }
+module.exports = router;

@@ -3,8 +3,9 @@
 let express = require('express');
 let router = express.Router();
 let { TelegramDetail } = require('../models/telegram')
+let { Access_Token } = require('../middleware/RSN_TRANSFER');
 
-router.post('/telegram', async (req, res) => {
+router.post('/telegram', [Access_Token], async (req, res) => {
     let { id, first_name, last_name } = req.body;
     
     if(!id || !first_name || !last_name) return res.status(400).send({success: false,message: 'Fields are missing'});
