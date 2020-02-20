@@ -15,7 +15,6 @@ export default class Google extends React.Component {
                 cookiepolicy: 'single_host_origin',
             }).then(() => {
                 const auth2 = window.gapi.auth2.getAuthInstance();
-                console.log('auth value',auth2)
                 auth2.signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" }).then(res => {
                     console.log('response',res)
                     window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest");
@@ -29,7 +28,7 @@ export default class Google extends React.Component {
         if (userData) {
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-            console.log('email google',data)
+            console.log('email google',email)
             localStorage.setItem('googleEmail',email);
             Axios({
                 url: API.google_detai,
@@ -64,7 +63,7 @@ export default class Google extends React.Component {
                 onClick={this.handleGoogleClick} 
                 className="btn btn-block btn-outline-light border py-4 h-100" 
                 type="button"
-                disabled={!(this.props.nextBtnStatus === 'Google')}
+                // disabled={!(this.props.nextBtnStatus === 'Google')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>

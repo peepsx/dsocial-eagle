@@ -46,16 +46,18 @@ export default class Second extends React.Component {
             "part": "snippet,contentDetails",
             "mine": true
         })
-            .then(function (response) {
+            .then((response) => {
                 console.log("Response", response.result.items[0].snippet.title);
+                return response.result.items[0].snippet.title;
             })
     }
 
     nextButtonValidation = (e) => {
         e.preventDefault();
-        this.getSubscriberCount();
+        const subscriberName = this.getSubscriberCount();
+        console.log('subscriber',subscriberName);
         if (localStorage.getItem('firstStatus')) {
-            if (this.state.count >= 4) {
+            if (this.state.count >= 4 && subscriberName === 'Gaurav Shakya') {
                 Axios({
                     url: API.validation_follower,
                     method: 'POST',
