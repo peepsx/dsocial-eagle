@@ -4,12 +4,12 @@ let config = require('../config/arisen');
 let RSN = require('arisenjsv1');
 let { UserAuth } = require('../models/user');
 let { Rsn_Transfer } = require('../models/transfer');
-let { RSN_TRANSFER } = require('../middleware/RSN_TRANSFER');
+let { RSN_TRANSFER, Access_Token } = require('../middleware/RSN_TRANSFER');
 let rsn = new RSN(config)
 
 let router = express.Router();
 
-router.post('/rsn-transfer', [RSN_TRANSFER], async (req, res) => {
+router.post('/rsn-transfer', [RSN_TRANSFER, Access_Token], async (req, res) => {
         let { username } = req.body;
         let arisen = await UserAuth.findOne(req.body);
         if(!arisen) {

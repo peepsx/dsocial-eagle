@@ -1,8 +1,11 @@
+require('dotenv').config();
 let { faceAuth } = require('../models/facebook')
 let { googleAuth } = require('../models/google')
 let { InstaAuth } = require('../models/instagram')
 let { TwitterAuth } = require('../models/twitter')
 let { UserAuth } = require('../models/user')
+let jwt = require('jsonwebtoken');
+
 module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
         let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails;
@@ -45,5 +48,24 @@ module.exports = {
         } else {
             next();
         }
+    },
+    Access_Token: async (req, res, next) => {
+            let token = req.header('Authorization');
+           try {
+                
+            if(!token) return res.status(401).send({success: false, message: 'Invalid Token'});
+
+            let user = await jwt.verify(token, process.env.JWT);
+            req.user = user.user;
+
+            if(user) {
+                next();
+            } else {
+                return res.status(401).send({success: false, message: 'Invalid Token'});
+            }
+           } catch (error) {
+               console.log('ERROR WHILE TOKEN DECODE', error.message);
+               return res.status(500).send({success: false, message: 'Server Error'});
+           }
     }
 }

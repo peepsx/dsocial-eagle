@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 let axios = require('axios');
 let { InstaAuth } = require('../models/instagram')
+let { Access_Token } = require('../middleware/RSN_TRANSFER')
 
-router.post('/instagram-details',async (req,res)=>{
+router.post('/instagram-details', [Access_Token], async (req,res)=>{
         let { username, id } = req.body;
 
         if(!username && !id ) {
@@ -18,9 +19,9 @@ router.post('/instagram-details',async (req,res)=>{
                 message: 'Fields are missing'
             })
         }
-        let detail = await axios.get(`https://www.instagram.com/${username}/?__a=1`)
 
         try {
+            let detail = await axios.get(`https://www.instagram.com/${username}/?__a=1`)
             let instaUser = await InstaAuth.findOne({username: username});
             
             if(instaUser && instaUser !== null) {
@@ -59,7 +60,9 @@ router.post('/instagram-details',async (req,res)=>{
             }
 
         } catch(e) {
-            console.log(e);
+            console.log(e.message);
+            if(e.message === 'Request failed with status code 404') return res.status(404).send({success: false, message: `Instagram user ${username} not found`});
+
             return res.status(500).send({
                 success: false,
                 message: 'Server Error!'

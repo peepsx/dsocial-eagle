@@ -14,19 +14,19 @@ let tokens = {
     consumer_secret: process.env.consumer_secret,
     access_token: process.env.access_token,
     access_token_secret: process.env.access_token_secret,
-}
-
+};
+let { Access_Token } = require('../middleware/RSN_TRANSFER');
 const {TwitterAuth} = require('../models/twitter');
 const {faceAuth} = require('../models/facebook');
 
-router.post('/twitter-details', async(req,res)=>{
+router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     let {username, id} = req.body
 
     if(!username || !id) return res.status(400).send({success: false, message: 'Fields are missing'})
     try{
 
-        let description = await T.get('users/search', { q: username })
-        console.log('Location', description.data[0].location)
+        let description = await T.get('users/search', { q: username });
+        console.log('Location', description.data[0].location);
         let count = await T.get('followers/ids', { screen_name: username })
     
         let TwitterUserOne = await TwitterAuth.findOne({username:username})
