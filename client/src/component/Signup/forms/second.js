@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
-import { getFbPageCount } from '../../js/fbPageApi';
 
 export default class Second extends React.Component {
     constructor(props) {
@@ -42,19 +41,19 @@ export default class Second extends React.Component {
         })
     }
 
-    getFBPageLikesCount = () => {
-        const id = localStorage.getItem('fbPageId'),
-            pageAccessToken = localStorage.getItem('fbPageAccessToken');
-        if (id && pageAccessToken) {
-            console.log('page access token and id',id, pageAccessToken)
-            getFbPageCount(id, pageAccessToken);
-        }
+    getSubscriberCount = () => {
+        window.gapi.client.youtube.subscriptions.list({
+            "part": "snippet,contentDetails",
+            "mine": true
+        })
+            .then(function (response) {
+                console.log("Response", response.result.items[0].snippet.title);
+            })
     }
 
     nextButtonValidation = (e) => {
         e.preventDefault();
-        this.getFBPageLikesCount();
-        console.log('instide click', localStorage.getItem('twitterName'))
+        this.getSubscriberCount();
         if (localStorage.getItem('firstStatus')) {
             if (this.state.count >= 4) {
                 Axios({
@@ -65,6 +64,7 @@ export default class Second extends React.Component {
                     }
                 })
                     .then(response => {
+                        this.getFBPageLikesCount();
                         console.log('twitter', response)
                         localStorage.setItem('secondStatus', true);
                         const title = response.data.success ? 'Success' : 'Error';
