@@ -9,7 +9,7 @@ import Fifth from './forms/fifth';
 
 
 export default class Signup extends Component {
-
+    
     componentDidMount() {
         const hashUrl = window.location.hash;
         const fbData = localStorage.getItem('fbUserId');

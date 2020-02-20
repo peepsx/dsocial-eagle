@@ -45,7 +45,7 @@
 }
 
 .c-red {
-    color: red;
+    color: #cd351f;
 }
 
 [class*='height-'] {
@@ -106,4 +106,24 @@ height: 2.5em;
 .btn-facebook {
     background-color: #45619c;
     border-color: #45619c;
+}
+
+.color-grey {
+    color: #6c757d;
+}
+
+.w-80{
+    width: 80%;
+}
+
+.gradient-color {
+    background: -moz-linear-gradient(16deg, #fff 0%, #f1f1f1 40%, #ffffff 100%) !important;
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(16deg, #fff 0%, #f1f1f1 40%, #ffffff 100%) !important;
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(16deg, #fff 0%, #f1f1f1 40%, #ffffff 100%) !important;   
+}
+
+.custom-border {
+    border-radius: 20% 0;
 }

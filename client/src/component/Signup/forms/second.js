@@ -4,39 +4,69 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
+import { getFbPageCount } from '../../js/fbPageApi';
 
 export default class Second extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0,
+        }
+    }
 
     handleInstagramLink = () => {
         window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count: this.state.count + 1
+        })
     }
 
     handleFacebookLink = () => {
         window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count: this.state.count + 1
+        })
     }
 
     handleYoutubeLink = () => {
         window.open('https://www.youtube.com/channel/UC1Ixz0mAUa8XuGBToWW5kcA', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count: this.state.count + 1
+        })
     }
 
     handleTwitClick = () => {
         window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
+
+    getFBPageLikesCount = () => {
+        const id = localStorage.getItem('fbPageId'),
+            pageAccessToken = localStorage.getItem('fbPageAccessToken');
+        if (id && pageAccessToken) {
+            console.log('page access token and id',id, pageAccessToken)
+            getFbPageCount(id, pageAccessToken);
+        }
     }
 
     nextButtonValidation = (e) => {
         e.preventDefault();
+        this.getFBPageLikesCount();
         console.log('instide click', localStorage.getItem('twitterName'))
         if (localStorage.getItem('firstStatus')) {
-            Axios({
-                url: API.validation_follower,
-                method: 'POST',
-                data: {
-                    screen_name: localStorage.getItem('twitterName')
-                }
-            })
-                .then(response => {
-                    console.log('twitter', response)
-                    localStorage.setItem('secondStatus', true);
+            if (this.state.count >= 4) {
+                Axios({
+                    url: API.validation_follower,
+                    method: 'POST',
+                    data: {
+                        screen_name: localStorage.getItem('twitterName')
+                    }
+                })
+                    .then(response => {
+                        console.log('twitter', response)
+                        localStorage.setItem('secondStatus', true);
                         const title = response.data.success ? 'Success' : 'Error';
                         const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
                         const icon = response.data.success ? 'success' : 'error';
@@ -48,8 +78,17 @@ export default class Second extends React.Component {
                             confirmButtonText: 'Done',
                         })
                         response.data.success && (window.location.hash = "#third");
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Like and Follow first!!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
                 })
-                .catch(err => console.log(err))
+            }
         } else {
             Swal.fire({
                 title: 'Error',

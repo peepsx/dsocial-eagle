@@ -10,20 +10,12 @@ export default class Fifth extends React.Component {
                         <div className="icon-rounded bg-success">
                             <i className="fas fa-check-circle color-white fs-20" />
                         </div>
-                        <h2 className="mt-auto mb-auto ml-2">Congrulations</h2>
+                        <h2 className="mt-auto mb-auto ml-2">Congratulations</h2>
                     </div>
                     <span className="h5 d-block">500 RSN is successfully transfered to you Arisen Account.</span>
-                    <a className="d-block mb-2 mt-2" href="https://data.arisen.network">Click here to check transaction.</a>
+                    <a className="d-block mb-2 mt-2" href="https://data.arisen.network">Click here to see your transaction.</a>
                     <span className="h4 d-block">Thanks for providing your details.</span>
-                    {/* <p className="lead">Please ensure you read our
-                        <a href="#">Privacy Policy</a>
-                        before submitting your proposal request. You will recieve a personal response within 24 hours.
-                    </p> */}
                     <hr />
-                    {/* <div className="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" className="custom-control-input" id="privact-policy-agree" />
-                        <label className="custom-control-label" htmlFor="privact-policy-agree">I have read and agree to the Privacy Policy</label>
-                    </div> */}
                     <a className="btn btn-custom" type="submit" href="#">Done</a>
                 </div>
             </div>

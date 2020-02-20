@@ -1,6 +1,7 @@
 const url = process.env.REACT_APP_API_URL;
 
 export const API = {
+    ip_check                : url+'/',
     facebook_detail         : url+'/facebook/facebook_detail',
     google_detai            : url+'/google/google-detail',
     twitter_detail          : url+'/twitter/twitter-details',
