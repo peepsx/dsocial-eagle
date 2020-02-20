@@ -35,7 +35,6 @@ export default class Google extends React.Component {
                 method: 'POST',
                 data: {
                     GmailAddress: email,
-                    access_token
                 }
             })
                 .then(response => {
