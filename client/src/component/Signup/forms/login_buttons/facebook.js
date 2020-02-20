@@ -3,7 +3,6 @@ import Axios from 'axios';
 
 import { API } from '../../../js/api_list';
 import { toast } from 'react-toastify';
-import { getFbPageToken } from '../../../js/fbPageApi';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
@@ -12,13 +11,12 @@ class Facebook extends React.Component {
                 if (response.status === 'connected') {
                     const userId = response.authResponse.userID.replace(/"/, ""),
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
-                        getFbPageToken(userId,userAccessToken);
                     Axios({
                         method: 'GET',
                         url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
-                            this.handleFbDataSave(fbData);
+                            this.handleFbDataSave(fbData,userAccessToken);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -30,13 +28,13 @@ class Facebook extends React.Component {
                     })
                 }
             }, {
-                scope: 'manage_pages,read_insights',
+                scope: 'email',
                 return_scoper: true,
             });
         }
     }
 
-    handleFbDataSave = (userData) => {
+    handleFbDataSave = (userData,accessToken) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
             localStorage.setItem('fbUserId', userData.data.id);
@@ -45,10 +43,9 @@ class Facebook extends React.Component {
                 method: 'POST',
                 data: {
                     id: userData.data.id,
-                    fbUserURL: "dummy url",
+                    access_token: accessToken,
                     fbPhoto: userData.data.picture.data.url,
                     fbUserName: userData.data.name,
-                    fbUserLocation: 'noida'
                 }
             })
                 .then(response => {
