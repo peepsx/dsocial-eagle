@@ -27,14 +27,14 @@ export default class Google extends React.Component {
         let access_token;
         if (userData) {
             const googleArray = Object.values(userData);
-            for(let i of googleArray) {
-                if(i.access_token) {
+            for (let i of googleArray) {
+                if (i.access_token) {
                     access_token = i.access_token;
                 }
             }
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-            console.log('email google', email,access_token)
+            console.log('email google', email, access_token)
             localStorage.setItem('googleEmail', email);
             Axios({
                 url: API.google_detai,
@@ -70,7 +70,7 @@ export default class Google extends React.Component {
                 onClick={this.handleGoogleClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-            // disabled={!(this.props.nextBtnStatus === 'Google')}
+                disabled={!(this.props.nextBtnStatus === 'Google')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>
