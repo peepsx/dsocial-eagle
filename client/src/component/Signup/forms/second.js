@@ -41,8 +41,8 @@ export default class Second extends React.Component {
         })
     }
 
-    getSubscriberCount = async () => {
-        await window.gapi.client.youtube.subscriptions.list({
+    getSubscriberCount = () => {
+        window.gapi.client.youtube.subscriptions.list({
             "part": "snippet,contentDetails",
             "mine": true
         })
@@ -52,9 +52,9 @@ export default class Second extends React.Component {
             })
     }
 
-    nextButtonValidation = (e) => {
+    nextButtonValidation = async(e) => {
         e.preventDefault();
-        const subscriberName = this.getSubscriberCount();
+        console.log('call funciton',this.getSubscriberCount());
         console.log('subscriber',subscriberName);
         if (localStorage.getItem('firstStatus')) {
             if (this.state.count >= 4 && subscriberName === 'Gaurav Shakya') {
