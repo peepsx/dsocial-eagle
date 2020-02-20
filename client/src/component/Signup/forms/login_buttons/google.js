@@ -25,16 +25,24 @@ export default class Google extends React.Component {
     }
 
     handleGoogleDataSave = (userData) => {
+        let access_token;
         if (userData) {
+            const googleArray = Object.values(userData);
+            for(let i of googleArray) {
+                if(i.access_token) {
+                    access_token = i.access_token;
+                }
+            }
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-            console.log('email google', email)
+            console.log('email google', email,access_token)
             localStorage.setItem('googleEmail', email);
             Axios({
                 url: API.google_detai,
                 method: 'POST',
                 data: {
                     GmailAddress: email,
+                    access_token,
                 }
             })
                 .then(response => {
