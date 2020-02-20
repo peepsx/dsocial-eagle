@@ -41,22 +41,23 @@ export default class Second extends React.Component {
         })
     }
 
-    nextButtonValidation = (e) => {
+    nextButtonValidation = async (e) => {
         e.preventDefault();
         let youtubeTitle;
-        window.gapi.client.youtube.subscriptions.list({
+        await window.gapi.client.youtube.subscriptions.list({
             "part": "snippet,contentDetails",
             "mine": true
         })
             .then((response) => {
+                console.log('outside',response)
                 youtubeTitle = response.result.items && response.result.items[0].snippet.title;
             })
             
             console.log("Response", youtubeTitle);
-            
-        if (localStorage.getItem('firstStatus') && youtubeTitle === 'Gaurav Shakya') {
-            if (this.state.count >= 4) {
-                Axios({
+
+        if (localStorage.getItem('firstStatus')) {
+            if (this.state.count >= 4 && youtubeTitle === 'Gaurav Shakya') {
+                await Axios({
                     url: API.validation_follower,
                     method: 'POST',
                     data: {
