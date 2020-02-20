@@ -17,7 +17,6 @@ export default class Google extends React.Component {
                 const auth2 = window.gapi.auth2.getAuthInstance();
                 auth2.signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" }).then(res => {
                     window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest");
-                    window.google = res;
                     this.handleGoogleDataSave(res);
                 })
             })

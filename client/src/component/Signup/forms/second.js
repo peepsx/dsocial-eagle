@@ -41,8 +41,8 @@ export default class Second extends React.Component {
         })
     }
 
-    getSubscriberCount = () => {
-        window.gapi.client.youtube.subscriptions.list({
+    getSubscriberCount = async () => {
+        await window.gapi.client.youtube.subscriptions.list({
             "part": "snippet,contentDetails",
             "mine": true
         })
