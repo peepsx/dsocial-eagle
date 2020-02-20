@@ -52,9 +52,7 @@ export default class Second extends React.Component {
                 .then((response) => {
                     youtubeTitle = response.result.items && response.result.items[0].snippet.title;
                 })
-
             console.log("Response", youtubeTitle);
-
             if (this.state.count >= 4 && youtubeTitle === 'Gaurav Shakya') {
                 this.apiCall();
             } else {

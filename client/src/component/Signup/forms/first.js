@@ -156,7 +156,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button
-                        className="btn btn-custom h-2 w-8   "
+                        className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
                         disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
