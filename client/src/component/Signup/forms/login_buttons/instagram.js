@@ -22,8 +22,12 @@ export default class Instagram extends React.Component {
     }
 
     handleInstaClick = () => {
-        if (this.state.instaCode === "") {
-            window.open(`https://api.instagram.com/oauth/authorize?client_id=${env.instagram_client_id}&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code`, "_self")
+        if (localStorage.getItem('fbUserId')) {
+            if (this.state.instaCode === "") {
+                window.open(`https://api.instagram.com/oauth/authorize?client_id=${env.instagram_client_id}&redirect_uri=https://air.arisen.network/&scope=user_profile&response_type=code`, "_self")
+            }
+        } else {
+            alert('Please login with facebook first');
         }
     }
 
@@ -89,7 +93,7 @@ export default class Instagram extends React.Component {
                 onClick={this.handleInstaClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                // disabled={!(this.props.nextBtnStatus === 'fs')}
+            // disabled={!(this.props.nextBtnStatus === 'fs')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                 <span className="h6 mb-0 d-block">Follow us Instagram</span>
