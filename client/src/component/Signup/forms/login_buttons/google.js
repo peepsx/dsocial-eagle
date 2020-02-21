@@ -73,7 +73,7 @@ export default class Google extends React.Component {
                 // disabled={!(this.props.nextBtnStatus === 'Google')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
-                <span className="h6 mb-0 d-block">Google</span>
+                <span className="h6 mb-0 d-block">Login with Google</span>
             </button>
         )
     }
