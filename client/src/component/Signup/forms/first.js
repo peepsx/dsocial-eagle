@@ -82,7 +82,7 @@ export default class First extends React.Component {
                     console.log('Data save Twitter', response);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.handleNextShowBtn('Instagram')
+                        onClose: this.handleNextShowBtn('fs')
                     })
                 })
                 .catch(err => {
@@ -91,7 +91,7 @@ export default class First extends React.Component {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.handleNextShowBtn('Instagram')
+                            onClose: this.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -158,7 +158,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                        // disabled={!(this.state.nextBtnStatus === 'fs')}
                     >Next Step
                     </button>
                 </div>

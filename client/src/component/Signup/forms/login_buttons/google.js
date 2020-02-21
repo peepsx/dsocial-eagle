@@ -48,7 +48,7 @@ export default class Google extends React.Component {
                     console.log('Data save Google', response);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Telegram')
+                        onClose: this.props.handleNextShowBtn('fs')
                     })
                 })
                 .catch(err => {
@@ -57,7 +57,7 @@ export default class Google extends React.Component {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.props.handleNextShowBtn('Telegram')
+                            onClose: this.props.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -70,7 +70,7 @@ export default class Google extends React.Component {
                 onClick={this.handleGoogleClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                disabled={!(this.props.nextBtnStatus === 'Google')}
+                // disabled={!(this.props.nextBtnStatus === 'Google')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>

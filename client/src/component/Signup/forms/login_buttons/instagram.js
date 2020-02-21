@@ -64,21 +64,22 @@ export default class Instagram extends React.Component {
             }
         }).then(response => {
             console.log('response insta datasave', response);
-            toast(response.data.message, {
-                type: 'success',
-                autoClose: 3000,
-                onClose: this.props.handleNextShowBtn('Google')
-            })
+            window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+            // toast(response.data.message, {
+            //     type: 'success',
+            //     autoClose: 3000,
+            //     onClose: this.props.handleNextShowBtn('fs')
+            // })
         })
             .catch(err => {
                 console.error('Error:', err)
-                if (err.message.includes('status code 403')) {
-                    toast("User already registered", {
-                        type: 'warning',
-                        autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Google')
-                    })
-                }
+                // if (err.message.includes('status code 403')) {
+                //     toast("User already registered", {
+                //         type: 'warning',
+                //         autoClose: 3000,
+                //         onClose: this.props.handleNextShowBtn('fs')
+                //     })
+                // }
             })
     }
 
@@ -88,10 +89,10 @@ export default class Instagram extends React.Component {
                 onClick={this.handleInstaClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                disabled={!(this.props.nextBtnStatus === 'Instagram')}
+                // disabled={!(this.props.nextBtnStatus === 'fs')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
-                <span className="h6 mb-0 d-block">Instagram</span>
+                <span className="h6 mb-0 d-block">Follow us Instagram</span>
             </button>
         )
     }
