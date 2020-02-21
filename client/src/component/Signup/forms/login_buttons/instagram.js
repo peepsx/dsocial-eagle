@@ -58,6 +58,7 @@ export default class Instagram extends React.Component {
 
     instagramDataSave = (res) => {
         console.log('instagram data username', res)
+        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         localStorage.setItem('instaUserId', res.id);
         Axios({
             url: API.instagram_detail,
@@ -68,7 +69,6 @@ export default class Instagram extends React.Component {
             }
         }).then(response => {
             console.log('response insta datasave', response);
-            window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
             // toast(response.data.message, {
             //     type: 'success',
             //     autoClose: 3000,
