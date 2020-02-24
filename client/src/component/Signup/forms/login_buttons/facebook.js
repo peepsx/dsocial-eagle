@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
+        this.props.handleNextShowBtn('fs')
         if (window.FB) {
             window.FB.login((response) => {
                 if (response.status === 'connected') {
@@ -53,7 +54,7 @@ class Facebook extends React.Component {
                     toast(response.data.message, {
                         type: 'success',
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Twitter')
+                        onClose: this.props.handleNextShowBtn('fs')
                     })
                 })
                 .catch(err => {
@@ -62,7 +63,7 @@ class Facebook extends React.Component {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.props.handleNextShowBtn('Twitter')
+                            onClose: this.props.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -76,10 +77,10 @@ class Facebook extends React.Component {
                 onClick={this.handleFbClick}
                 type="button"
                 className="btn btn-block btn-outline-light border py-4 h-100"
-                disabled={!(this.props.nextBtnStatus === '')}
+                // disabled={!(this.props.nextBtnStatus === '')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                <span className="h6 mb-0 d-block">Facebook</span>
+                <span className="h6 mb-0 d-block"> Login with Facebook</span>
             </button>
         )
     }
