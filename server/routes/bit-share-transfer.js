@@ -3,7 +3,7 @@ let express = require('express');
 let router = express.Router();
 let { PRIVATE_KEY, BTS_MAIN_NET, BTS_TEST_NET, BTS_TESTNET_PRIVATE_KEY } = require('../config/config');
 let {Apis} =  require('bitsharesjs-ws');
-let { ChainStore, FetchChain, PrivateKey, TransactionBuilder, Aes, TransactionHelper,  } = require('bitsharesjs');
+let { ChainStore, FetchChain, PrivateKey, TransactionBuilder, Aes, TransactionHelper  } = require('bitsharesjs');
 
 router.post("/api/test-net/transfer", async (req, res) => {
     let { user_account } =  req.body;
@@ -124,9 +124,11 @@ try{
                     FetchChain("getAccount", memoSender),
                     FetchChain("getAsset", sendAmount.asset),
                     FetchChain("getAsset", sendAmount.asset),
+                    FetchChain('fetchRecentHistory', user_account)
                 ]).then((data)=> {
-                    console.log("got data:", res);
-                    let [fromAccount, toAccount, memoSender, sendAsset, feeAsset] = data;
+                    // console.log("got data:", data);
+                    let [fromAccount, toAccount, memoSender, sendAsset, feeAsset, user_account] = data;
+                    console.log('HISTORY', user_account);
                     // Memos are optional, but if you have one you need to encrypt it here
                     let memoFromKey = memoSender.getIn(["options","memo_key"]);
                     let memoToKey = toAccount.getIn(["options","memo_key"]);
