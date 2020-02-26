@@ -1,20 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var twitter = require('./routes/twitter');
-var fbRouter = require('./routes/facebook');
-var instagramRouter = require('./routes/instagram')
-var google = require('./routes/google');
-var users = require('./routes/users')
-var transcation_id = require('./routes/rsn_transfer');
-var telgramapi= require('./routes/telegaramapi');
-var testapi = require('./routes/test_api');
-var ip = require('./routes/ip');
-
-var CORS = require('cors');
-var app = express();
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let twitter = require('./routes/twitter');
+let fbRouter = require('./routes/facebook');
+let instagramRouter = require('./routes/instagram')
+let google = require('./routes/google');
+let users = require('./routes/users')
+let telgramapi= require('./routes/telegaramapi');
+let testapi = require('./routes/test_api');
+let ip = require('./routes/ip');
+let BtsTransfer = require('./routes/bit-share-transfer');
+let Bitshareused = require('./routes/bitshare')
+let CORS = require('cors');
+let app = express();
 const bodyParser = require('body-parser');
 // view engine setup
 app.use(bodyParser.json());
@@ -36,13 +36,18 @@ app.use('/users',users)
 app.use('/validation', twitter)
 app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
-app.use('/transaction', transcation_id);
+app.use('/bts', BtsTransfer);
+app.use('/testapi',Bitshareused)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404);
+  if(req.accepts('json')) {
+    return res.send({success: false, message: 'Page not found'})
+  }
+  // next(createError(404));
 });
-
+app.user
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
