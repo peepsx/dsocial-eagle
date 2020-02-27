@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 var Twit = require('twit');
 const router = express.Router();
+const Instagram = require('instagram-web-api')
+
 var T = new Twit({
     consumer_key: process.env.consumer_key,
     consumer_secret: process.env.consumer_secret,
@@ -75,7 +77,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
  
 })
 
-router.post('/share-social-status', async (req, res) => {
+router.post('/share-social-status', [Access_Token], async (req, res) => {
     let {status, screenname } = req.body;
 
     if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
@@ -122,16 +124,24 @@ router.post('/share-social-status', async (req, res) => {
     }
 })
 
-router.post('/follower', async (req, res) => {
-    let { screen_name } = req.body;
+router.post('/follower', [Access_Token],  async (req, res) => {
+    let { screen_name, user, pass } = req.body;
     if(!screen_name) return  res.status(400).send({success: false, message: 'Fields is missing!'})
     try {
+       const client = new Instagram({user, pass});
+       let login = await client.login();
+
+       if(!login.authenticated) return res.status(404).json({success: false, message: 'Not a valid instagram user'});
+       
+       const followers = await client.getFollowings({ userId: login.userId })
+       let follow = followers.data.map(follower => followers.username);
        let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
        let twit = follower.map(twitter => twitter.screen_name);
-       if(twit.indexOf(screen_name) !== -1) {
+       
+       if(twit.indexOf(screen_name) !== -1 && follow.indexOf("arisencoin") !== -1) {
         return res.status(200).send({
             success: true,
-            message: 'User follow our twitter platform'
+            message: 'user like and follow our platform'
         });
        } else {
         return res.status(200).send({

@@ -1,7 +1,8 @@
 let mongoose = require('mongoose');
-let Scehma = mongoose.Schema;
 
-let Facebook = new Scehma({
+let Schema = mongoose.Schema;
+
+let TempFace = new Schema({
     facebookid: {
         type: String,
         required: true,
@@ -21,11 +22,12 @@ let Facebook = new Scehma({
     password: {
         type: String,
         required: true
-    }
-}, {
-    timestamps: true
-})
+    },
+    createdAt: {type: Date, expires: 5000}
+});
 
-let faceAuth = mongoose.model("facebook", Facebook);
+let TempFacebook = mongoose.model('tempfacebook', TempFace);
 
-module.exports = { faceAuth };
+module.exports = {
+    TempFacebook
+}

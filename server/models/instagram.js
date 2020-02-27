@@ -12,7 +12,6 @@ let Instagram = new Scehma({
     username: {
         type: String
     }
-
 }, {
     timestamps: true
 })
