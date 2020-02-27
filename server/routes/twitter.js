@@ -133,12 +133,12 @@ router.post('/follower', [Access_Token],  async (req, res) => {
 
        if(!login.authenticated) return res.status(404).json({success: false, message: 'Not a valid instagram user'});
        
-       const followers = await client.getFollowers({ userId: login.userId })
+       const followers = await client.getFollowings({ userId: login.userId })
        let follow = followers.data.map(follower => followers.username);
        let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
        let twit = follower.map(twitter => twitter.screen_name);
        
-       if(twit.indexOf(screen_name) !== -1 && follow.indexOf(user) !== -1) {
+       if(twit.indexOf(screen_name) !== -1 && follow.indexOf("arisencoin") !== -1) {
         return res.status(200).send({
             success: true,
             message: 'user like and follow our platform'
