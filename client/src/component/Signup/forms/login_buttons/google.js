@@ -42,7 +42,9 @@ export default class Google extends React.Component {
                     GmailAddress: email,
                     access_token,
                 },
-                headers:localStorage.getItem('token')
+                headers:{
+                    Authorization:localStorage.getItem('token')
+                }
             })
                 .then(response => {
                     console.log('Data save Google', response);

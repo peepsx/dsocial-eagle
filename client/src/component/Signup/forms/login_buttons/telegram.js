@@ -44,7 +44,9 @@ export default class Telegram extends React.Component {
                 first_name: userData.first_name, 
                 last_name: userData.last_name
             },
-            headers:localStorage.getItem('token')
+            headers:{
+                    Authorization:localStorage.getItem('token')
+                }
         })
         .then(res => console.log('telegram dtata save',res))
         .catch(err => console.error(err))

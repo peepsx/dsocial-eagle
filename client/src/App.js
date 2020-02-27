@@ -20,7 +20,7 @@ class App extends Component {
     }
   }
   async componentDidMount() {
-    window.FB.init({                // Initialising Facebook connectivity
+   await window.FB.init({                // Initialising Facebook connectivity
       appId: env.facebook_client_id,
       autoLogAppEvents: true,
       xfbml: true,

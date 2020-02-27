@@ -83,7 +83,9 @@ export default class Second extends React.Component {
             data: {
                 screen_name: localStorage.getItem('twitterName')
             },
-            headers:localStorage.getItem('token')
+            headers:{
+                    Authorization:localStorage.getItem('token')
+                }
         })
             .then(response => {
                 console.log('twitter', response)

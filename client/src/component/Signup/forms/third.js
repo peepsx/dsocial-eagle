@@ -42,7 +42,9 @@ export default class Third extends React.Component {
                         status: this.state.fbPostResponse,
                         screenname: localStorage.getItem('twitterName')
                     },
-                    headers:localStorage.getItem('token')
+                    headers:{
+                    Authorization:localStorage.getItem('token')
+                }
                 })
                     .then(res => {
                         console.log('Validation response', res);

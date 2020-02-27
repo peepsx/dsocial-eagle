@@ -48,7 +48,9 @@ class Facebook extends React.Component {
                     fbPhoto: userData.data.picture.data.url,
                     fbUserName: userData.data.name,
                 },
-                headers:localStorage.getItem('token')
+                headers:{
+                    Authorization:localStorage.getItem('token')
+                }
             })
                 .then(response => {
                     console.log('Data save facebook', response);

@@ -77,7 +77,9 @@ export default class First extends React.Component {
                     username: userData.screen_name,
                     id: localStorage.getItem('fbUserId')
                 },
-                headers: localStorage.getItem('token')
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
             })
                 .then(response => {
                     console.log('Data save Twitter', response);

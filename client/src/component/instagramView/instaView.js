@@ -53,6 +53,7 @@ export default class InstaView extends React.Component {
                                                     onChange={this.handleChange}
                                                 />
                                             </div>
+                                            <p className="color-red">safas</p>
                                             <button className="btn btn-primary btn-block" type="submit">Log In</button>
                                             <hr />
                                             <div className="d-flex justify-content-center">

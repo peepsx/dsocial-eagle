@@ -65,7 +65,9 @@ export default class Fourth extends React.Component {
                             twitterScreenName: localStorage.getItem('twitterName')
                         }
                     },
-                    headers:localStorage.getItem('token')
+                    headers:{
+                    Authorization:localStorage.getItem('token')
+                }
                 })
                     .then(res => {
                         console.log('response from account arisen', res);
