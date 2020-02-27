@@ -32,6 +32,6 @@ let Facebook = new Scehma({
     timestamps: true
 })
 
-let faceAuth = mongoose.model("fbAuth", Facebook);
+let faceAuth = mongoose.model("facebook", Facebook);
 
 module.exports = { faceAuth };
