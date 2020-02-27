@@ -25,7 +25,7 @@ module.exports = {
         let instagram = await InstaAuth.findOne({id: instaUserId});
         let twitter = await TwitterAuth.findOne({username: twitterScreenName});
         
-        if(!facebook.facebookid || !facebook.fbUserURL || !facebook.fbPhoto || !facebook.fbUserName || !facebook.fbUserLocation) {
+        if(!facebook.facebookid || !facebook.fbUserName ) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Facebook'

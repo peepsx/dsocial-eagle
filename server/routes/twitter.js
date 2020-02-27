@@ -75,7 +75,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
  
 })
 
-router.post('/share-social-status', async (req, res) => {
+router.post('/share-social-status', [Access_Token], async (req, res) => {
     let {status, screenname } = req.body;
 
     if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
@@ -122,7 +122,7 @@ router.post('/share-social-status', async (req, res) => {
     }
 })
 
-router.post('/follower', async (req, res) => {
+router.post('/follower', [Access_Token],  async (req, res) => {
     let { screen_name } = req.body;
     if(!screen_name) return  res.status(400).send({success: false, message: 'Fields is missing!'})
     try {
