@@ -24,6 +24,7 @@ export default class InstaView extends React.Component {
     handleSave = (e) => {
         e.preventDefault();
         if(this.state.username !== '' && this.state.password !== ''){
+            this.setState({error:false,already:false})
         Axios({
             url: API.instagram_detail,
             data: {
@@ -37,6 +38,7 @@ export default class InstaView extends React.Component {
         })
             .then(res => {
                 console.log(res)
+                res.data.success && localStorage.setItem('instaUserId',res.data.data.name)
                 if(!res.data.success) {
                     this.setState({
                         already: true,
