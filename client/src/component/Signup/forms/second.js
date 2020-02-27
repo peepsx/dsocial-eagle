@@ -28,7 +28,7 @@ export default class Second extends React.Component {
     }
 
     handleYoutubeLink = () => {
-        window.open('https://www.youtube.com/channel/UC1Ixz0mAUa8XuGBToWW5kcA', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://www.youtube.com/channel/UCSA8YUDeXWEYHl54XdFO6_w', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
             count: this.state.count + 1
         })
@@ -53,7 +53,7 @@ export default class Second extends React.Component {
                     youtubeTitle = response.result.items && response.result.items[0].snippet.title;
                 })
             console.log("Response", youtubeTitle);
-            if (this.state.count >= 4 && youtubeTitle === 'Gaurav Shakya') {
+            if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
                 this.apiCall();
             } else {
                 Swal.fire({
@@ -82,7 +82,10 @@ export default class Second extends React.Component {
             method: 'POST',
             data: {
                 screen_name: localStorage.getItem('twitterName')
-            }
+            },
+            headers:{
+                    Authorization:localStorage.getItem('token')
+                }
         })
             .then(response => {
                 console.log('twitter', response)

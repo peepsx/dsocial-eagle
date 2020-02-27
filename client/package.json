@@ -13,7 +13,8 @@
     "react-twitter-login": "^1.1.2",
     "redux": "^4.0.5",
     "sweetalert2": "^9.7.2",
-    "twitter": "^1.7.1"
+    "twitter": "^1.7.1",
+    "user-instagram": "^1.0.4"
   },
   "devDependencies": {},
   "scripts": {

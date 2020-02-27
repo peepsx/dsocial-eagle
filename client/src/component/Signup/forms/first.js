@@ -50,8 +50,8 @@ export default class First extends React.Component {
                         confirmButtonText: 'Proceed',
                     })
                     if (res.data.ok) {
-                        window.location.hash="#second";
-                        localStorage.setItem('firstStatus',true)
+                        window.location.hash = "#second";
+                        localStorage.setItem('firstStatus', true)
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
@@ -76,6 +76,9 @@ export default class First extends React.Component {
                 data: {
                     username: userData.screen_name,
                     id: localStorage.getItem('fbUserId')
+                },
+                headers: {
+                    Authorization: localStorage.getItem('token')
                 }
             })
                 .then(response => {
@@ -158,7 +161,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                        // disabled={!(this.state.nextBtnStatus === 'fs')}
+                    // disabled={!(this.state.nextBtnStatus === 'fs')}
                     >Next Step
                     </button>
                 </div>
