@@ -9,7 +9,6 @@ export default class Google extends React.Component {
 
     handleGoogleClick = () => {
         window.gapi.load('auth2', () => {
-            /* Ready. Make a call to gapi.auth2.init or some other API */
             window.gapi.auth2.init({
                 client_id: env.google_client_id,
                 cookiepolicy: 'single_host_origin',
@@ -42,7 +41,8 @@ export default class Google extends React.Component {
                 data: {
                     GmailAddress: email,
                     access_token,
-                }
+                },
+                headers:localStorage.getItem('token')
             })
                 .then(response => {
                     console.log('Data save Google', response);
@@ -73,7 +73,7 @@ export default class Google extends React.Component {
                 // disabled={!(this.props.nextBtnStatus === 'Google')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
-                <span className="h6 mb-0 d-block">Login with Google</span>
+                <span className="h6 mb-0 d-block">Google</span>
             </button>
         )
     }

@@ -9,7 +9,7 @@ export default class Button extends React.Component {
                 // disabled={!(this.props.nextBtnStatus === 'fs')}
                 >
                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
-                <span className="h6 mb-0 d-block">Login with Twitter</span>
+                <span className="h6 mb-0 d-block">Twitter</span>
             </button>
         )
     }

@@ -45,53 +45,47 @@ export default class Fourth extends React.Component {
 
     handleSave = (e) => {
         e.preventDefault();
-        Swal.fire({
-            title: 'Error',
-            text: 'UNDER DEVELOPMENT, WILL UPDATE SOON',
-            icon: "error",
-            showCancelButton: false,
-            confirmButtonText: 'Okay',
-        })
-        // const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        // if (localStorage.getItem('thirdStatus')) {
-        //     if (email && email[0] && this.state.arisen_username !== '') {
-        //         this.setState({ error: false })
-        //         console.log('email', email[0], this.state.arisen_username)
-        //         Axios({
-        //             method: 'post',
-        //             url: API.arisen_user_detail,
-        //             data: {
-        //                 arisen_username: this.state.arisen_username,
-        //                 email: email[0],
-        //                 ip: this.state.ip,
-        //                 userDetails: {
-        //                     fbUserId: localStorage.getItem('fbUserId'),
-        //                     googleEmail: localStorage.getItem('googleEmail'),
-        //                     instaUserId: localStorage.getItem('instaUserId'),
-        //                     teleUserId: localStorage.getItem('teleUserId'),
-        //                     twitterScreenName: localStorage.getItem('twitterName')
-        //                 }
-        //             }
-        //         })
-        //             .then(res => {
-        //                 console.log('response from account arisen', res);
-        //             })
-        //             .catch(err => {
-        //                 console.error('Error :', err);
-        //             })
-        //     } else {
-        //         this.formValidation();
-        //     }
-        // } else {
-        //     Swal.fire({
-        //         title: 'Error',
-        //         text: 'Please complete step 3!!',
-        //         icon: "error",
-        //         showCancelButton: false,
-        //         confirmButtonText: 'Okay',
-        //     })
-        //         .then(() => window.location.hash = '#third')
-        // }
+        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+        if (localStorage.getItem('thirdStatus')) {
+            if (email && email[0] && this.state.arisen_username !== '') {
+                this.setState({ error: false })
+                console.log('email', email[0], this.state.arisen_username)
+                Axios({
+                    method: 'post',
+                    url: API.arisen_user_detail,
+                    data: {
+                        arisen_username: this.state.arisen_username,
+                        email: email[0],
+                        ip: this.state.ip,
+                        userDetails: {
+                            fbUserId: localStorage.getItem('fbUserId'),
+                            googleEmail: localStorage.getItem('googleEmail'),
+                            instaUserId: localStorage.getItem('instaUserId'),
+                            teleUserId: localStorage.getItem('teleUserId'),
+                            twitterScreenName: localStorage.getItem('twitterName')
+                        }
+                    },
+                    headers:localStorage.getItem('token')
+                })
+                    .then(res => {
+                        console.log('response from account arisen', res);
+                    })
+                    .catch(err => {
+                        console.error('Error :', err);
+                    })
+            } else {
+                this.formValidation();
+            }
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'Please complete step 3!!',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+                .then(() => window.location.hash = '#third')
+        }
     }
 
     formValidation = () => {

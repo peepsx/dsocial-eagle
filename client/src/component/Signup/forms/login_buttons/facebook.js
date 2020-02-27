@@ -14,7 +14,7 @@ class Facebook extends React.Component {
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
                     Axios({
                         method: 'GET',
-                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,picture{url}&access_token=${userAccessToken}`
+                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,likes,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData,userAccessToken);
@@ -29,7 +29,7 @@ class Facebook extends React.Component {
                     })
                 }
             }, {
-                scope: 'email,instagram_basic,pages_show_list',
+                scope: 'email,user_likes',
                 return_scoper: true,
             });
         }
@@ -47,10 +47,12 @@ class Facebook extends React.Component {
                     access_token: accessToken,
                     fbPhoto: userData.data.picture.data.url,
                     fbUserName: userData.data.name,
-                }
+                },
+                headers:localStorage.getItem('token')
             })
                 .then(response => {
                     console.log('Data save facebook', response);
+                    localStorage.setItem('token',response.data.token)
                     toast(response.data.message, {
                         type: 'success',
                         autoClose: 3000,
@@ -80,7 +82,7 @@ class Facebook extends React.Component {
                 // disabled={!(this.props.nextBtnStatus === '')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                <span className="h6 mb-0 d-block"> Login with Facebook</span>
+                <span className="h6 mb-0 d-block">Facebook</span>
             </button>
         )
     }
