@@ -7,18 +7,12 @@ let Facebook = new Scehma({
         required: true,
         unique: true
     },
-    fbUserURL: {
-        type: String
-    },
     fbPhoto: {
         type: String,
     },
     fbUserName: {
         type: String,
         index: true
-    },
-    fbUserLocation: {
-        type: String
     },
     follower: {
         type: Boolean,
