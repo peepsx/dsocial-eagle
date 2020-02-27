@@ -7,14 +7,14 @@ let generator = require('generate-password');
 let bcrypt = require('bcryptjs');
 let { Token } = require('../middleware/Token');
 
-router.post('/facebook_detail',async (req, res)=>{
+router.post('/facebook_detail', async (req, res)=>{
     var password = generator.generate({
         length: 10,
         numbers: true
     });
 
     try {
-        let { fbPhoto,fbUserName, id, access_token} = req.body;
+        let { fbPhoto,fbUserName, id, access_token } = req.body;
         let findOne = await faceAuth.findOne({facebookid: id})
         if(findOne) return res.status(403).send({success: false, message: 'User already exists'})
         let salt = await bcrypt.genSalt(10);
@@ -22,7 +22,7 @@ router.post('/facebook_detail',async (req, res)=>{
         
         if(fbPhoto && fbUserName && id && access_token) {
 
-                let valid = await axios.get(process.env.URL+access_token);
+                let valid = await axios.get(`https://graph.facebook.com/v3.3/${id}?fields=id,name&access_token=${access_token}`);
                 if(!valid) return res.status(404).send({success: false, message: 'User not found'})
                 let newFbUser = new faceAuth({
                     facebookid: id,

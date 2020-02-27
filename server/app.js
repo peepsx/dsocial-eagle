@@ -12,7 +12,6 @@ let telgramapi= require('./routes/telegaramapi');
 let testapi = require('./routes/test_api');
 let ip = require('./routes/ip');
 let BtsTransfer = require('./routes/bit-share-transfer');
-let Bitshareused = require('./routes/bitshare')
 let CORS = require('cors');
 let app = express();
 const bodyParser = require('body-parser');
@@ -36,8 +35,7 @@ app.use('/users',users)
 app.use('/validation', twitter)
 app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
-app.use('/bts', BtsTransfer);
-app.use('/testapi',Bitshareused)
+app.use('/rsn-bts', BtsTransfer);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

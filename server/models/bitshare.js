@@ -18,7 +18,7 @@ let Bitshare = new Schema({
     timestamps: true
 })
 
-let BitshareApi = mongoose.model("BitshareApi",Bitshare)
+let BitshareApi = mongoose.model("BitshareApi", Bitshare)
 
 module.export = {
     BitshareApi

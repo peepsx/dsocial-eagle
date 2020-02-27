@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const config = require('../config/config')
+const config = require('../config')
 mongoose.Promise = global.Promise;
 
 const options = { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify:  false };
