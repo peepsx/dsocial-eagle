@@ -23,9 +23,8 @@ router.post('/instagram-details',/**[Access_Token], */ async (req, res)=>{
         let instaUser = await InstaAuth.findOne({username: username});
             
         if(instaUser && instaUser !== null) {
-            return res.status(403).send({
+            return res.status(200).send({
                 success: false,
-                nextstep: 'next',
                 message: 'User already register please try with new user'
             })
         }
