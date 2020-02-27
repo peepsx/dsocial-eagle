@@ -9,7 +9,7 @@ import { API } from './component/js/api_list';
 import Axios from 'axios';
 import Ipexist from './component/Signup/forms/errorIP';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import InstaView from './component/instagramView/instaView';
+import InstaView from './component/Signup/forms/instagramView/instaView';
 
 
 class App extends Component {
