@@ -14,26 +14,17 @@ export default class Instagram extends React.Component {
         }
     }
 
-    handleInstaClick = (val) => {
-        let instaLogin;
-        if(val) {
-            instaLogin = window.open('/instagramLogin', '_blank', 'width=400, height=500')
-        } else {
-            instaLogin.close();
-        }
-    }
-
-    nextBtnEnable = () => {
-        this.props.handleNextShowBtn('Google')
+    handleInstaClick = () => {
+        window.open('/instagramLogin', '_blank', 'width=400, height=500')
     }
 
     render() {
         return (
             <button
-                onClick={this.handleInstaClick.bind(this,true)}
+                onClick={this.handleInstaClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                // disabled={!(this.props.nextBtnStatus === 'Instagram')}
+            disabled={(this.props.nextBtnStatus === '')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                 <span className="h6 mb-0 d-block">Instagram</span>
@@ -44,7 +35,7 @@ export default class Instagram extends React.Component {
 
 
 export class InstaView extends Instagram {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +48,7 @@ export class InstaView extends Instagram {
         }
     }
     parent = new Instagram();
-    
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
@@ -68,8 +59,13 @@ export class InstaView extends Instagram {
 
     handleSave = (e) => {
         e.preventDefault();
+
         if (this.state.username !== '' && this.state.password !== '') {
-            this.setState({ error: false, error2: false, loading: true })
+            this.setState({ 
+                error: false, 
+                error2: false, 
+                loading: true 
+            })
             Axios({
                 url: API.instagram_detail,
                 data: {
@@ -85,9 +81,11 @@ export class InstaView extends Instagram {
                     console.log('sadfasdf', res);
                     this.setState({ loading: false })
                     if (res.data.success) {
-                        this.parent.nextBtnEnable();
                         localStorage.setItem('instaUserId', res.data.data.name);
-                        toast.success('Instagram login successfully')
+                        toast.success(res.data.message,{
+                            autoClose:1500,
+                            onClose: () => self.close()
+                        })
                     } else if (!res.data.success) {
                         this.setState({
                             error2: true,

@@ -35,6 +35,11 @@ export default class First extends React.Component {
 
     checkTelegramUser = (e) => {
         e.preventDefault();
+        const fbData = localStorage.getItem('fbUserId');
+        const googleEmail = localStorage.getItem('googleEmail');
+        const instaUserId = localStorage.getItem('instaUserId');
+        const teleUserId = localStorage.getItem('teleUserId');
+        const twitterName = localStorage.getItem('twitterName');
         if (this.state.teleUserid !== '') {
             Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                 .then(res => {
@@ -55,10 +60,10 @@ export default class First extends React.Component {
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
-        } else {
+        } else if(!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
             Swal.fire({
                 title: 'Error',
-                text: 'Please join our telegram group!!',
+                text: 'Please complete the Steps carefully!!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
@@ -101,12 +106,14 @@ export default class First extends React.Component {
     }
 
     handleNextShowBtn = (status) => {
+        console.log('CALLED',status)
         this.setState({
             nextBtnStatus: status
         })
     }
 
     render() {
+        console.log('this hsatate value',this.state.nextBtnStatus)
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
@@ -120,7 +127,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className={(this.state.nextBtnStatus === 'Twitter' && false) ? 'noClick col-sm mb-3 mb-sm-0' :'col-sm mb-3 mb-sm-0'}>
+                    <div className={(this.state.nextBtnStatus !== '') ? 'noClick col-sm mb-3 mb-sm-0' :'col-sm mb-3 mb-sm-0'}>
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -160,7 +167,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                    // disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                    disabled={(this.state.nextBtnStatus === '')}
                     >Next Step
                     </button>
                 </div>
