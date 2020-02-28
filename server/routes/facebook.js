@@ -40,7 +40,7 @@ router.post('/facebook_detail', async (req, res)=>{
                         success: false,
                         message: 'User not found'
                     })
-                    
+
                 let newFbUser = new TempFacebook({
                     facebookid: id,
                     fbPhoto: fbPhoto,
@@ -61,7 +61,7 @@ router.post('/facebook_detail', async (req, res)=>{
                         )
                     })
                     .catch(e => {
-                        console.error(e)
+                        console.error("USER FACEBOOK", e)
                         return res.status(401).send(e)
                     })
     
