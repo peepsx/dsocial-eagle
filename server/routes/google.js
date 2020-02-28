@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express')
 const router = express.Router()
-const {googleAuth} = require('../models/google')
+const { googleAuth } = require('../models/google');
+const { TempGoogle } = require('../models/TempGoogle');
 const validator = require('validator');
 let { Access_Token } = require('../middleware/RSN_TRANSFER')
 let axios = require('axios');
@@ -18,13 +19,19 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
     }
 
     let UserName = await googleAuth.findOne({GmailAddress:GmailAddress[0]})
+    let TempUser = await TempGoogle.findOne({GmailAddress:GmailAddress[0]})
+    
+    if(TempUser) return res.status(200).send({
+            success: false,
+            message: 'Please wait for after one hour'
+        });
 
     try{
         let valid = await axios.get(process.env.GOOGLE_API_URL+access_token);
         if(!valid) return res.status(404).send({success: false, message: 'google mail id is not valid'})
         
         if(GmailAddress[0] && UserName == null){
-            let newGmail = new googleAuth({
+            let newGmail = new TempGoogle({
                 GmailAddress:GmailAddress[0]
             })
             newGmail.save()

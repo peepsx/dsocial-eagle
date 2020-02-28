@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+var ttl = require('mongoose-ttl');
 
 let Schema = mongoose.Schema;
 
@@ -6,9 +7,9 @@ let TempGo = new Schema({
     GmailAddress:{
         type:String
     },
-    createdAt: {type: Date, expires: 5000}
-});
+},{timestamps: true});
 
+TempGo.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
 let TempGoogle = mongoose.model('tempgoogle', TempGo);
 
 module.exports = {

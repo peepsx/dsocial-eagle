@@ -1,15 +1,34 @@
 var express = require('express');
 var router = express.Router();
+/**MAIN DB */
 const { UserAuth } = require('../models/user');
+const { faceAuth } = require('../models/facebook');
+const { TwitterAuth } = require('../models/twitter');
+const { InstaAuth } = require('../models/instagram');
+const { googleAuth } = require('../models/google');
+const { TelegramDetail } = require('../models/telegram');
+/**TEMP MODEL */
+const { TempFacebook } = require('../models/TempFacebook');
+const { TempTwitter } = require('../models/TempTwitter');
+const { TempInstagram } = require('../models/TempInstagram');
+const { TempGoogle } = require('../models/TempGoogle');
+const { TempTelegram } = require('../models/TempTelegram');
+
 var validator = require('validator');
 let axios = require('axios');
 let { RSN_TRANSFER, Access_Token } = require('../middleware/RSN_TRANSFER'); 
 let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
-router.post('/users-details', [RSN_TRANSFER, Access_Token] ,  async (req, res) => {
+router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
-    let { email, arisen_username, ip } = req.body;
+    let { email, arisen_username, ip, fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body;
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
+    let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
+    let TempTwit = await TempTwitter.findOne({username: twitterScreenName}).select('-_id -__v');
+    let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
+    let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
+    let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
+
     if(!email || !arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6})
@@ -41,8 +60,40 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token] ,  async (req, res) =
                            let user = await NewUser.save();
 
                            Rsn_Transfer(arisen_username, user.id)
-                                    .then(TRANSFER => {
+                                    .then(async TRANSFER => {
                                         if(TRANSFER.success) {
+                                            let FaceBook = new faceAuth(TempFace);
+                                            let Twitter = new TwitterAuth(TempTwit);
+                                            let Instagram = new InstaAuth(TempInsta);
+                                            let Google = new googleAuth(TempGo);
+                                            let Telegram = new TelegramDetail(TempTele);
+                                             Twitter.save()
+                                                .then(async user => {
+                                                    await TempTwitter.findOneAndDelete({username: user.username});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                             Instagram.save()
+                                                .then(async user => {
+                                                    await TempInstagram.findOneAndDelete({username: user.username});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                             Google.save()
+                                                .then(async user => {
+                                                    await TempGoogle.findOneAndDelete({GmailAddress: user.GmailAddress});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                             Telegram.save()
+                                                .then(async user => {   
+                                                    await TempInstagram.findOneAndDelete({username: user.username});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                             FaceBook.save()
+                                                .then(async user => {   
+                                                    await TempFacebook.findOneAndDelete({facebookid: user.facebookid});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                             await NewUser.save();
+                                             
                                             return res.status(200).send({
                                                 success: true,
                                                 message: TRANSFER.message

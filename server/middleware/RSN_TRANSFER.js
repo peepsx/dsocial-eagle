@@ -40,7 +40,7 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Instagram'
             })
-        } else if(!twitter.username || !twitter.profileDescription) {
+        } else if(!twitter.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Twitter'
@@ -50,7 +50,7 @@ module.exports = {
         }
     },
     Access_Token: async (req, res, next) => {
-            let token = req.header('Authorization');
+            let token = req.header('Authorization').split(' ')[1];
            try {
                 
             if(!token) return res.status(401).send({success: false, message: 'Invalid Token'});

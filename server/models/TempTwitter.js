@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+var ttl = require('mongoose-ttl');
 
 let Schema = mongoose.Schema;
 
@@ -16,9 +17,9 @@ let TempTwit = new Schema({
         type: Boolean,
         default: false
     },
-    createdAt: {type: Date, expires: 5000}
-});
+},{timestamps: true});
 
+TempTwit.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
 let TempTwitter = mongoose.model('temptwitter', TempTwit);
 
 module.exports = {

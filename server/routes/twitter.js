@@ -18,8 +18,10 @@ let tokens = {
     access_token_secret: process.env.access_token_secret,
 };
 let { Access_Token } = require('../middleware/RSN_TRANSFER');
-const {TwitterAuth} = require('../models/twitter');
-const {faceAuth} = require('../models/facebook');
+const { TwitterAuth } = require('../models/twitter');
+const { faceAuth } = require('../models/facebook');
+const { TempTwitter } = require('../models/TempTwitter');
+const { TempFacebook } = require('../models/TempFacebook');
 
 router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     let {username, id} = req.body
@@ -30,11 +32,15 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
         let description = await T.get('users/search', { q: username });
         let count = await T.get('followers/ids', { screen_name: username })
     
-        let TwitterUserOne = await TwitterAuth.findOne({username:username})
+        let TwitterUserOne = await TwitterAuth.findOne({username: username})
+        let TempUser = await TempTwitter.findOne({username: username})
+        if(TempUser) return res.status(200).send({
+
+        })
 
         if(username && TwitterUserOne == null){
 
-          let TwitterNew = new TwitterAuth({
+          let TwitterNew = new TempTwitter({
             username:username,
             followerscount: count.data.ids.length,
             profileDescription: description.data[0].description || undefined
@@ -43,7 +49,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
           TwitterNew.save()
           .then(async ()=>{
 
-              await faceAuth.findOneAndUpdate({facebookid: id},
+              await TempFacebook.findOneAndUpdate({facebookid: id},
                     {$set: {fbUserLocation: description.data[0].location}},
                     {new: true});
 
@@ -85,10 +91,18 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
     
     let twitter = await TwitterAuth.findOne({username: screenname});
+    let TempTwit = await TempTwitter.findOne({username: screenname});
     
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
 
-    if(!twitter || twitter == null) return res.status(404).send({success: false, message: 'Please complete first step'})
+    if(!TempTwit || TempTwit == null) return res.status(404).send({
+            success:false,
+            message: 'Please complete first steps'
+        });
+    if(!twitter || twitter == null) return res.status(404).send({
+            success: false,
+            message: 'Please complete first steps'
+        })
 
     // if(twitter.follower) return res.status(403).send({success: false, message: 'You have already share with your friend'})
     
@@ -106,7 +120,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
         if(Array.isArray(status) && !status.length) {
             if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
                
-                await TwitterAuth.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
+                await TempTwitter.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
                
                return res.status(200).send({
                     success: true,
@@ -124,14 +138,17 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     }
 })
 
-router.post('/follower', [Access_Token],  async (req, res) => {
-    let { screen_name, user, pass } = req.body;
-    if(!screen_name) return  res.status(400).send({success: false, message: 'Fields is missing!'})
+router.post('/follower', [Access_Token], async (req, res) => {
+    let { screen_name, username, password } = req.body;
+    if(!screen_name || !username || !password) return  res.status(400).send({success: false, message: 'Fields is missing!'})
     try {
-       const client = new Instagram({user, pass});
+       const client = new Instagram({username, password});
        let login = await client.login();
 
-       if(!login.authenticated) return res.status(404).json({success: false, message: 'Not a valid instagram user'});
+       if(!login.authenticated) return res.status(404).json({
+           success: false,
+           message: 'Not a valid instagram user'
+        });
        
        const followers = await client.getFollowings({ userId: login.userId })
        let follow = followers.data.map(follower => followers.username);
