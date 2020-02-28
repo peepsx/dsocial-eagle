@@ -9,17 +9,23 @@ import Fifth from './forms/fifth';
 
 
 export default class Signup extends Component {
-    
+
     componentDidMount() {
         const hashUrl = window.location.hash;
+        const fbData = localStorage.getItem('fbUserId');
+        const googleEmail = localStorage.getItem('googleEmail');
+        const instaUserId = localStorage.getItem('instaUserId');
+        const teleUserId = localStorage.getItem('teleUserId');
+        const twitterName = localStorage.getItem('twitterName');
+        const s1 = localStorage.getItem('s1');
         if (hashUrl.length > 1) {
-            if (!localStorage.getItem('s1')) {
-                window.location.hash = ""
+            if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName && !s1) {
+                window.location.hash = "";
             }
         }
         window.addEventListener('hashchange', () => {
-            if (!localStorage.getItem('s1')) {
-                window.location.hash = ""
+            if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName && !s1) {
+                window.location.hash = "";
             }
         })
     }
