@@ -18,7 +18,7 @@ router.post('/telegram', [Access_Token], async (req, res) => {
     if(checkTelegram) return res.status(403).send({success: false, message: 'Telegram user already register'});
     
     try {
-        let newTelegram = new TelegramDetail({
+        let newTelegram = new TempTelegram({
             telegram_id: id,
             username: first_name+" "+last_name
         })
