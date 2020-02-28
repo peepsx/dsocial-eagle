@@ -91,9 +91,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
-    console.log('TEmMPUser', TempTwit)
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
-    console.log('API DATA', api.data)
 
     if(!TempTwit || TempTwit == null) return res.status(404).send({
             success:false,
