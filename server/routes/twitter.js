@@ -149,9 +149,10 @@ router.post('/follower', [Access_Token], async (req, res) => {
            success: false,
            message: 'Not a valid instagram user'
         });
-       
+       /**INSTAGRAM */
        const followers = await client.getFollowings({ userId: login.userId })
-       let follow = followers.data.map(follower => followers.username);
+       let follow = followers.data.map(follower => follower.username);
+       /**TWITTER */
        let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
        let twit = follower.map(twitter => twitter.screen_name);
        
