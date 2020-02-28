@@ -82,8 +82,8 @@ export default class Second extends React.Component {
             method: 'POST',
             data: {
                 screen_name: localStorage.getItem('twitterName'),
-                user: localStorage.getItem('instaUserId'),
-                pass: localStorage.getItem('inp')
+                username: localStorage.getItem('instaUserId'),
+                password: localStorage.getItem('inp')
             },
             headers:{
                     Authorization:localStorage.getItem('token')

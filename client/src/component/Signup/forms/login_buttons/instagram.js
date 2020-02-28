@@ -78,7 +78,7 @@ export class InstaView extends Instagram {
                         localStorage.setItem('inp', res.data.data.pass);
                         toast.success(res.data.message,{
                             autoClose:1500,
-                            // onClose: () => self.close()
+                            onClose: () => self.close()
                         })
                     } else if (!res.data.success) {
                         this.setState({
