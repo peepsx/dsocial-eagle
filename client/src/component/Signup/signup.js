@@ -12,18 +12,13 @@ export default class Signup extends Component {
     
     componentDidMount() {
         const hashUrl = window.location.hash;
-        const fbData = localStorage.getItem('fbUserId');
-        const googleEmail = localStorage.getItem('googleEmail');
-        const instaUserId = localStorage.getItem('instaUserId');
-        const teleUserId = localStorage.getItem('teleUserId');
-        const twitterName = localStorage.getItem('twitterName');
         if (hashUrl.length > 1) {
-            if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
+            if (!localStorage.getItem('s1')) {
                 window.location.hash = ""
             }
         }
         window.addEventListener('hashchange', () => {
-            if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
+            if (!localStorage.getItem('s1')) {
                 window.location.hash = ""
             }
         })

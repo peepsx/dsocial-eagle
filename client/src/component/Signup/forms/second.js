@@ -43,7 +43,7 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        if (localStorage.getItem('firstStatus')) {
+        if (localStorage.getItem('s1')) {
             let youtubeTitle;
             await window.gapi.client.youtube.subscriptions.list({
                 "part": "snippet,contentDetails",

@@ -56,7 +56,7 @@ export default class First extends React.Component {
                     })
                     if (res.data.ok) {
                         window.location.hash = "#second";
-                        localStorage.setItem('firstStatus', true)
+                        localStorage.setItem('s1', true)
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
@@ -110,7 +110,6 @@ export default class First extends React.Component {
     }
 
     render() {
-        console.log('this hsatate value',this.state.nextBtnStatus)
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
