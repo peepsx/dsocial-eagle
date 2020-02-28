@@ -50,16 +50,15 @@ export default class Google extends React.Component {
                     console.log('Data save Google', response);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('fs')
+                        onClose: this.props.handleNextShowBtn('Tlegram')
                     })
                 })
                 .catch(err => {
                     console.error('Error', err);
-                    if (err.message.includes('status code 403')) {
+                    if (err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.props.handleNextShowBtn('fs')
                         })
                     }
                 })

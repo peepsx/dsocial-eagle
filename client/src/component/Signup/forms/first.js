@@ -85,16 +85,15 @@ export default class First extends React.Component {
                     console.log('Data save Twitter', response);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.handleNextShowBtn('fs')
+                        onClose: this.handleNextShowBtn('Instagram')
                     })
                 })
                 .catch(err => {
                     console.error('Error', err);
-                    if (err.message.includes('status code 403')) {
+                    if (err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -121,7 +120,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className="col-sm mb-3 mb-sm-0">
+                    <div className={(this.state.nextBtnStatus === 'Twitter' && false) ? 'noClick col-sm mb-3 mb-sm-0' :'col-sm mb-3 mb-sm-0'}>
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -161,7 +160,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                    // disabled={!(this.state.nextBtnStatus === 'fs')}
+                    // disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>
