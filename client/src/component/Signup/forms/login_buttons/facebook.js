@@ -47,7 +47,7 @@ class Facebook extends React.Component {
                     fbUserName: userData.data.name,
                 },
                 headers:{
-                    Authorization:localStorage.getItem('token')
+                    Authorization:'Bearer '+localStorage.getItem('token')
                 }
             })
                 .then(response => {

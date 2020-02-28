@@ -67,7 +67,7 @@ export class InstaView extends Instagram {
                 },
                 method: 'post',
                 headers: {
-                    Authorization: localStorage.getItem('token')
+                    Authorization: 'Bearer '+localStorage.getItem('token')
                 }
             })
                 .then(res => {

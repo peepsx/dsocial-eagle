@@ -86,7 +86,7 @@ export default class Second extends React.Component {
                 password: localStorage.getItem('inp')
             },
             headers:{
-                    Authorization:localStorage.getItem('token')
+                    Authorization:'Bearer '+localStorage.getItem('token')
                 }
         })
             .then(response => {

@@ -82,7 +82,7 @@ export default class First extends React.Component {
                     id: localStorage.getItem('fbUserId')
                 },
                 headers: {
-                    Authorization: localStorage.getItem('token')
+                    Authorization: 'Bearer '+localStorage.getItem('token')
                 }
             })
                 .then(response => {
