@@ -103,7 +103,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     
     if(Array.isArray(api.data) && !api.data.length) return res.status(200).send({success: false,message: 'Please share with friends first!'})
 
-    if(api.data[0].text !== process.env.text && twitter.username !== api.data[0].user.screen_name) {
+    if(api.data[0].text !== process.env.text && TempTwit.username !== api.data[0].user.screen_name) {
         return res.status(200).send({
             success: false,
             message: 'Please share with your twitter follower!'
@@ -113,7 +113,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     try {
 
         if(Array.isArray(status) && !status.length) {
-            if(api.data[0].text === process.env.text && twitter.username === api.data[0].user.screen_name) {
+            if(api.data[0].text === process.env.text && TempTwit.username === api.data[0].user.screen_name) {
                
                 await TempTwitter.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
                
