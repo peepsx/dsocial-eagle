@@ -115,7 +115,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
         if(Array.isArray(status) && !status.length) {
             if(api.data[0].text === process.env.text && TempTwit.username === api.data[0].user.screen_name) {
                
-                await TempTwitter.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
+                // await TempTwitter.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
                
                return res.status(200).send({
                     success: true,
