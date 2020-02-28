@@ -7,13 +7,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner';
 
 export default class Instagram extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            instaCode: '',
-        }
-    }
-
     handleInstaClick = () => {
         window.open('/instagramLogin', '_blank', 'width=400, height=500')
     }

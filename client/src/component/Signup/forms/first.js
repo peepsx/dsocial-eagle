@@ -72,7 +72,6 @@ export default class First extends React.Component {
     }
 
     handleTwitDataSave = (userData) => {
-        console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
             localStorage.setItem('twitterName', userData.screen_name);
             Axios({
@@ -94,7 +93,6 @@ export default class First extends React.Component {
                     })
                 })
                 .catch(err => {
-                    console.error('Error', err);
                     if (err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
@@ -106,7 +104,6 @@ export default class First extends React.Component {
     }
 
     handleNextShowBtn = (status) => {
-        console.log('CALLED',status)
         this.setState({
             nextBtnStatus: status
         })

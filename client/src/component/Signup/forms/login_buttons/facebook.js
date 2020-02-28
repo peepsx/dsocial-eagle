@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
-        this.props.handleNextShowBtn('fs')
         if (window.FB) {
             window.FB.login((response) => {
                 if (response.status === 'connected') {
