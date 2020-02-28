@@ -18,12 +18,12 @@ export default class Signup extends Component {
         const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
         if (hashUrl.length > 1) {
-            if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
+            if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
                 window.location.hash = ""
             }
         }
         window.addEventListener('hashchange', () => {
-            if (!fbData && !googleEmail && !instaUserId && !teleUserId && !twitterName) {
+            if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
                 window.location.hash = ""
             }
         })
