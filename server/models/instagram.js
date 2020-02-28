@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let Scehma = mongoose.Schema;
 
 let Instagram = new Scehma({
-    id: {
+    instaid: {
         type: String
     },
     follower: {

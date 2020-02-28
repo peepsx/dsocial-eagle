@@ -45,7 +45,7 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
             
             if(login.authenticated) {
                 let newInsta = new TempInstagram({
-                    id: login.userId,
+                    instaid: login.userId,
                     follower: followers.count,
                     username: username
                 })
