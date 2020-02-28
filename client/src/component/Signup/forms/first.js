@@ -124,7 +124,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className={(this.state.nextBtnStatus !== '') ? 'noClick col-sm mb-3 mb-sm-0' :'col-sm mb-3 mb-sm-0'}>
+                    <div className={(this.state.nextBtnStatus === '') ? 'noClick col-sm mb-3 mb-sm-0' :'col-sm mb-3 mb-sm-0'}>
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -152,7 +152,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-end mt-2">
                     <p className="d-flex">*Join our Telegram Community:
-                        <span className="ml-1">
+                        <span className={(this.state.nextBtnStatus === '') ? 'noClick ml-1' :'ml-1'}>
                             <Telegram
                                 nextBtnStatus={this.state.nextBtnStatus}
                                 getTelegramValue={this.getTelegramValue}
@@ -164,7 +164,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                    disabled={(this.state.nextBtnStatus === '')}
+                        disabled={(this.state.nextBtnStatus === '')}
                     >Next Step
                     </button>
                 </div>
