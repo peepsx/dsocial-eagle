@@ -26,6 +26,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
     let TempTwit = await TempTwitter.findOne({username: twitterScreenName}).select('-_id -__v');
     let TempInsta = await TempInstagram.findOne({instaid: instaUserId}).select('-_id -__v');
+    console.log('JJJJJ', TempInsta)
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
     let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
 

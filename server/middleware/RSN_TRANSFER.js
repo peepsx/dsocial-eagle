@@ -23,6 +23,7 @@ module.exports = {
         let facebook = await TempFacebook.findOne({facebookid: fbUserId});
         let google = await TempGoogle.findOne({GmailAddress: googleEmail});
         let instagram = await TempInstagram.findOne({instaid: instaUserId});
+        console.log('INSTAID ', instagram)
         let twitter = await TempTwitter.findOne({username: twitterScreenName});
         let telegram = await TempTelegram.findOne({telegram_id: teleUserId});
         
