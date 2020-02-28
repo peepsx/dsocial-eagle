@@ -36,10 +36,11 @@ router.post('/facebook_detail', async (req, res)=>{
 
                 let valid = await axios.get(`https://graph.facebook.com/v3.3/${id}?fields=id,name&access_token=${access_token}`);
                 console.log("user", valid.data)
-                if(!valid.data.id) return res.status(404).send({
+                if(valid.data.id !== id) return res.status(404).send({
                         success: false,
                         message: 'User not found'
                     })
+                    
                 let newFbUser = new TempFacebook({
                     facebookid: id,
                     fbPhoto: fbPhoto,
