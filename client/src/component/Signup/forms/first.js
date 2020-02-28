@@ -74,7 +74,6 @@ export default class First extends React.Component {
 
     handleTwitDataSave = (userData) => {
         if (userData && userData.screen_name) {
-            localStorage.setItem('twitterName', userData.screen_name);
             Axios({
                 url: API.twitter_detail,
                 method: 'POST',
@@ -88,6 +87,7 @@ export default class First extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Twitter', response);
+                    localStorage.setItem('twitterName', userData.screen_name);
                     toast.success(response.data.message, {
                         autoClose: 3000,
                         onClose: this.handleNextShowBtn('Instagram')

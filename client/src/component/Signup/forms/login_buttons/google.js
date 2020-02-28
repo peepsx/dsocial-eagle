@@ -34,7 +34,6 @@ export default class Google extends React.Component {
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
             console.log('email google', email, access_token)
-            localStorage.setItem('googleEmail', email);
             Axios({
                 url: API.google_detai,
                 method: 'POST',
@@ -48,9 +47,10 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Google', response);
+                    localStorage.setItem('googleEmail', email);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Tlegram')
+                        onClose: this.props.handleNextShowBtn('Telegram')
                     })
                 })
                 .catch(err => {

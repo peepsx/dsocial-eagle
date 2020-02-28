@@ -37,7 +37,6 @@ class Facebook extends React.Component {
     handleFbDataSave = (userData,accessToken) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
-            localStorage.setItem('fbUserId', userData.data.id);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
@@ -54,6 +53,7 @@ class Facebook extends React.Component {
                 .then(response => {
                     console.log('Data save facebook', response);
                     localStorage.setItem('token',response.data.token)
+                    localStorage.setItem('fbUserId', userData.data.id);
                     toast(response.data.message, {
                         type: 'success',
                         autoClose: 3000,
