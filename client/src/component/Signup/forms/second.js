@@ -81,7 +81,9 @@ export default class Second extends React.Component {
             url: API.validation_follower,
             method: 'POST',
             data: {
-                screen_name: localStorage.getItem('twitterName')
+                screen_name: localStorage.getItem('twitterName'),
+                user: localStorage.getItem('instaUserId'),
+                pass: localStorage.getItem('inp')
             },
             headers:{
                     Authorization:localStorage.getItem('token')
