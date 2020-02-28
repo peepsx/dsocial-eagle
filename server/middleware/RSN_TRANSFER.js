@@ -9,6 +9,7 @@ let jwt = require('jsonwebtoken');
 module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
         let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails;
+        console.log('MIDD', req.body.userDetails)
         if( !googleEmail || !instaUserId || !twitterScreenName || !teleUserId || !fbUserId) {
             return res.status(200).send({
                 success: false,
@@ -23,6 +24,7 @@ module.exports = {
         let facebook = await TempFacebook.findOne({facebookid: fbUserId});
         let google = await TempGoogle.findOne({GmailAddress: googleEmail});
         let instagram = await TempInstagram.findOne({id: instaUserId});
+        console.log('IIINSTA', instagram )
         let twitter = await TempTwitter.findOne({username: twitterScreenName});
         let telegram = await TempTelegram.findOne({telegram_id: teleUserId});
         
@@ -53,6 +55,7 @@ module.exports = {
             })
         }
         else {
+            console.log('NEXT')
             next();
         }
     },
