@@ -10,20 +10,21 @@ import Fifth from './forms/fifth';
 
 export default class Signup extends Component {
 
-    componentDidMount() {
-        const hashUrl = window.location.hash;;
-        const s1 = localStorage.getItem('s1');
-        if (hashUrl.length > 1) {
-            if (!s1) {
-                window.location.hash = "";
-            }
-        }
-        window.addEventListener('hashchange', () => {
-            if (!s1) {
-                window.location.hash = "";
-            }
-        })
-    }
+    // componentDidMount() {
+    //     const hashUrl = window.location.hash;;
+    //     const s1 = localStorage.getItem('s1');
+    //     if (hashUrl.length > 1) {
+    //         if (!s1) {
+    //             window.location.hash = "";
+    //         }
+    //     }
+    //     window.addEventListener('hashchange', () => {
+    //         console.log('inside event',window.location.hash)
+    //         if (!s1) {
+    //             window.location.hash = "";
+    //         }
+    //     })
+    // }
 
     render() {
         return (
