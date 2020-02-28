@@ -42,7 +42,7 @@ export default class Google extends React.Component {
                     access_token,
                 },
                 headers:{
-                    Authorization:localStorage.getItem('token')
+                    Authorization:'Bearer '+localStorage.getItem('token')
                 }
             })
                 .then(response => {

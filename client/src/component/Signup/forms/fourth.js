@@ -66,7 +66,7 @@ export default class Fourth extends React.Component {
                         }
                     },
                     headers:{
-                    Authorization:localStorage.getItem('token')
+                    Authorization:'Bearer '+localStorage.getItem('token')
                 }
                 })
                     .then(res => {

@@ -43,7 +43,7 @@ export default class Third extends React.Component {
                         screenname: localStorage.getItem('twitterName')
                     },
                     headers:{
-                    Authorization:localStorage.getItem('token')
+                    Authorization:'Bearer '+localStorage.getItem('token')
                 }
                 })
                     .then(res => {
