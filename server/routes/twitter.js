@@ -90,7 +90,6 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     
     if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
     
-    let twitter = await TwitterAuth.findOne({username: screenname});
     let TempTwit = await TempTwitter.findOne({username: screenname});
     
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
@@ -99,10 +98,6 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
             success:false,
             message: 'Please complete first steps'
         });
-    if(!twitter || twitter == null) return res.status(404).send({
-            success: false,
-            message: 'Please complete first steps'
-        })
 
     // if(twitter.follower) return res.status(403).send({success: false, message: 'You have already share with your friend'})
     
