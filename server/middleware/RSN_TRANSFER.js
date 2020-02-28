@@ -36,7 +36,7 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Google'
             })
-        } else if(!instagram.id || !instagram.username) {
+        } else if(!instagram.instaid || !instagram.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Instagram'
