@@ -35,12 +35,26 @@ export default class First extends React.Component {
 
     checkTelegramUser = (e) => {
         e.preventDefault();
-        if (this.state.teleUserid !== '') {
+        const fbData = localStorage.getItem('fbUserId');
+        const googleEmail = localStorage.getItem('googleEmail');
+        const instaUserId = localStorage.getItem('instaUserId');
+        const teleUserId = localStorage.getItem('teleUserId');
+        const twitterName = localStorage.getItem('twitterName');
+        console.log('click',!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName)
+        if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Please complete the Steps carefully!!',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+        } else if (this.state.teleUserid !== '') {
             Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                 .then(res => {
                     console.log('console bot', res);
                     const title = res.data.ok ? 'Success' : 'Error';
-                    const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group !!';
+                    const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
                     const icon = res.data.ok ? 'success' : 'error';
                     Swal.fire({
                         title,
@@ -50,26 +64,16 @@ export default class First extends React.Component {
                         confirmButtonText: 'Proceed',
                     })
                     if (res.data.ok) {
+                        localStorage.setItem('s1', true)
                         window.location.hash = "#second";
-                        localStorage.setItem('firstStatus', true)
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
-        } else {
-            Swal.fire({
-                title: 'Error',
-                text: 'Please join our telegram group!!',
-                icon: "error",
-                showCancelButton: false,
-                confirmButtonText: 'Okay',
-            })
         }
     }
 
     handleTwitDataSave = (userData) => {
-        console.log('twitter data inside', userData)
         if (userData && userData.screen_name) {
-            localStorage.setItem('twitterName', userData.screen_name);
             Axios({
                 url: API.twitter_detail,
                 method: 'POST',
@@ -83,18 +87,17 @@ export default class First extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Twitter', response);
+                    localStorage.setItem('twitterName', userData.screen_name);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.handleNextShowBtn('fs')
+                        onClose: this.handleNextShowBtn('Instagram')
                     })
                 })
                 .catch(err => {
-                    console.error('Error', err);
-                    if (err.message.includes('status code 403')) {
+                    if (err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -121,7 +124,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className="col-sm mb-3 mb-sm-0">
+                    <div className={(this.state.nextBtnStatus === '') ? 'noClick col-sm mb-3 mb-sm-0' : 'col-sm mb-3 mb-sm-0'}>
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -149,7 +152,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-end mt-2">
                     <p className="d-flex">*Join our Telegram Community:
-                        <span className="ml-1">
+                        <span className={(this.state.nextBtnStatus === '') ? 'noClick ml-1' : 'ml-1'}>
                             <Telegram
                                 nextBtnStatus={this.state.nextBtnStatus}
                                 getTelegramValue={this.getTelegramValue}
@@ -161,7 +164,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                    // disabled={!(this.state.nextBtnStatus === 'fs')}
+                        disabled={(this.state.nextBtnStatus === '')}
                     >Next Step
                     </button>
                 </div>

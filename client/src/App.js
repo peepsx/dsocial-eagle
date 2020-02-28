@@ -9,7 +9,7 @@ import { API } from './component/js/api_list';
 import Axios from 'axios';
 import Ipexist from './component/Signup/forms/errorIP';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import InstaView from './component/instagramView/instaView';
+import { InstaView } from './component/Signup/forms/login_buttons/instagram';
 
 
 class App extends Component {
@@ -63,7 +63,7 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route path="/" component={Signup} exact />
-              <Route path="/instagramLogin" component={InstaView} exact />
+              <Route path="/instagramLogin" component={InstaView} />
             </Switch>
           </BrowserRouter>
         </React.Fragment>

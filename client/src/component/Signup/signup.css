@@ -127,3 +127,11 @@ height: 2.5em;
 .custom-border {
     border-radius: 20% 0;
 }
+
+.noClick {
+    pointer-events: none;
+}
+
+.ml-18{
+    margin-left: 18%;
+}

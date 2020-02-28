@@ -43,7 +43,7 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        if (localStorage.getItem('firstStatus')) {
+        if (localStorage.getItem('s1')) {
             let youtubeTitle;
             await window.gapi.client.youtube.subscriptions.list({
                 "part": "snippet,contentDetails",
@@ -81,7 +81,9 @@ export default class Second extends React.Component {
             url: API.validation_follower,
             method: 'POST',
             data: {
-                screen_name: localStorage.getItem('twitterName')
+                screen_name: localStorage.getItem('twitterName'),
+                username: localStorage.getItem('instaUserId'),
+                password: localStorage.getItem('inp')
             },
             headers:{
                     Authorization:localStorage.getItem('token')
@@ -89,7 +91,7 @@ export default class Second extends React.Component {
         })
             .then(response => {
                 console.log('twitter', response)
-                localStorage.setItem('secondStatus', true);
+                localStorage.setItem('s2', true);
                 const title = response.data.success ? 'Success' : 'Error';
                 const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
                 const icon = response.data.success ? 'success' : 'error';

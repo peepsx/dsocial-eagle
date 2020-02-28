@@ -34,7 +34,6 @@ export default class Google extends React.Component {
             const data = JSON.stringify(userData);
             const email = data.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
             console.log('email google', email, access_token)
-            localStorage.setItem('googleEmail', email);
             Axios({
                 url: API.google_detai,
                 method: 'POST',
@@ -48,18 +47,18 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     console.log('Data save Google', response);
+                    localStorage.setItem('googleEmail', email);
                     toast.success(response.data.message, {
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('fs')
+                        onClose: this.props.handleNextShowBtn('Telegram')
                     })
                 })
                 .catch(err => {
                     console.error('Error', err);
-                    if (err.message.includes('status code 403')) {
+                    if (err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.props.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -72,7 +71,7 @@ export default class Google extends React.Component {
                 onClick={this.handleGoogleClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                // disabled={!(this.props.nextBtnStatus === 'Google')}
+                disabled={(this.props.nextBtnStatus === '')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>

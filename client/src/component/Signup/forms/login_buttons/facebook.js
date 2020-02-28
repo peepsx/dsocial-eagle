@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
     handleFbClick = () => {
-        this.props.handleNextShowBtn('fs')
         if (window.FB) {
             window.FB.login((response) => {
                 if (response.status === 'connected') {
@@ -14,7 +13,7 @@ class Facebook extends React.Component {
                         userAccessToken = response.authResponse.accessToken.replace(/"/, "");
                     Axios({
                         method: 'GET',
-                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,likes,picture{url}&access_token=${userAccessToken}`
+                        url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
                             this.handleFbDataSave(fbData,userAccessToken);
@@ -29,7 +28,7 @@ class Facebook extends React.Component {
                     })
                 }
             }, {
-                scope: 'email,user_likes',
+                scope: 'email',
                 return_scoper: true,
             });
         }
@@ -38,7 +37,6 @@ class Facebook extends React.Component {
     handleFbDataSave = (userData,accessToken) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
-            localStorage.setItem('fbUserId', userData.data.id);
             Axios({
                 url: API.facebook_detail,
                 method: 'POST',
@@ -55,19 +53,19 @@ class Facebook extends React.Component {
                 .then(response => {
                     console.log('Data save facebook', response);
                     localStorage.setItem('token',response.data.token)
+                    localStorage.setItem('fbUserId', userData.data.id);
                     toast(response.data.message, {
                         type: 'success',
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('fs')
+                        onClose: this.props.handleNextShowBtn('Twitter')
                     })
                 })
                 .catch(err => {
                     console.error(err);
-                    if (err.message.includes('status code 403')) {
+                    if (err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
-                            onClose: this.props.handleNextShowBtn('fs')
                         })
                     }
                 })
@@ -81,7 +79,7 @@ class Facebook extends React.Component {
                 onClick={this.handleFbClick}
                 type="button"
                 className="btn btn-block btn-outline-light border py-4 h-100"
-                // disabled={!(this.props.nextBtnStatus === '')}
+                disabled={(this.props.nextBtnStatus !== '')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>
