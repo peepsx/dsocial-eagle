@@ -40,7 +40,7 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Instagram'
             })
-        } else if(!twitter.username || !twitter.profileDescription) {
+        } else if(!twitter.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Twitter'

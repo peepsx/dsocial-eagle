@@ -2,7 +2,8 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 let axios = require('axios');
-const {faceAuth} = require('../models/facebook');
+const { faceAuth } = require('../models/facebook');
+const { TempFacebook } = require('../models/TempFacebook');
 let generator = require('generate-password');
 let bcrypt = require('bcryptjs');
 let { Token } = require('../middleware/Token');
@@ -16,7 +17,18 @@ router.post('/facebook_detail', async (req, res)=>{
     try {
         let { fbPhoto,fbUserName, id, access_token } = req.body;
         let findOne = await faceAuth.findOne({facebookid: id})
-        if(findOne) return res.status(403).send({success: false, message: 'User already exists'})
+        let TempFb = await TempFacebook.findOne({facebookid: id})
+
+        if(TempFb) return res.status(200).send({
+                success: false,
+                message: 'Please wait for one hour for register'
+            })
+        
+        if(findOne) return res.status(403).send({
+                success: false,
+                message: 'User already exists'
+            })
+        
         let salt = await bcrypt.genSalt(10);
         let hash = await bcrypt.hash(password, salt);
         
@@ -24,7 +36,7 @@ router.post('/facebook_detail', async (req, res)=>{
 
                 let valid = await axios.get(`https://graph.facebook.com/v3.3/${id}?fields=id,name&access_token=${access_token}`);
                 if(!valid) return res.status(404).send({success: false, message: 'User not found'})
-                let newFbUser = new faceAuth({
+                let newFbUser = new TempFacebook({
                     facebookid: id,
                     fbPhoto: fbPhoto,
                     fbUserName: fbUserName,

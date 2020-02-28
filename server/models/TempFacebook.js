@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+var ttl = require('mongoose-ttl');
 
 let Schema = mongoose.Schema;
 
@@ -23,9 +24,9 @@ let TempFace = new Schema({
         type: String,
         required: true
     },
-    createdAt: {type: Date, expires: 5000}
-});
+},{timestamps: true});
 
+TempFace.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
 let TempFacebook = mongoose.model('tempfacebook', TempFace);
 
 module.exports = {

@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 let axios = require('axios');
 let { InstaAuth } = require('../models/instagram')
+let { TempInstagram } = require('../models/TempInstagram')
 let { Access_Token } = require('../middleware/RSN_TRANSFER')
 const Instagram = require('instagram-web-api');
 
-router.post('/instagram-details',/**[Access_Token], */ async (req, res)=>{
+router.post('/instagram-details', [Access_Token], async (req, res)=>{
         
     let { username, password } = req.body;
         if(!username && !password ) {
@@ -20,6 +21,13 @@ router.post('/instagram-details',/**[Access_Token], */ async (req, res)=>{
                 message: 'Fields are missing'
             })
         }
+        let TempInsta = await TempInstagram.findOne({username: username});
+
+        if(TempInsta) return res.status(200).send({
+            success: false,
+            message: 'Please try after one hour'
+        })
+
         let instaUser = await InstaAuth.findOne({username: username});
             
         if(instaUser && instaUser !== null) {
@@ -36,7 +44,7 @@ router.post('/instagram-details',/**[Access_Token], */ async (req, res)=>{
             const followers = await client.getFollowers({ userId: login.userId })
             
             if(login.authenticated) {
-                let newInsta = new InstaAuth({
+                let newInsta = new TempInstagram({
                     id: login.userId,
                     follower: followers.count,
                     username: username
