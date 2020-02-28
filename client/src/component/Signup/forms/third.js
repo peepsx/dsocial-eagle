@@ -33,7 +33,7 @@ export default class Third extends React.Component {
     handleNextStep = (e) => {
         e.preventDefault();
         console.log('props value', localStorage.getItem('twitterName'))
-        if(localStorage.getItem('secondStatus')) {
+        if(localStorage.getItem('s2')) {
             if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
                 Axios({
                     method: 'POST',
@@ -58,7 +58,7 @@ export default class Third extends React.Component {
                             }).then(() => {
                                 if (res.data.success) {
                                     window.location.hash = "#fourth";
-                                    localStorage.setItem('thirdStatus',true)
+                                    localStorage.setItem('s3',true)
                                 }
                             })
                         }

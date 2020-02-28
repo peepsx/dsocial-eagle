@@ -40,12 +40,21 @@ export default class First extends React.Component {
         const instaUserId = localStorage.getItem('instaUserId');
         const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
-        if (this.state.teleUserid !== '') {
+        console.log('click',!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName)
+        if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Please complete the Steps carefully!!',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+        } else if (this.state.teleUserid !== '') {
             Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                 .then(res => {
                     console.log('console bot', res);
                     const title = res.data.ok ? 'Success' : 'Error';
-                    const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram group !!';
+                    const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
                     const icon = res.data.ok ? 'success' : 'error';
                     Swal.fire({
                         title,
@@ -55,19 +64,11 @@ export default class First extends React.Component {
                         confirmButtonText: 'Proceed',
                     })
                     if (res.data.ok) {
-                        window.location.hash = "#second";
                         localStorage.setItem('s1', true)
+                        window.location.hash = "#second";
                     }
                 })
                 .catch(err => console.error('Bot Error : ', err))
-        } else if(!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Please complete the Steps carefully!!',
-                icon: "error",
-                showCancelButton: false,
-                confirmButtonText: 'Okay',
-            })
         }
     }
 
@@ -123,7 +124,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className={(this.state.nextBtnStatus === '') ? 'noClick col-sm mb-3 mb-sm-0' :'col-sm mb-3 mb-sm-0'}>
+                    <div className={(this.state.nextBtnStatus === '') ? 'noClick col-sm mb-3 mb-sm-0' : 'col-sm mb-3 mb-sm-0'}>
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -151,7 +152,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-end mt-2">
                     <p className="d-flex">*Join our Telegram Community:
-                        <span className={(this.state.nextBtnStatus === '') ? 'noClick ml-1' :'ml-1'}>
+                        <span className={(this.state.nextBtnStatus === '') ? 'noClick ml-1' : 'ml-1'}>
                             <Telegram
                                 nextBtnStatus={this.state.nextBtnStatus}
                                 getTelegramValue={this.getTelegramValue}
