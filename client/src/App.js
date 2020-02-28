@@ -63,7 +63,7 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route path="/" component={Signup} exact />
-              <Route path="/instagramLogin" component={InstaView} exact />
+              <Route path="/instagramLogin" component={InstaView} />
             </Switch>
           </BrowserRouter>
         </React.Fragment>
