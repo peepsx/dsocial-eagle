@@ -1,12 +1,12 @@
 require('dotenv').config();
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
-let {faceAuth} = require('../models/facebook');
+let { TempFacebook } = require('../models/TempFacebook');
 
 module.exports = {
     Token: async (password, id) => {
         return new Promise(async function(resolve, reject) {
-            let user = await faceAuth.findOne({_id: id});
+            let user = await TempFacebook.findOne({_id: id});
             if(!user) return reject({success: false, message: 'User not found'});
     
             let matched =  await bcrypt.compare(password, user.password);

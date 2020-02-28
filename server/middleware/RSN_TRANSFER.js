@@ -1,14 +1,14 @@
 require('dotenv').config();
-let { faceAuth } = require('../models/facebook')
-let { googleAuth } = require('../models/google')
-let { InstaAuth } = require('../models/instagram')
-let { TwitterAuth } = require('../models/twitter')
-let { UserAuth } = require('../models/user')
+let { TempFacebook } = require('../models/TempFacebook')
+let { TempGoogle } = require('../models/TempGoogle')
+let { TempInstagram } = require('../models/TempInstagram')
+let { TempTwitter } = require('../models/TempTwitter')
+let { TempTelegram } = require('../models/TempTelegram')
 let jwt = require('jsonwebtoken');
 
 module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
-        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails;
+        let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName, id } = req.body.userDetails;
         if( !googleEmail || !instaUserId || !twitterScreenName || !teleUserId || !fbUserId) {
             return res.status(200).send({
                 success: false,
@@ -20,10 +20,11 @@ module.exports = {
                 message: 'Fields are missing'
             })
         }
-        let facebook = await faceAuth.findOne({facebookid: fbUserId});
-        let google = await googleAuth.findOne({GmailAddress: googleEmail});
-        let instagram = await InstaAuth.findOne({id: instaUserId});
-        let twitter = await TwitterAuth.findOne({username: twitterScreenName});
+        let facebook = await TempFacebook.findOne({facebookid: fbUserId});
+        let google = await TempGoogle.findOne({GmailAddress: googleEmail});
+        let instagram = await TempInstagram.findOne({id: instaUserId});
+        let twitter = await TempTwitter.findOne({username: twitterScreenName});
+        let telegram = await TempTelegram.findOne({telegram_id: id});
         
         if(!facebook.facebookid || !facebook.fbUserName ) {
             return res.status(401).send({
@@ -45,7 +46,13 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Twitter'
             })
-        } else {
+        } else if(!telegram.telegram_id) {
+            return res.status(401).send({
+                success: false,
+                message: 'Please Login with Twitter'
+            })
+        }
+        else {
             next();
         }
     },
