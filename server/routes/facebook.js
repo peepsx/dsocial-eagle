@@ -21,12 +21,12 @@ router.post('/facebook_detail', async (req, res)=>{
 
         if(TempFb) return res.status(200).send({
                 success: false,
-                message: 'Please wait for one hour for register'
+                message: 'Please wait for an one hour'
             })
         
         if(findOne) return res.status(403).send({
                 success: false,
-                message: 'User already exists'
+                message: 'You have already register with us!'
             })
         
         let salt = await bcrypt.genSalt(10);
@@ -55,7 +55,7 @@ router.post('/facebook_detail', async (req, res)=>{
                         res.status(200).send(
                             {
                                 success: true,
-                                message: 'Facebook details has been saved successfully',
+                                message: 'You have logging successfully!',
                                 token: jsonToken.token
                             }
                         )

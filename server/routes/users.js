@@ -37,7 +37,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
         return res.status(400).json("Invalid Email id")
     }
     else if (UserOne) {
-        return res.status(403).json("User already exists!")
+        return res.status(403).json("You have already register with us!")
     }
     else if (ipAddress[0]) {
         return res.status(403).send({

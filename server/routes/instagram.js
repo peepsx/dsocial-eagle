@@ -25,7 +25,7 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
 
         if(TempInsta) return res.status(200).send({
             success: false,
-            message: 'Please try after one hour'
+            message: 'Please wait for an one hour'
         })
 
         let instaUser = await InstaAuth.findOne({username: username});
@@ -33,14 +33,14 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
         if(instaUser && instaUser !== null) {
             return res.status(200).send({
                 success: false,
-                message: 'User already register please try with new user'
+                message: 'You have already register with us!'
             })
         }
 
         try {
             const client = new Instagram({username, password});
             let login = await client.login();
-            if(!login.authenticated) return res.status(404).json({success: false, message: 'Not a valid instagram user'});
+            if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
             const followers = await client.getFollowers({ userId: login.userId })
             
             if(login.authenticated) {
@@ -54,7 +54,7 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
                         res.status(200).send({
                             success: true,
                             data:{name: username, pass: password},
-                            message: 'Instagram saved successfully!'
+                            message: 'You have logging successfully!'
                         })
 
                     })

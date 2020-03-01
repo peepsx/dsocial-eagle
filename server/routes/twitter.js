@@ -35,7 +35,8 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
         let TwitterUserOne = await TwitterAuth.findOne({username: username})
         let TempUser = await TempTwitter.findOne({username: username})
         if(TempUser) return res.status(200).send({
-
+                success: false,
+                message: 'Please wait for an one hour'
         })
 
         if(username && TwitterUserOne == null){
@@ -55,7 +56,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
 
               res.status(200).send({
                   success: true,
-                  message:'Twitter user saved Sucessfully'
+                  message:'You have logging successfully!'
               })
           }).catch(e=>{
               console.log('Something Went Wrong')
@@ -63,7 +64,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
         } else {
             res.status(403).send({
                 success: false,
-                message:"Already Register"
+                message:"You have already register with us!"
             })
         }
     }
@@ -71,7 +72,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     catch(e) {
         if(e.message === 'Sorry, that page does not exist.') {
             return res.status(404).send({
-                message: `User not found for your given username ${username} please try again!`
+                message: 'Invalid user id'
             })
         } else {
             console.log('TWITTER ERROR', e)
@@ -88,7 +89,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
 
     if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     
-    if(status === undefined ) return res.status(200).send({success: false, message: 'user have not share post with their friends!'})
+    if(status === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
@@ -105,7 +106,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     if(!api.data[0].text.includes(process.env.text) && TempTwit.username !== api.data[0].user.screen_name) {
         return res.status(200).send({
             success: false,
-            message: 'Please share with your twitter follower!'
+            message: 'Please share on your twitter page'
         })
     }
 
@@ -117,7 +118,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
                
                return res.status(200).send({
                     success: true,
-                    message: 'user share or post with their friends successfully!'
+                    message: 'You have successfully share with your friends'
                 })
             }
         }
@@ -126,7 +127,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
         console.log('ERROR WHILE SHARE_WITH_FACEBOOK', e)
       return  res.status(401).send({
                 success: false,
-                message: 'ERROR WHILE SHARE_WITH_FACEBOOK'
+                message: 'Something went wrong'
             })
     }
 })
@@ -152,12 +153,12 @@ router.post('/follower', [Access_Token], async (req, res) => {
        if(twit.indexOf(screen_name) !== -1 && follow.indexOf("arisencoin") !== -1) {
         return res.status(200).send({
             success: true,
-            message: 'user like and follow our platform'
+            message: 'You have liked successfully'
         });
        } else {
         return res.status(200).send({
             success: false,
-            message: 'Please Follow all platform!'
+            message: 'Please liked all social network'
         });
        }
     } catch (error) {
