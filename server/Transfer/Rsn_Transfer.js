@@ -24,7 +24,7 @@ module.exports = {
                          message: `user not found ${arisen_username}`
                     })
                 }
-                  rsn.transfer(process.env.TRASFERUSER, arisen_username, process.env.AMOUNT, '', config)
+                  rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
                       .then(async (transfer) => {
                           let rsn_transfered = new Rsn_Transfer({
                               user: id,
