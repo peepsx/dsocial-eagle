@@ -28,7 +28,12 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
     let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
-
+    console.log('face', TempFace)
+    console.log('twiit', TempTwit)
+    console.log('insta', TempInsta)
+    console.log('goo', TempGo)
+    console.log('tele', TempTele)
+    
     if(!email || !arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6})
