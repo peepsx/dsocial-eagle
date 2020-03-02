@@ -37,7 +37,7 @@ export default class Fifth extends React.Component {
         }
         return (
             <div className="card-body p-4 px-lg-5">
-                <div className="mb-4 text-center">
+                <div className=" text-center">
                     <div className="d-flex justify-content-center mb-3">
                         <div className="icon-rounded bg-success">
                             <i className="fas fa-check-circle color-white fs-20" />

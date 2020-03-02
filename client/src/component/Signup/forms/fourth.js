@@ -76,10 +76,10 @@ export default class Fourth extends React.Component {
                                 localStorage.clear();
                                 localStorage.setItem('s4', true);
                                 localStorage.setItem('a_user', res.data.message)
-                                localStorage.setItem('trasaction_id', 'hello')
+                                localStorage.setItem('transaction_id',res.data.transaction_id)
                             }
                             const title = res.data.success ? 'Success' : 'Error';
-                            const icon = res.data.success ? 'error' : 'success';
+                            const icon = res.data.success ? 'success' : 'error';
                             const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
                             Swal.fire({
                                 title,
