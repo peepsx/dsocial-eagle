@@ -24,18 +24,19 @@ module.exports = {
                          message: `user not found ${arisen_username}`
                     })
                 }
-                  rsn.transfer(process.env.TRASFERUSER, arisen_username, process.env.AMOUNT, '', config)
+                  rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
                       .then(async (transfer) => {
                           let rsn_transfered = new Rsn_Transfer({
                               user: id,
                               amount: process.env.AMOUNT,
-                              account_from_transfer: process.env.TRASFERUSER,
+                              account_from_transfer: process.env.TRANSFER_USER,
                               transaction_id: transfer.transaction_id
                           })
                             await rsn_transfered.save();
                               return resolve({
                                 success: true,
-                                message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`
+                                message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`,
+                                transaction_id: transfer.transaction_id
                               })
                       })
                       .catch(e => {

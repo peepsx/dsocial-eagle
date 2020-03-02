@@ -23,12 +23,12 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
     
     if(TempUser) return res.status(200).send({
             success: false,
-            message: 'Please wait for after one hour'
+            message: 'Please wait for an one hour'
         });
 
     try{
         let valid = await axios.get(process.env.GOOGLE_API_URL+access_token);
-        if(!valid) return res.status(404).send({success: false, message: 'google mail id is not valid'})
+        if(!valid) return res.status(404).send({success: false, message: 'Email is invalid!'})
         
         if(GmailAddress[0] && UserName == null){
             let newGmail = new TempGoogle({
@@ -38,7 +38,7 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
                     .then(() => {
                         res.status(200).send({
                             success: true,
-                            message: 'Google details saved'
+                            message: 'You have logging successfully!'
                         })
                     })
                     .catch(e => {
@@ -46,7 +46,7 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
                     })
         } else {
             res.status(403).send({
-                message:"Already Register"
+                message:"You have already register with us!"
             })
         }
     }

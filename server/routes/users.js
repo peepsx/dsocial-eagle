@@ -19,7 +19,7 @@ let axios = require('axios');
 let { RSN_TRANSFER, Access_Token } = require('../middleware/RSN_TRANSFER'); 
 let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
-router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
+router.post('/users-details',/** [RSN_TRANSFER, Access_Token], */  async (req, res) => {
 
     let { email, arisen_username, ip, fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body;
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
@@ -37,7 +37,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
         return res.status(400).json("Invalid Email id")
     }
     else if (UserOne) {
-        return res.status(403).json("User already exists!")
+        return res.status(403).json("You have already register with us!")
     }
     else if (ipAddress[0]) {
         return res.status(403).send({
@@ -93,7 +93,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                                 })
                                                 .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                              await NewUser.save();
-                                             
+
                                             return res.status(200).send({
                                                 success: true,
                                                 message: TRANSFER.message

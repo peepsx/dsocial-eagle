@@ -1,9 +1,9 @@
 require('dotenv').config();
-let { faceAuth } = require('../models/facebook')
-let { googleAuth } = require('../models/google')
-let { InstaAuth } = require('../models/instagram')
-let { TwitterAuth } = require('../models/twitter')
-let { UserAuth } = require('../models/user')
+let { TempFacebook } = require('../models/TempFacebook')
+let { TempGoogle } = require('../models/TempGoogle')
+let { TempInstagram } = require('../models/TempInstagram')
+let { TempTwitter } = require('../models/TempTwitter')
+let { TempTelegram } = require('../models/TempTelegram')
 let jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -20,11 +20,12 @@ module.exports = {
                 message: 'Fields are missing'
             })
         }
-        let facebook = await faceAuth.findOne({facebookid: fbUserId});
-        let google = await googleAuth.findOne({GmailAddress: googleEmail});
-        let instagram = await InstaAuth.findOne({id: instaUserId});
-        let twitter = await TwitterAuth.findOne({username: twitterScreenName});
-        
+        let facebook = await TempFacebook.findOne({facebookid: fbUserId});
+        let google = await TempGoogle.findOne({GmailAddress: googleEmail});
+        let instagram = await TempInstagram.findOne({username: instaUserId});
+        let twitter = await TempTwitter.findOne({username: twitterScreenName});
+        let telegram = await TempTelegram.findOne({telegram_id: teleUserId});
+        console.log('TELE', telegram,typeof teleUserId)
         if(!facebook.facebookid || !facebook.fbUserName ) {
             return res.status(401).send({
                 success: false,
@@ -35,7 +36,7 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Google'
             })
-        } else if(!instagram.id || !instagram.username) {
+        } else if(!instagram.instaid || !instagram.username) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Instagram'
@@ -45,7 +46,13 @@ module.exports = {
                 success: false,
                 message: 'Please Login with Twitter'
             })
-        } else {
+        } else if(!telegram.telegram_id) {
+            return res.status(401).send({
+                success: false,
+                message: 'Please Login with Twitter'
+            })
+        }
+        else {
             next();
         }
     },

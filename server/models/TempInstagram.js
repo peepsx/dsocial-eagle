@@ -4,7 +4,7 @@ const getTime = () => new Date.getTime();
 let Schema = mongoose.Schema;
 
 let TempInsta = new Schema({
-    id: {
+    instaid: {
         type: String
     },
     follower: {
