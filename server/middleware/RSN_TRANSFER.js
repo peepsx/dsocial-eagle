@@ -25,7 +25,6 @@ module.exports = {
         let instagram = await TempInstagram.findOne({username: instaUserId});
         let twitter = await TempTwitter.findOne({username: twitterScreenName});
         let telegram = await TempTelegram.findOne({telegram_id: teleUserId});
-        console.log('TELE', telegram,typeof teleUserId)
         if(!facebook.facebookid || !facebook.fbUserName ) {
             return res.status(401).send({
                 success: false,
