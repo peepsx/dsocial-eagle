@@ -111,7 +111,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                                 .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                              Telegram.save()
                                                 .then(async user => {   
-                                                    await TempInstagram.findOneAndDelete({username: user.username});
+                                                    await TempTelegram.findOneAndDelete({username: user.username});
                                                 })
                                                 .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                              FaceBook.save()
