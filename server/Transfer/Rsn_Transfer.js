@@ -2,7 +2,7 @@ require('dotenv').config();
 let config = require('../config/arisen');
 let RSN = require('arisenjsv1');
 let { UserAuth } = require('../models/user');
-let { Token_transfer } = require('../models/transfer');
+let { Rsn_Transfer } = require('../models/transfer');
 
 module.exports = {
     Rsn_Transfer: async (arisen_username, id) => {
@@ -26,21 +26,18 @@ module.exports = {
                 }
                   rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
                       .then(async (transfer) => {
-                          let rsn_transfered = new Token_transfer({
+                          let rsn_transfered = new Rsn_Transfer({
                               user: id,
                               amount: process.env.AMOUNT,
                               account_from_transfer: process.env.TRANSFER_USER,
                               transaction_id: transfer.transaction_id
                           })
-                           let NewArisen = await rsn_transfered.save();
-                            console.log("NNNNN", NewArisen)
-                           if(NewArisen) {
-                            return resolve({
+                            await rsn_transfered.save();
+                              return resolve({
                                 success: true,
                                 message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`,
                                 transaction_id: transfer.transaction_id
                               })
-                           }
                       })
                       .catch(e => {
                           console.log(e)
