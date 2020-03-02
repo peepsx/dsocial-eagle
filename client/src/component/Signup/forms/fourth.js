@@ -139,7 +139,7 @@ export default class Fourth extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-custom" type="submit" onClick={this.handleSave}>Log in</button>
+                            <button className="btn btn-block btn-lg btn-custom br-dot2" type="submit" onClick={this.handleSave}>Log in</button>
                         </div>
                         <div className="text-center text-small mt-3">
                             <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>

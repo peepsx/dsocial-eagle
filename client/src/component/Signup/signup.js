@@ -9,7 +9,6 @@ import Fifth from './forms/fifth';
 
 
 export default class Signup extends Component {
-
     render() {
         return (
             <section className="height-100 bg-gradient-3 p-3">
