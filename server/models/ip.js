@@ -6,7 +6,7 @@ let ipSchema = new Schema({
         required: true,
         unique: true
     }
-})
+}, {timestamps: true})
 
 let Ip = mongoose.model('ip', ipSchema);
 
