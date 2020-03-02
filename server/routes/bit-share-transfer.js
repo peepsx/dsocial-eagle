@@ -1,4 +1,3 @@
-/**TEST NET WORK START */
 let express = require('express');
 let router = express.Router();
 let { httpEndpoint, chainId, keyProvider} = require('../config/arisen');
@@ -12,35 +11,34 @@ router.post('/transfer', async (req, res) => {
     
     try {
         if(send === 'Arisen') {
-            // let rsn = RSN({httpEndpoint, chainId, keyProvider});
-            // let valid_arisen = await rsn.getAccount(sender_username);
-            // console.log('HOOB TANSFER', valid_arisen);
+            let rsn = RSN({httpEndpoint, chainId, keyProvider});
+            let valid_arisen = await rsn.getAccount(sender_username);
+            console.log('HOOB TANSFER', valid_arisen);
+
             console.log('ARISEN')
             Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {
                 console.log("connected to:", data[0].network);
             let validUser = await Apis.instance().db_api().exec('get_account_by_name', [receiver_username]);
-            let balance = await Apis.instance().history_api().exec('get_account_history', ['1.2.1704126', '1.11.0', 10, '1.11.0']);
-            console.log("User Trx", balance);
-
 
               if(validUser.name !== receiver_username) return res.status(404).send({success: false, message: 'Invalid user'});
             });
           
           let transaction =  setInterval(() => {
             let array = ['Ashu', 'Abhi', 'Deepak', 'Amit'];
-            array.map(val => {
+            array.map(async val => {
+                var balance = await Apis.instance().history_api().exec('get_account_history', ['1.2.1704126', '1.11.0', 10, '1.11.0']);
+                
                 console.log(val);
                 if(val === 'Deepak') {
                     console.log('aaaaaa')
                     res.status(200).send({
                         success: true,
-                        data: 'Name '+val
+                        data: 'Name '+JSON.stringify(balance)
                     })
                     clearInterval(transaction);
                 }
             })
-      }, 1000);
-            console.log('TRASACTION HAPPEN')
+              }, 1000);
         } else if(type === 'BitShare') {
             Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {
                 console.log("connected to:", data[0].network);
@@ -64,7 +62,7 @@ router.post('/transfer', async (req, res) => {
             console.log('SENDER NOT VALID')
             return res.status(401).send({
                 success: false,
-                message: `${send} not a valid sender`
+                message: `${send} not a valid sender type`
             })
         }
     } catch (error) {
