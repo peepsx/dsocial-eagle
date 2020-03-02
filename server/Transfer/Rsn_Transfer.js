@@ -26,7 +26,7 @@ module.exports = {
                 }
                   rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
                       .then(async (transfer) => {
-                          console.log('TRANS', transfer)
+                          console.log('TRANS', transfer.transaction_id)
                           let rsn_transfered = new Rsn_Transfer({
                               user: id,
                               amount: process.env.AMOUNT,
