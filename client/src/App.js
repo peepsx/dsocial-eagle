@@ -20,6 +20,8 @@ class App extends Component {
     }
   }
   async componentDidMount() {
+    localStorage.removeItem('a_user');
+    localStorage.removeItem('transaction_id');
     await window.FB.init({                // Initialising Facebook connectivity
       appId: env.facebook_client_id,
       autoLogAppEvents: true,

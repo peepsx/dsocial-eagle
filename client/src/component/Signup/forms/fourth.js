@@ -65,12 +65,31 @@ export default class Fourth extends React.Component {
                             twitterScreenName: localStorage.getItem('twitterName')
                         }
                     },
-                    headers:{
-                    Authorization:'Bearer '+localStorage.getItem('token')
-                }
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
                 })
                     .then(res => {
                         console.log('response from account arisen', res);
+                        if (res.data) {
+                            if (res.data.success) {
+                                localStorage.clear();
+                                localStorage.setItem('s4', true);
+                                localStorage.setItem('a_user', res.data.message)
+                                localStorage.setItem('transaction_id',res.data.transaction_id)
+                            }
+                            const title = res.data.success ? 'Success' : 'Error';
+                            const icon = res.data.success ? 'success' : 'error';
+                            const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
+                            Swal.fire({
+                                title,
+                                text,
+                                icon,
+                                showCancelButton: false,
+                                confirmButtonText: 'Okay',
+                            })
+                                .then(() => window.location.hash = '#fifth')
+                        }
                     })
                     .catch(err => {
                         console.error('Error :', err);
