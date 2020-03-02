@@ -9,7 +9,7 @@ import { API } from './component/js/api_list';
 import Axios from 'axios';
 import Ipexist from './component/Signup/forms/errorIP';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { InstaView } from './component/Signup/forms/login_buttons/instagram';
+import InstaView from './component/Signup/forms/view/InstaView';
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
     }
   }
   async componentDidMount() {
-   await window.FB.init({                // Initialising Facebook connectivity
+    await window.FB.init({                // Initialising Facebook connectivity
       appId: env.facebook_client_id,
       autoLogAppEvents: true,
       xfbml: true,

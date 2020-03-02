@@ -76,16 +76,21 @@
     color: white;
     border: none;
     border-radius: .5em;
-    background: -moz-linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
+    background: -moz-linear-gradient(50deg, #fa7f2b -27%, #f13d3c 57%, #559ef7 121%) !important;
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
+    background: -webkit-linear-gradient(50deg, #fa7f2b -27%, #f13d3c 57%, #559ef7 121%) !important;
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(16deg, #2167d2 0%, #1b7bce 40%, #55acf7 100%) !important;
+    background: linear-gradient(50deg, #fa7f2b -27%, #f13d3c 57%, #559ef7 121%) !important;
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .btn-custom:hover{
     color: white;
 }
+
+.br-dot2{
+    border-radius: .25em !important;
+}
+
 .h-2{
 height: 2.5em;
 }
