@@ -94,7 +94,7 @@ export default class First extends React.Component {
                     })
                 })
                 .catch(err => {
-                    if (err.response.status === 403) {
+                    if (err.response && err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,
@@ -151,7 +151,7 @@ export default class First extends React.Component {
                     </div>
                 </div>
                 <div className="columnd-flex justify-content-center mt-2">
-                    <p className="text-center">*Join our Telegram Community:<br/>
+                    <p className="text-center">*Join our Telegram Community<br/>
                         <span className={(this.state.nextBtnStatus === '') ? 'noClick ml-1' : 'ml-1'}>
                             <Telegram
                                 nextBtnStatus={this.state.nextBtnStatus}

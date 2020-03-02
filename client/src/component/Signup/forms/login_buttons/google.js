@@ -55,7 +55,7 @@ export default class Google extends React.Component {
                 })
                 .catch(err => {
                     console.error('Error', err);
-                    if (err.response.status === 403) {
+                    if (err.response && err.response.status === 403) {
                         toast("User already registered", {
                             type: 'warning',
                             autoClose: 3000,

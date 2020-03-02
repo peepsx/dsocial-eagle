@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class Instagram extends React.Component {
     handleInstaClick = () => {
-        window.open('/instagramLogin', '_blank', 'width=400, height=500')
+        window.open('/instagramLogin', 'instaClick', 'width=400, height=500')
     }
 
     render() {

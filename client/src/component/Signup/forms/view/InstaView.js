@@ -67,7 +67,7 @@ export default class InstaView extends React.Component {
                 .catch(err => {
                     this.setState({ loading: false })
                     if (err.response) {
-                        err.response.status === 500 ?
+                        err.response && err.response.status === 500 ?
                             this.setState({
                                 error: true,
                                 message: 'Please confirm yourself by opening Instagram'
@@ -92,7 +92,7 @@ export default class InstaView extends React.Component {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-center">
-                                        <img className="w-50" src="/assets/img/arisen/instaIcon.png" alt="logo" />
+                                        <img className="w-50 h100" src="/assets/img/arisen/instaIcon.png" alt="logo" />
                                     </div>
                                     <div className="row py-4 pl-4 pr-4">
                                         <form className="w-100" onSubmit={this.handleSave} autoComplete="off">

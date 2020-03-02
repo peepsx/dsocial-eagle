@@ -49,7 +49,7 @@ export default class Fifth extends React.Component {
                     <a className="d-block mb-2 mt-2" href="https://data.arisen.network">Click here to see your transaction.</a>
                     <span className="h4 d-block">Thanks for providing your details.</span>
                     <hr />
-                    <button className="btn btn-custom">Done</button>
+                    <button className="btn btn-custom" onClick={this.doneTransaction}>Done</button>
                 </div>
             </div>
         )
