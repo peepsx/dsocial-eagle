@@ -130,7 +130,8 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
 
                                             return res.status(200).send({
                                                 success: true,
-                                                message: TRANSFER.message
+                                                message: TRANSFER.message,
+                                                transaction_id: TRANSFER.transaction_id
                                             })
                                         }
                                     })

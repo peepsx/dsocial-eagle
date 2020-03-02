@@ -25,5 +25,5 @@ let RSN = new Schema({
 let Rsn_Transfer = mongoose.model('rsntransfer', RSN)
 
 module.exports = {
-    Rsn_Transfer
+    Token_transfer
 }
