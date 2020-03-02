@@ -6,6 +6,7 @@ const { faceAuth } = require('../models/facebook');
 const { TwitterAuth } = require('../models/twitter');
 const { InstaAuth } = require('../models/instagram');
 const { googleAuth } = require('../models/google');
+const { Ip } = require('../models/ip');
 const { TelegramDetail } = require('../models/telegram');
 /**TEMP MODEL */
 const { TempFacebook } = require('../models/TempFacebook');
@@ -30,15 +31,17 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
     let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
-    console.log('face', TempFace)
-    console.log('twiit', TempTwit)
-    console.log('insta', TempInsta)
-    console.log('goo', TempGo)
-    console.log('tele', TempTele)
-    
+    let address = ip.v4 === ip.v6 ? ip.v4 : [ip.v4, ip.v6]
+
+    if(address.length === 2) {
+        address = address.map(address_ip => address_ip);
+    } else {
+        address = [address];
+    }
+
     if(!email || !arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
-    let ipAddress = await UserAuth.find({ ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6})
+    let ipAddress = await UserAuth.find({ ip_address: {$in: address}})
 
     if (!validator.isEmail(email)) {
         return res.status(400).json("Invalid Email id")
@@ -69,6 +72,10 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                            Rsn_Transfer(arisen_username, user.id)
                                     .then(async TRANSFER => {
                                         if(TRANSFER.success) {
+                                            let ipv4 = new Ip({
+                                                ip_address: address
+                                            })
+                                            await ipv4.save();
                                             let FaceBook = new faceAuth({
                                                 follower: TempFace.follower,
                                                 facebookid: TempFace.facebookid,
