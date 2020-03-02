@@ -21,7 +21,8 @@ let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
-    let { email, arisen_username, ip, fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body;
+    let { email, arisen_username, ip } = req.body;
+    let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails
     console.log(email, arisen_username, ip, fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName, 'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
