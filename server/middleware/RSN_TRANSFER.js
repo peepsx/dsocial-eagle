@@ -25,27 +25,27 @@ module.exports = {
         let instagram = await TempInstagram.findOne({username: instaUserId});
         let twitter = await TempTwitter.findOne({username: twitterScreenName});
         let telegram = await TempTelegram.findOne({telegram_id: teleUserId});
-        if(!facebook.facebookid || !facebook.fbUserName ) {
+        if(!facebook.facebookid || !facebook.fbUserName || facebook === null ) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Facebook'
             })
-        } else if(!google.GmailAddress) {
+        } else if(!google.GmailAddress || google === null) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Google'
             })
-        } else if(!instagram.instaid || !instagram.username) {
+        } else if(!instagram.instaid || !instagram.username || instagram === null) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Instagram'
             })
-        } else if(!twitter.username) {
+        } else if(!twitter.username || twitter === null) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Twitter'
             })
-        } else if(!telegram.telegram_id) {
+        } else if(!telegram.telegram_id || telegram === null) {
             return res.status(401).send({
                 success: false,
                 message: 'Please Login with Twitter'
