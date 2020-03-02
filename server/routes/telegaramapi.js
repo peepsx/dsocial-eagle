@@ -34,7 +34,7 @@ router.post('/telegram', [Access_Token], async (req, res) => {
             success: false,
             message: "Server Error"
         })
-    }Telegram user already register
+    }
 })
 
 module.exports = router;
