@@ -69,11 +69,31 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                            Rsn_Transfer(arisen_username, user.id)
                                     .then(async TRANSFER => {
                                         if(TRANSFER.success) {
-                                            let FaceBook = new faceAuth(TempFace);
-                                            let Twitter = new TwitterAuth(TempTwit);
-                                            let Instagram = new InstaAuth(TempInsta);
-                                            let Google = new googleAuth(TempGo);
-                                            let Telegram = new TelegramDetail(TempTele);
+                                            let FaceBook = new faceAuth({
+                                                follower: TempFace.follower,
+                                                facebookid: TempFace.facebookid,
+                                                fbPhoto: TempFace.fbPhoto,
+                                                fbUserName: TempFace.fbUserName,
+                                                password: TempFace.password
+                                            });
+                                            let Twitter = new TwitterAuth({
+                                                username: TempTwit.username,
+                                                follower: TempTwit.follower,
+                                                profileDescription: TempTwit.profileDescription,
+                                                followerscount: TempTwit.followerscount
+                                            });
+                                            let Instagram = new InstaAuth({
+                                                instaid: TempInsta.instaid,
+                                                follower: TempInsta.follower,
+                                                username: TempInsta.username
+                                            });
+                                            let Google = new googleAuth({
+                                                GmailAddress: TempGo.GmailAddress
+                                            });
+                                            let Telegram = new TelegramDetail({
+                                                telegram_id: TempTele.telegram_id,
+                                                username: TempTele.username
+                                            });
                                              Twitter.save()
                                                 .then(async user => {
                                                     await TempTwitter.findOneAndDelete({username: user.username});
