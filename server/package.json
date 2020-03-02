@@ -5,7 +5,13 @@
   "scripts": {
     "start": "node ./bin/www",
     "pm2": "pm2 start ./bin/www -i 0",
-    "stop": "pm2 stop ./bin/www -i 0"
+    "stop": "pm2 stop ./bin/www -i 0",
+    "log_one": "pm2 logs 0",
+    "log_two": "pm2 logs 1",
+    "log_three": "pm2 logs 2",
+    "log_four": "pm2 logs 3",
+    "log_five": "pm2 logs 4",
+    "log_six": "pm2 logs 5"
   },
   "dependencies": {
     "arisenjsv1": "^1.0.3",
