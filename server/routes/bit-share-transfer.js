@@ -11,6 +11,7 @@ router.post('/transfer', async (req, res) => {
     
     try {
         if(send === 'Arisen') {
+        
             let rsn = RSN({httpEndpoint, chainId, keyProvider});
             let valid_arisen = await rsn.getAccount(sender_username);
             console.log('HOOB TANSFER', valid_arisen);
