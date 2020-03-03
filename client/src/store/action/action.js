@@ -1,6 +1,6 @@
-export const twitAction = (twitData) => {
+export const instaAction = (instaData) => {
     return {
-        type: 'TWIT_DATA',
-        payload: twitData
+        type: 'INSTA_DATA',
+        payload: instaData
     }
 }

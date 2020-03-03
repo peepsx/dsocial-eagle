@@ -75,7 +75,7 @@ export default class Google extends React.Component {
                 onClick={this.handleGoogleClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                disabled={!(this.props.nextBtnStatus === 'Google')}
+                disabled={!(this.state.emailStatus)}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>

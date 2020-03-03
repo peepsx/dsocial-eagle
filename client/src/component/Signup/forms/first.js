@@ -163,7 +163,7 @@ export default class First extends React.Component {
                         </span>
                     </p>
                 </div>
-                <div className="d-flex justify-content-center pb-0 pt-3">
+                <div className="d-flex justify-content-center pb-0">
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
