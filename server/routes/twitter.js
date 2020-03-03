@@ -29,9 +29,8 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     if(!username || !id) return res.status(400).send({success: false, message: 'Fields are missing'})
     try{
 
-        let description = await T.get('users/search', { q: username });
-        let count = await T.get('followers/ids', { screen_name: username })
-    
+        let description = await T.get('users/search', { q: `@${username}` });
+        let count = await T.get('followers/ids', { screen_name: `@${username}` })
         let TwitterUserOne = await TwitterAuth.findOne({username: username})
         let TempUser = await TempTwitter.findOne({username: username})
         if(TempUser) return res.status(200).send({
