@@ -7,7 +7,7 @@ let { Access_Token } = require('../middleware/RSN_TRANSFER')
 // const Instagram = require('instagram-web-api'); delete after final test
 const { IgApiClient } = require('instagram-private-api');
 
-router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
+router.post('/instagram-details', [Access_Token], async (req, res)=>{
         
     let { username, password } = req.body;
         if(!username && !password ) {
@@ -46,10 +46,10 @@ router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
             const login = await followersFeed.request();
             // const client = new Instagram({username, password}); delete after final test
             // let login = await client.login(); delete after final test
-            if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
+            // if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
             // const followers = await client.getFollowers({ userId: login.userId }) delete after final test
             
-            if(login.authenticated) {
+            if(login) {
                 let newInsta = new TempInstagram({
                     instaid: auth.pk,
                     follower: login.users.length,
@@ -78,6 +78,7 @@ router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
             }
 
         } catch(e) {
+            console.log("INSTAGRAM ERRORS", e)
             console.log("INSTAGRAM ERROR", e.message);
             if(e.message === 'Request failed with status code 404') return res.status(404).send({success: false, message: `Instagram user ${username} not found`});
 
