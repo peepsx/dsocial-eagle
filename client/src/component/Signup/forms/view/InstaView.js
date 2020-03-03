@@ -5,7 +5,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner';
 
 import { API } from '../../../js/api_list';
-import { env } from '../../../config/config';
 
 export default class InstaView extends React.Component {
 
@@ -48,11 +47,16 @@ export default class InstaView extends React.Component {
                     Authorization: 'Bearer '+localStorage.getItem('token')
                 }
             })
-            .then(async res => {
-                console.log('sadfasdf', res,'statesfasdf',env.liveStatus);
+            .then(res => {
+                console.log('sadfasdf', res);
                 this.setState({ loading: false })
-                await window.opener.postMessage(res,env.liveStatus);
-                await window.opener.postMessage('called callrd',env.liveStatus);
+                if (res.data && res.data.success) {
+                    localStorage.setItem('instaMsg',res.data.message);
+                    localStorage.setItem('instastatus',res.data.message);
+                    localStorage.setItem('instaUserId', res.data.data.name);
+                    localStorage.setItem('inp', res.data.data.pass);
+                    self.close();
+                }
                 if (!res.data.success) {
                     this.setState({
                         error2: true,
