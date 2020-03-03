@@ -27,14 +27,14 @@ export default class First extends React.Component {
 
     componentDidMount() {
         window.addEventListener('message', event => {
+            console.log('listener value', event)
             if (event.data.data && event.data.data.success) {
-                console.log('listener value', event.data.data)
                 this.setState({ instaStatus: true, nextBtnStatus: 'Google' })
                 localStorage.setItem('instaUserId', event.data.data.data.name);
                 localStorage.setItem('inp', event.data.data.data.pass);
                 toast.success(event.data.data.message, {
                     autoClose: 1500,
-                    onClose: () => self.close()
+                    // onClose: () => self.close()
                 })
             }
         }, false)
