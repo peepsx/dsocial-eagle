@@ -46,7 +46,7 @@ router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
             const login = await followersFeed.request();
             // const client = new Instagram({username, password}); delete after final test
             // let login = await client.login(); delete after final test
-            if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
+            // if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
             // const followers = await client.getFollowers({ userId: login.userId }) delete after final test
             
             if(login.authenticated) {
