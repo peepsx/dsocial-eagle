@@ -60,7 +60,7 @@ router.post('/instagram-details',/** [Access_Token], */async (req, res)=>{
                         res.status(200).send({
                             success: true,
                             data:{name: username, pass: password},
-                            message: 'You have logging successfully!'
+                            message: 'You have logged in successfully!'
                         })
 
                     })

@@ -55,7 +55,7 @@ router.post('/facebook_detail', async (req, res)=>{
                         res.status(200).send(
                             {
                                 success: true,
-                                message: 'You have logging successfully!',
+                                message: 'You have logged in successfully!',
                                 token: jsonToken.token
                             }
                         )

@@ -26,7 +26,7 @@ router.post('/telegram', [Access_Token], async (req, res) => {
         
         return res.status(200).send({
             success: true,
-            message: 'You have logging successfully!'
+            message: 'You have logged in successfully!'
         })
     } catch (error) {
         console.log(error);
