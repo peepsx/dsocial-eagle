@@ -20,6 +20,7 @@ export default class First extends React.Component {
             googleData: '',
             nextBtnStatus: '',
             teleUserid: '',
+            twitStatus: false,
         }
     }
 
@@ -88,6 +89,7 @@ export default class First extends React.Component {
                 .then(response => {
                     console.log('Data save Twitter', response);
                     localStorage.setItem('twitterName', userData.screen_name);
+                    response.data.success && this.setState({twitStatus:true})
                     toast.success(response.data.message, {
                         autoClose: 3000,
                         onClose: this.handleNextShowBtn('Instagram')
@@ -124,7 +126,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className={(this.state.nextBtnStatus === '') ? 'noClick col-sm mb-3 mb-sm-0' : 'col-sm mb-3 mb-sm-0'}>
+                    <div className={!(this.state.nextBtnStatus === 'Twitter') ? 'noClick col-sm mb-3 mb-sm-0' : 'col-sm mb-3 mb-sm-0'}>
                         <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
@@ -133,6 +135,7 @@ export default class First extends React.Component {
                             children={
                                 <Twitter
                                     nextBtnStatus={this.state.nextBtnStatus}
+                                    twitStatus={this.state.twitStatus}
                                 />
                             }
                         />
@@ -152,7 +155,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="columnd-flex justify-content-center mt-2">
                     <p className="text-center">*Join our Telegram Community<br/>
-                        <span className={(this.state.nextBtnStatus === '') ? 'noClick ml-1' : 'ml-1'}>
+                        <span className={!(this.state.nextBtnStatus === 'Telegram') ? 'noClick ml-1' : 'ml-1'}>
                             <Telegram
                                 nextBtnStatus={this.state.nextBtnStatus}
                                 getTelegramValue={this.getTelegramValue}
@@ -164,7 +167,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
-                        disabled={(this.state.nextBtnStatus === '')}
+                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >Next Step
                     </button>
                 </div>

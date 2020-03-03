@@ -5,6 +5,9 @@ import { API } from '../../../js/api_list';
 import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
+    state={
+        fbStatus: false,
+    }
     handleFbClick = () => {
         if (window.FB) {
             window.FB.login((response) => {
@@ -16,7 +19,7 @@ class Facebook extends React.Component {
                         url: `https://graph.facebook.com/v3.3/${userId}?fields=id,name,picture{url}&access_token=${userAccessToken}`
                     })
                         .then((fbData) => {
-                            this.handleFbDataSave(fbData,userAccessToken);
+                            this.handleFbDataSave(fbData, userAccessToken);
                         })
                         .catch(err => {
                             console.error('Error', err);
@@ -34,7 +37,7 @@ class Facebook extends React.Component {
         }
     }
 
-    handleFbDataSave = (userData,accessToken) => {
+    handleFbDataSave = (userData, accessToken) => {
         console.log('inside fb', userData);
         if (userData && userData.data) {
             Axios({
@@ -46,14 +49,15 @@ class Facebook extends React.Component {
                     fbPhoto: userData.data.picture.data.url,
                     fbUserName: userData.data.name,
                 },
-                headers:{
-                    Authorization:'Bearer '+localStorage.getItem('token')
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
                 .then(response => {
                     console.log('Data save facebook', response);
-                    localStorage.setItem('token',response.data.token)
+                    localStorage.setItem('token', response.data.token)
                     localStorage.setItem('fbUserId', userData.data.id);
+                    response.data.success && this.setState({fbStatus:true})
                     toast(response.data.message, {
                         type: 'success',
                         autoClose: 3000,
@@ -83,6 +87,7 @@ class Facebook extends React.Component {
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Facebook</span>
+                {this.state.fbStatus && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
             </button>
         )
     }
