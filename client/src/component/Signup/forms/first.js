@@ -21,7 +21,23 @@ export default class First extends React.Component {
             nextBtnStatus: '',
             teleUserid: '',
             twitStatus: false,
+            instaStatus: false,
         }
+    }
+
+    componentDidMount() {
+        window.addEventListener('message', event => {
+            if (event.data.data && event.data.data.success) {
+                console.log('listener value', event.data.data)
+                this.setState({ instaStatus: true, nextBtnStatus: 'Google' })
+                localStorage.setItem('instaUserId', event.data.data.data.name);
+                localStorage.setItem('inp', event.data.data.data.pass);
+                toast.success(event.data.data.message, {
+                    autoClose: 1500,
+                    onClose: () => self.close()
+                })
+            }
+        }, false)
     }
 
     twitterHandler = (err, authData) => {
@@ -41,7 +57,7 @@ export default class First extends React.Component {
         const instaUserId = localStorage.getItem('instaUserId');
         const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
-        console.log('click',!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName)
+        console.log('click', !fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName)
         if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
             Swal.fire({
                 title: 'Error',
@@ -83,13 +99,13 @@ export default class First extends React.Component {
                     id: localStorage.getItem('fbUserId')
                 },
                 headers: {
-                    Authorization: 'Bearer '+localStorage.getItem('token')
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
                 .then(response => {
                     console.log('Data save Twitter', response);
                     localStorage.setItem('twitterName', userData.screen_name);
-                    response.data.success && this.setState({twitStatus:true})
+                    response.data.success && this.setState({ twitStatus: true })
                     toast.success(response.data.message, {
                         autoClose: 3000,
                         onClose: this.handleNextShowBtn('Instagram')
@@ -113,6 +129,7 @@ export default class First extends React.Component {
     }
 
     render() {
+        console.log('instagram values',this.state.instaStatus,this.state.nextBtnStatus)
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
@@ -142,7 +159,7 @@ export default class First extends React.Component {
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
-                            handleNextShowBtn={this.handleNextShowBtn}
+                            instaStatus={this.state.instaStatus}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
@@ -154,7 +171,7 @@ export default class First extends React.Component {
                     </div>
                 </div>
                 <div className="columnd-flex justify-content-center mt-2">
-                    <p className="text-center">*Join our Telegram Community<br/>
+                    <p className="text-center">*Join our Telegram Community<br />
                         <span className={!(this.state.nextBtnStatus === 'Telegram') ? 'noClick ml-1' : 'ml-1'}>
                             <Telegram
                                 nextBtnStatus={this.state.nextBtnStatus}
