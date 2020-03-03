@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import Loader from 'react-loader-spinner';
 
 export default class Fourth extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class Fourth extends React.Component {
                 v4: '',
                 v6: ''
             },
+            loading: false,
         }
     }
 
@@ -47,6 +49,7 @@ export default class Fourth extends React.Component {
         e.preventDefault();
         const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
         if (localStorage.getItem('s3')) {
+            this.setState({loading:true})
             if (email && email[0] && this.state.arisen_username !== '') {
                 this.setState({ error: false })
                 console.log('email', email[0], this.state.arisen_username)
@@ -71,12 +74,13 @@ export default class Fourth extends React.Component {
                 })
                     .then(res => {
                         console.log('response from account arisen', res);
+                        this.setState({loading:false})
                         if (res.data) {
                             if (res.data.success) {
                                 localStorage.clear();
                                 localStorage.setItem('s4', true);
                                 localStorage.setItem('a_user', res.data.message)
-                                localStorage.setItem('transaction_id',res.data.transaction_id)
+                                localStorage.setItem('transaction_id', res.data.transaction_id)
                             }
                             const title = res.data.success ? 'Success' : 'Error';
                             const icon = res.data.success ? 'success' : 'error';
@@ -92,6 +96,7 @@ export default class Fourth extends React.Component {
                         }
                     })
                     .catch(err => {
+                        this.setState({loading:false})
                         console.error('Error :', err);
                     })
             } else {
@@ -158,7 +163,18 @@ export default class Fourth extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-custom br-dot2" type="submit" onClick={this.handleSave}>Log in</button>
+                            <button className="btn btn-block btn-lg btn-custom br-dot2" type="submit" onClick={this.handleSave}>
+                                {
+                                    this.state.loading && <Loader
+                                        type="TailSpin"
+                                        className="position-absolute ml-18"
+                                        color="#fff"
+                                        height={20}
+                                        width={20}
+                                    />
+                                }
+                                Log in
+                                </button>
                         </div>
                         <div className="text-center text-small mt-3">
                             <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>

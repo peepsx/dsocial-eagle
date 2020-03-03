@@ -4,12 +4,14 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
+import Loader from 'react-loader-spinner';
 
 export default class Third extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fbPostResponse: '',
+            loading: false,
         }
     }
 
@@ -32,8 +34,8 @@ export default class Third extends React.Component {
 
     handleNextStep = (e) => {
         e.preventDefault();
-        console.log('props value', localStorage.getItem('twitterName'))
-        if(localStorage.getItem('s2')) {
+        if (localStorage.getItem('s2')) {
+            this.setState({loading:true})
             if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
                 Axios({
                     method: 'POST',
@@ -42,12 +44,13 @@ export default class Third extends React.Component {
                         status: this.state.fbPostResponse,
                         screenname: localStorage.getItem('twitterName')
                     },
-                    headers:{
-                    Authorization:'Bearer '+localStorage.getItem('token')
-                }
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
                 })
                     .then(res => {
                         console.log('Validation response', res);
+                        this.setState({loading:false})
                         if (res.status === 200) {
                             Swal.fire({
                                 title: res.data.success ? 'Successful' : 'Error',
@@ -58,12 +61,15 @@ export default class Third extends React.Component {
                             }).then(() => {
                                 if (res.data.success) {
                                     window.location.hash = "#fourth";
-                                    localStorage.setItem('s3',true)
+                                    localStorage.setItem('s3', true)
                                 }
                             })
                         }
                     })
-                    .catch(err => console.error('Error', err))
+                    .catch(err => {
+                        this.setState({loading:false})
+                        console.error('Error', err)
+                    })
             } else {
                 Swal.fire({
                     title: 'Error',
@@ -114,7 +120,17 @@ export default class Third extends React.Component {
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-custom h-2 w-8"
                         onClick={this.handleNextStep}
-                    >Next Step
+                    >
+                        {
+                            this.state.loading && <Loader
+                                type="TailSpin"
+                                className="position-absolute ml-18"
+                                color="#fff"
+                                height={20}
+                                width={20}
+                            />
+                        }
+                        Next Step
                     </button>
                 </div>
             </div>

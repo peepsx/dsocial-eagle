@@ -1,7 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 import { toast } from 'react-toastify';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner';
 
 import { API } from '../../../js/api_list';
@@ -67,7 +66,7 @@ export default class InstaView extends React.Component {
             .catch(err => {
                 this.setState({ loading: false })
                 if (err.response) {
-                    err.response && err.response.status === 404 ?
+                    err.response && err.response.status === 505 ?
                     this.setState({
                         error: true,
                         message: 'Please confirm yourself by opening Instagram'
