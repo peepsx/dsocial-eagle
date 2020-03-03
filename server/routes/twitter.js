@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 var Twit = require('twit');
 const router = express.Router();
-const Instagram = require('instagram-web-api')
+const { IgApiClient } = require('instagram-private-api');
 
 var T = new Twit({
     consumer_key: process.env.consumer_key,
@@ -135,16 +135,18 @@ router.post('/follower', [Access_Token], async (req, res) => {
     let { screen_name, username, password } = req.body;
     if(!screen_name || !username || !password) return  res.status(400).send({success: false, message: 'Fields is missing!'})
     try {
-       const client = new Instagram({username, password});
-       let login = await client.login();
+        const ig = new IgApiClient();
+        ig.state.generateDevice(username)
+        const auth = await ig.account.login(username, password);
+        const followersFeed = ig.feed.accountFollowers(auth.pk);
+        const followers = await followersFeed.request(); 
 
-       if(!login.authenticated) return res.status(404).json({
+       if(!followers) return res.status(404).json({
            success: false,
            message: 'Not a valid instagram user'
         });
        /**INSTAGRAM */
-       const followers = await client.getFollowings({ userId: login.userId })
-       let follow = followers.data.map(follower => follower.username);
+       let follow = followers.users.map(follower => follower.username);
        /**TWITTER */
        let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
        let twit = follower.map(twitter => twitter.screen_name);
@@ -161,7 +163,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
         });
        }
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return res.status(500).send({
             success: false,
             message: 'Server Error'
