@@ -7,7 +7,7 @@ let { Access_Token } = require('../middleware/RSN_TRANSFER')
 // const Instagram = require('instagram-web-api'); delete after final test
 const { IgApiClient } = require('instagram-private-api');
 
-router.post('/instagram-details', [Access_Token],  async (req, res)=>{
+router.post('/instagram-details',/** [Access_Token], */async (req, res)=>{
         
     let { username, password } = req.body;
         if(!username && !password ) {
@@ -77,16 +77,22 @@ router.post('/instagram-details', [Access_Token],  async (req, res)=>{
                 })
             }
 
-        } catch(e) {
-            if(e.status !== 200) {
+        } catch(error) {
+            console.log("INSTAGRAM ERROR", error.message);
+
+            if(error.message === "POST /api/v1/accounts/login/ - 400 Bad Request; The username you entered doesn't appear to belong to an account. Please check your username and try again.") {
                 return res.status(404).send({
                     success: false,
-                    message: 'Invalid user id or password!'
+                    message: 'Username is invalid'
                 })
             }
-            console.log("INSTAGRAM ERRORS", e)
-            console.log("INSTAGRAM ERROR", e.message);
-            if(e.message === 'Request failed with status code 404') return res.status(404).send({success: false, message: `Instagram user ${username} not found`});
+            if(error.message === "POST /api/v1/accounts/login/ - 400 Bad Request; The password you entered is incorrect. Please try again.") {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Password is invalid'
+                })
+            }
+            if(error.message === 'Request failed with status code 404') return res.status(404).send({success: false, message: `Instagram user ${username} not found`});
 
             return res.status(500).send({
                 success: false,
