@@ -113,7 +113,6 @@ export default class First extends React.Component {
     }
 
     render() {
-        console.log('instagram values',this.state.instaStatus,this.state.nextBtnStatus)
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">

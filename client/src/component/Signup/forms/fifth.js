@@ -4,25 +4,13 @@ import { env } from '../../config/config';
 
 export default class Fifth extends React.Component {
 
-    doneTransaction = () => {
+    componentWillUnmount(){
         localStorage.clear();
-        window.open(env.liveStatus,'self');
-    }
-
-    handleCopy = () => {
-        const textField = document.createElement('textarea')
-        textField.innerText = localStorage.getItem('transaction_id');
-        console.log(textField.innerText)
-        document.body.appendChild(textField)
-        textField.select();
-        document.execCommand("copy");
-        textField.remove();
     }
 
     render() {
         const arisenMessage = localStorage.getItem('a_user');
-        const transaction = localStorage.getItem('transaction_id')
-        if (!transaction && !arisenMessage) {
+        if (!arisenMessage) {
             return (
                 <div className="card-body p-4 px-lg-5">
                     <div className="mb-4 text-center">
@@ -45,11 +33,10 @@ export default class Fifth extends React.Component {
                         <h2 className="mt-auto mb-auto ml-2">Congratulations</h2>
                     </div>
                     <span className="h5 d-block">{arisenMessage}</span>
-                    <span className="h6 d-block">Transaction ID: {transaction} <i className="far fa-copy" onClick={this.handleCopy}/></span>
-                    <a className="d-block mb-2 mt-2" href="https://data.arisen.network">Click here to see your transaction.</a>
+                    <a className="d-block mb-2 mt-2" href="https://explorer.arisen.network">Click here to see your transaction.</a>
                     <span className="h4 d-block">Thanks for providing your details.</span>
                     <hr />
-                    <button className="btn btn-custom" onClick={this.doneTransaction}>Done</button>
+                    <a className="btn btn-custom" href={env.liveStatus}>Done</a>
                 </div>
             </div>
         )

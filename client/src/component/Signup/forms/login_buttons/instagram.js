@@ -22,11 +22,11 @@ class Instagram extends React.Component {
                 })
                 this.props.handleNextShowBtn('Google');
             }
-        },100)
+        },300)
     }
 
     handleInstaClick = () => {
-        window.open('/instagramLogin', 'instaClick', 'width=400, height=500,left=200,top=50')
+        window.open('/instagramLogin', 'instaClick', 'width=400, height=500,left=200,top=200')
     }
 
     render() {

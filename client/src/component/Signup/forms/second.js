@@ -14,7 +14,7 @@ export default class Second extends React.Component {
     }
 
     handleInstagramLink = () => {
-        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
             count: this.state.count + 1
         })
