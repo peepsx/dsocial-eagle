@@ -49,7 +49,7 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
             // if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
             // const followers = await client.getFollowers({ userId: login.userId }) delete after final test
             
-            if(login.authenticated) {
+            if(login) {
                 let newInsta = new TempInstagram({
                     instaid: auth.pk,
                     follower: login.users.length,
