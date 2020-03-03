@@ -6,6 +6,9 @@ import { env } from '../../../config/config';
 import { toast } from 'react-toastify';
 
 export default class Google extends React.Component {
+    state ={
+        emailStatus:false,
+    }
 
     handleGoogleClick = () => {
         window.gapi.load('auth2', () => {
@@ -48,6 +51,7 @@ export default class Google extends React.Component {
                 .then(response => {
                     console.log('Data save Google', response);
                     localStorage.setItem('googleEmail', email);
+                    this.setState({emailStatus:true})
                     toast.success(response.data.message, {
                         autoClose: 3000,
                         onClose: this.props.handleNextShowBtn('Telegram')
@@ -71,10 +75,11 @@ export default class Google extends React.Component {
                 onClick={this.handleGoogleClick}
                 className="btn btn-block btn-outline-light border py-4 h-100"
                 type="button"
-                disabled={(this.props.nextBtnStatus === '')}
+                disabled={!(this.props.nextBtnStatus === 'Google')}
             >
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Google</span>
+                {(this.state.emailStatus) && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
             </button>
         )
     }
