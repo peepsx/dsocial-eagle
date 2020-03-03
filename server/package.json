@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "pm2": "pm2 start ./bin/www",
+    "restart": "pm2 restart ./bin/www",
     "stop": "pm2 stop ./bin/www",
     "log_one": "pm2 logs 0",
     "log_two": "pm2 logs 1",
