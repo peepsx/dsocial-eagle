@@ -45,6 +45,7 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
+        console.log('satafa',this.state.loading)
         if (localStorage.getItem('s1')) {
             this.setState({loading:true});
             let youtubeTitle;
@@ -175,19 +176,20 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 w-8"
+                    <button className="btn btn-custom h-2 w-8 d"
                         onClick={this.nextButtonValidation}>
-                        {
-                            this.state.loading && <Loader
-                                type="TailSpin"
-                                className="position-absolute ml-18"
-                                color="#fff"
-                                height={20}
-                                width={20}
-                            />
-                        }
                         Next Step
                     </button>
+                        {
+                            this.state.loading &&
+                             <Loader
+                                type="TailSpin"
+                                className="ml-1 mt-auto mb-auto"
+                                color="red"
+                                height={30}
+                                width={30}
+                            />
+                        }
                 </div>
             </div>
         )

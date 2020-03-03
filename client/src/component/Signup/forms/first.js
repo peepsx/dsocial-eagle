@@ -22,7 +22,7 @@ export default class First extends React.Component {
             nextBtnStatus: '',
             teleUserid: '',
             twitStatus: false,
-            loading:false,
+            loading: false,
         }
     }
 
@@ -38,7 +38,7 @@ export default class First extends React.Component {
 
     checkTelegramUser = (e) => {
         e.preventDefault();
-        this.setState({loading:true});
+        this.setState({ loading: true });
         const fbData = localStorage.getItem('fbUserId');
         const googleEmail = localStorage.getItem('googleEmail');
         const instaUserId = localStorage.getItem('instaUserId');
@@ -56,7 +56,7 @@ export default class First extends React.Component {
             Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                 .then(res => {
                     console.log('console bot', res);
-                    this.setState({loading:false})
+                    this.setState({ loading: false })
                     const title = res.data.ok ? 'Success' : 'Error';
                     const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
                     const icon = res.data.ok ? 'success' : 'error';
@@ -73,7 +73,7 @@ export default class First extends React.Component {
                     }
                 })
                 .catch(err => {
-                    this.setState({loading:false})
+                    this.setState({ loading: false })
                     console.error('Bot Error : ', err)
                 })
         }
@@ -175,17 +175,18 @@ export default class First extends React.Component {
                         onClick={this.checkTelegramUser}
                         disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >
-                        {
-                            this.state.loading && <Loader
-                                type="TailSpin"
-                                className="position-absolute ml-18"
-                                color="#fff"
-                                height={20}
-                                width={20}
-                            />
-                        }
                         Next Step
                     </button>
+                    {
+                        this.state.loading &&
+                        <Loader
+                            type="TailSpin"
+                            className="ml-1 mt-auto mb-auto"
+                            color="red"
+                            height={30}
+                            width={30}
+                        />
+                    }
                 </div>
             </div>
         )

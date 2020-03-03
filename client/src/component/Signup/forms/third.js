@@ -35,7 +35,7 @@ export default class Third extends React.Component {
     handleNextStep = (e) => {
         e.preventDefault();
         if (localStorage.getItem('s2')) {
-            this.setState({loading:true})
+            this.setState({ loading: true })
             if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
                 Axios({
                     method: 'POST',
@@ -50,7 +50,7 @@ export default class Third extends React.Component {
                 })
                     .then(res => {
                         console.log('Validation response', res);
-                        this.setState({loading:false})
+                        this.setState({ loading: false })
                         if (res.status === 200) {
                             Swal.fire({
                                 title: res.data.success ? 'Successful' : 'Error',
@@ -67,7 +67,7 @@ export default class Third extends React.Component {
                         }
                     })
                     .catch(err => {
-                        this.setState({loading:false})
+                        this.setState({ loading: false })
                         console.error('Error', err)
                     })
             } else {
@@ -121,17 +121,18 @@ export default class Third extends React.Component {
                     <button className="btn btn-custom h-2 w-8"
                         onClick={this.handleNextStep}
                     >
-                        {
-                            this.state.loading && <Loader
-                                type="TailSpin"
-                                className="position-absolute ml-18"
-                                color="#fff"
-                                height={20}
-                                width={20}
-                            />
-                        }
                         Next Step
                     </button>
+                    {
+                        this.state.loading &&
+                        <Loader
+                            type="TailSpin"
+                            className="ml-1 mt-auto mb-auto"
+                            color="red"
+                            height={30}
+                            width={30}
+                        />
+                    }
                 </div>
             </div>
         )

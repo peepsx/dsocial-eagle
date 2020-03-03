@@ -165,12 +165,13 @@ export default class Fourth extends React.Component {
                         <div className="form-group">
                             <button className="btn btn-block btn-lg btn-custom br-dot2" type="submit" onClick={this.handleSave}>
                                 {
-                                    this.state.loading && <Loader
+                                    this.state.loading && 
+                                    <Loader
                                         type="TailSpin"
-                                        className="position-absolute ml-18"
+                                        className="position-absolute ml-1"
                                         color="#fff"
-                                        height={20}
-                                        width={20}
+                                        height={30}
+                                        width={30}
                                     />
                                 }
                                 Log in
