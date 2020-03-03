@@ -48,10 +48,11 @@ export default class InstaView extends React.Component {
                     Authorization: 'Bearer '+localStorage.getItem('token')
                 }
             })
-            .then(res => {
-                console.log('sadfasdf', res);
+            .then(async res => {
+                console.log('sadfasdf', res,'statesfasdf',env.liveStatus);
                 this.setState({ loading: false })
-                window.opener.postMessage(res,env.liveStatus);
+                await window.opener.postMessage(res,env.liveStatus);
+                await window.opener.postMessage('called callrd',env.liveStatus);
                 if (!res.data.success) {
                     this.setState({
                         error2: true,
