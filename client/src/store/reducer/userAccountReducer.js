@@ -1,6 +1,6 @@
 export const userAccountReducer = (state = [], action) => {
     switch (action.type) {
-        case 'TWIT_DATA': return [...state,action.payload];
+        case 'INSTA_DATA': return action.payload;
         default: return state;
     }
 }

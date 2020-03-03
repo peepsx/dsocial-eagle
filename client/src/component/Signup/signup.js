@@ -19,7 +19,7 @@ export default class Signup extends Component {
                             <div className="text-center">
                                 <img className="w-15" src="assets/img/arisen/arisenLogo.png" alt="Logo" />
                             </div>
-                            <form className="wizard card" autoComplete="off">
+                            <form className="wizard card" autoComplete="off" name="signup">
                                 <ul className="nav nav-tabs card-header text-center bg-light p-0" id="navActive">
                                     <li className="nav-item flex-fill">
                                         <a className="nav-link" href="#first">1. Air Drop Setup</a>

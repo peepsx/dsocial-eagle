@@ -5,6 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner';
 
 import { API } from '../../../js/api_list';
+import { env } from '../../../config/config';
 
 export default class InstaView extends React.Component {
 
@@ -47,45 +48,39 @@ export default class InstaView extends React.Component {
                     Authorization: 'Bearer '+localStorage.getItem('token')
                 }
             })
-                .then(res => {
-                    console.log('sadfasdf', res);
-                    this.setState({ loading: false })
-                    if (res.data.success) {
-                        localStorage.setItem('instaUserId', res.data.data.name);
-                        localStorage.setItem('inp', res.data.data.pass);
-                        toast.success(res.data.message,{
-                            autoClose:1500,
-                            onClose: () => self.close()
-                        })
-                    } else if (!res.data.success) {
-                        this.setState({
-                            error2: true,
-                            message: res.data.message
-                        })
+            .then(res => {
+                console.log('sadfasdf', res);
+                this.setState({ loading: false })
+                window.opener.postMessage(res,env.liveStatus);
+                if (!res.data.success) {
+                    this.setState({
+                        error2: true,
+                        message: res.data.message
+                    })
+                }
+            })
+            .catch(err => {
+                this.setState({ loading: false })
+                if (err.response) {
+                    err.response && err.response.status === 500 ?
+                    this.setState({
+                        error: true,
+                        message: 'Please confirm yourself by opening Instagram'
+                    }) :
+                    this.setState({
+                        error2: true,
+                        message: err.response.data.message
+                    })
                     }
                 })
-                .catch(err => {
-                    this.setState({ loading: false })
-                    if (err.response) {
-                        err.response && err.response.status === 500 ?
-                            this.setState({
-                                error: true,
-                                message: 'Please confirm yourself by opening Instagram'
-                            }) :
-                            this.setState({
-                                error2: true,
-                                message: err.response.data.message
-                            })
-                    }
-                })
-        } else {
-            toast.error('All Fields are mandatory.');
+            } else {
+                toast.error('All Fields are mandatory.');
+            }
         }
-    }
-
-    render() {
-        return (
-            <section>
+        
+        render() {
+            return (
+                <section>
                 <div className="h-100 ">
                     <div className="container">
                         <div className="col-xl-5 col-lg-5">
