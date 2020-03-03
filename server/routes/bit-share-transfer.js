@@ -24,8 +24,10 @@ router.post('/transfer', async (req, res) => {
         
             let rsn = RSN({httpEndpoint, chainId, keyProvider});
             let valid_arisen = await rsn.getAccount(sender_username);
-            console.log('HOOB TANSFER', valid_arisen);
-            let valid_transaction_rsn = await rsn. 
+            let trx_history = (await rsn.getActions(sender_username)).actions;
+            console.log("actions", trx_history)
+            // console.log('HOOB TANSFER', valid_arisen);
+            // let valid_transaction_rsn = await rsn.
             console.log('ARISEN')
             Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {
                 console.log("connected to:", data[0].network);
