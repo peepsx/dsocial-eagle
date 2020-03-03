@@ -62,7 +62,7 @@ export default class InstaView extends React.Component {
             .catch(err => {
                 this.setState({ loading: false })
                 if (err.response) {
-                    err.response && err.response.status === 500 ?
+                    err.response && err.response.status === 404 ?
                     this.setState({
                         error: true,
                         message: 'Please confirm yourself by opening Instagram'
