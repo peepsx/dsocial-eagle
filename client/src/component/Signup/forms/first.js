@@ -11,6 +11,7 @@ import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
+import Loader from 'react-loader-spinner';
 
 export default class First extends React.Component {
     constructor(props) {
@@ -21,6 +22,7 @@ export default class First extends React.Component {
             nextBtnStatus: '',
             teleUserid: '',
             twitStatus: false,
+            loading: false,
         }
     }
 
@@ -36,12 +38,12 @@ export default class First extends React.Component {
 
     checkTelegramUser = (e) => {
         e.preventDefault();
+        this.setState({ loading: true });
         const fbData = localStorage.getItem('fbUserId');
         const googleEmail = localStorage.getItem('googleEmail');
         const instaUserId = localStorage.getItem('instaUserId');
         const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
-        console.log('click', !fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName)
         if (!fbData || !googleEmail || !instaUserId || !teleUserId || !twitterName) {
             Swal.fire({
                 title: 'Error',
@@ -54,6 +56,7 @@ export default class First extends React.Component {
             Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                 .then(res => {
                     console.log('console bot', res);
+                    this.setState({ loading: false })
                     const title = res.data.ok ? 'Success' : 'Error';
                     const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
                     const icon = res.data.ok ? 'success' : 'error';
@@ -69,7 +72,10 @@ export default class First extends React.Component {
                         window.location.hash = "#second";
                     }
                 })
-                .catch(err => console.error('Bot Error : ', err))
+                .catch(err => {
+                    this.setState({ loading: false })
+                    console.error('Bot Error : ', err)
+                })
         }
     }
 
@@ -168,8 +174,19 @@ export default class First extends React.Component {
                         className="btn btn-custom h-2 w-8"
                         onClick={this.checkTelegramUser}
                         disabled={!(this.state.nextBtnStatus === 'Telegram')}
-                    >Next Step
+                    >
+                        Next Step
                     </button>
+                    {
+                        this.state.loading &&
+                        <Loader
+                            type="TailSpin"
+                            className="ml-1 mt-auto mb-auto"
+                            color="red"
+                            height={30}
+                            width={30}
+                        />
+                    }
                 </div>
             </div>
         )

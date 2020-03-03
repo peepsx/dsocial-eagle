@@ -18,7 +18,11 @@ class Instagram extends React.Component {
                 this.setState({instaStatus:true,msg})   
                 toast(msg, {
                     autoClose: 1500,
-                    type:"success"
+                    type:"success",
+                    onClose: () => {
+                        localStorage.removeItem('instastatus')
+                        localStorage.removeItem('instaMsg')
+                    }
                 })
                 this.props.handleNextShowBtn('Google');
             }

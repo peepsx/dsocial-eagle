@@ -4,24 +4,26 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
+import Loader from 'react-loader-spinner';
 
 export default class Second extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             count: 0,
+            loading: false,
         }
     }
 
     handleInstagramLink = () => {
-        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
             count: this.state.count + 1
         })
     }
 
     handleFacebookLink = () => {
-        window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
             count: this.state.count + 1
         })
@@ -43,7 +45,9 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
+        console.log('satafa',this.state.loading)
         if (localStorage.getItem('s1')) {
+            this.setState({loading:true});
             let youtubeTitle;
             await window.gapi.client.youtube.subscriptions.list({
                 "part": "snippet,contentDetails",
@@ -85,13 +89,14 @@ export default class Second extends React.Component {
                 username: localStorage.getItem('instaUserId'),
                 password: localStorage.getItem('inp')
             },
-            headers:{
-                    Authorization:'Bearer '+localStorage.getItem('token')
-                }
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
         })
             .then(response => {
                 console.log('twitter', response)
                 localStorage.setItem('s2', true);
+                this.setState({loading:false})
                 const title = response.data.success ? 'Success' : 'Error';
                 const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
                 const icon = response.data.success ? 'success' : 'error';
@@ -104,7 +109,10 @@ export default class Second extends React.Component {
                 })
                 response.data.success && (window.location.hash = "#third");
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.setState({loading:false})
+                console.log(err);
+            })
     }
 
     render() {
@@ -168,8 +176,20 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 w-8"
-                        onClick={this.nextButtonValidation}>Next Step</button>
+                    <button className="btn btn-custom h-2 w-8 d"
+                        onClick={this.nextButtonValidation}>
+                        Next Step
+                    </button>
+                        {
+                            this.state.loading &&
+                             <Loader
+                                type="TailSpin"
+                                className="ml-1 mt-auto mb-auto"
+                                color="red"
+                                height={30}
+                                width={30}
+                            />
+                        }
                 </div>
             </div>
         )
