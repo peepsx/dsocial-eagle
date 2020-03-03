@@ -5,7 +5,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner';
 
 import { API } from '../../../js/api_list';
-import { env } from '../../../config/config';
 
 export default class InstaView extends React.Component {
 
@@ -51,7 +50,13 @@ export default class InstaView extends React.Component {
             .then(res => {
                 console.log('sadfasdf', res);
                 this.setState({ loading: false })
-                window.opener.postMessage(res,env.liveStatus);
+                if (res.data && res.data.success) {
+                    localStorage.setItem('instaMsg',res.data.message);
+                    localStorage.setItem('instastatus',res.data.message);
+                    localStorage.setItem('instaUserId', res.data.data.name);
+                    localStorage.setItem('inp', res.data.data.pass);
+                    self.close();
+                }
                 if (!res.data.success) {
                     this.setState({
                         error2: true,
@@ -62,7 +67,7 @@ export default class InstaView extends React.Component {
             .catch(err => {
                 this.setState({ loading: false })
                 if (err.response) {
-                    err.response && err.response.status === 500 ?
+                    err.response && err.response.status === 404 ?
                     this.setState({
                         error: true,
                         message: 'Please confirm yourself by opening Instagram'

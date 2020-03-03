@@ -21,23 +21,7 @@ export default class First extends React.Component {
             nextBtnStatus: '',
             teleUserid: '',
             twitStatus: false,
-            instaStatus: false,
         }
-    }
-
-    componentDidMount() {
-        window.addEventListener('message', event => {
-            console.log('listener value', event)
-            if (event.data.data && event.data.data.success) {
-                this.setState({ instaStatus: true, nextBtnStatus: 'Google' })
-                localStorage.setItem('instaUserId', event.data.data.data.name);
-                localStorage.setItem('inp', event.data.data.data.pass);
-                toast.success(event.data.data.message, {
-                    autoClose: 1500,
-                    // onClose: () => self.close()
-                })
-            }
-        }, false)
     }
 
     twitterHandler = (err, authData) => {
@@ -129,7 +113,6 @@ export default class First extends React.Component {
     }
 
     render() {
-        console.log('instagram values',this.state.instaStatus,this.state.nextBtnStatus)
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
@@ -159,7 +142,7 @@ export default class First extends React.Component {
                     </div>
                     <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
-                            instaStatus={this.state.instaStatus}
+                            handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
