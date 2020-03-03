@@ -7,7 +7,7 @@ let { Access_Token } = require('../middleware/RSN_TRANSFER')
 // const Instagram = require('instagram-web-api'); delete after final test
 const { IgApiClient } = require('instagram-private-api');
 
-router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
+router.post('/instagram-details', [Access_Token], async (req, res)=>{
         
     let { username, password } = req.body;
         if(!username && !password ) {
@@ -78,6 +78,7 @@ router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
             }
 
         } catch(e) {
+            console.log("INSTAGRAM ERRORS", e)
             console.log("INSTAGRAM ERROR", e.message);
             if(e.message === 'Request failed with status code 404') return res.status(404).send({success: false, message: `Instagram user ${username} not found`});
 
