@@ -4,9 +4,10 @@ let axios = require('axios');
 let { InstaAuth } = require('../models/instagram')
 let { TempInstagram } = require('../models/TempInstagram')
 let { Access_Token } = require('../middleware/RSN_TRANSFER')
-const Instagram = require('instagram-web-api');
+// const Instagram = require('instagram-web-api'); delete after final test
+const { IgApiClient } = require('instagram-private-api');
 
-router.post('/instagram-details', [Access_Token], async (req, res)=>{
+router.post('/instagram-details', /**[Access_Token], */ async (req, res)=>{
         
     let { username, password } = req.body;
         if(!username && !password ) {
@@ -38,16 +39,21 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
         }
 
         try {
-            const client = new Instagram({username, password});
-            let login = await client.login();
+            const ig = new IgApiClient();
+            ig.state.generateDevice(username)
+            const auth = await ig.account.login(username, password);
+            const followersFeed = ig.feed.accountFollowers(auth.pk);
+            const login = await followersFeed.request();
+            // const client = new Instagram({username, password}); delete after final test
+            // let login = await client.login(); delete after final test
             if(!login.authenticated) return res.status(404).json({success: false, message: 'Invalid instagram id'});
-            const followers = await client.getFollowers({ userId: login.userId })
+            // const followers = await client.getFollowers({ userId: login.userId }) delete after final test
             
             if(login.authenticated) {
                 let newInsta = new TempInstagram({
-                    instaid: login.userId,
-                    follower: followers.count,
-                    username: username
+                    instaid: auth.pk,
+                    follower: login.users.length,
+                    username: auth.username
                 })
                 newInsta.save()
                     .then(insta => {

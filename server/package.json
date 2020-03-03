@@ -29,6 +29,7 @@
     "get-twitter-followers": "^2.0.0",
     "http-errors": "~1.6.3",
     "https": "^1.0.0",
+    "instagram-private-api": "^1.39.1",
     "instagram-web-api": "^2.1.0",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
