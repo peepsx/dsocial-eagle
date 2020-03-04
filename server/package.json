@@ -12,7 +12,9 @@
     "log_three": "pm2 logs 2",
     "log_four": "pm2 logs 3",
     "log_five": "pm2 logs 4",
-    "log_six": "pm2 logs 5"
+    "log_six": "pm2 logs 5",
+    "flush": "pm2 flush",
+    "list": "pm2 list"
   },
   "dependencies": {
     "arisenjsv1": "^1.0.3",

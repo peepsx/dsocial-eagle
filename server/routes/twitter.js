@@ -22,6 +22,7 @@ const { TwitterAuth } = require('../models/twitter');
 const { faceAuth } = require('../models/facebook');
 const { TempTwitter } = require('../models/TempTwitter');
 const { TempFacebook } = require('../models/TempFacebook');
+const { TempInstagram } = require('../models/TempInstagram');
 
 router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     let {username, id} = req.body
@@ -132,14 +133,34 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
 })
 
 router.post('/follower', [Access_Token], async (req, res) => {
-    let { screen_name, username, password } = req.body;
-    if(!screen_name || !username || !password) return  res.status(400).send({success: false, message: 'Fields is missing!'})
+    
+    let { screen_name, username } = req.body;
+
+    if(!screen_name || !username) return  res.status(400).send({
+            success: false,
+            message: 'Fields is missing!'
+        })
+    
+    let validTwiFollower = await TempTwitter.findOne({username: screen_name});
+
+    let validInstagramFollower = await TempInstagram.findOne({username: username});
+    
+    if(!validInstagramFollower) return res.status(404).send({
+        success: false,
+        message: 'Invalid instagram user id'
+    })
+
+    if (!validTwiFollower) return res.status(404).send({
+        success: false,
+        message: 'Invalid twitter user id'
+    })
+
     try {
         const ig = new IgApiClient();
-        ig.state.generateDevice(username)
-        const auth = await ig.account.login(username, password);
+        ig.state.generateDevice(process.env.username)
+        const auth = await ig.account.login(process.env.username, process.env.password);
         const followersFeed = ig.feed.accountFollowers(auth.pk);
-        const followers = await followersFeed.request(); 
+        const followers = await followersFeed.request();
 
        if(!followers) return res.status(404).json({
            success: false,
@@ -151,7 +172,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
        let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
        let twit = follower.map(twitter => twitter.screen_name);
        
-       if(twit.indexOf(screen_name) !== -1 && follow.indexOf("arisencoin") !== -1) {
+       if(twit.indexOf(screen_name) !== -1 && follow.indexOf(username) !== -1) {
         return res.status(200).send({
             success: true,
             message: 'You have liked successfully'
