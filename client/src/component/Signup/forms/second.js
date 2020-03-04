@@ -52,23 +52,32 @@ export default class Second extends React.Component {
             if (window.gapi.client.youtube) {
                 await window.gapi.client.youtube.subscriptions.list({
                     "part": "snippet,contentDetails",
+                    "maxResults": 50,
                     "mine": true
                 })
                     .then((response) => {
-                        youtubeTitle = response.result.items && response.result.items[0].snippet.title;
+                        if (response.result.items) {
+                                response.result.items.filter(item => {
+                                if (item.snippet.title === 'Arisen Coin') {
+                                    youtubeTitle=item.snippet.title;
+                                } else {
+                                    youtubeTitle = false;
+                                }
+                            });
+                        }
                     })
             } else {
                 this.setState({ loading: false })
                 Swal.fire({
                     title: 'Error',
-                    text: 'Data Lost, don’t refresh the page !! ',
+                    text: 'Data Lost, due to roloading of the page !! ',
                     icon: "warning",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
                 })
-                .then(() => {
-                    window.open(env.liveStatus)
-                })
+                    .then(() => {
+                        window.open(env.liveStatus)
+                    })
             }
             console.log("Response", youtubeTitle);
             if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
