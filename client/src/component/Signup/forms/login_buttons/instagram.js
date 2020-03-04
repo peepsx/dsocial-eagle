@@ -29,7 +29,7 @@ class Instagram extends React.Component {
     }
 
     handleInstaClick = () => {
-        window.open('/instagramLogin', 'instaClick', 'width=400, height=500,left=200,top=200')
+        window.open('/instagramLogin', 'instaClick', 'width=400, height=500,left=100,top=100');
     }
 
     render() {
