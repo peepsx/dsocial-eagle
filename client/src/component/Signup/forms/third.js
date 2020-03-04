@@ -95,7 +95,8 @@ export default class Third extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <p className="lead">Share pre-written with your friends</p>
+                    <span className="h4 d-block">Share pre-written with your friends</span>
+                    <p className="h6">( All fields mandatory )</p>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">

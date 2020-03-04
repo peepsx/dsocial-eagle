@@ -97,6 +97,7 @@ export default class Fourth extends React.Component {
                     })
                     .catch(err => {
                         this.setState({ loading: false })
+                        err.response && toast.error(err.response.message);
                         console.error('Error :', err);
                     })
             } else {
