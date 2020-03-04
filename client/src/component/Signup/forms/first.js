@@ -175,18 +175,19 @@ export default class First extends React.Component {
                         onClick={this.checkTelegramUser}
                         disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >
-                        Next Step
+                        {
+                            this.state.loading ?
+                                <Loader
+                                    type="TailSpin"
+                                    className="ml-1 mt-auto mb-auto"
+                                    color="white"
+                                    height={30}
+                                    width={30}
+                                />
+                                :
+                                'Next Step'
+                        }
                     </button>
-                    {
-                        this.state.loading &&
-                        <Loader
-                            type="TailSpin"
-                            className="ml-1 mt-auto mb-auto"
-                            color="red"
-                            height={30}
-                            width={30}
-                        />
-                    }
                 </div>
             </div>
         )

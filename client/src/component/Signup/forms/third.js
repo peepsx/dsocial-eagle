@@ -121,18 +121,19 @@ export default class Third extends React.Component {
                     <button className="btn btn-custom h-2 w-8"
                         onClick={this.handleNextStep}
                     >
-                        Next Step
+                        {
+                            this.state.loading ?
+                                <Loader
+                                    type="TailSpin"
+                                    className="ml-1 mt-auto mb-auto"
+                                    color="white"
+                                    height={30}
+                                    width={30}
+                                />
+                                :
+                                'Next Step'
+                        }
                     </button>
-                    {
-                        this.state.loading &&
-                        <Loader
-                            type="TailSpin"
-                            className="ml-1 mt-auto mb-auto"
-                            color="red"
-                            height={30}
-                            width={30}
-                        />
-                    }
                 </div>
             </div>
         )

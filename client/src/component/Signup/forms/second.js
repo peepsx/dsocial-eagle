@@ -45,24 +45,48 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        console.log('satafa',this.state.loading)
+        console.log('satafa', this.state.loading)
         if (localStorage.getItem('s1')) {
-            this.setState({loading:true});
+            this.setState({ loading: true });
             let youtubeTitle;
-            await window.gapi.client.youtube.subscriptions.list({
-                "part": "snippet,contentDetails",
-                "mine": true
-            })
-                .then((response) => {
-                    youtubeTitle = response.result.items && response.result.items[0].snippet.title;
+            if (window.gapi.client.youtube) {
+                await window.gapi.client.youtube.subscriptions.list({
+                    "part": "snippet,contentDetails",
+                    "mine": true
                 })
+                    .then((response) => {
+                        youtubeTitle = response.result.items && response.result.items[0].snippet.title;
+                    })
+            } else {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Data Lost, don’t refresh the page !! ',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+                .then(() => {
+                    window.open(env.liveStatus)
+                })
+            }
             console.log("Response", youtubeTitle);
             if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
                 this.apiCall();
-            } else {
+            } else if (youtubeTitle !== 'Arisen Coin') {
+                this.setState({ loading: false })
                 Swal.fire({
                     title: 'Error',
-                    text: 'Please Like and Follow first!!',
+                    text: 'Please Subscribe Youtube Channel with your given G-mail Account !!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            } else {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Like & Follow first !!',
                     icon: "warning",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
@@ -96,7 +120,7 @@ export default class Second extends React.Component {
             .then(response => {
                 console.log('twitter', response)
                 localStorage.setItem('s2', true);
-                this.setState({loading:false})
+                this.setState({ loading: false })
                 const title = response.data.success ? 'Success' : 'Error';
                 const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
                 const icon = response.data.success ? 'success' : 'error';
@@ -110,7 +134,7 @@ export default class Second extends React.Component {
                 response.data.success && (window.location.hash = "#third");
             })
             .catch(err => {
-                this.setState({loading:false})
+                this.setState({ loading: false })
                 console.log(err);
             })
     }
@@ -178,18 +202,19 @@ export default class Second extends React.Component {
                 <div className="d-flex justify-content-center pb-0 pt-3">
                     <button className="btn btn-custom h-2 w-8 d"
                         onClick={this.nextButtonValidation}>
-                        Next Step
-                    </button>
                         {
-                            this.state.loading &&
-                             <Loader
-                                type="TailSpin"
-                                className="ml-1 mt-auto mb-auto"
-                                color="red"
-                                height={30}
-                                width={30}
-                            />
+                            this.state.loading ?
+                                <Loader
+                                    type="TailSpin"
+                                    className="ml-1 mt-auto mb-auto"
+                                    color="white"
+                                    height={30}
+                                    width={30}
+                                />
+                                :
+                                'Next Step'
                         }
+                    </button>
                 </div>
             </div>
         )

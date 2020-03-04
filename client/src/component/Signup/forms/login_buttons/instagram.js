@@ -14,7 +14,6 @@ class Instagram extends React.Component {
             const instaStatus = localStorage.getItem('instastatus')
             const msg = localStorage.getItem('instaMsg');
             if(instaStatus && msg){
-                console.log('inside main',instaStatus,msg)
                 this.setState({instaStatus:true,msg})   
                 toast(msg, {
                     autoClose: 1500,
@@ -37,7 +36,6 @@ class Instagram extends React.Component {
         if(this.state.instaStatus) {
             clearInterval(this.localInterval);
         }
-        console.log('props valiue',this.props)
         return (
             <button
                 onClick={this.handleInstaClick}

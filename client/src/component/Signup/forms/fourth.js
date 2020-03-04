@@ -49,7 +49,7 @@ export default class Fourth extends React.Component {
         e.preventDefault();
         const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
         if (localStorage.getItem('s3')) {
-            this.setState({loading:true})
+            this.setState({ loading: true })
             if (email && email[0] && this.state.arisen_username !== '') {
                 this.setState({ error: false })
                 console.log('email', email[0], this.state.arisen_username)
@@ -74,13 +74,13 @@ export default class Fourth extends React.Component {
                 })
                     .then(res => {
                         console.log('response from account arisen', res);
-                        this.setState({loading:false})
+                        this.setState({ loading: false })
                         if (res.data) {
                             if (res.data.success) {
                                 localStorage.clear();
                                 localStorage.setItem('s4', true);
                                 localStorage.setItem('a_user', res.data.message)
-                                localStorage.setItem('transaction_id', res.data.transaction_id)
+                                localStorage.setItem('username', this.state.arisen_username)
                             }
                             const title = res.data.success ? 'Success' : 'Error';
                             const icon = res.data.success ? 'success' : 'error';
@@ -96,7 +96,7 @@ export default class Fourth extends React.Component {
                         }
                     })
                     .catch(err => {
-                        this.setState({loading:false})
+                        this.setState({ loading: false })
                         console.error('Error :', err);
                     })
             } else {
@@ -165,17 +165,18 @@ export default class Fourth extends React.Component {
                         <div className="form-group">
                             <button className="btn btn-block btn-lg btn-custom br-dot2" type="submit" onClick={this.handleSave}>
                                 {
-                                    this.state.loading && 
-                                    <Loader
-                                        type="TailSpin"
-                                        className="position-absolute ml-1"
-                                        color="#fff"
-                                        height={30}
-                                        width={30}
-                                    />
+                                    this.state.loading ?
+                                        <Loader
+                                            type="TailSpin"
+                                            className=""
+                                            color="#fff"
+                                            height={30}
+                                            width={30}
+                                        />
+                                        :
+                                        'Log in'
                                 }
-                                Log in
-                                </button>
+                            </button>
                         </div>
                         <div className="text-center text-small mt-3">
                             <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>
