@@ -45,10 +45,9 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        console.log('satafa', this.state.loading)
         if (localStorage.getItem('s1')) {
             this.setState({ loading: true });
-            let youtubeTitle;
+            let youtubeTitle = false;
             if (window.gapi.client.youtube) {
                 await window.gapi.client.youtube.subscriptions.list({
                     "part": "snippet,contentDetails",
@@ -57,13 +56,11 @@ export default class Second extends React.Component {
                 })
                     .then((response) => {
                         if (response.result.items) {
-                                response.result.items.filter(item => {
+                            for (let item of response.result.items) {
                                 if (item.snippet.title === 'Arisen Coin') {
-                                    youtubeTitle=item.snippet.title;
-                                } else {
-                                    youtubeTitle = false;
+                                    youtubeTitle = item.snippet.title;
                                 }
-                            });
+                            }
                         }
                     })
             } else {
