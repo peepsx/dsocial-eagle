@@ -42,8 +42,8 @@ class App extends Component {
     this.handleIpCheck(ip);
   }
 
-  handleIpCheck = (ipData) => {
-    Axios({
+  handleIpCheck = async (ipData) => {
+    await Axios({
       url: API.ip_check,
       method: 'post',
       data: {

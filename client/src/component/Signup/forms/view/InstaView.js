@@ -92,7 +92,7 @@ export default class InstaView extends React.Component {
                                         <img className="w-50 h100" src="/assets/img/arisen/instaIcon.png" alt="logo" />
                                     </div>
                                     <div className="d-flex justify-content-center mt-3">
-                                        <img src="/assets/img/icons/icon14.svg" className="w-50 " />
+                                        <img src="/assets/img/icons/icon14.svg" className="w-50 " alt="profile" />
                                     </div>
                                     <div className="row py-4 pl-4 pr-4">
                                         <form className="w-100" onSubmit={this.handleSave} autoComplete="off">
@@ -106,15 +106,6 @@ export default class InstaView extends React.Component {
                                                     onChange={this.handleChange}
                                                 />
                                             </div>
-                                            {/* <div className="form-group mb-3">
-                                                <input
-                                                    name="password"
-                                                    type="password"
-                                                    className="form-control"
-                                                    placeholder="Password"
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div> */}
                                             {
                                                 this.state.error &&
                                                 <p className="c-red text-center">Error: {this.state.message}<br />
@@ -136,15 +127,8 @@ export default class InstaView extends React.Component {
                                                 }
                                                 Submit
                                             </button>
-                                            {/* <hr /> */}
-                                            {/* <div className="d-flex justify-content-center">
-                                                <a href="https://www.instagram.com/accounts/password/reset/" target="blank">Forgot Password?</a>
-                                            </div> */}
                                         </form>
                                     </div>
-                                    {/* <div className="d-flex justify-content-center">
-                                        <small className="mb-0 text-center">*Note: Only Personal Accounts are allowed.</small>
-                                    </div> */}
                                 </div>
                             </div>
                         </div>

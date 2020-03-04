@@ -42,9 +42,9 @@ export default class First extends React.Component {
         const fbData = localStorage.getItem('fbUserId');
         const googleEmail = localStorage.getItem('googleEmail');
         const instaUserId = localStorage.getItem('instaUserId');
-        const teleUserId = localStorage.getItem('teleUserId');
         const twitterName = localStorage.getItem('twitterName');
         if (!fbData || !googleEmail || !instaUserId || !twitterName) {
+            this.setState({loading:false})
             Swal.fire({
                 title: 'Error',
                 text: 'Please complete the Steps carefully!!',
@@ -77,6 +77,7 @@ export default class First extends React.Component {
                     console.error('Bot Error : ', err)
                 })
         } else {
+            this.setState({loading:false})
             Swal.fire({
                 title: 'Error',
                 text: 'Please Login with Telegram !!',
