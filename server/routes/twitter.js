@@ -184,7 +184,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
         });
        }
     } catch (error) {
-        console.log(error.message);
+        console.log("TWITTER AND INSTAGRAM FOLLOWER ERROR", error.message);
         return res.status(500).send({
             success: false,
             message: 'Server Error'
