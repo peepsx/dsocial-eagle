@@ -7,7 +7,7 @@ let { Access_Token } = require('../middleware/RSN_TRANSFER')
 // const Instagram = require('instagram-web-api'); delete after final test
 const { IgApiClient } = require('instagram-private-api');
 
-router.post('/instagram-details',/** [Access_Token], */async (req, res)=>{
+router.post('/instagram-details', [Access_Token], async (req, res)=>{
         
     let { username, password } = req.body;
         if(!username && !password ) {
@@ -60,7 +60,7 @@ router.post('/instagram-details',/** [Access_Token], */async (req, res)=>{
                         res.status(200).send({
                             success: true,
                             data:{name: username, pass: password},
-                            message: 'You have logging successfully!'
+                            message: 'You have logged in successfully!'
                         })
 
                     })

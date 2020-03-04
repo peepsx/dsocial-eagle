@@ -38,7 +38,7 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
                     .then(() => {
                         res.status(200).send({
                             success: true,
-                            message: 'You have logging successfully!'
+                            message: 'You have logged in successfully!'
                         })
                     })
                     .catch(e => {

@@ -3,3 +3,5 @@ package-lock.json
 test.js
 #misc
 .env
+config/register_arisen.js
+routes/register.js
