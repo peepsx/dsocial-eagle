@@ -117,7 +117,6 @@ export default class Second extends React.Component {
             data: {
                 screen_name: localStorage.getItem('twitterName'),
                 username: localStorage.getItem('instaUserId'),
-                password: localStorage.getItem('inp')
             },
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')

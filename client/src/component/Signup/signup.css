@@ -144,3 +144,16 @@ height: 2.5em;
 .h100{
     height: 100%;
 }
+
+.h50{
+    height: 50px;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.cstm-placeholder::placeholder{
+    text-align: center;
+    font-size: medium;
+}

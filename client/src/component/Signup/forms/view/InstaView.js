@@ -29,62 +29,60 @@ export default class InstaView extends React.Component {
 
     handleSave = (e) => {
         e.preventDefault();
-        if (this.state.username !== '' && this.state.password !== '') {
-            this.setState({ 
-                error: false, 
-                error2: false, 
-                loading: true 
+        if (this.state.username !== '') {
+            this.setState({
+                error: false,
+                error2: false,
+                loading: true
             })
             Axios({
                 url: API.instagram_detail,
                 data: {
-                    username: this.state.username,
-                    password: this.state.password
+                    username: this.state.username
                 },
                 method: 'post',
                 headers: {
-                    Authorization: 'Bearer '+localStorage.getItem('token')
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
-            .then(res => {
-                console.log('sadfasdf', res);
-                this.setState({ loading: false })
-                if (res.data && res.data.success) {
-                    localStorage.setItem('instaMsg',res.data.message);
-                    localStorage.setItem('instastatus',res.data.message);
-                    localStorage.setItem('instaUserId', res.data.data.name);
-                    localStorage.setItem('inp', res.data.data.pass);
-                    self.close();
-                }
-                if (!res.data.success) {
-                    this.setState({
-                        error2: true,
-                        message: res.data.message
-                    })
-                }
-            })
-            .catch(err => {
-                this.setState({ loading: false })
-                if (err.response) {
-                    err.response && err.response.status === 505 ?
-                    this.setState({
-                        error: true,
-                        message: 'Please confirm yourself by opening Instagram'
-                    }) :
-                    this.setState({
-                        error2: true,
-                        message: err.response.data.message
-                    })
+                .then(res => {
+                    console.log('sadfasdf', res);
+                    this.setState({ loading: false })
+                    if (res.data && res.data.success) {
+                        localStorage.setItem('instaMsg', res.data.message);
+                        localStorage.setItem('instastatus', res.data.message);
+                        localStorage.setItem('instaUserId', res.data.data.name);
+                        self.close();
+                    }
+                    if (!res.data.success) {
+                        this.setState({
+                            error2: true,
+                            message: res.data.message
+                        })
                     }
                 })
-            } else {
-                toast.error('All Fields are mandatory.');
-            }
+                .catch(err => {
+                    this.setState({ loading: false })
+                    if (err.response) {
+                        err.response && err.response.status === 505 ?
+                            this.setState({
+                                error: true,
+                                message: 'Please confirm yourself by opening Instagram'
+                            }) :
+                            this.setState({
+                                error2: true,
+                                message: err.response.data.message
+                            })
+                    }
+                })
+        } else {
+            toast.error('Username Field Missing !!');
         }
-        
-        render() {
-            return (
-                <section>
+    }
+
+    render() {
+        return (
+            <section>
                 <div className="h-100 ">
                     <div className="container">
                         <div className="col-xl-5 col-lg-5">
@@ -93,18 +91,22 @@ export default class InstaView extends React.Component {
                                     <div className="d-flex justify-content-center">
                                         <img className="w-50 h100" src="/assets/img/arisen/instaIcon.png" alt="logo" />
                                     </div>
+                                    <div className="d-flex justify-content-center mt-3">
+                                        <img src="/assets/img/icons/icon14.svg" className="w-50 " />
+                                    </div>
                                     <div className="row py-4 pl-4 pr-4">
                                         <form className="w-100" onSubmit={this.handleSave} autoComplete="off">
-                                            <div className="form-group">
+                                            <div className="form-group d-flex flex-direction-column">
+                                                <label className="mb-1 align-self-center">Enter Instagram Username</label>
                                                 <input
                                                     name="username"
                                                     type="username"
-                                                    className="form-control"
-                                                    placeholder="Instagram Username"
+                                                    className="form-control w-75 align-self-center cstm-placeholder"
+                                                    placeholder="Username"
                                                     onChange={this.handleChange}
                                                 />
                                             </div>
-                                            <div className="form-group mb-3">
+                                            {/* <div className="form-group mb-3">
                                                 <input
                                                     name="password"
                                                     type="password"
@@ -112,7 +114,7 @@ export default class InstaView extends React.Component {
                                                     placeholder="Password"
                                                     onChange={this.handleChange}
                                                 />
-                                            </div>
+                                            </div> */}
                                             {
                                                 this.state.error &&
                                                 <p className="c-red text-center">Error: {this.state.message}<br />
@@ -132,17 +134,17 @@ export default class InstaView extends React.Component {
                                                         width={20}
                                                     />
                                                 }
-                                                Log In
+                                                Submit
                                             </button>
-                                            <hr />
-                                            <div className="d-flex justify-content-center">
+                                            {/* <hr /> */}
+                                            {/* <div className="d-flex justify-content-center">
                                                 <a href="https://www.instagram.com/accounts/password/reset/" target="blank">Forgot Password?</a>
-                                            </div>
+                                            </div> */}
                                         </form>
                                     </div>
-                                    <div className="d-flex justify-content-center">
+                                    {/* <div className="d-flex justify-content-center">
                                         <small className="mb-0 text-center">*Note: Only Personal Accounts are allowed.</small>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
