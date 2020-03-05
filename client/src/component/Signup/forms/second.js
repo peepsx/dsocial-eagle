@@ -12,6 +12,7 @@ export default class Second extends React.Component {
         this.state = {
             count: 0,
             loading: false,
+            subscriber: '',
         }
     }
 
@@ -43,27 +44,30 @@ export default class Second extends React.Component {
         })
     }
 
+
     nextButtonValidation = async (e) => {
         e.preventDefault();
+        const googleAccessToken = localStorage.getItem('goggle-access')
         if (!localStorage.getItem('s2')) {
             if (localStorage.getItem('s1')) {
                 this.setState({ loading: true });
                 let youtubeTitle = false;
                 if (window.gapi.client.youtube) {
-                    await window.gapi.client.youtube.subscriptions.list({
-                        "part": "snippet,contentDetails",
-                        "maxResults": 50,
-                        "mine": true
+                    await Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
+                        headers: {
+                            Authorization: 'Bearer ' + googleAccessToken
+                        }
                     })
                         .then((response) => {
-                            if (response.result.items) {
-                                for (let item of response.result.items) {
+                            if (response.data.items) {
+                                for (let item of response.data.items) {
                                     if (item.snippet.title === 'Arisen Coin') {
                                         youtubeTitle = item.snippet.title;
                                     }
                                 }
                             }
                         })
+                        .catch(err => console.error('Subscribe error',err))
                 } else {
                     this.setState({ loading: false })
                     Swal.fire({
@@ -134,7 +138,6 @@ export default class Second extends React.Component {
         })
             .then(response => {
                 console.log('twitter', response)
-                localStorage.setItem('s2', true);
                 this.setState({ loading: false })
                 const title = response.data.success ? 'Success' : 'Error';
                 const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
@@ -146,7 +149,11 @@ export default class Second extends React.Component {
                     showCancelButton: false,
                     confirmButtonText: 'Done',
                 })
-                response.data.success && (window.location.hash = "#third");
+                if(response.data.success) {
+                    localStorage.setItem('s2', true);
+                    localStorage.removeItem('goggle-access');
+                    window.location.hash = "#third";
+                }
             })
             .catch(err => {
                 this.setState({ loading: false })
@@ -187,7 +194,7 @@ export default class Second extends React.Component {
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                                 <span className="h6 mb-0 d-block">Instagram Page</span>
-                                <a onClick={this.handleInstagramLink} className="btn btn-sm btn-danger mt-2 hover-white" type="button">
+                                <a onClick={this.handleInstagramLink} className="btn btn-sm btn-instagram mt-2 hover-white" type="button">
                                     <i className="fab fa-instagram mr-1" />
                                     Follow
                                 </a>

@@ -32,6 +32,7 @@ export default class Google extends React.Component {
             for (let i of googleArray) {
                 if (i.access_token) {
                     access_token = i.access_token;
+                    localStorage.setItem('goggle-access',access_token);
                 }
             }
             const data = JSON.stringify(userData);

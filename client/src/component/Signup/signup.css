@@ -7,7 +7,7 @@
 }
 
 .btn-red {
-    background-color: #cd351f;
+    background-color: rgb(205, 53, 31);
     color: white;
 }
 
@@ -105,13 +105,18 @@
 }
 
 .btn-twitter {
-    background-color: #01aeef;
-    border-color: #01aeef;
+    background-color: rgb(1, 174, 239);
+    border-color: rgb(1, 174, 239);
+}
+
+.btn-instagram{
+    background-color: rgb(220, 53, 69);
+    border-color: rgb(220, 53, 69);
 }
 
 .btn-facebook {
-    background-color: #45619c;
-    border-color: #45619c;
+    background-color: rgb(69, 97, 156);
+    border-color: rgb(69, 97, 156);
 }
 
 .color-grey {
