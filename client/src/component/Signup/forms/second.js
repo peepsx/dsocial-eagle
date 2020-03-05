@@ -67,7 +67,7 @@ export default class Second extends React.Component {
                                 }
                             }
                         })
-                        .catch(err => console.error('Subscribe error',err))
+                        .catch(err => console.error('Subscribe error', err))
                 } else {
                     this.setState({ loading: false })
                     Swal.fire({
@@ -149,7 +149,7 @@ export default class Second extends React.Component {
                     showCancelButton: false,
                     confirmButtonText: 'Done',
                 })
-                if(response.data.success) {
+                if (response.data.success) {
                     localStorage.setItem('s2', true);
                     localStorage.removeItem('goggle-access');
                     window.location.hash = "#third";
@@ -174,40 +174,40 @@ export default class Second extends React.Component {
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Facebook Page</span>
-                                <a onClick={this.handleFacebookLink} className="btn btn-sm btn-facebook mt-2 hover-white" type="button">
+                                <button onClick={this.handleFacebookLink} className="btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like
-                                </a>
+                                </button>
                             </button>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Twitter Handle</span>
-                                <a onClick={this.handleTwitClick} className="btn btn-sm btn-twitter mt-2 hover-white" type="button">
+                                <button onClick={this.handleTwitClick} className="color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
                                     <i className="fab fa-twitter mr-1" />
                                     Follow
-                                    </a>
+                                    </button>
                             </button>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                                 <span className="h6 mb-0 d-block">Instagram Page</span>
-                                <a onClick={this.handleInstagramLink} className="btn btn-sm btn-instagram mt-2 hover-white" type="button">
+                                <button onClick={this.handleInstagramLink} className="color-white btn btn-sm btn-instagram mt-2 hover-white" type="button">
                                     <i className="fab fa-instagram mr-1" />
                                     Follow
-                                </a>
+                                </button>
                             </button>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
                             <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
                                 <span className="h6 mb-0 d-block">Youtube Channel</span>
-                                <a onClick={this.handleYoutubeLink} className="btn btn-sm btn-red mt-2 hover-white" type="button">
+                                <button onClick={this.handleYoutubeLink} className="color-white btn btn-sm btn-red mt-2 hover-white" type="button">
                                     <i className="fab fa-youtube mr-1" />
                                     Subscribe
-                                </a>
+                                </button>
                                 {/* <div className="mt-2 ">
                                     <a
                                         style={{ width: 85 }}
