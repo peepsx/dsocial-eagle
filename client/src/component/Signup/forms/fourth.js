@@ -48,69 +48,80 @@ export default class Fourth extends React.Component {
     handleSave = (e) => {
         e.preventDefault();
         const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        if (localStorage.getItem('s3')) {
-            this.setState({ loading: true })
-            if (email && email[0] && this.state.arisen_username !== '') {
-                this.setState({ error: false })
-                console.log('email', email[0], this.state.arisen_username)
-                Axios({
-                    method: 'post',
-                    url: API.arisen_user_detail,
-                    data: {
-                        arisen_username: this.state.arisen_username,
-                        email: email[0],
-                        ip: this.state.ip,
-                        userDetails: {
-                            fbUserId: localStorage.getItem('fbUserId'),
-                            googleEmail: localStorage.getItem('googleEmail'),
-                            instaUserId: localStorage.getItem('instaUserId'),
-                            teleUserId: localStorage.getItem('teleUserId'),
-                            twitterScreenName: localStorage.getItem('twitterName')
-                        }
-                    },
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
-                    }
-                })
-                    .then(res => {
-                        console.log('response from account arisen', res);
-                        this.setState({ loading: false })
-                        if (res.data) {
-                            if (res.data.success) {
-                                localStorage.clear();
-                                localStorage.setItem('s4', true);
-                                localStorage.setItem('a_user', res.data.message)
-                                localStorage.setItem('username', this.state.arisen_username)
+        if (!localStorage.getItem('s4')) {
+            if (localStorage.getItem('s3')) {
+                this.setState({ loading: true })
+                if (email && email[0] && this.state.arisen_username !== '') {
+                    this.setState({ error: false })
+                    console.log('email', email[0], this.state.arisen_username)
+                    Axios({
+                        method: 'post',
+                        url: API.arisen_user_detail,
+                        data: {
+                            arisen_username: this.state.arisen_username,
+                            email: email[0],
+                            ip: this.state.ip,
+                            userDetails: {
+                                fbUserId: localStorage.getItem('fbUserId'),
+                                googleEmail: localStorage.getItem('googleEmail'),
+                                instaUserId: localStorage.getItem('instaUserId'),
+                                teleUserId: localStorage.getItem('teleUserId'),
+                                twitterScreenName: localStorage.getItem('twitterName')
                             }
-                            const title = res.data.success ? 'Success' : 'Error';
-                            const icon = res.data.success ? 'success' : 'error';
-                            const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
-                            Swal.fire({
-                                title,
-                                text,
-                                icon,
-                                showCancelButton: false,
-                                confirmButtonText: 'Okay',
-                            })
-                                .then(() => window.location.hash = '#fifth')
+                        },
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
                     })
-                    .catch(err => {
-                        this.setState({ loading: false })
-                        console.error('Error :', err);
-                    })
+                        .then(res => {
+                            console.log('response from account arisen', res);
+                            this.setState({ loading: false })
+                            if (res.data) {
+                                if (res.data.success) {
+                                    localStorage.clear();
+                                    localStorage.setItem('s4', true);
+                                    localStorage.setItem('a_user', res.data.message)
+                                    localStorage.setItem('username', this.state.arisen_username)
+                                }
+                                const title = res.data.success ? 'Success' : 'Error';
+                                const icon = res.data.success ? 'success' : 'error';
+                                const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
+                                Swal.fire({
+                                    title,
+                                    text,
+                                    icon,
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Okay',
+                                })
+                                    .then(() => window.location.hash = '#fifth')
+                            }
+                        })
+                        .catch(err => {
+                            this.setState({ loading: false })
+                            err.response && toast.error(err.response.message);
+                            console.error('Error :', err);
+                        })
+                } else {
+                    this.formValidation();
+                }
             } else {
-                this.formValidation();
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please complete step 3!!',
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+                    .then(() => window.location.hash = '#third')
             }
         } else {
             Swal.fire({
                 title: 'Error',
-                text: 'Please complete step 3!!',
+                text: 'Invalid Step !!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
-                .then(() => window.location.hash = '#third')
         }
     }
 
@@ -163,7 +174,7 @@ export default class Fourth extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-custom br-dot2" type="submit" onClick={this.handleSave}>
+                            <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleSave}>
                                 {
                                     this.state.loading ?
                                         <Loader

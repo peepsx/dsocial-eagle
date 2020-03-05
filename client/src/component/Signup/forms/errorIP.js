@@ -19,9 +19,11 @@ export default class Ipexist extends React.Component {
                                     <hr />
                                     <small>
                                         <span>Do you think this might be a mistake?</span>
-                                        <a href="#">Contact us</a><br/>
+                                        <a href="/contactus">Contact us</a><br/>
                                         <span>OR</span>
-                                        <a href="https://t.me/arisenio" target="_blank"> Join our Telegram Community</a>
+                                        <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=dpeepsproject@gmail.com&tf=1" target="_blank">
+                                             Join our Telegram Community
+                                        </a>
                                     </small>
                                 </div>
                             </div>

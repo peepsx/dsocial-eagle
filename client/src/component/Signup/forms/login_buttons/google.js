@@ -32,6 +32,7 @@ export default class Google extends React.Component {
             for (let i of googleArray) {
                 if (i.access_token) {
                     access_token = i.access_token;
+                    localStorage.setItem('goggle-access',access_token);
                 }
             }
             const data = JSON.stringify(userData);
@@ -51,8 +52,13 @@ export default class Google extends React.Component {
                 .then(response => {
                     console.log('Data save Google', response);
                     localStorage.setItem('googleEmail', email);
-                    this.setState({emailStatus:true})
-                    toast.success(response.data.message, {
+                    let toastType= 'error';
+                    if(response.data.success) {
+                        this.setState({emailStatus:true})
+                        toastType = 'success'
+                    }
+                    toast(response.data.message, {
+                        type: toastType,
                         autoClose: 3000,
                         onClose: this.props.handleNextShowBtn('Telegram')
                     })
