@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 export default function Button(props) {
-    console.log('props value',props)
     const [click,changeClick] = useState(false);
     return (
         <button
