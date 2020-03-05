@@ -34,60 +34,70 @@ export default class Third extends React.Component {
 
     handleNextStep = (e) => {
         e.preventDefault();
-        if (localStorage.getItem('s2')) {
-            this.setState({ loading: true })
-            if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
-                Axios({
-                    method: 'POST',
-                    url: API.user_share_validation,
-                    data: {
-                        status: this.state.fbPostResponse,
-                        screenname: localStorage.getItem('twitterName')
-                    },
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
-                    }
-                })
-                    .then(res => {
-                        console.log('Validation response', res);
-                        this.setState({ loading: false })
-                        if (res.status === 200) {
-                            Swal.fire({
-                                title: res.data.success ? 'Successful' : 'Error',
-                                text: res.data.message,
-                                icon: res.data.success ? 'success' : 'error',
-                                showCancelButton: false,
-                                confirmButtonText: 'Next',
-                            }).then(() => {
-                                if (res.data.success) {
-                                    window.location.hash = "#fourth";
-                                    localStorage.setItem('s3', true)
-                                }
-                            })
+        if (!localStorage.getItem('s3')) {
+            if (localStorage.getItem('s2')) {
+                this.setState({ loading: true })
+                if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
+                    Axios({
+                        method: 'POST',
+                        url: API.user_share_validation,
+                        data: {
+                            status: this.state.fbPostResponse,
+                            screenname: localStorage.getItem('twitterName')
+                        },
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
                     })
-                    .catch(err => {
-                        this.setState({ loading: false })
-                        console.error('Error', err)
+                        .then(res => {
+                            console.log('Validation response', res);
+                            this.setState({ loading: false })
+                            if (res.status === 200) {
+                                Swal.fire({
+                                    title: res.data.success ? 'Successful' : 'Error',
+                                    text: res.data.message,
+                                    icon: res.data.success ? 'success' : 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Next',
+                                }).then(() => {
+                                    if (res.data.success) {
+                                        window.location.hash = "#fourth";
+                                        localStorage.setItem('s3', true)
+                                    }
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            this.setState({ loading: false })
+                            console.error('Error', err)
+                        })
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please share post on facebook and twitter !!',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
                     })
+                }
             } else {
                 Swal.fire({
                     title: 'Error',
-                    text: 'Please share post on facebook and twitter !!',
+                    text: 'Please complete step 2!!',
                     icon: "error",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
                 })
+                    .then(() => window.location.hash = '#second')
             }
         } else {
             Swal.fire({
                 title: 'Error',
-                text: 'Please complete step 2!!',
+                text: 'Invalid Step !!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
-                .then(() => window.location.hash = '#second')
         }
     }
 

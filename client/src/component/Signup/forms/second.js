@@ -45,68 +45,78 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        if (localStorage.getItem('s1')) {
-            this.setState({ loading: true });
-            let youtubeTitle = false;
-            if (window.gapi.client.youtube) {
-                await window.gapi.client.youtube.subscriptions.list({
-                    "part": "snippet,contentDetails",
-                    "maxResults": 50,
-                    "mine": true
-                })
-                    .then((response) => {
-                        if (response.result.items) {
-                            for (let item of response.result.items) {
-                                if (item.snippet.title === 'Arisen Coin') {
-                                    youtubeTitle = item.snippet.title;
+        if (!localStorage.getItem('s2')) {
+            if (localStorage.getItem('s1')) {
+                this.setState({ loading: true });
+                let youtubeTitle = false;
+                if (window.gapi.client.youtube) {
+                    await window.gapi.client.youtube.subscriptions.list({
+                        "part": "snippet,contentDetails",
+                        "maxResults": 50,
+                        "mine": true
+                    })
+                        .then((response) => {
+                            if (response.result.items) {
+                                for (let item of response.result.items) {
+                                    if (item.snippet.title === 'Arisen Coin') {
+                                        youtubeTitle = item.snippet.title;
+                                    }
                                 }
                             }
-                        }
+                        })
+                } else {
+                    this.setState({ loading: false })
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Data Lost, due to roloading of the page !! ',
+                        icon: "warning",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
                     })
-            } else {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Data Lost, due to roloading of the page !! ',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-                    .then(() => {
-                        window.open(env.liveStatus)
+                        .then(() => {
+                            window.open(env.liveStatus)
+                        })
+                }
+                console.log("Response", youtubeTitle);
+                if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
+                    this.apiCall();
+                } else if (youtubeTitle !== 'Arisen Coin') {
+                    this.setState({ loading: false })
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please Subscribe Youtube Channel with your given G-mail Account !!',
+                        icon: "warning",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
                     })
-            }
-            console.log("Response", youtubeTitle);
-            if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
-                this.apiCall();
-            } else if (youtubeTitle !== 'Arisen Coin') {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please Subscribe Youtube Channel with your given G-mail Account !!',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
+                } else {
+                    this.setState({ loading: false })
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please Like & Follow first !!',
+                        icon: "warning",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    })
+                }
             } else {
-                this.setState({ loading: false })
                 Swal.fire({
                     title: 'Error',
-                    text: 'Please Like & Follow first !!',
-                    icon: "warning",
+                    text: 'Please complete step 1!!',
+                    icon: "error",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
                 })
+                    .then(() => window.open(env.liveStatus, '_self'))
             }
         } else {
             Swal.fire({
                 title: 'Error',
-                text: 'Please complete step 1!!',
+                text: 'Invalid Step !!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
-                .then(() => window.open(env.liveStatus, '_self'))
         }
     }
 

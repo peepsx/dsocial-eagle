@@ -43,44 +43,54 @@ export default class First extends React.Component {
         const googleEmail = localStorage.getItem('googleEmail');
         const instaUserId = localStorage.getItem('instaUserId');
         const twitterName = localStorage.getItem('twitterName');
-        if (!fbData || !googleEmail || !instaUserId || !twitterName) {
-            this.setState({loading:false})
-            Swal.fire({
-                title: 'Error',
-                text: 'Please complete the Steps carefully!!',
-                icon: "error",
-                showCancelButton: false,
-                confirmButtonText: 'Okay',
-            })
-        } else if (this.state.teleUserid !== '') {
-            Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
-                .then(res => {
-                    console.log('console bot', res);
-                    this.setState({ loading: false })
-                    const title = res.data.ok ? 'Success' : 'Error';
-                    const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
-                    const icon = res.data.ok ? 'success' : 'error';
-                    Swal.fire({
-                        title,
-                        text,
-                        icon,
-                        showCancelButton: false,
-                        confirmButtonText: 'Proceed',
+        if (!localStorage.getItem('s1')) {
+            if (!fbData || !googleEmail || !instaUserId || !twitterName) {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please complete the Steps carefully!!',
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            } else if (this.state.teleUserid !== '') {
+                Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
+                    .then(res => {
+                        console.log('console bot', res);
+                        this.setState({ loading: false })
+                        const title = res.data.ok ? 'Success' : 'Error';
+                        const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
+                        const icon = res.data.ok ? 'success' : 'error';
+                        Swal.fire({
+                            title,
+                            text,
+                            icon,
+                            showCancelButton: false,
+                            confirmButtonText: 'Proceed',
+                        })
+                        if (res.data.ok) {
+                            localStorage.setItem('s1', true)
+                            window.location.hash = "#second";
+                        }
                     })
-                    if (res.data.ok) {
-                        localStorage.setItem('s1', true)
-                        window.location.hash = "#second";
-                    }
+                    .catch(err => {
+                        this.setState({ loading: false })
+                        console.error('Bot Error : ', err)
+                    })
+            } else {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Login with Telegram !!',
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
                 })
-                .catch(err => {
-                    this.setState({ loading: false })
-                    console.error('Bot Error : ', err)
-                })
+            }
         } else {
-            this.setState({loading:false})
             Swal.fire({
                 title: 'Error',
-                text: 'Please Login with Telegram !!',
+                text: 'Invalid Step !!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
