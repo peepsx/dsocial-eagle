@@ -24,7 +24,7 @@ router.post('/transfer', async (req, res) => {
         
             let rsn = RSN({httpEndpoint, chainId, keyProvider});
             let valid_arisen = await rsn.getAccount(sender_username);
-            let trx_history = (await rsn.getActions(sender_username)).actions;
+            let trx_history = await rsn.getTransactions({});
             console.log("actions", trx_history)
             // console.log('HOOB TANSFER', valid_arisen);
             // let valid_transaction_rsn = await rsn.
