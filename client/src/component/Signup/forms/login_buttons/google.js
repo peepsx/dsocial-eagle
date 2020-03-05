@@ -52,8 +52,13 @@ export default class Google extends React.Component {
                 .then(response => {
                     console.log('Data save Google', response);
                     localStorage.setItem('googleEmail', email);
-                    this.setState({emailStatus:true})
-                    toast.success(response.data.message, {
+                    let toastType= 'error';
+                    if(response.data.success) {
+                        this.setState({emailStatus:true})
+                        toastType = 'success'
+                    }
+                    toast(response.data.message, {
+                        type: toastType,
                         autoClose: 3000,
                         onClose: this.props.handleNextShowBtn('Telegram')
                     })

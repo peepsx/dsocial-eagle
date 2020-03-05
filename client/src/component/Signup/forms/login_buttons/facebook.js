@@ -5,7 +5,7 @@ import { API } from '../../../js/api_list';
 import { toast } from 'react-toastify';
 
 class Facebook extends React.Component {
-    state={
+    state = {
         fbStatus: false,
     }
     handleFbClick = () => {
@@ -57,9 +57,13 @@ class Facebook extends React.Component {
                     console.log('Data save facebook', response);
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('fbUserId', userData.data.id);
-                    response.data.success && this.setState({fbStatus:true})
+                    let toastType= 'error';
+                    if (response.data.success) {
+                        this.setState({ fbStatus: true })
+                        toastType= 'success'
+                    }
                     toast(response.data.message, {
-                        type: 'success',
+                        type: toastType,
                         autoClose: 3000,
                         onClose: this.props.handleNextShowBtn('Twitter')
                     })
