@@ -43,7 +43,6 @@ export default class First extends React.Component {
         const googleEmail = localStorage.getItem('googleEmail');
         const instaUserId = localStorage.getItem('instaUserId');
         const twitterName = localStorage.getItem('twitterName');
-        if (!localStorage.getItem('s1')) {
             if (!fbData || !googleEmail || !instaUserId || !twitterName) {
                 this.setState({ loading: false })
                 Swal.fire({
@@ -87,15 +86,6 @@ export default class First extends React.Component {
                     confirmButtonText: 'Okay',
                 })
             }
-        } else {
-            Swal.fire({
-                title: 'Error',
-                text: 'Invalid Step !!',
-                icon: "error",
-                showCancelButton: false,
-                confirmButtonText: 'Okay',
-            })
-        }
     }
 
     handleTwitDataSave = (userData) => {
