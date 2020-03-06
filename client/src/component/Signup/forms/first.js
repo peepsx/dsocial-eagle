@@ -108,11 +108,11 @@ export default class First extends React.Component {
                     if (response.data.success) {
                         this.setState({ twitStatus: true })
                         toastType = "success";
+                        this.handleNextShowBtn('Instagram')
                     }
                     toast(response.data.message, {
                         type: toastType,
                         autoClose: 3000,
-                        onClose: this.handleNextShowBtn('Instagram')
                     })
                 })
                 .catch(err => {

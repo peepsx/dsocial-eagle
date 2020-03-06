@@ -35,7 +35,7 @@ module.exports = {
                             await rsn_transfered.save();
                               return resolve({
                                 success: true,
-                                message: `${process.env.AMOUNT} Rsn has been sent to the user ${arisen_username} account successfully!`,
+                                message: `${process.env.AMOUNT} has been sent to the user ${arisen_username} account successfully!`,
                                 transaction_id: transfer.transaction_id
                               })
                       })

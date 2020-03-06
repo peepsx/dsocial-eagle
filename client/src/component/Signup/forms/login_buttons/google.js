@@ -56,11 +56,11 @@ export default class Google extends React.Component {
                     if(response.data.success) {
                         this.setState({emailStatus:true})
                         toastType = 'success'
+                        this.props.handleNextShowBtn('Telegram')
                     }
                     toast(response.data.message, {
                         type: toastType,
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Telegram')
                     })
                 })
                 .catch(err => {
