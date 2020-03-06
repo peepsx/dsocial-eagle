@@ -29,11 +29,11 @@ export default class Signup extends Component {
             .then(res => res.text())
             .then(res => ip.v6 = res)
 
-        this.handleIpCheck(ip);
+        await this.handleIpCheck(ip);
     }
 
-    handleIpCheck = async (ipData) => {
-        await Axios({
+    handleIpCheck = (ipData) => {
+        Axios({
             url: API.ip_check,
             method: 'post',
             data: {
