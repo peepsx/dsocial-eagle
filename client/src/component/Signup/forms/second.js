@@ -48,79 +48,69 @@ export default class Second extends React.Component {
     nextButtonValidation = async (e) => {
         e.preventDefault();
         const googleAccessToken = localStorage.getItem('goggle-access')
-        if (!localStorage.getItem('s2')) {
-            if (localStorage.getItem('s1')) {
-                this.setState({ loading: true });
-                let youtubeTitle = false;
-                if (window.gapi.client.youtube) {
-                    await Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
-                        headers: {
-                            Authorization: 'Bearer ' + googleAccessToken
-                        }
-                    })
-                        .then((response) => {
-                            if (response.data.items) {
-                                for (let item of response.data.items) {
-                                    if (item.snippet.title === 'Arisen Coin') {
-                                        youtubeTitle = item.snippet.title;
-                                    }
+        if (localStorage.getItem('s1')) {
+            this.setState({ loading: true });
+            let youtubeTitle = false;
+            if (window.gapi.client.youtube) {
+                await Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
+                    headers: {
+                        Authorization: 'Bearer ' + googleAccessToken
+                    }
+                })
+                    .then((response) => {
+                        if (response.data.items) {
+                            for (let item of response.data.items) {
+                                if (item.snippet.title === 'Arisen Coin') {
+                                    youtubeTitle = item.snippet.title;
                                 }
                             }
-                        })
-                        .catch(err => console.error('Subscribe error', err))
-                } else {
-                    this.setState({ loading: false })
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Data Lost, due to roloading of the page !! ',
-                        icon: "warning",
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
+                        }
                     })
-                        .then(() => {
-                            window.open(env.liveStatus)
-                        })
-                }
-                console.log("Response", youtubeTitle);
-                if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
-                    this.apiCall();
-                } else if (youtubeTitle !== 'Arisen Coin') {
-                    this.setState({ loading: false })
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Please Subscribe Youtube Channel with your given G-mail Account !!',
-                        icon: "warning",
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
-                    })
-                } else {
-                    this.setState({ loading: false })
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Please Like & Follow first !!',
-                        icon: "warning",
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
-                    })
-                }
+                    .catch(err => console.error('Subscribe error', err))
             } else {
+                this.setState({ loading: false })
                 Swal.fire({
                     title: 'Error',
-                    text: 'Please complete step 1!!',
-                    icon: "error",
+                    text: 'Data Lost, due to roloading of the page !! ',
+                    icon: "warning",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
                 })
-                    .then(() => window.open(env.liveStatus, '_self'))
+                    .then(() => {
+                        window.open(env.liveStatus)
+                    })
+            }
+            console.log("Response", youtubeTitle);
+            if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
+                this.apiCall();
+            } else if (youtubeTitle !== 'Arisen Coin') {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Subscribe Youtube Channel with your given G-mail Account !!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            } else {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Like & Follow first !!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
             }
         } else {
             Swal.fire({
                 title: 'Error',
-                text: 'Invalid Step !!',
+                text: 'Please complete step 1!!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
+                .then(() => window.open(env.liveStatus, '_self'))
         }
     }
 
