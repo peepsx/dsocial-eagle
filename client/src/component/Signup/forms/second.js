@@ -198,15 +198,6 @@ export default class Second extends React.Component {
                                     <i className="fab fa-youtube mr-1" />
                                     Subscribe
                                 </button>
-                                {/* <div className="mt-2 ">
-                                    <a
-                                        style={{ width: 85 }}
-                                        className="g-ytsubscribe "
-                                        data-channelid="UC2foi1ia54oj0TxlkDYXV9g"
-                                        data-layout="default"
-                                        data-count="hidden">
-                                    </a>
-                                </div> */}
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@ export default class Fourth extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            email: localStorage.getItem('googleEmail'),
             arisen_username: '',
             error: false,
             ip: {
@@ -144,7 +144,7 @@ export default class Fourth extends React.Component {
                                 type="email"
                                 className="form-control b-none disable-white"
                                 placeholder="Enter your email address"
-                                defaultValue={localStorage.getItem('googleEmail')}
+                                defaultValue={this.state.email}
                                 disabled={true}
                             />
                             {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
