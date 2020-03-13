@@ -10,7 +10,6 @@ export default class Fourth extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: localStorage.getItem('googleEmail'),
             arisen_username: '',
             error: false,
             ip: {
@@ -47,18 +46,18 @@ export default class Fourth extends React.Component {
 
     handleSave = (e) => {
         e.preventDefault();
-        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+        const email = localStorage.getItem('googleEmail');
         if (localStorage.getItem('s3')) {
             this.setState({ loading: true })
-            if (email && email[0] && this.state.arisen_username !== '') {
+            if (email && this.state.arisen_username !== '') {
                 this.setState({ error: false })
-                console.log('email', email[0], this.state.arisen_username)
+                console.log('email', email, this.state.arisen_username)
                 Axios({
                     method: 'post',
                     url: API.arisen_user_detail,
                     data: {
                         arisen_username: this.state.arisen_username,
-                        email: email[0],
+                        email: email,
                         ip: this.state.ip,
                         userDetails: {
                             fbUserId: localStorage.getItem('fbUserId'),
@@ -116,13 +115,7 @@ export default class Fourth extends React.Component {
     }
 
     formValidation = () => {
-        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        if (!email) {
-            this.setState({
-                error: true
-            })
-        }
-        if (this.state.arisen_username === '' || this.state.email === '') {
+        if (this.state.arisen_username === '') {
             toast("All fields are mandatory", {
                 type: 'error',
                 autoClose: 3000,
@@ -144,7 +137,7 @@ export default class Fourth extends React.Component {
                                 type="email"
                                 className="form-control b-none disable-white"
                                 placeholder="Enter your email address"
-                                defaultValue={this.state.email}
+                                defaultValue={localStorage.getItem('googleEmail')}
                                 disabled={true}
                             />
                             {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
