@@ -152,10 +152,10 @@ export default class Fourth extends React.Component {
                                 name="email"
                                 id="email"
                                 type="email"
-                                className="form-control b-none"
+                                className="form-control b-none disable-white"
                                 placeholder="Enter your email address"
-                                value={this.state.email}
-                                onChange={this.handleChange}
+                                defaultValue={localStorage.getItem('googleEmail')}
+                                disabled={true}
                             />
                             {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
                         </div>

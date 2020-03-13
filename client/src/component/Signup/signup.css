@@ -200,6 +200,10 @@
     color: #f57709;
 }
 
+.disable-white{
+    background-color: white !important;
+}
+
 @media only screen and (max-width: 600px) {
     .mobile-column-reverse {
         flex-direction: column-reverse;

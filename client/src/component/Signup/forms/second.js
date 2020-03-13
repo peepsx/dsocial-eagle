@@ -171,37 +171,37 @@ export default class Second extends React.Component {
                 <div className="col-md-12">
                     <div className="row">
                         <div className="col-sm mb-3 mb-sm-0">
-                            <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Facebook Page</span>
                                 <button onClick={this.handleFacebookLink} className="btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like
                                 </button>
-                            </button>
+                            </div>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
-                            <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Twitter Handle</span>
                                 <button onClick={this.handleTwitClick} className="color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
                                     <i className="fab fa-twitter mr-1" />
                                     Follow
-                                    </button>
-                            </button>
+                                </button>
+                            </div>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
-                            <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                                 <span className="h6 mb-0 d-block">Instagram Page</span>
                                 <button onClick={this.handleInstagramLink} className="color-white btn btn-sm btn-instagram mt-2 hover-white" type="button">
                                     <i className="fab fa-instagram mr-1" />
                                     Follow
                                 </button>
-                            </button>
+                            </div>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
-                            <button className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
                                 <span className="h6 mb-0 d-block">Youtube Channel</span>
                                 <button onClick={this.handleYoutubeLink} className="color-white btn btn-sm btn-red mt-2 hover-white" type="button">
@@ -217,7 +217,7 @@ export default class Second extends React.Component {
                                         data-count="hidden">
                                     </a>
                                 </div> */}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
