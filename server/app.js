@@ -8,7 +8,9 @@ let fbRouter = require('./routes/facebook');
 let instagramRouter = require('./routes/instagram')
 let google = require('./routes/google');
 let users = require('./routes/users')
-let telgramapi= require('./routes/telegaramapi');
+let telgramapi = require('./routes/telegaramapi');
+let rsn_user_check = require('./routes/rsn-users');
+let new_user = require('./routes/newuser');
 let testapi = require('./routes/test_api');
 let ip = require('./routes/ip');
 let BtsTransfer = require('./routes/bit-share-transfer');
@@ -25,6 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Api Routes
+app.use('/newuser', rsn_user_check);
+app.use('/new_user', new_user);
 app.use('/', ip);
 app.use('/api', testapi);
 app.use('/twitter', twitter);

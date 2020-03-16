@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 require('../models')
+require('events').EventEmitter.prototype._maxListeners = 0;
 
 /**
  * Get port from environment and store in Express.
