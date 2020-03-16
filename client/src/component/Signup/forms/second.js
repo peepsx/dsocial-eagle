@@ -10,7 +10,10 @@ export default class Second extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 0,
+            fbClick: false,
+            youtubeClick: false,
+            instaClick: false,
+            twitterClick: false,
             loading: false,
             subscriber: '',
         }
@@ -19,28 +22,28 @@ export default class Second extends React.Component {
     handleInstagramLink = () => {
         window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
-            count: this.state.count + 1
+            instaClick: true
         })
     }
 
     handleFacebookLink = () => {
         window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
-            count: this.state.count + 1
+            fbClick: true
         })
     }
 
     handleYoutubeLink = () => {
         window.open('https://www.youtube.com/channel/UCSA8YUDeXWEYHl54XdFO6_w', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
-            count: this.state.count + 1
+            youtubeClick: true
         })
     }
 
     handleTwitClick = () => {
         window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
-            count: this.state.count + 1
+            twitterClick: true
         })
     }
 
@@ -81,7 +84,7 @@ export default class Second extends React.Component {
                     })
             }
             console.log("Response", youtubeTitle);
-            if (this.state.count >= 4 && youtubeTitle === 'Arisen Coin') {
+            if (this.state.twitterClick && this.state.youtubeClick && this.state.instaClick && this.state.fbClick && youtubeTitle === 'Arisen Coin') {
                 this.apiCall();
             } else if (youtubeTitle !== 'Arisen Coin') {
                 this.setState({ loading: false })
@@ -92,11 +95,38 @@ export default class Second extends React.Component {
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
                 })
-            } else {
+            } else if (!this.state.fbClick) {
                 this.setState({ loading: false })
                 Swal.fire({
                     title: 'Error',
-                    text: 'Please Like & Follow first !!',
+                    text: 'Please Like Arisen\'s Facebook Page !!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            } else if (!this.state.twitterClick) {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please follow Arisen on Twiiter !!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            } else if (!this.state.instaClick) {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please follow Arisen on Instagram  !!',
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                })
+            } else if (!this.state.youtubeClick) {
+                this.setState({ loading: false })
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please Subscribe Arisen\'s Youtube Channel !!',
                     icon: "warning",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
