@@ -13,7 +13,8 @@ router.post('/user', async (req, res) => {
      } = req.body;
     
 try {
-        let register = await rsn_account(user, ownerPubKey, activePubKey);
+    console.log('User', user, ownerPubKey, activePubKey)
+    let register = await rsn_account(user, ownerPubKey, activePubKey);
                 
     if(register) {
      let new_rsn_user = new Account({

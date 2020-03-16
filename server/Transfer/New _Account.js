@@ -5,6 +5,7 @@ let rsn = Rsn(config);
 
 module.exports = {
     rsn_account: async (account, ownerpubkey, activepubkey ) => {
+      console.log('PROMISE', account, ownerpubkey, activepubkey)
           return new Promise((resolve, reject) => {
             try {
                 rsn.transaction(tr => {
