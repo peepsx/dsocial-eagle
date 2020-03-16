@@ -29,11 +29,11 @@ export default class Signup extends Component {
             .then(res => res.text())
             .then(res => ip.v6 = res)
 
-        this.handleIpCheck(ip);
+        await this.handleIpCheck(ip);
     }
 
-    handleIpCheck = async (ipData) => {
-        await Axios({
+    handleIpCheck = (ipData) => {
+        Axios({
             url: API.ip_check,
             method: 'post',
             data: {
@@ -98,10 +98,26 @@ export default class Signup extends Component {
                                 </form>
                                 <div className="card-footer text-center">
                                     <small>Having trouble filling out this form?
-                                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=dpeepsproject@gmail.com&tf=1" target="_blank">
+                                    <a href="#" data-toggle="modal" data-target="#myModal" target="_blank">
                                         Contact Support
                                     </a>
                                     </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal fade" id="myModal" role="dialog">
+                        <div className="modal-dialog">
+                            <div className="modal-content bg-white">
+                                <div className="modal-header pb-1">
+                                    <button type="button" className="close position-absolute p-0 r-40 t-30" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title text-center">Contact Us</h4>
+                                </div>
+                                <div className="modal-body py-2">
+                                    <p className="mb-0">If you are facing any issues in completing the steps or have any kind of problem.<br/> Please contact us via email, send us a descriptive issue on <span className="h5 color-orange">dpeepsproject@gmail.com</span></p>
+                                </div>
+                                <div className="modal-footer justify-content-center">
+                                    <button type="button" className="btn btn-custom h-2 w-8" data-dismiss="modal">Okay</button>
                                 </div>
                             </div>
                         </div>

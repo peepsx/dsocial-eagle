@@ -10,7 +10,6 @@ export default class Fourth extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
             arisen_username: '',
             error: false,
             ip: {
@@ -47,92 +46,76 @@ export default class Fourth extends React.Component {
 
     handleSave = (e) => {
         e.preventDefault();
-        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        if (!localStorage.getItem('s4')) {
-            if (localStorage.getItem('s3')) {
-                this.setState({ loading: true })
-                if (email && email[0] && this.state.arisen_username !== '') {
-                    this.setState({ error: false })
-                    console.log('email', email[0], this.state.arisen_username)
-                    Axios({
-                        method: 'post',
-                        url: API.arisen_user_detail,
-                        data: {
-                            arisen_username: this.state.arisen_username,
-                            email: email[0],
-                            ip: this.state.ip,
-                            userDetails: {
-                                fbUserId: localStorage.getItem('fbUserId'),
-                                googleEmail: localStorage.getItem('googleEmail'),
-                                instaUserId: localStorage.getItem('instaUserId'),
-                                teleUserId: localStorage.getItem('teleUserId'),
-                                twitterScreenName: localStorage.getItem('twitterName')
+        const email = localStorage.getItem('googleEmail');
+        if (localStorage.getItem('s3')) {
+            this.setState({ loading: true })
+            if (email && this.state.arisen_username !== '') {
+                this.setState({ error: false })
+                console.log('email', email, this.state.arisen_username)
+                Axios({
+                    method: 'post',
+                    url: API.arisen_user_detail,
+                    data: {
+                        arisen_username: this.state.arisen_username,
+                        email: email,
+                        ip: this.state.ip,
+                        userDetails: {
+                            fbUserId: localStorage.getItem('fbUserId'),
+                            googleEmail: localStorage.getItem('googleEmail'),
+                            instaUserId: localStorage.getItem('instaUserId'),
+                            teleUserId: localStorage.getItem('teleUserId'),
+                            twitterScreenName: localStorage.getItem('twitterName')
+                        }
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                })
+                    .then(res => {
+                        console.log('response from account arisen', res);
+                        this.setState({ loading: false })
+                        if (res.data) {
+                            if (res.data.success) {
+                                localStorage.clear();
+                                localStorage.setItem('s4', true);
+                                localStorage.setItem('a_user', res.data.message)
+                                localStorage.setItem('username', this.state.arisen_username)
                             }
-                        },
-                        headers: {
-                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                            const title = res.data.success ? 'Success' : 'Error';
+                            const icon = res.data.success ? 'success' : 'error';
+                            const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
+                            Swal.fire({
+                                title,
+                                text,
+                                icon,
+                                showCancelButton: false,
+                                confirmButtonText: 'Okay',
+                            })
+                                .then(() => window.location.hash = '#fifth')
                         }
                     })
-                        .then(res => {
-                            console.log('response from account arisen', res);
-                            this.setState({ loading: false })
-                            if (res.data) {
-                                if (res.data.success) {
-                                    localStorage.clear();
-                                    localStorage.setItem('s4', true);
-                                    localStorage.setItem('a_user', res.data.message)
-                                    localStorage.setItem('username', this.state.arisen_username)
-                                }
-                                const title = res.data.success ? 'Success' : 'Error';
-                                const icon = res.data.success ? 'success' : 'error';
-                                const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
-                                Swal.fire({
-                                    title,
-                                    text,
-                                    icon,
-                                    showCancelButton: false,
-                                    confirmButtonText: 'Okay',
-                                })
-                                    .then(() => window.location.hash = '#fifth')
-                            }
-                        })
-                        .catch(err => {
-                            this.setState({ loading: false })
-                            err.response && toast.error(err.response.message);
-                            console.error('Error :', err);
-                        })
-                } else {
-                    this.formValidation();
-                }
+                    .catch(err => {
+                        this.setState({ loading: false })
+                        err.response && toast.error(err.response.message);
+                        console.error('Error :', err);
+                    })
             } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please complete step 3!!',
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-                    .then(() => window.location.hash = '#third')
+                this.formValidation();
             }
         } else {
             Swal.fire({
                 title: 'Error',
-                text: 'Invalid Step !!',
+                text: 'Please complete step 3!!',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
+                .then(() => window.location.hash = '#third')
         }
     }
 
     formValidation = () => {
-        const email = this.state.email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        if (!email) {
-            this.setState({
-                error: true
-            })
-        }
-        if (this.state.arisen_username === '' || this.state.email === '') {
+        if (this.state.arisen_username === '') {
             toast("All fields are mandatory", {
                 type: 'error',
                 autoClose: 3000,
@@ -152,10 +135,10 @@ export default class Fourth extends React.Component {
                                 name="email"
                                 id="email"
                                 type="email"
-                                className="form-control b-none"
+                                className="form-control b-none disable-white"
                                 placeholder="Enter your email address"
-                                value={this.state.email}
-                                onChange={this.handleChange}
+                                defaultValue={localStorage.getItem('googleEmail')}
+                                disabled={true}
                             />
                             {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
                         </div>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { env } from '../../config/config';
-// import { env } from '../../config/config'
 
 export default class Fifth extends React.Component {
 

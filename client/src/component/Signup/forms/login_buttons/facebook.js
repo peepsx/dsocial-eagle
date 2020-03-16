@@ -61,11 +61,11 @@ class Facebook extends React.Component {
                     if (response.data.success) {
                         this.setState({ fbStatus: true })
                         toastType= 'success'
+                        this.props.handleNextShowBtn('Twitter')
                     }
                     toast(response.data.message, {
                         type: toastType,
                         autoClose: 3000,
-                        onClose: this.props.handleNextShowBtn('Twitter')
                     })
                 })
                 .catch(err => {

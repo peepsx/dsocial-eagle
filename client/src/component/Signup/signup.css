@@ -188,6 +188,21 @@
     flex: 5;
 }
 
+.t-30{
+    top: 30px;
+}
+
+.r-40{
+    right: 40px;
+}
+
+.color-orange{
+    color: #f57709;
+}
+
+.disable-white{
+    background-color: white !important;
+}
 
 @media only screen and (max-width: 600px) {
     .mobile-column-reverse {
