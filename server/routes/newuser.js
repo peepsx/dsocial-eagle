@@ -1,6 +1,8 @@
 let router = require('express').Router();
 let { Account } = require('../models/newAccounts');
 let  { rsn_account } = require('../Transfer/New _Account');
+let axios = require('axios');
+
 /**CREATE NEW USER FOR RSN-ACCOUNT */
 router.post('/user', async (req, res) => {
     let {
@@ -14,7 +16,8 @@ router.post('/user', async (req, res) => {
     
 try {
     console.log('User', user, ownerPubKey, activePubKey)
-    let register = await rsn_account(user, ownerPubKey, activePubKey);
+    let register = await axios(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/${user}/${ownerPubKey}/${activePubKey}`)
+    // let register = await rsn_account(user, ownerPubKey, activePubKey);
                 
     if(register) {
      let new_rsn_user = new Account({
