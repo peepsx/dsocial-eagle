@@ -16,7 +16,7 @@ router.post('/user', async (req, res) => {
     
 try {
     console.log('User', user, ownerPubKey, activePubKey)
-    let register = await axios(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/${user}/${ownerPubKey}/${activePubKey}`)
+    let register = await axios(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/newuser/${user}/${ownerPubKey}/${activePubKey}`)
     // let register = await rsn_account(user, ownerPubKey, activePubKey);
                 
     if(register) {
