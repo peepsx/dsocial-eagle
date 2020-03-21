@@ -1,5 +1,8 @@
 let express = require('express');
 let router = express.Router();
+const BitShares = require('btsdex')
+const BigNumber = require('bignumber.js');
+let { Arisen_Transfer } = require('../models/Arisen-blockchain-transfer');
 let { httpEndpoint, chainId, keyProvider} = require('../config/arisen');
 let config = require('../config');
 let { Apis } = require('bitsharesjs-ws');
@@ -33,56 +36,65 @@ router.post('/transfer', async (req, res) => {
             });
 
 /** TRANSFER FOR BitShare NETWORK  */          
-          let transaction =  setInterval(async () => {
             let balance = await rsn.getAccount(user);
             if(balance.core_liquid_balance === amount) {
-                let array = ['Ashu', 'Abhi', 'Deepak', 'Amit'];
-                array.map(async val => {                    
-                    console.log(val);
-                    if(val === 'Deepak') {
-                        console.log('aaaaaa')
-                        res.status(200).send({
-                            success: true,
-                            data: 'Name '+JSON.stringify(balance)
-                        })
-                        clearInterval(transaction);
-                    }
-                })
-            }
-              }, 1000);
-        } else if(type === 'BitShare') {
-/** BTS USERNAME VALIDATION */
-            Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {
-                console.log("connected to:", data[0].network);
-            let validUser = await Apis.instance().db_api().exec('get_account_by_name', [sender_username]);
-              if(validUser.name !== sender_username) return res.status(404).send({success: false, message: 'Invalid user'});
-            });
-/** ARISEN USER VALIDATION */        
-            let rsn = new RSN(config);
+                await BitShares.connect("wss://api.btsgo.net/ws")
+                let acc = new BitShares('arisen-out', config.PRIVATE_KEY);
+                let tx = acc.newTx()
+                let operation = await acc.transferOperation("arisen-reserve", "RSN", 1)
+                    tx.add(operation)
+                let cost = await tx.cost()
+                console.log(cost) // { BTS: 1.234 }
+                let transaction = await acc.broadcast(tx)
+                    res.status(200).json(transaction);
+                }
+        } else if(send === 'BitShare') {
+/** ARISEN USER VALIDATION */
             let valid_arisen = await rsn.getAccount(receiver_username);
             if(!valid_arisen) return res.status(404).json({
                 success: false,
                 message: 'Arisen username not found'
             })
-/** TRANSFER FOR ARISEN NETWORK */
-            let transaction =  setInterval(async () => {
-                var balance = await Apis.instance().history_api().exec('get_account_history',
-                        ['1.2.1704126', '1.11.0', 10, '1.11.0']);
-                
-                console.log(balance)
-                let array = [1, 2, 3, 4];
-                array.map(id => {
-                    if(id === 4) {
-                        console.log("Sent interval test", id)
+/** BTS USERNAME VALIDATION */
+            Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {    
+                console.log("connected to:", data[0].network);
+                let validUser = await Apis.instance().db_api().exec('get_account_by_name', [sender_username]);
+                 if(validUser.name !== sender_username) return res.status(404).send({success: false, message: 'Invalid user'});
+                 var balance = await Apis.instance().history_api().exec('get_account_history',
+                            ['1.2.1704126', '1.11.0', 10, '1.11.0']);
+                            console.log('BALANCE', balance[0].op[1].to, balance[0].op[1].amount.amount);
+                            res.json(balance)
+                    if(balance[0].op[1].to === '1.2.1704126' && balance[0].op[1].amount.amount === BigNumber(amount).multipliedBy(100000)) {
+                        rsn.transfer(process.env.TRANSFER_USER, sender_username, amount, '', config)
+                        .then(async (transfer) => {
+                            let rsn_transfered = new Arisen_Transfer({
+                                amount: process.env.AMOUNT,
+                                account_from_transfer: process.env.TRANSFER_USER,
+                                transaction_id: transfer.transaction_id,
+                                transfer_to_user: sender_username
+                            })
+                              await rsn_transfered.save();
+                                return res.status(200).send({
+                                  success: true,
+                                  message: `${process.env.AMOUNT} has been sent to the user ${arisen_username} account successfully!`,
+                                  transaction_id: transfer.transaction_id
+                                })
+                        })
+                        .catch(e => {
+                            console.log(e)
+                            return res.status(500).send({
+                                success: false,
+                                message: 'Server Error'
+                            })
+                        })
                     }
-                })
-            }, 1000)
-            clearInterval(transaction);
+                });
+/** TRANSFER FOR ARISEN NETWORK */
         } else {
             console.log('SENDER NOT VALID')
             return res.status(401).send({
                 success: false,
-                message: `${send} not a valid sender type`
+                message: `${sender_username} not a valid sender type`
             })
         }
     } catch (error) {
