@@ -2,6 +2,7 @@ let router = require('express').Router();
 let { Account } = require('../models/newAccounts');
 let axios = require('axios');
 let { httpEndpoint, chainId, keyProvider} = require('../config/arisen');
+let  { SERVER_LESS } = require('../config');
 let RSN = require('arisenjsv1');
 let rsn = RSN({httpEndpoint, chainId, keyProvider});
 
@@ -31,7 +32,7 @@ try {
             data: rsn_user.new_user
         })
     } else {
-        let register = await axios(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/newuser/${user}/${ownerPubKey}/${activePubKey}`)
+        let register = await axios(`${SERVER_LESS}${user}/${ownerPubKey}/${activePubKey}`)
                 
         if(register) {
          let new_rsn_user = new Account({
