@@ -14,7 +14,6 @@ router.post('/transfer', async (req, res) => {
     let { 
         user,
         send,
-        receive,
         sender_username,
         receiver_username,
         amount
@@ -47,6 +46,11 @@ router.post('/transfer', async (req, res) => {
                 console.log(cost) // { BTS: 1.234 }
                 let transaction = await acc.broadcast(tx)
                     res.status(200).json(transaction);
+                } else {
+                    res.status(200).json({
+                        success: false,
+                        message: 'Please complete your transfer'
+                    });
                 }
         } else if(send === 'BitShare') {
 /** ARISEN USER VALIDATION */
@@ -87,6 +91,11 @@ router.post('/transfer', async (req, res) => {
                                 message: 'Server Error'
                             })
                         })
+                    } else {
+                        res.status(200).json({
+                            success: false,
+                            message: 'Please complete your transfer'
+                        });
                     }
                 });
 /** TRANSFER FOR ARISEN NETWORK */
