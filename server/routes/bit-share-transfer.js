@@ -27,6 +27,11 @@ router.post('/transfer', async (req, res) => {
     try {
         if(send === 'Arisen') {
 /**BTS USERNAME VALIDATION CHECK */
+            let valid_arisen = await rsn.getAccount(sender_username);
+            if(!valid_arisen) return res.status(404).json({
+                success: false,
+                message: 'Arisen username not found'
+            })
             Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {
                 console.log("connected to:", data[0].network);
             let validUser = await Apis.instance().db_api().exec('get_account_by_name', [receiver_username]);
@@ -117,12 +122,6 @@ router.post('/transfer', async (req, res) => {
             message: 'Server Error'
         })
     }
-})
-
-router.get('/get-user', async (req, res) => {
-    let get_user = await rsn.getAccount('shikhar');
-
-    res.send(get_user)
 })
 
 module.exports = router;
