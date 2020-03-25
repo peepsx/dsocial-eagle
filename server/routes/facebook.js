@@ -21,7 +21,7 @@ router.post('/facebook_detail', async (req, res)=>{
 
         if(TempFb) return res.status(200).send({
                 success: false,
-                message: 'Please try after one an hour'
+                message: 'Please try after 5 min !!'
             })
         
         if(findOne) return res.status(403).send({

@@ -6,5 +6,6 @@ module.exports = {
     BTS_MAIN_NET: process.env.BTS_MAIN_NET,
     BTS_TEST_NET: process.env.BTS_TEST_NET,
     PRIVATE_KEY: process.env.BTS_PRIVATE_KEY,
-    BTS_TESTNET_PRIVATE_KEY: process.env.BTS_TESTNET_PRIVATE_KEY
+    BTS_TESTNET_PRIVATE_KEY: process.env.BTS_TESTNET_PRIVATE_KEY,
+    SERVER_LESS: process.env.SERVER_LESS
 }
