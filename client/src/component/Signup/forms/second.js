@@ -157,7 +157,6 @@ export default class Second extends React.Component {
             }
         })
             .then(response => {
-                console.log('twitter', response)
                 this.setState({ loading: false })
                 const title = response.data.success ? 'Success' : 'Error';
                 const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;

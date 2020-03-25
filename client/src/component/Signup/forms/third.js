@@ -22,7 +22,6 @@ export default class Third extends React.Component {
             quote: 'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.',
             link: 'https://air.arisen.network/',
         }, (response) => {
-            console.log('facebook facebook response', response);
             this.setState({ fbPostResponse: response });
         });
     }
@@ -49,7 +48,6 @@ export default class Third extends React.Component {
                     }
                 })
                     .then(res => {
-                        console.log('Validation response', res);
                         this.setState({ loading: false })
                         if (res.status === 200) {
                             Swal.fire({
@@ -71,6 +69,7 @@ export default class Third extends React.Component {
                         console.error('Error', err)
                     })
             } else {
+                this.setState({loading: false})
                 Swal.fire({
                     title: 'Error',
                     text: 'Please share post on facebook and twitter !!',
