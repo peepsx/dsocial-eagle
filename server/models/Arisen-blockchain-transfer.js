@@ -5,16 +5,22 @@ let Arisen_Block_Transfer = new Schema({
     amount: {
         type: String,
     },
-    account_from_transfer: {
+    transaction_id: {
         type: String
     },
-    transaction_id: {
+    account_from_transfer: {
         type: String
     },
     transfer_to_user: {
         type: String
+    },
+    send: {
+        type: String
+    },
+    receive: {
+        type: String
     }
-})
+},{timestamps: true })
 
 let Arisen_Transfer = mongoose.model('arisen-block-chain', Arisen_Block_Transfer);
 

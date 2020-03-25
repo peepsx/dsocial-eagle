@@ -15,7 +15,7 @@ let TempGram = new Schema({
         }
 },{timestamps: true});
 
-TempGram.plugin(ttl, {ttl: 1 * 60 * 50 * 100});
+TempGram.plugin(ttl, {ttl: 1 * 30 * 30 * 1000});
 let TempTelegram = mongoose.model('temptelegram', TempGram);
 
 module.exports = {
