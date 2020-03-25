@@ -19,7 +19,7 @@ let TempTwit = new Schema({
     },
 },{timestamps: true});
 
-TempTwit.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
+TempTwit.plugin(ttl, { ttl: 1 * 60 * 50 * 100 });
 let TempTwitter = mongoose.model('temptwitter', TempTwit);
 
 module.exports = {

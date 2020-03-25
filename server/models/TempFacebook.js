@@ -26,7 +26,7 @@ let TempFace = new Schema({
     },
 },{timestamps: true});
 
-TempFace.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
+TempFace.plugin(ttl, { ttl: 1 * 60 * 50 * 100 });
 let TempFacebook = mongoose.model('tempfacebook', TempFace);
 
 module.exports = {

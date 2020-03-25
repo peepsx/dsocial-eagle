@@ -121,6 +121,11 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
                     message: 'You have successfully share with your friends'
                 })
             }
+        } else {
+            return res.status(200).send({
+                success: false,
+                message: 'Please share with your friends first'
+            });
         }
 
     } catch(e) {
@@ -180,7 +185,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
        } else {
         return res.status(200).send({
             success: false,
-            message: 'Please liked all social network'
+            message: 'Please like previous social media platform'
         });
        }
     } catch (error) {

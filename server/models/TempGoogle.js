@@ -9,7 +9,7 @@ let TempGo = new Schema({
     },
 },{timestamps: true});
 
-TempGo.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
+TempGo.plugin(ttl, { ttl: 1 * 60 * 50 * 100 });
 let TempGoogle = mongoose.model('tempgoogle', TempGo);
 
 module.exports = {
