@@ -29,7 +29,6 @@ export default class Telegram extends React.Component {
     }
 
     handleTelegramResponse(response) {
-        console.log('telegram',response);
         this.props.getTelegramValue(response.id);
         localStorage.setItem('teleUserId',response.id);
         this.teleDataSave(response);
@@ -48,7 +47,6 @@ export default class Telegram extends React.Component {
                     Authorization:'Bearer '+localStorage.getItem('token')
                 }
         })
-        .then(res => console.log('telegram dtata save',res))
         .catch(err => console.error(err))
     }
 

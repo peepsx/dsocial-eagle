@@ -55,7 +55,6 @@ export default class First extends React.Component {
             } else if (this.state.teleUserid !== '') {
                 Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
                     .then(res => {
-                        console.log('console bot', res);
                         this.setState({ loading: false })
                         const title = res.data.ok ? 'Success' : 'Error';
                         const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
@@ -102,7 +101,6 @@ export default class First extends React.Component {
                 }
             })
                 .then(response => {
-                    console.log('Data save Twitter', response);
                     localStorage.setItem('twitterName', userData.screen_name);
                     let toastType = "error";
                     if (response.data.success) {

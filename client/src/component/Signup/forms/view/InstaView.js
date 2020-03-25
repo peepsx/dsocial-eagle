@@ -46,7 +46,6 @@ export default class InstaView extends React.Component {
                 }
             })
                 .then(res => {
-                    console.log('sadfasdf', res);
                     this.setState({ loading: false })
                     if (res.data && res.data.success) {
                         localStorage.setItem('instaMsg', res.data.message);

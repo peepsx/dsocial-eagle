@@ -44,14 +44,13 @@ export default class Fourth extends React.Component {
         })
     }
 
-    handleSave = (e) => {
+    handleTransaction = (e) => {
         e.preventDefault();
         const email = localStorage.getItem('googleEmail');
         if (localStorage.getItem('s3')) {
             this.setState({ loading: true })
             if (email && this.state.arisen_username !== '') {
                 this.setState({ error: false })
-                console.log('email', email, this.state.arisen_username)
                 Axios({
                     method: 'post',
                     url: API.arisen_user_detail,
@@ -72,7 +71,6 @@ export default class Fourth extends React.Component {
                     }
                 })
                     .then(res => {
-                        console.log('response from account arisen', res);
                         this.setState({ loading: false })
                         if (res.data) {
                             if (res.data.success) {
@@ -96,7 +94,12 @@ export default class Fourth extends React.Component {
                     })
                     .catch(err => {
                         this.setState({ loading: false })
-                        err.response && toast.error(err.response.message);
+                        if (err.response && err.response.status === 403) {
+                            toast("Transfer already done to this Account.", {
+                                type: 'error',
+                                autoClose: 3000,
+                            })
+                        }
                         console.error('Error :', err);
                     })
             } else {
@@ -157,7 +160,7 @@ export default class Fourth extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleSave}>
+                            <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleTransaction}>
                                 {
                                     this.state.loading ?
                                         <Loader
