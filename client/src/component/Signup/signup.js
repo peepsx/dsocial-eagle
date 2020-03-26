@@ -11,6 +11,7 @@ import { API } from '../js/api_list';
 import Ipexist from './forms/errorIP';
 import Help from '../help';
 import Support from '../contactSupport';
+import { env } from '../config/config';
 
 
 export default class Signup extends Component {
@@ -44,7 +45,7 @@ export default class Signup extends Component {
         })
             .then(response => {
                 this.setState({ ip: response.data.success });
-                if(response.data.success) {
+                if(response.data.success && window.location.href === env.liveStatus) {
                     document.getElementById('helpRef').click();
                 }
             })

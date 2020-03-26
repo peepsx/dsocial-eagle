@@ -6,7 +6,7 @@ const Help = () => (
             <div className="modal-content bg-white">
                 <div className="modal-header pb-1 b-1">
                     <button type="button" className="close position-absolute p-0 r-40 t-30" data-dismiss="modal">&times;</button>
-                    <h4 className="modal-title text-left">Air-Drop Help Section <br/><p className="h6 c-red">All the steps and fields are mandatory and User only have 1 hour to complete all the steps.</p></h4>
+                    <h4 className="modal-title text-left">Air-Drop Help Section <br/><p className="h6 c-red">All the steps and fields are mandatory and User only have 30 minutes to complete all the steps.</p></h4>
                     
                 </div>
                 <div className="modal-body py-1">
