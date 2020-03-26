@@ -36,7 +36,7 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
         let TempUser = await TempTwitter.findOne({username: username})
         if(TempUser) return res.status(200).send({
                 success: false,
-                message: 'Please try after 5 min !!'
+                message: 'Please try after 15 min !!'
         })
 
         if(username && TwitterUserOne == null){

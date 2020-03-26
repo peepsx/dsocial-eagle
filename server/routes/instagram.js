@@ -24,7 +24,7 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
 
         if(TempInsta) return res.status(200).send({
             success: false,
-            message: 'Please try after 5 min !!'
+            message: 'Please try after 15 min !!'
         })
 
         let instaUser = await InstaAuth.findOne({username: username});
