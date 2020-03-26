@@ -14,6 +14,7 @@ router.post('/transfer', async (req, res) => {
     let { 
         user,
         send,
+        receive,
         sender_username,
         receiver_username,
         amount

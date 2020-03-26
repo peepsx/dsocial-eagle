@@ -16,7 +16,7 @@ let TempInsta = new Schema({
     },
 },{timestamps: true});
 
-TempInsta.plugin(ttl, { ttl: 1 * 30 * 30 * 1000 });
+TempInsta.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
 let TempInstagram = mongoose.model('tempinstagram', TempInsta);
 
 module.exports = {
