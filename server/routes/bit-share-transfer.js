@@ -45,16 +45,27 @@ router.post('/transfer', async (req, res) => {
                 await BitShares.connect("wss://api.btsgo.net/ws")
                 let acc = new BitShares('arisen-out', config.PRIVATE_KEY);
                 let tx = acc.newTx()
-                let operation = await acc.transferOperation("arisen-reserve", "RSN", 1)
+                let operation = await acc.transferOperation("arisen-reserve", "RSN", balance.core_liquid_balance);
                     tx.add(operation)
                 let cost = await tx.cost()
                 console.log(cost) // { BTS: 1.234 }
                 let transaction = await acc.broadcast(tx)
-                    res.status(200).json(transaction);
+                let rsn_transfered = new Arisen_Transfer({
+                    amount: amount,
+                    account_from_transfer: process.env.TRANSFER_USER,
+                    transaction_id: transfer.transaction_id,
+                    transfer_to_user: sender_username,
+                    send: send,
+                    receive: receive || undefined
+                })
+                  await rsn_transfered.save();
+                  
+                        res.status(200).json(transaction);
+
                 } else {
                     res.status(200).json({
                         success: false,
-                        message: 'Please complete your transfer'
+                        message: 'Please complete your transaction'
                     });
                 }
         } else if(send === 'BitShare') {
@@ -68,24 +79,25 @@ router.post('/transfer', async (req, res) => {
             Apis.instance(config.BTS_MAIN_NET, true).init_promise.then(async (data) => {    
                 console.log("connected to:", data[0].network);
                 let validUser = await Apis.instance().db_api().exec('get_account_by_name', [sender_username]);
-                 if(validUser.name !== sender_username) return res.status(404).send({success: false, message: 'Invalid user'});
+                 if(validUser.name !== sender_username) return res.status(404).send({success: false, message: 'Invalid username'});
                  var balance = await Apis.instance().history_api().exec('get_account_history',
                             ['1.2.1704126', '1.11.0', 10, '1.11.0']);
                             console.log('BALANCE', balance[0].op[1].to, balance[0].op[1].amount.amount);
-                            res.json(balance)
                     if(balance[0].op[1].to === '1.2.1704126' && balance[0].op[1].amount.amount === BigNumber(amount).multipliedBy(100000)) {
                         rsn.transfer(process.env.TRANSFER_USER, sender_username, amount, '', config)
                         .then(async (transfer) => {
                             let rsn_transfered = new Arisen_Transfer({
-                                amount: process.env.AMOUNT,
+                                amount: amount,
                                 account_from_transfer: process.env.TRANSFER_USER,
                                 transaction_id: transfer.transaction_id,
-                                transfer_to_user: sender_username
+                                transfer_to_user: sender_username,
+                                send: send,
+                                receive: receive || undefined
                             })
                               await rsn_transfered.save();
                                 return res.status(200).send({
                                   success: true,
-                                  message: `${process.env.AMOUNT} has been sent to the user ${arisen_username} account successfully!`,
+                                  message: `${amount} has been sent to the user ${sender_username} account successfully!`,
                                   transaction_id: transfer.transaction_id
                                 })
                         })

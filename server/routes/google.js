@@ -23,7 +23,7 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
     
     if(TempUser) return res.status(200).send({
             success: false,
-            message: 'Please try after 5 min !!'
+            message: 'Please try after 15 min !!'
         });
 
     try{
