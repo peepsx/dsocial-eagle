@@ -12,7 +12,7 @@ router.post('/telegram', [Access_Token], async (req, res) => {
     if(!id || !first_name || !last_name) return res.status(400).send({success: false,message: 'Fields are missing'});
 
     let TempTele = await TempTelegram.findOne({telegram_id: id});
-    if(TempTele)  return res.status(200).send({success: false, message: 'Please try after 15 min !!'});
+    if(TempTele)  return res.status(200).send({success: true, data: TempTele});
     let checkTelegram = await TelegramDetail.findOne({telegram_id: id});
     
     if(checkTelegram) return res.status(403).send({success: false, message: 'You have already register with us!'});

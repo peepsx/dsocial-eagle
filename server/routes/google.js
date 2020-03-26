@@ -22,8 +22,8 @@ router.post('/google-detail', [Access_Token], async(req,res,next)=>{
     let TempUser = await TempGoogle.findOne({GmailAddress:GmailAddress[0]})
     
     if(TempUser) return res.status(200).send({
-            success: false,
-            message: 'Please try after 15 min !!'
+            success: true,
+            data: TempUser
         });
 
     try{
