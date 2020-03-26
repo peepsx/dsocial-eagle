@@ -22,7 +22,6 @@ export default class Signup extends Component {
     }
 
     async componentDidMount() {
-        document.getElementById('helpRef').click();
         const ip = { v4: '', v6: '' }  // Device Public IP
         await fetch('https://api.ipify.org/')
             .then(res => res.text())
@@ -45,6 +44,9 @@ export default class Signup extends Component {
         })
             .then(response => {
                 this.setState({ ip: response.data.success });
+                if(response.data.success) {
+                    document.getElementById('helpRef').click();
+                }
             })
             .catch(error => console.error('IP', error))
     }
