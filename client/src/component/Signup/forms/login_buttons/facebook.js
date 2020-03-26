@@ -53,12 +53,14 @@ class Facebook extends React.Component {
                 }
             })
                 .then(response => {
-                    localStorage.setItem('token', response.data.token)
+                    if (response.data.access_token) {
+                        localStorage.setItem('token', response.data.token);
+                    }
                     localStorage.setItem('fbUserId', userData.data.id);
-                    let toastType= 'error';
+                    let toastType = 'error';
                     if (response.data.success) {
                         this.setState({ fbStatus: true })
-                        toastType= 'success'
+                        toastType = 'success'
                         this.props.handleNextShowBtn('Twitter')
                     }
                     toast(response.data.message, {

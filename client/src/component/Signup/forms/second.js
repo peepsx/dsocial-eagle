@@ -83,7 +83,6 @@ export default class Second extends React.Component {
                         window.open(env.liveStatus)
                     })
             }
-            console.log("Response", youtubeTitle);
             if (this.state.twitterClick && this.state.youtubeClick && this.state.instaClick && this.state.fbClick && youtubeTitle === 'Arisen Coin') {
                 this.apiCall();
             } else if (youtubeTitle !== 'Arisen Coin') {
