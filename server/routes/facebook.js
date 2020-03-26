@@ -20,8 +20,8 @@ router.post('/facebook_detail', async (req, res)=>{
         let TempFb = await TempFacebook.findOne({facebookid: id})
 
         if(TempFb) return res.status(200).send({
-                success: true,
-                data: TempFb
+                  success: true,
+                  message:'You have logging successfully!'
             })
         
         if(findOne) return res.status(403).send({

@@ -24,7 +24,7 @@ router.post('/instagram-details', [Access_Token], async (req, res)=>{
 
         if(TempInsta) return res.status(200).send({
             success: true,
-            data: TempInsta
+            message:'You have logging successfully!'
         })
 
         let instaUser = await InstaAuth.findOne({username: username});

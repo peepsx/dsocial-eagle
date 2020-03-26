@@ -35,8 +35,8 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
         let TwitterUserOne = await TwitterAuth.findOne({username: username})
         let TempUser = await TempTwitter.findOne({username: username})
         if(TempUser) return res.status(200).send({
-                success: true,
-                data: TempUser
+                  success: true,
+                  message:'You have logging successfully!'
         })
 
         if(username && TwitterUserOne == null){
