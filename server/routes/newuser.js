@@ -29,7 +29,7 @@ try {
     if(rsn_user) {
         return res.status(200).json({
             success: true,
-            data: rsn_user.new_user
+            arisen_account: rsn_user.new_user
         })
     } else {
         let register = await axios(`${SERVER_LESS}${user}/${ownerPubKey}/${activePubKey}`)
@@ -44,7 +44,7 @@ try {
                             active_private_key: activeprivateKey
                         })
         new_rsn_user.save()
-                        .then(data => res.status(200).json({success: true, data: data}))
+                        .then(data => res.status(200).json({success: true, arisen_account: new_user}))
                         .catch(e => res.status(500).json({
                             success: false,
                             message: 'Server Error'})
