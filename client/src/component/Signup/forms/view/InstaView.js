@@ -94,7 +94,7 @@ export default class InstaView extends React.Component {
                                         <img src="/assets/img/icons/icon14.svg" className="w-50 " alt="profile" />
                                     </div>
                                     <div className="row py-4 pl-4 pr-4">
-                                        <form className="w-100" onSubmit={this.handleSave} autoComplete="off">
+                                        <form className="w-100" autoComplete="off">
                                             <div className="form-group d-flex flex-direction-column">
                                                 <label className="mb-1 align-self-center">Enter Instagram Username</label>
                                                 <input
@@ -114,7 +114,7 @@ export default class InstaView extends React.Component {
                                                 this.state.error2 &&
                                                 <p className="c-red text-center">Error: {this.state.message}</p>
                                             }
-                                            <button className="btn btn-primary btn-block" type="submit">
+                                            <button className="btn btn-primary btn-block"  onClick={this.handleSave}>
                                                 {
                                                     this.state.loading && <Loader
                                                         type="TailSpin"

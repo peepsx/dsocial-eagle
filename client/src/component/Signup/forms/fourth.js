@@ -132,49 +132,51 @@ export default class Fourth extends React.Component {
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
                         <h1 className="h4 text-center">Arisen Account</h1>
-                        <div className="form-group">
-                            <label htmlFor="email">Email:</label>
-                            <input
-                                name="email"
-                                id="email"
-                                type="email"
-                                className="form-control b-none disable-white"
-                                placeholder="Enter your email address"
-                                defaultValue={localStorage.getItem('googleEmail')}
-                                disabled={true}
-                            />
-                            {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
-                        </div>
-                        <div className="form-group mb-3">
-                            <div className="d-flex justify-content-between">
-                                <label htmlFor="password" className="text-dark">Arisen Username:</label>
+                        <form autoComplete="off">
+                            <div className="form-group">
+                                <label htmlFor="email">Email:</label>
+                                <input
+                                    name="email"
+                                    id="email"
+                                    type="email"
+                                    className="form-control b-none disable-white"
+                                    placeholder="Enter your email address"
+                                    defaultValue={localStorage.getItem('googleEmail')}
+                                    disabled={true}
+                                />
+                                {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
                             </div>
-                            <input
-                                name="arisen_username"
-                                id="username"
-                                type="text"
-                                className="form-control b-none"
-                                placeholder="Enter your arisen username"
-                                value={this.state.arisen_username}
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleTransaction}>
-                                {
-                                    this.state.loading ?
-                                        <Loader
-                                            type="TailSpin"
-                                            className=""
-                                            color="#fff"
-                                            height={30}
-                                            width={30}
-                                        />
-                                        :
-                                        'Log in'
-                                }
-                            </button>
-                        </div>
+                            <div className="form-group mb-3">
+                                <div className="d-flex justify-content-between">
+                                    <label htmlFor="password" className="text-dark">Arisen Username:</label>
+                                </div>
+                                <input
+                                    name="arisen_username"
+                                    id="username"
+                                    type="text"
+                                    className="form-control b-none"
+                                    placeholder="Enter your arisen username"
+                                    value={this.state.arisen_username}
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleTransaction}>
+                                    {
+                                        this.state.loading ?
+                                            <Loader
+                                                type="TailSpin"
+                                                className=""
+                                                color="#fff"
+                                                height={30}
+                                                width={30}
+                                            />
+                                            :
+                                            'Log in'
+                                    }
+                                </button>
+                            </div>
+                        </form>
                         <div className="text-center text-small mt-3">
                             <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>
                         </div>
