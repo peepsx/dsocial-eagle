@@ -14,11 +14,9 @@ let Arisen_Block_Transfer = new Schema({
     transfer_to_user: {
         type: String
     },
-    send: {
-        type: String
-    },
-    receive: {
-        type: String
+    type: {
+        type: String,
+        required: true
     }
 },{timestamps: true })
 
