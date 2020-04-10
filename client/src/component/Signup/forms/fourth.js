@@ -89,7 +89,11 @@ export default class Fourth extends React.Component {
                                 showCancelButton: false,
                                 confirmButtonText: 'Okay',
                             })
-                                .then(() => window.location.hash = '#fifth')
+                                .then(() => {
+                                    if (res.data.success) {
+                                        window.location.hash = '#fifth'
+                                    }
+                                })
                         }
                     })
                     .catch(err => {
