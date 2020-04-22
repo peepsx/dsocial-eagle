@@ -120,11 +120,13 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
                     success: true,
                     message: 'You have successfully share with your friends'
                 })
+            } else {
+                
             }
         } else {
             return res.status(200).send({
                 success: false,
-                message: 'Please share with your friends first'
+                message: 'Please share with titter friends'
             });
         }
 
