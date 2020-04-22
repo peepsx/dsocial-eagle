@@ -33,7 +33,7 @@ const Help = () => (
                     </div>
                     <div className="py-2 pl-3 pr-3">
                         <p className="h5 mt-2 mb-2"> Your Arisen Account (Step-4)</p>
-                        <p className="mb-0 fs-1">1. After successfully done "Share with Friends" step then user have to enter Arisen Account to recieve bonus RSN.</p>
+                        <p className="mb-0 fs-1">1. After successfully done "Share with Friends" step then user have to enter Arisen Account to recieve bonus RSI.</p>
                         <p className="mb-0 fs-1">2. If user don't have Arisen Account then user can create one by clicking on SIGNUP button and enter account name in the given field.</p>
                         <p className="mb-0 fs-1">3. After entering Arisen Account then press Next button to proceed Transaction, this may take a while to complete it.</p>
                     </div>

@@ -183,7 +183,7 @@ export default class Second extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Please follow Arisen with logged in accounts.</span>
+                    <span className="h4 d-block">Please Like & Follow Arisen with logged in accounts.</span>
                     <p className="h6">( All fields mandatory )</p>
                 </div>
                 <div className="col-md-12">
