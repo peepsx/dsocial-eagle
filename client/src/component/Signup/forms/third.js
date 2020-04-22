@@ -19,7 +19,7 @@ export default class Third extends React.Component {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
-            quote: 'Get 500 free #ArisenCoin (RSI) and learn more about the #blockchain that defied all odds.',
+            quote: 'Get 500 free #ArisenCoin (RIX) and learn more about the #blockchain that defied all odds.',
             link: 'https://air.arisen.network/',
         }, (response) => {
             this.setState({ fbPostResponse: response });
@@ -27,7 +27,7 @@ export default class Third extends React.Component {
     }
 
     handleTweet = () => {
-        const text = 'Get 500 free %23ArisenCoin (RSI) and learn more about the %23blockchain that defied all odds. https://air.arisen.network'
+        const text = 'Get 500 free %23ArisenCoin (RIX) and learn more about the %23blockchain that defied all odds. https://air.arisen.network'
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
     }
 
