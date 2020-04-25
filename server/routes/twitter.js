@@ -87,9 +87,9 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
 router.post('/share-social-status', [Access_Token], async (req, res) => {
     let {status, screenname } = req.body;
 
-    if(!status || status == null || !screenname || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
+    if(!status || status == null || !screenname || screenname == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     
-    if(status === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
+    if(status === undefined || username === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
@@ -113,16 +113,12 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     try {
 
         if(Array.isArray(status) && !status.length) {
-            if(api.data[0].text.includes(process.env.text) && TempTwit.username === api.data[0].user.screen_name) {
                await TempTwitter.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
                
                return res.status(200).send({
                     success: true,
                     message: 'You have successfully share with your friends'
                 })
-            } else {
-                
-            }
         } else {
             return res.status(200).send({
                 success: false,
