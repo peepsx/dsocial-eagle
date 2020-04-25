@@ -62,16 +62,16 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
 
                 if(lookup.data.details.account_name === arisen_username) {
                     if (email && arisen_username && UserOne == null) {
-                            let NewUser = new UserAuth({
-                                email: email,
-                                arisen_username: arisen_username,
-                                ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6
-                            })
-                           let user = await NewUser.save();
-
-                           Rsn_Transfer(arisen_username, user.id)
+                           Rsn_Transfer(arisen_username, req.user.id)
                                     .then(async TRANSFER => {
                                         if(TRANSFER.success) {
+                                            let NewUser = new UserAuth({
+                                                email: email,
+                                                arisen_username: arisen_username,
+                                                ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6
+                                            })
+                                                await NewUser.save();
+
                                             let ipv4 = new Ip({
                                                 ip_address: address
                                             })

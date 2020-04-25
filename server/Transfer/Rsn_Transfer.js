@@ -8,6 +8,7 @@ module.exports = {
     Rsn_Transfer: async (arisen_username, id) => {
       return  new Promise(async (resolve, reject) => {
             try {
+                console.log('Check ', arisen_username, id);
                 let rsn = new RSN(config);
                 if(!arisen_username || arisen_username == undefined || arisen_username ==null || !id) {
                     return reject({
