@@ -19,7 +19,7 @@ export default class Third extends React.Component {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
-            quote: 'Get 500 free #ArisenCoin (RSN) and learn more about the #blockchain that defied all odds.',
+            quote: 'Get 500 free #ArisenCoin (RIX) and learn more about the #blockchain that defied all odds.',
             link: 'https://air.arisen.network/',
         }, (response) => {
             this.setState({ fbPostResponse: response });
@@ -27,7 +27,7 @@ export default class Third extends React.Component {
     }
 
     handleTweet = () => {
-        const text = 'Get 500 free %23ArisenCoin (RSN) and learn more about the %23blockchain that defied all odds. https://air.arisen.network'
+        const text = 'Get 500 free %23ArisenCoin (RIX) and learn more about the %23blockchain that defied all odds. https://air.arisen.network'
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
     }
 
@@ -94,7 +94,7 @@ export default class Third extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Share pre-written with your friends</span>
+                    <span className="h4 d-block">Share pre-written Message with your friends</span>
                     <p className="h6">( All fields mandatory )</p>
                 </div>
                 <div className="row justify-content-center">
