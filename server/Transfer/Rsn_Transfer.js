@@ -8,22 +8,12 @@ module.exports = {
     Rsn_Transfer: async (arisen_username, id) => {
       return  new Promise(async (resolve, reject) => {
             try {
-                console.log('Check ', arisen_username, id);
                 let rsn = new RSN(config);
                 if(!arisen_username || arisen_username == undefined || arisen_username ==null || !id) {
                     return reject({
                            success: false,
                             message: `Fields are missing !`
                         })
-                }
-    
-                let arisen = await UserAuth.findOne({arisen_username});
-    
-                if(!arisen) {
-                 return reject({
-                         success: false,
-                         message: `user not found ${arisen_username}`
-                    })
                 }
                   rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
                       .then(async (transfer) => {
