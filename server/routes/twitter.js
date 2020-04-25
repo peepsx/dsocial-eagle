@@ -89,7 +89,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
 
     if(!status || status == null || !screenname || screenname == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     
-    if(status === undefined || username === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
+    if(status === undefined || screenname === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
