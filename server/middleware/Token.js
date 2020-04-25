@@ -16,7 +16,6 @@ module.exports = {
                     message: 'Bad Request'
                 })
             }
-            req.user.id = user.id;
             let payload = {
                 user: {
                     id: user.id
