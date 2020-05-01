@@ -17,6 +17,7 @@
     "list": "pm2 list"
   },
   "dependencies": {
+    "@arisencore/js": "^1.0.2",
     "arisenjsv1": "^1.0.3",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
