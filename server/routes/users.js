@@ -170,7 +170,7 @@ router.post('/avote/transfer/:from/:to/:quantity/:memo/:private_key', async (req
         private_key
     } = req.params;
 
-    if(!from || !to || !quantity || !memo || !private_key) return res.status(200).send({message: 'Fields are missing.'});
+    if(!from || !to || !quantity || !private_key) return res.status(200).send({message: 'Fields are missing.'});
     try {
         let result = await RixTransfer(from, to, quantity, memo, private_key);
 
