@@ -45,38 +45,5 @@ module.exports = {
                 console.log('ERROR WHILE TRANSFER', error.message);
             }
         })
-    },
-    RixTransfer: async (from, to, quantity, memo, private) => {
-        return new Promise(async (resolve, reject) => {
-            const defaultPrivateKey = private;
-            const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
-            const rpc = new JsonRpc('https://greatchains.arisennodes.io', { fetch });
-            const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
-            
-                const result = await api.transact({
-                    actions: [{
-                      account: 'arisen.token',
-                      name: 'transfer',
-                      authorization: [{
-                        actor: from,
-                        permission: 'active',
-                      }],
-                      data: {
-                        from: from,
-                        to: to,
-                        quantity: `${quantity} RIX`,
-                        memo: memo || '',
-                      },
-                    }]
-                  }, {
-                    broadcast: true,
-                    blocksBehind: 3,
-                    expireSeconds: 30,
-                  });
-                  return resolve({
-                      success: true,
-                      result
-                  })
-        })
     }
 }

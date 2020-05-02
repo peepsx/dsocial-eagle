@@ -18,7 +18,7 @@ const { TempTelegram } = require('../models/TempTelegram');
 var validator = require('validator');
 let axios = require('axios');
 let { RSN_TRANSFER, Access_Token } = require('../middleware/RSN_TRANSFER'); 
-let { Rsn_Transferm, RixTransfer } = require('../Transfer/Rsn_Transfer')
+let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
@@ -159,28 +159,6 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                 message: "User not found"
             })
     }
-})
-
-router.post('/avote/transfer/:from/:to/:quantity/:memo/:private_key', async (req, res) => {
-    let {
-        from,
-        to,
-        quantity,
-        memo,
-        private_key
-    } = req.params;
-
-    if(!from || !to || !quantity || !private_key) return res.status(200).send({message: 'Fields are missing.'});
-    try {
-        let result = await RixTransfer(from, to, quantity, memo, private_key);
-
-        return res.json(result);
-    } catch (error) {
-        console.log("TRANSFER ERROR", error);
-        return res.status(500).send({message: 'Server error.'});
-    }
-
-
 })
 
 module.exports = router
