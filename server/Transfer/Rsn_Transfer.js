@@ -3,6 +3,10 @@ let config = require('../config/arisen');
 let RSN = require('arisenjsv1');
 let { UserAuth } = require('../models/user');
 let { Rsn_Transfer } = require('../models/transfer');
+const { Api, JsonRpc, RpcError } = require('@arisencore/js');
+const { JsSignatureProvider } = require('@arisencore/js/dist/rixjs-jssig');      // development only
+const fetch = require('node-fetch');                                    // node only; not needed in browsers
+const { TextEncoder, TextDecoder } = require('util');
 
 module.exports = {
     Rsn_Transfer: async (arisen_username, id) => {
@@ -14,15 +18,6 @@ module.exports = {
                            success: false,
                             message: `Fields are missing !`
                         })
-                }
-    
-                let arisen = await UserAuth.findOne({arisen_username});
-    
-                if(!arisen) {
-                 return reject({
-                         success: false,
-                         message: `user not found ${arisen_username}`
-                    })
                 }
                   rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
                       .then(async (transfer) => {
