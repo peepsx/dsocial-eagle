@@ -99,7 +99,7 @@ export default class Fourth extends React.Component {
                     .catch(err => {
                         this.setState({ loading: false })
                         if (err.response && err.response.status === 403) {
-                            toast("Transfer already done to this Account.", {
+                            toast("Transfer already done to this Account !!", {
                                 type: 'error',
                                 autoClose: 3000,
                             })
@@ -123,7 +123,7 @@ export default class Fourth extends React.Component {
 
     formValidation = () => {
         if (this.state.arisen_username === '') {
-            toast("All fields are mandatory", {
+            toast("PeepsID missing !!", {
                 type: 'error',
                 autoClose: 3000,
             })
@@ -135,7 +135,8 @@ export default class Fourth extends React.Component {
             <div className="p-0 d-flex bg-white align-items-lg-center">
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
-                        <h1 className="h4 text-center">Arisen Account</h1>
+                        <h1 className="h4 text-center">Enter Email Address & PeepsID</h1>
+                        <p className="small text-center noteStyle">NOTE :-  A PeepsID is an Arisen account, so if you already have an Arisen account, simply enter your Arisen username below.</p>
                         <form autoComplete="off">
                             <div className="form-group">
                                 <label htmlFor="email">Email:</label>
@@ -152,14 +153,14 @@ export default class Fourth extends React.Component {
                             </div>
                             <div className="form-group mb-3">
                                 <div className="d-flex justify-content-between">
-                                    <label htmlFor="password" className="text-dark">Arisen Username:</label>
+                                    <label htmlFor="password" className="text-dark">PeepsID:</label>
                                 </div>
                                 <input
                                     name="arisen_username"
                                     id="username"
                                     type="text"
                                     className="form-control b-none"
-                                    placeholder="Enter your arisen username"
+                                    placeholder="Enter your PeepsID or Arisen username"
                                     value={this.state.arisen_username}
                                     onChange={this.handleChange}
                                 />
@@ -176,13 +177,13 @@ export default class Fourth extends React.Component {
                                                 width={30}
                                             />
                                             :
-                                            'Log in'
+                                            'Send Me 1000.0000 RIX'
                                     }
                                 </button>
                             </div>
                         </form>
                         <div className="text-center text-small mt-3">
-                            <span>Don't have an Arisen account? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Sign up</button></span>
+                            <span>Don't have a PeepsID? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Create PeepsID</button></span>
                         </div>
                     </div>
                 </div>

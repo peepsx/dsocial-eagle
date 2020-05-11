@@ -7,10 +7,12 @@ import './theme.css'
 import Signup from './component/Signup/signup';
 import { env } from './component/config/config';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import InstaView from './component/Signup/forms/view/InstaView';
+// import InstaView from './component/Signup/forms/view/InstaView';
+import Welcome from './component/welcomePage';
 
 
 class App extends Component {
+  
   async componentDidMount() {
     localStorage.removeItem('a_user');
     localStorage.removeItem('transaction_id');
@@ -22,7 +24,6 @@ class App extends Component {
     });
   }
   
-
   render() {
     return (
       <React.Fragment>
@@ -30,7 +31,8 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/" component={Signup} exact />
-            <Route path="/instagramLogin" component={InstaView} />
+            <Route path="/welcome" component={Welcome} exact />
+            {/* <Route path="/instagramLogin" component={InstaView} /> */}
           </Switch>
         </BrowserRouter>
       </React.Fragment>

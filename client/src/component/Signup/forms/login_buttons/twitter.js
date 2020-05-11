@@ -10,7 +10,7 @@ export default function Button(props) {
             onClick={()=> changeClick(true)}
         >
             <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
-            <span className="h6 mb-0 d-block">Twitter</span>
+            <span className="h6 mb-0 d-block">Login w/ Twitter</span>
             {(props.twitStatus) && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
         </button>
     )

@@ -5,9 +5,9 @@ import TwitterLogin from "react-twitter-login";
 
 import Twitter from './login_buttons/twitter';
 import Facebook from './login_buttons/facebook';
-import Instagram from './login_buttons/instagram'
+// import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
-import Telegram from './login_buttons/telegram';
+// import Telegram from './login_buttons/telegram';
 import { env } from '../../config/config';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
@@ -41,50 +41,62 @@ export default class First extends React.Component {
         this.setState({ loading: true });
         const fbData = localStorage.getItem('fbUserId');
         const googleEmail = localStorage.getItem('googleEmail');
-        const instaUserId = localStorage.getItem('instaUserId');
+        // const instaUserId = localStorage.getItem('instaUserId');
         const twitterName = localStorage.getItem('twitterName');
-            if (!fbData || !googleEmail || !instaUserId || !twitterName) {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please complete the Steps carefully!!',
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-            } else if (this.state.teleUserid !== '') {
-                Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
-                    .then(res => {
-                        this.setState({ loading: false })
-                        const title = res.data.ok ? 'Success' : 'Error';
-                        const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
-                        const icon = res.data.ok ? 'success' : 'error';
-                        Swal.fire({
-                            title,
-                            text,
-                            icon,
-                            showCancelButton: false,
-                            confirmButtonText: 'Proceed',
-                        })
-                        if (res.data.ok) {
-                            localStorage.setItem('s1', true)
-                            window.location.hash = "#second";
-                        }
-                    })
-                    .catch(err => {
-                        this.setState({ loading: false })
-                        console.error('Bot Error : ', err)
-                    })
-            } else {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please Login with Telegram !!',
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-            }
+        if (!fbData ||
+            !googleEmail ||
+            // !instaUserId ||
+            !twitterName
+        ) {
+            this.setState({ loading: false })
+            Swal.fire({
+                title: 'Error',
+                text: 'You must login to all platforms beforing continuing to step 2',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+        } else {
+            localStorage.setItem('s1', true)
+            window.location.hash = "#second";
+        }
+
+        // TO ENABLE TELEGRAM CHECK - UNCOMMENT THE CODE GIVEN BELOW AND COMMENT ABOVE ELSE STATEMENT
+
+
+        // else if (this.state.teleUserid !== '') {
+        //     Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
+        //         .then(res => {
+        //             this.setState({ loading: false })
+        //             const title = res.data.ok ? 'Success' : 'Error';
+        //             const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
+        //             const icon = res.data.ok ? 'success' : 'error';
+        //             Swal.fire({
+        //                 title,
+        //                 text,
+        //                 icon,
+        //                 showCancelButton: false,
+        //                 confirmButtonText: 'Proceed',
+        //             })
+        //             if (res.data.ok) {
+        //                 localStorage.setItem('s1', true)
+        //                 window.location.hash = "#second";
+        //             }
+        //         })
+        //         .catch(err => {
+        //             this.setState({ loading: false })
+        //             console.error('Bot Error : ', err)
+        //         })
+        // } else {
+        //     this.setState({ loading: false })
+        //     Swal.fire({
+        //         title: 'Error',
+        //         text: 'Please Login with Telegram !!',
+        //         icon: "error",
+        //         showCancelButton: false,
+        //         confirmButtonText: 'Okay',
+        //     })
+        // }
     }
 
     handleTwitDataSave = (userData) => {
@@ -106,7 +118,7 @@ export default class First extends React.Component {
                     if (response.data.success) {
                         this.setState({ twitStatus: true })
                         toastType = "success";
-                        this.handleNextShowBtn('Instagram')
+                        this.handleNextShowBtn('Google')
                     }
                     toast(response.data.message, {
                         type: toastType,
@@ -115,7 +127,7 @@ export default class First extends React.Component {
                 })
                 .catch(err => {
                     if (err.response && err.response.status === 403) {
-                        toast("User already registered", {
+                        toast("User already registered !!!", {
                             type: 'warning',
                             autoClose: 3000,
                         })
@@ -134,8 +146,8 @@ export default class First extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Please go through all the platforms given below.</span>
-                    <p className="h6">( All fields mandatory )</p>
+                    <span className="h4 d-block">Let's start a revolution together...</span>
+                    <p className="w-75 m-auto">We need your help sharing our fight to decentralize the world and to raise awareness around the #censorshipofconservatives, but first, we need you to login to your Facebook, Twitter and Google accounts. We truly appreciate your support.</p>
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
@@ -159,12 +171,12 @@ export default class First extends React.Component {
                             }
                         />
                     </div>
-                    <div className="col-sm mb-3 mb-sm-0">
+                    {/* <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
-                    </div>
+                    </div> */}
                     <div className="col-sm mb-3 mb-sm-0">
                         <Google
                             handleNextShowBtn={this.handleNextShowBtn}
@@ -172,7 +184,7 @@ export default class First extends React.Component {
                         />
                     </div>
                 </div>
-                <div className="columnd-flex justify-content-center mt-2">
+                {/* <div className="columnd-flex justify-content-center mt-2">
                     <p className="text-center">*Join our Telegram Community<br />
                         <span className={!(this.state.nextBtnStatus === 'Telegram') ? 'noClick ml-1' : 'ml-1'}>
                             <Telegram
@@ -181,10 +193,10 @@ export default class First extends React.Component {
                             />
                         </span>
                     </p>
-                </div>
-                <div className="d-flex justify-content-center pb-0">
+                </div> */}
+                <div className="d-flex justify-content-center pb-0 mt-3">
                     <button
-                        className="btn btn-custom h-2 w-8"
+                        className="btn btn-custom h-2"
                         onClick={this.checkTelegramUser}
                         disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >
@@ -198,7 +210,7 @@ export default class First extends React.Component {
                                     width={30}
                                 />
                                 :
-                                'Next Step'
+                                'Proceed to follow Peeps'
                         }
                     </button>
                 </div>

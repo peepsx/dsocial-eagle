@@ -2,6 +2,10 @@
     width: 15%;
 }
 
+.w30{
+    width: 30px;
+}
+
 .flex-direc-row {
     flex-direction: row;
 }
@@ -84,8 +88,15 @@
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
-.btn-custom:hover {
+.btn-custom:hover,.btn-custom2:hover {
     color: white;
+}
+
+.btn-custom2 {
+    color: white;
+    border: none;
+    border-radius: .5em;
+    background: linear-gradient(50deg, #4658d8 -27%, #3e93dc 57%, #559ef7 121%) !important;
 }
 
 .br-dot2 {
@@ -218,6 +229,18 @@
 
 .fw-500{
     font-weight: 500;
+}
+
+.noteStyle{
+    padding: 10px;
+    background-color: #e4e8e4;
+    color: #333449;
+    border-radius: 10px;
+
+}
+
+.welSec[class*='height-'] {
+    display: flex !important;
 }
 
 @media only screen and (max-width: 600px) {
