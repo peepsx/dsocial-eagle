@@ -93,7 +93,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
-
+    console.log('TEXT ', api.data[0].text)
     if(!TempTwit || TempTwit == null) return res.status(404).send({
             success:false,
             message: 'Please complete first steps'
@@ -106,7 +106,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     if(!api.data[0].text.includes(process.env.text) && TempTwit.username !== api.data[0].user.screen_name) {
         return res.status(200).send({
             success: false,
-            message: 'Please share on your twitter page'
+            message: 'You must share on Facebook and Twitter before continuing to Step 4'
         })
     }
 
@@ -122,7 +122,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
         } else {
             return res.status(200).send({
                 success: false,
-                message: 'Please share with titter friends'
+                message: 'You must share on Facebook and Twitter before continuing to Step 4'
             });
         }
 
@@ -139,19 +139,19 @@ router.post('/follower', [Access_Token], async (req, res) => {
     
     let { screen_name, username } = req.body;
 
-    if(!screen_name || !username) return  res.status(400).send({
+    if(!screen_name /**||!username */) return  res.status(400).send({
             success: false,
             message: 'Fields is missing!'
         })
     
     let validTwiFollower = await TempTwitter.findOne({username: screen_name});
 
-    let validInstagramFollower = await TempInstagram.findOne({username: username});
+    // let validInstagramFollower = await TempInstagram.findOne({username: username});
     
-    if(!validInstagramFollower) return res.status(404).send({
-        success: false,
-        message: 'Invalid instagram user id'
-    })
+    // if(!validInstagramFollower) return res.status(404).send({
+    //     success: false,
+    //     message: 'Invalid instagram user id'
+    // })
 
     if (!validTwiFollower) return res.status(404).send({
         success: false,
@@ -159,23 +159,23 @@ router.post('/follower', [Access_Token], async (req, res) => {
     })
 
     try {
-        const ig = new IgApiClient();
-        ig.state.generateDevice(process.env.username)
-        const auth = await ig.account.login(process.env.username, process.env.password);
-        const followersFeed = ig.feed.accountFollowers(auth.pk);
-        const followers = await followersFeed.request();
+    //     const ig = new IgApiClient();
+    //     ig.state.generateDevice(process.env.username)
+    //     const auth = await ig.account.login(process.env.username, process.env.password);
+    //     const followersFeed = ig.feed.accountFollowers(auth.pk);
+    //     const followers = await followersFeed.request();
 
-       if(!followers) return res.status(404).json({
-           success: false,
-           message: 'Not a valid instagram user'
-        });
+    //    if(!followers) return res.status(404).json({
+    //        success: false,
+    //        message: 'Not a valid instagram user'
+    //     });
        /**INSTAGRAM */
-       let follow = followers.users.map(follower => follower.username);
+    //    let follow = followers.users.map(follower => follower.username);
        /**TWITTER */
-       let follower = await getTwitterFollowers(tokens, '@ArisenCoin');
+       let follower = await getTwitterFollowers(tokens, '@ArisenCoin'); /** peepsx */
        let twit = follower.map(twitter => twitter.screen_name);
        
-       if(twit.indexOf(screen_name) !== -1 && follow.indexOf(username) !== -1) {
+       if(twit.indexOf(screen_name) !== -1 /**&& follow.indexOf(username) !== -1 */) {
         return res.status(200).send({
             success: true,
             message: 'You have liked successfully'
@@ -183,7 +183,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
        } else {
         return res.status(200).send({
             success: false,
-            message: 'Please like previous social media platform'
+            message: 'You must follow all of Peeps social media pages before continuing!'
         });
        }
     } catch (error) {

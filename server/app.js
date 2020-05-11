@@ -29,11 +29,11 @@ app.use('/new_user', new_user);
 app.use('/', ip);
 app.use('/twitter', twitter);
 app.use('/facebook', fbRouter);
-app.use('/instagram', instagramRouter)
+// app.use('/instagram', instagramRouter)
 app.use('/google',google)
 app.use('/users',users)
 app.use('/validation', twitter)
-app.use('/details',  telgramapi)
+// app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
 app.use('/rsn-bts', BtsTransfer);
 

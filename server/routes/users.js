@@ -4,16 +4,16 @@ var router = express.Router();
 const { UserAuth } = require('../models/user');
 const { faceAuth } = require('../models/facebook');
 const { TwitterAuth } = require('../models/twitter');
-const { InstaAuth } = require('../models/instagram');
+// const { InstaAuth } = require('../models/instagram');
 const { googleAuth } = require('../models/google');
 const { Ip } = require('../models/ip');
-const { TelegramDetail } = require('../models/telegram');
+// const { TelegramDetail } = require('../models/telegram');
 /**TEMP MODEL */
 const { TempFacebook } = require('../models/TempFacebook');
 const { TempTwitter } = require('../models/TempTwitter');
-const { TempInstagram } = require('../models/TempInstagram');
+// const { TempInstagram } = require('../models/TempInstagram');
 const { TempGoogle } = require('../models/TempGoogle');
-const { TempTelegram } = require('../models/TempTelegram');
+// const { TempTelegram } = require('../models/TempTelegram');
 
 var validator = require('validator');
 let axios = require('axios');
@@ -23,14 +23,14 @@ let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
     let { email, arisen_username, ip } = req.body;
-    let { fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName } = req.body.userDetails
-    console.log(email, arisen_username, ip, fbUserId, googleEmail, instaUserId, teleUserId, twitterScreenName, 'USER IDS');
+    let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName } = req.body.userDetails
+    console.log(email, arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, 'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
     let TempTwit = await TempTwitter.findOne({username: twitterScreenName}).select('-_id -__v');
-    let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
+    // let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
-    let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
+    // let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
     let address = ip.v4 === ip.v6 ? ip.v4 : [ip.v4, ip.v6]
 
     if(address.length === 2) {
@@ -88,38 +88,38 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                                 profileDescription: TempTwit.profileDescription,
                                                 followerscount: TempTwit.followerscount
                                             });
-                                            let Instagram = new InstaAuth({
-                                                instaid: TempInsta.instaid,
-                                                follower: TempInsta.follower,
-                                                username: TempInsta.username
-                                            });
+                                            // let Instagram = new InstaAuth({
+                                            //     instaid: TempInsta.instaid,
+                                            //     follower: TempInsta.follower,
+                                            //     username: TempInsta.username
+                                            // });
                                             let Google = new googleAuth({
                                                 GmailAddress: TempGo.GmailAddress
                                             });
-                                            let Telegram = new TelegramDetail({
-                                                telegram_id: TempTele.telegram_id,
-                                                username: TempTele.username
-                                            });
+                                            // let Telegram = new TelegramDetail({
+                                            //     telegram_id: TempTele.telegram_id,
+                                            //     username: TempTele.username
+                                            // });
                                              Twitter.save()
                                                 .then(async user => {
                                                     await TempTwitter.findOneAndDelete({username: user.username});
                                                 })
                                                 .catch(e => console.log('WHILE DELETING TEMP USER', e))
-                                             Instagram.save()
-                                                .then(async user => {
-                                                    await TempInstagram.findOneAndDelete({username: user.username});
-                                                })
-                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                            //  Instagram.save()
+                                            //     .then(async user => {
+                                            //         await TempInstagram.findOneAndDelete({username: user.username});
+                                            //     })
+                                            //     .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                              Google.save()
                                                 .then(async user => {
                                                     await TempGoogle.findOneAndDelete({GmailAddress: user.GmailAddress});
                                                 })
                                                 .catch(e => console.log('WHILE DELETING TEMP USER', e))
-                                             Telegram.save()
-                                                .then(async user => {   
-                                                    await TempTelegram.findOneAndDelete({username: user.username});
-                                                })
-                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                            //  Telegram.save()
+                                            //     .then(async user => {   
+                                            //         await TempTelegram.findOneAndDelete({username: user.username});
+                                            //     })
+                                            //     .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                              FaceBook.save()
                                                 .then(async user => {   
                                                     await TempFacebook.findOneAndDelete({facebookid: user.facebookid});
