@@ -19,15 +19,15 @@ export default class Third extends React.Component {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
-            quote: 'Get 500 free #ArisenCoin (RIX) and learn more about the #blockchain that defied all odds.',
-            link: 'https://air.arisen.network/',
+            quote: "Peeps is fighting the abuse of power and the #censorshipofconservatives through the launch of the decentralized web. I'm joining hands with them to decentralize the world and you can too at",
+            link: 'https://dpeeps.com',
         }, (response) => {
             this.setState({ fbPostResponse: response });
         });
     }
 
     handleTweet = () => {
-        const text = 'Get 500 free %23ArisenCoin (RIX) and learn more about the %23blockchain that defied all odds. https://air.arisen.network'
+        const text = "I just joined the all-new decentralized web and @peepsx fight against the %23censorshipofconservatives. You can too at https://dpeeps.com"
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
     }
 
@@ -49,18 +49,16 @@ export default class Third extends React.Component {
                 })
                     .then(res => {
                         this.setState({ loading: false })
-                        if (res.status === 200) {
+                        if (res.data.success) {
+                            window.location.hash = "#fourth";
+                            localStorage.setItem('s3', true)
+                        } else if(!res.data.success) {
                             Swal.fire({
-                                title: res.data.success ? 'Successful' : 'Error',
-                                text: res.data.message,
-                                icon: res.data.success ? 'success' : 'error',
+                                title: 'Error',
+                                text: 'You must share on Facebook and Twitter before continuing to Step 4.',
+                                icon: "error",
                                 showCancelButton: false,
-                                confirmButtonText: 'Next',
-                            }).then(() => {
-                                if (res.data.success) {
-                                    window.location.hash = "#fourth";
-                                    localStorage.setItem('s3', true)
-                                }
+                                confirmButtonText: 'Okay',
                             })
                         }
                     })
@@ -72,7 +70,7 @@ export default class Third extends React.Component {
                 this.setState({loading: false})
                 Swal.fire({
                     title: 'Error',
-                    text: 'Please share post on facebook and twitter !!',
+                    text: 'You must share on Facebook and Twitter before continuing to Step 4.',
                     icon: "error",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
@@ -94,8 +92,8 @@ export default class Third extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Share pre-written Message with your friends</span>
-                    <p className="h6">( All fields mandatory )</p>
+                    <span className="h4 d-block">Spread the word about our fight to decentralize the world</span>
+                    <p className="w-75 m-auto">Help us spread the word about Peeps, Arisen, dWeb and RIX to your friends and followers. You must share on Facebook and Twitter to continue to step 4.</p>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
@@ -103,14 +101,14 @@ export default class Third extends React.Component {
                             <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share Post with Facebook friends</span>
+                                    <span className="mb-0 h6 mb-0">Share The Revolution On Facebook</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
                             </a>
                             <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
-                                    <span className="mb-0 h6 mb-0">Share Tweet with Twitter followers </span>
+                                    <span className="mb-0 h6 mb-0">Tweet About The Revolution On Twitter</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
                             </a>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { env } from '../../config/config';
 
 export default class Fifth extends React.Component {
 
@@ -30,13 +29,14 @@ export default class Fifth extends React.Component {
                         <div className="icon-rounded bg-success">
                             <i className="fas fa-check-circle color-white fs-20" />
                         </div>
-                        <h2 className="mt-auto mb-auto ml-2">Congratulations</h2>
+                        <h2 className="mt-auto mb-auto ml-2">You Got Coins!</h2>
                     </div>
                     <span className="h5 d-block">{arisenMessage}</span>
                     <a className="d-block mb-2 mt-2" href={`https://explorer.arisen.network/account/${username}`} target="_blank">Click here to see your transaction.</a>
-                    <span className="h4 d-block">Thanks for providing your details.</span>
+                    <span className="h4 d-block">Start Browsing The dWeb.</span>
                     <hr />
-                    <a className="btn btn-custom" href={env.liveStatus}>Done</a>
+                        <a type="button" className="btn btn-custom m-1" href="https://dbrowser.com" target="_blank">Download dBrowser</a>
+                        <a type="button" className="btn btn-custom2 m-1" href="https://fund.dpeeps.com" target="_blank">Help Fund The Revolution</a>
                 </div>
             </div>
         )

@@ -71,7 +71,7 @@ class Facebook extends React.Component {
                 .catch(err => {
                     console.error(err);
                     if (err.response && err.response.status === 403) {
-                        toast("User already registered", {
+                        toast("User already registered !!", {
                             type: 'warning',
                             autoClose: 3000,
                         })
@@ -90,7 +90,7 @@ class Facebook extends React.Component {
                 disabled={(this.props.nextBtnStatus) !== ''}
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                <span className="h6 mb-0 d-block">Facebook</span>
+                <span className="h6 mb-0 d-block">Login w/ Facebook</span>
                 {this.state.fbStatus && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
             </button>
         )

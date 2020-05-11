@@ -10,10 +10,7 @@ export default class Second extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fbClick: false,
-            youtubeClick: false,
-            instaClick: false,
-            twitterClick: false,
+            clickCounter:0,
             loading: false,
             subscriber: '',
         }
@@ -22,28 +19,28 @@ export default class Second extends React.Component {
     handleInstagramLink = () => {
         window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
-            instaClick: true
+            clickCounter: this.state.clickCounter +1
         })
     }
 
     handleFacebookLink = () => {
         window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
-            fbClick: true
+            clickCounter: this.state.clickCounter +1
         })
     }
 
     handleYoutubeLink = () => {
         window.open('https://www.youtube.com/channel/UCSA8YUDeXWEYHl54XdFO6_w', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
-            youtubeClick: true
+            clickCounter: this.state.clickCounter +1
         })
     }
 
     handleTwitClick = () => {
         window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
-            twitterClick: true
+            clickCounter: this.state.clickCounter +1
         })
     }
 
@@ -83,49 +80,15 @@ export default class Second extends React.Component {
                         window.open(env.liveStatus)
                     })
             }
-            if (this.state.twitterClick && this.state.youtubeClick && this.state.instaClick && this.state.fbClick && youtubeTitle === 'Arisen Coin') {
+            if (youtubeTitle === 'Arisen Coin' && this.state.clickCounter >= 3) {
+                console.log('inside second-if',youtubeTitle,this.state.clickCounter)
                 this.apiCall();
             } else if (youtubeTitle !== 'Arisen Coin') {
                 this.setState({ loading: false })
+                console.log('inside second-else',youtubeTitle,this.state.clickCounter)
                 Swal.fire({
-                    title: 'Error',
-                    text: 'Please Subscribe Youtube Channel with your given G-mail Account !!',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-            } else if (!this.state.fbClick) {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please Like Arisen\'s Facebook Page !!',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-            } else if (!this.state.twitterClick) {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please follow Arisen on Twiiter !!',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-            } else if (!this.state.instaClick) {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please follow Arisen on Instagram  !!',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-            } else if (!this.state.youtubeClick) {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Please Subscribe Arisen\'s Youtube Channel !!',
+                    title: 'Whoops!',
+                    text: "You must follow all of Peeps' social media pages before continuing!!",
                     icon: "warning",
                     showCancelButton: false,
                     confirmButtonText: 'Okay',
@@ -139,7 +102,7 @@ export default class Second extends React.Component {
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
-                .then(() => window.open(env.liveStatus, '_self'))
+            .then(() => window.open(env.liveStatus, '_self'))
         }
     }
 
@@ -157,20 +120,18 @@ export default class Second extends React.Component {
         })
             .then(response => {
                 this.setState({ loading: false })
-                const title = response.data.success ? 'Success' : 'Error';
-                const text = response.data.success ? 'Step 2 completed successfully' : response.data.message;
-                const icon = response.data.success ? 'success' : 'error';
-                Swal.fire({
-                    title,
-                    text,
-                    icon,
-                    showCancelButton: false,
-                    confirmButtonText: 'Done',
-                })
                 if (response.data.success) {
                     localStorage.setItem('s2', true);
                     localStorage.removeItem('goggle-access');
                     window.location.hash = "#third";
+                } else {
+                    Swal.fire({
+                        title: 'Whoops!',
+                        text: "You must follow all of Peeps' social media pages before continuing!!",
+                        icon: "Error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    })
                 }
             })
             .catch(err => {
@@ -183,32 +144,32 @@ export default class Second extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Please Like & Follow Arisen with logged in accounts.</span>
-                    <p className="h6">( All fields mandatory )</p>
+                    <span className="h4 d-block">Tune in to our fight to decentralize the world...</span>
+                    <p className="w-75 m-auto">To continue, please like, follow and subscribe to all of our pages below.</p>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
                         <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                                <span className="h6 mb-0 d-block">Facebook Page</span>
+                                <span className="h6 mb-0 d-block">Peeps On Facebook</span>
                                 <button onClick={this.handleFacebookLink} className="btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
                                     <i className="fas fa-thumbs-up mr-1" />
-                                    Like
+                                    Like Peeps
                                 </button>
                             </div>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
-                                <span className="h6 mb-0 d-block">Twitter Handle</span>
+                                <span className="h6 mb-0 d-block">Peeps On Twitter</span>
                                 <button onClick={this.handleTwitClick} className="color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
                                     <i className="fab fa-twitter mr-1" />
-                                    Follow
+                                    Follow @peepsx
                                 </button>
                             </div>
                         </div>
-                        <div className="col-sm mb-3 mb-sm-0">
+                        {/* <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
                                 <span className="h6 mb-0 d-block">Instagram Page</span>
@@ -217,21 +178,21 @@ export default class Second extends React.Component {
                                     Follow
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
-                                <span className="h6 mb-0 d-block">Youtube Channel</span>
+                                <span className="h6 mb-0 d-block">PeepsTv On YouTube</span>
                                 <button onClick={this.handleYoutubeLink} className="color-white btn btn-sm btn-red mt-2 hover-white" type="button">
                                     <i className="fab fa-youtube mr-1" />
-                                    Subscribe
+                                    Subscribe To PeepsTV
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 w-8 d"
+                    <button className="btn btn-custom h-2 "
                         onClick={this.nextButtonValidation}>
                         {
                             this.state.loading ?
@@ -243,7 +204,7 @@ export default class Second extends React.Component {
                                     width={30}
                                 />
                                 :
-                                'Next Step'
+                                "I'm Tuned In"
                         }
                     </button>
                 </div>

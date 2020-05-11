@@ -10,8 +10,8 @@ import Fifth from './forms/fifth';
 import { API } from '../js/api_list';
 import Ipexist from './forms/errorIP';
 import Help from '../help';
-import Support from '../contactSupport';
 import { env } from '../config/config';
+import { Redirect } from 'react-router-dom';
 
 
 export default class Signup extends Component {
@@ -23,16 +23,18 @@ export default class Signup extends Component {
     }
 
     async componentDidMount() {
-        const ip = { v4: '', v6: '' }  // Device Public IP
-        await fetch('https://api.ipify.org/')
-            .then(res => res.text())
-            .then(res => ip.v4 = res)
+        if (sessionStorage.getItem('user')) {
+            const ip = { v4: '', v6: '' }  // Device Public IP
+            await fetch('https://api.ipify.org/')
+                .then(res => res.text())
+                .then(res => ip.v4 = res)
 
-        await fetch('https://api6.ipify.org/')
-            .then(res => res.text())
-            .then(res => ip.v6 = res)
+            await fetch('https://api6.ipify.org/')
+                .then(res => res.text())
+                .then(res => ip.v6 = res)
 
-        await this.handleIpCheck(ip);
+            await this.handleIpCheck(ip);
+        }
     }
 
     handleIpCheck = (ipData) => {
@@ -45,7 +47,7 @@ export default class Signup extends Component {
         })
             .then(response => {
                 this.setState({ ip: response.data.success });
-                if(response.data.success && window.location.href === env.liveStatus) {
+                if (response.data.success && window.location.href === env.liveStatus) {
                     document.getElementById('helpRef').click();
                 }
             })
@@ -53,7 +55,9 @@ export default class Signup extends Component {
     }
 
     render() {
-        if (!this.state.ip) {
+        if (!sessionStorage.getItem('user')) {
+            return <Redirect to="/welcome" />
+        } else if (!this.state.ip) {
             return <Ipexist />;
         } else {
             return (
@@ -64,24 +68,24 @@ export default class Signup extends Component {
                             <div className="col-xl-11 col-lg-12">
                                 <div className="text-center">
                                     <img className="w-15" src="assets/img/arisen/arisenLogo.png" alt="Logo" />
-                                    <p className="color-white h2">Arisen Air-Drop</p>
+                                    {/* <p className="color-white h2">Arisen Air-Drop</p> */}
                                 </div>
-                                <form className="wizard card" autoComplete="off" name="signup">
+                                <div className="wizard card" autoComplete="off" name="signup">
                                     <ul className="nav nav-tabs card-header text-center bg-light p-0" id="navActive">
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#first">1. Air Drop Setup</a>
+                                            <a className="nav-link noClick" href="#first">1. Join The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#second">2. Follow Arisen</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#third">3. Share with Friends</a>
+                                            <a className="nav-link noClick" href="#third">3. Share The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#fourth">4. Your Arisen Account</a>
+                                            <a className="nav-link noClick" href="#fourth">4. Your PeepsID</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#fifth">5. Recieve Free Coins</a>
+                                            <a className="nav-link noClick" href="#fifth">5. You Got Coins!</a>
                                         </li>
                                     </ul>
                                     <div className="tab-content">
@@ -101,19 +105,20 @@ export default class Signup extends Component {
                                             <Fifth />
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                                 <div className="card-footer text-center">
-                                    <small>Having trouble filling out this form? 
-                                    <a href="#" data-toggle="modal" data-target="#support" target="_blank">
-                                        Contact Support
+                                    <small>This code has been open-sourced
+                                    <a style={{ marginLeft: 3 }} href="https://github.com/ArisenIO/air-drop-dapp" target="_blank">
+                                            here
                                     </a>
                                     </small>
                                     <a id="helpRef" href="#" data-toggle="modal" data-target="#help" target="_blank" className="position-absolute r-3 btn btn-sm btn-lg btn-warning">Help</a>
+                                    <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank"><img className="w30" src="/assets/img/arisen/arisenLogo.png" alt="logo"/></a> </p>
                                 </div>
+                                <hr />
                             </div>
                         </div>
                     </div>
-                    <Support />
                     <Help />
                 </section>
             )
