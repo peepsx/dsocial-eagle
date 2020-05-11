@@ -139,7 +139,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
     
     let { screen_name, username } = req.body;
 
-    if(/*!screen_name || */!username) return  res.status(400).send({
+    if(!screen_name /**||!username */) return  res.status(400).send({
             success: false,
             message: 'Fields is missing!'
         })
