@@ -162,7 +162,7 @@ export default class First extends React.Component {
                             consumerKey={env.twitter_consumer_key}
                             className="h-100"
                             consumerSecret={env.twitter_consumer_secret_key}
-                            callbackUrl={'https://air.arisen.network/'}
+                            callbackUrl={env.callback_url}
                             children={
                                 <Twitter
                                     nextBtnStatus={this.state.nextBtnStatus}
