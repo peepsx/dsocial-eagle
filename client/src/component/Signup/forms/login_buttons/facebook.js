@@ -86,7 +86,7 @@ class Facebook extends React.Component {
                 id="fbLoginBtn"
                 onClick={this.handleFbClick}
                 type="button"
-                className="btn btn-block btn-outline-light border py-4 h-100"
+                className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
                 disabled={(this.props.nextBtnStatus) !== ''}
             >
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />

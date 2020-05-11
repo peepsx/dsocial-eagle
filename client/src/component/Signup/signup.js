@@ -61,7 +61,7 @@ export default class Signup extends Component {
             return <Ipexist />;
         } else {
             return (
-                <section className="height-100 bg-gradient-3 p-3">
+                <section className="bg-gradient-3 height-100 p-3">
                     <img src="assets/img/header-17.jpg" alt="bg" className="bg-image opacity-10" />
                     <div className="container">
                         <div className="row justify-content-center">

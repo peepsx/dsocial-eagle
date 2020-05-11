@@ -242,6 +242,10 @@
 .welSec[class*='height-'] {
     display: flex !important;
 }
+/* 
+.socialBtn{
+    border: 1px solid #152a49 !important
+} */
 
 @media only screen and (max-width: 600px) {
     .mobile-column-reverse {
