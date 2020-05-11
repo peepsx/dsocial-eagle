@@ -93,7 +93,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
-
+    console.log('TEXT ', api.data[0].text)
     if(!TempTwit || TempTwit == null) return res.status(404).send({
             success:false,
             message: 'Please complete first steps'
