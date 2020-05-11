@@ -80,10 +80,12 @@ export default class Second extends React.Component {
                         window.open(env.liveStatus)
                     })
             }
-            if (this.state.twitterClick && this.state.youtubeClick && this.state.instaClick && this.state.fbClick && youtubeTitle === 'Arisen Coin') {
+            if (youtubeTitle === 'Arisen Coin' && this.state.clickCounter >= 3) {
+                console.log('inside second-if',youtubeTitle,this.state.clickCounter)
                 this.apiCall();
-            } else if (youtubeTitle !== 'Arisen Coin' || this.state.clickCounter >= 3) {
+            } else if (youtubeTitle !== 'Arisen Coin') {
                 this.setState({ loading: false })
+                console.log('inside second-else',youtubeTitle,this.state.clickCounter)
                 Swal.fire({
                     title: 'Whoops!',
                     text: "You must follow all of Peeps' social media pages before continuing!!",
