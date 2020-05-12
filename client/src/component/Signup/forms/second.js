@@ -82,7 +82,7 @@ export default class Second extends React.Component {
             }
             if (youtubeTitle === 'PeepsTV' && this.state.clickCounter >= 3) {
                 this.apiCall();
-            } else if (youtubeTitle !== 'PeepsTV') {
+            } else {
                 this.setState({ loading: false })
                 Swal.fire({
                     title: 'Whoops!',

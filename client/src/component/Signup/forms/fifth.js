@@ -35,8 +35,8 @@ export default class Fifth extends React.Component {
                     <a className="d-block mb-2 mt-2" href={`https://explorer.arisen.network/account/${username}`} target="_blank">Click here to see your transaction.</a>
                     <span className="h4 d-block">Start Browsing The dWeb.</span>
                     <hr />
-                        <a type="button" className="btn btn-custom m-1" href="https://dbrowser.com" target="_blank">Download dBrowser</a>
-                        <a type="button" className="btn btn-custom2 m-1" href="https://fund.dpeeps.com" target="_blank">Help Fund The Revolution</a>
+                        <button type="button" className="btn btn-custom m-1 h-2" href="https://dbrowser.com" target="_blank">Download dBrowser</button>
+                        <button type="button" className="btn btn-custom2 m-1 h-2" href="https://fund.dpeeps.com" target="_blank">Help Fund The Revolution</button>
                 </div>
             </div>
         )

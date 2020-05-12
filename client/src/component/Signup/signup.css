@@ -96,7 +96,12 @@
     color: white;
     border: none;
     border-radius: .5em;
+    background: -moz-linear-gradient(50deg, #4658d8 -27%, #3e93dc 57%, #559ef7 121%) !important;
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(50deg, #4658d8 -27%, #3e93dc 57%, #559ef7 121%) !important;
+    /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(50deg, #4658d8 -27%, #3e93dc 57%, #559ef7 121%) !important;
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .br-dot2 {
