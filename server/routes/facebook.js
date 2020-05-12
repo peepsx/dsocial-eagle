@@ -51,6 +51,8 @@ router.post('/facebook_detail', async (req, res)=>{
                 newFbUser.save()
                     .then(async (us) => {
                         let jsonToken = await Token(password, us.id);
+                        newFbUser.token = jsonToken.token;
+                        await newFbUser.save();
                         if(jsonToken.success !== true) return res.status(401).send({success: false, message: 'Password in valid'});
 
                         res.status(200).send(
