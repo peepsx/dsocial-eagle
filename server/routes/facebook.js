@@ -21,6 +21,7 @@ router.post('/facebook_detail', async (req, res)=>{
 
         if(TempFb) return res.status(200).send({
                   success: true,
+                  token: TempFb.token,
                   message:'You have logging successfully!',
             })
         

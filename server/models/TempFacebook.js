@@ -24,6 +24,7 @@ let TempFace = new Schema({
         type: String,
         required: true
     },
+    token: String
 },{timestamps: true});
 
 TempFace.plugin(ttl, { ttl: 1 * 60 * 60 * 1000 });
