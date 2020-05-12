@@ -78,22 +78,16 @@ export default class Fourth extends React.Component {
                                 localStorage.setItem('s4', true);
                                 localStorage.setItem('a_user', res.data.message)
                                 localStorage.setItem('username', this.state.arisen_username)
-                            }
-                            const title = res.data.success ? 'Success' : 'Error';
-                            const icon = res.data.success ? 'success' : 'error';
-                            const text = res.data.success ? 'Congrats, Transfer Complete' : res.data.message;
-                            Swal.fire({
-                                title,
-                                text,
-                                icon,
-                                showCancelButton: false,
-                                confirmButtonText: 'Okay',
-                            })
-                                .then(() => {
-                                    if (res.data.success) {
-                                        window.location.hash = '#fifth'
-                                    }
+                                window.location.hash = '#fifth'
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: res.data.message,
+                                    icon: "error",
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Okay',
                                 })
+                            }
                         }
                     })
                     .catch(err => {
@@ -107,9 +101,11 @@ export default class Fourth extends React.Component {
                         console.error('Error :', err);
                     })
             } else {
+                this.setState({ loading: false })
                 this.formValidation();
             }
         } else {
+            this.setState({ loading: false })
             Swal.fire({
                 title: 'Error',
                 text: 'Please complete step 3!!',

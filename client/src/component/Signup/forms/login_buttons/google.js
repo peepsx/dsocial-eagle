@@ -77,7 +77,7 @@ export default class Google extends React.Component {
         return (
             <button
                 onClick={this.handleGoogleClick}
-                className="btn btn-block btn-outline-light border py-4 h-100"
+                className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
                 type="button"
                 disabled={!(this.props.nextBtnStatus === 'Google')}
             >

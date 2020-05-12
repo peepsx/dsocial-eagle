@@ -9,7 +9,7 @@ export default class Ipexist extends React.Component {
                         <div className="col-lg-9 col-md-9">
                             <div className="card py-3 shadow-lg">
                                 <img src="/assets/img/arisen/warning.png" className="m-auto w-8" alt="warning" />
-                                <div className="card-body">
+                                <div className="card-body pb-0">
                                     <h1 className="display-3 mb-3 text-center">404</h1>
                                     <p className="h4">The page you were looking for wasn't found.</p>
                                     <div className="w-80 m-auto">
@@ -18,19 +18,17 @@ export default class Ipexist extends React.Component {
                                     </div>
                                     <hr />
                                     <small>
-                                        <span>Do you think this might be a mistake? </span>
-                                        <a href="#" data-toggle="modal" data-target="#myModal">Contact us</a><br />
-                                        <span>OR </span>
                                         <a href="https://t.me/arisenio" target="_blank">
                                             Join our Telegram Community
                                         </a>
                                     </small>
+                                    <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank"><img className="w30" src="/assets/img/arisen/arisenLogo.png" alt="logo"/></a> </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="modal fade" id="myModal" role="dialog">
+                {/* <div className="modal fade" id="myModal" role="dialog">
                     <div className="modal-dialog">
                         <div className="modal-content bg-white">
                             <div className="modal-header pb-1">
@@ -45,7 +43,7 @@ export default class Ipexist extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </section>
         )
     }

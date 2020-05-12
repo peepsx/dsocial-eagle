@@ -16,15 +16,15 @@ export default class Second extends React.Component {
         }
     }
 
-    handleInstagramLink = () => {
-        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-        this.setState({
-            clickCounter: this.state.clickCounter +1
-        })
-    }
+    // handleInstagramLink = () => {
+    //     window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+    //     this.setState({
+    //         clickCounter: this.state.clickCounter +1
+    //     })
+    // }
 
     handleFacebookLink = () => {
-        window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+        window.open('https://www.facebook.com/joinpeeps/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
@@ -38,7 +38,7 @@ export default class Second extends React.Component {
     }
 
     handleTwitClick = () => {
-        window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://twitter.com/joinpeeps', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
@@ -60,7 +60,7 @@ export default class Second extends React.Component {
                     .then((response) => {
                         if (response.data.items) {
                             for (let item of response.data.items) {
-                                if (item.snippet.title === 'Arisen Coin') {
+                                if (item.snippet.title === 'PeepsTV') {
                                     youtubeTitle = item.snippet.title;
                                 }
                             }
@@ -80,12 +80,10 @@ export default class Second extends React.Component {
                         window.open(env.liveStatus)
                     })
             }
-            if (youtubeTitle === 'Arisen Coin' && this.state.clickCounter >= 3) {
-                console.log('inside second-if',youtubeTitle,this.state.clickCounter)
+            if (youtubeTitle === 'PeepsTV' && this.state.clickCounter >= 3) {
                 this.apiCall();
-            } else if (youtubeTitle !== 'Arisen Coin') {
+            } else if (youtubeTitle !== 'PeepsTV') {
                 this.setState({ loading: false })
-                console.log('inside second-else',youtubeTitle,this.state.clickCounter)
                 Swal.fire({
                     title: 'Whoops!',
                     text: "You must follow all of Peeps' social media pages before continuing!!",
@@ -150,20 +148,20 @@ export default class Second extends React.Component {
                 <div className="col-md-12">
                     <div className="row">
                         <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white socialBtn" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
-                                <button onClick={this.handleFacebookLink} className="btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
+                                <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like Peeps
                                 </button>
                             </div>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white socialBtn" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Peeps On Twitter</span>
-                                <button onClick={this.handleTwitClick} className="color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
+                                <button onClick={this.handleTwitClick} className=" color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
                                     <i className="fab fa-twitter mr-1" />
                                     Follow @peepsx
                                 </button>
@@ -180,10 +178,10 @@ export default class Second extends React.Component {
                             </div>
                         </div> */}
                         <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white socialBtn" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
                                 <span className="h6 mb-0 d-block">PeepsTv On YouTube</span>
-                                <button onClick={this.handleYoutubeLink} className="color-white btn btn-sm btn-red mt-2 hover-white" type="button">
+                                <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
                                     <i className="fab fa-youtube mr-1" />
                                     Subscribe To PeepsTV
                                 </button>
