@@ -16,15 +16,15 @@ export default class Second extends React.Component {
         }
     }
 
-    handleInstagramLink = () => {
-        window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-        this.setState({
-            clickCounter: this.state.clickCounter +1
-        })
-    }
+    // handleInstagramLink = () => {
+    //     window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+    //     this.setState({
+    //         clickCounter: this.state.clickCounter +1
+    //     })
+    // }
 
     handleFacebookLink = () => {
-        window.open('https://www.facebook.com/arisencoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+        window.open('https://www.facebook.com/joinpeeps/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
@@ -38,7 +38,7 @@ export default class Second extends React.Component {
     }
 
     handleTwitClick = () => {
-        window.open('https://twitter.com/ArisenCoin', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://twitter.com/joinpeeps', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
@@ -60,7 +60,7 @@ export default class Second extends React.Component {
                     .then((response) => {
                         if (response.data.items) {
                             for (let item of response.data.items) {
-                                if (item.snippet.title === 'Arisen Coin') {
+                                if (item.snippet.title === 'PeepsTV') {
                                     youtubeTitle = item.snippet.title;
                                 }
                             }
@@ -80,12 +80,10 @@ export default class Second extends React.Component {
                         window.open(env.liveStatus)
                     })
             }
-            if (youtubeTitle === 'Arisen Coin' && this.state.clickCounter >= 3) {
-                console.log('inside second-if',youtubeTitle,this.state.clickCounter)
+            if (youtubeTitle === 'PeepsTV' && this.state.clickCounter >= 3) {
                 this.apiCall();
-            } else if (youtubeTitle !== 'Arisen Coin') {
+            } else if (youtubeTitle !== 'PeepsTV') {
                 this.setState({ loading: false })
-                console.log('inside second-else',youtubeTitle,this.state.clickCounter)
                 Swal.fire({
                     title: 'Whoops!',
                     text: "You must follow all of Peeps' social media pages before continuing!!",
