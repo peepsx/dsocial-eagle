@@ -148,7 +148,7 @@ export default class Second extends React.Component {
                 <div className="col-md-12">
                     <div className="row">
                         <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
                                 <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
@@ -158,7 +158,7 @@ export default class Second extends React.Component {
                             </div>
                         </div>
                         <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
                                 <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                 <span className="h6 mb-0 d-block">Peeps On Twitter</span>
                                 <button onClick={this.handleTwitClick} className=" color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
@@ -178,7 +178,7 @@ export default class Second extends React.Component {
                             </div>
                         </div> */}
                         <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" type="button">
+                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
                                 <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
                                 <span className="h6 mb-0 d-block">PeepsTv On YouTube</span>
                                 <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
