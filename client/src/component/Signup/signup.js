@@ -37,18 +37,18 @@ export default class Signup extends Component {
         }
     }
 
-    handleIpCheck = (ipData) => {
-        Axios({
+    handleIpCheck = async(ipData) => {
+        await Axios({
             url: API.ip_check,
             method: 'post',
             data: {
                 ip: ipData
             }
         })
-            .then(response => {
+            .then( async (response) => {
                 this.setState({ ip: response.data.success });
                 if (response.data.success && window.location.href === env.liveStatus) {
-                    document.getElementById('helpRef').click();
+                    await document.getElementById('helpRef').click();
                 }
             })
             .catch(error => console.error('IP', error))

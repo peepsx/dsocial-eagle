@@ -233,7 +233,7 @@
 
 .noteStyle{
     padding: 10px;
-    background-color: #e4e8e4;
+    background-color: #ffed4d;
     color: #333449;
     border-radius: 10px;
 
@@ -242,10 +242,10 @@
 .welSec[class*='height-'] {
     display: flex !important;
 }
-/* 
-.socialBtn{
-    border: 1px solid #152a49 !important
-} */
+
+.width-fit-content{
+    width: fit-content;
+}
 
 @media only screen and (max-width: 600px) {
     .mobile-column-reverse {

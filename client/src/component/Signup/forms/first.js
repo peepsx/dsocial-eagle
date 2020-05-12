@@ -194,7 +194,10 @@ export default class First extends React.Component {
                         </span>
                     </p>
                 </div> */}
-                <div className="d-flex justify-content-center pb-0 mt-3">
+                <div className="mt-3">
+                    <p className="small text-center noteStyle m-auto width-fit-content">NOTE :- Make sure your browser didn't block popups.</p>
+                </div>
+                <div className="d-flex justify-content-center pb-0 mt-2">
                     <button
                         className="btn btn-custom h-2"
                         onClick={this.checkTelegramUser}
