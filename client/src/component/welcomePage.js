@@ -11,10 +11,10 @@ export default function Welcome() {
             <div className="container">
                 <div className="row align-items-center justify-content-between">
                     <div className="col-lg-10 m-auto mb-3 mb-lg-0">
-                        <h1 className="display-3 text-white font-alt-1 text-center mt-2">Welcome to the decentralized economy...</h1>
-                        <p className="text-white text-center p-3 mt-3">Arisen doesn't just power applications on the decentralized web, it also acts as a payment network for most of those applications as well. For this reason, Arisen features its own decentralized "cryptocurrency" known as RISE (RIX), that app developers are using as a form of exchange in their applications. Whether it's dApps like dSocial where friends use RIX to upvote another friend's post or dRide where you can use RIX to catch a ride downtown, RIX is giving birth to the decentralized web's economy and a world where government currencies are no longer a lifeline for commerce. For that reason, we're giving 1,000 RIX to the first 300,000 people who join our revolution to decentralize the wrold. That's right. We're not selling any coins, we're spreading them around the world for FREE. So what are you waiting on? Grab some free money while it lasts!</p>
+                        <h1 className="display-3 text-white font-alt-1 text-center mt-2">"We're taking the web back...</h1>
+                        <p className="text-white text-center p-3 mt-3">Today the web is controlled by big tech companies who utilize it for their own greedy and dishonest purposes. It is also being used to censor its users who simply want to voice their opinions or find a safe space for their ideas. The lack of privacy, transparency or freedom found on today's internet forced us to re-design and decentralize it, so that anyone and everyone could have a free and open web that all of us could build upon for the foreseeable future, as well as one that nobody could ever control or abuse us with ever again. That web is alive today and we need your help spreading awareness about our revolution to decentralize everything and as a result - #TakeTheWebBack.</p>
                         <div className="text-center">
-                            <a href="/" className="btn btn-lg btn-success">Get Started</a>
+                            <a href="/" className="btn btn-lg btn-success">Lets Take The Web Back!</a>
                         </div>
                     </div>
                 </div>

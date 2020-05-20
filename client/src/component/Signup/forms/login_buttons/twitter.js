@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Button(props) {
-    const [click,changeClick] = useState(false);
     return (
         <button
             className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
             type="button"
-            disabled={!(props.nextBtnStatus === 'Twitter') || click}
-            onClick={()=> changeClick(true)}
+            disabled={!(props.nextBtnStatus === 'Twitter')}
         >
             <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
             <span className="h6 mb-0 d-block">Login w/ Twitter</span>

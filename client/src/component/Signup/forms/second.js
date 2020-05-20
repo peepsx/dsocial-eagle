@@ -190,7 +190,7 @@ export default class Second extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 "
+                    <button className="btn btn-custom h-2 min-w-10"
                         onClick={this.nextButtonValidation}>
                         {
                             this.state.loading ?

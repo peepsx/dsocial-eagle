@@ -116,6 +116,10 @@
     width: 8em;
 }
 
+.min-w-10{
+    min-width: 10em;
+}
+
 .c-pointer {
     cursor: pointer;
 }

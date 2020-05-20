@@ -19,15 +19,15 @@ export default class Third extends React.Component {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
-            quote: "Peeps is fighting the abuse of power and the #censorshipofconservatives through the launch of the decentralized web. I'm joining hands with them to decentralize the world and you can too at",
-            link: 'https://dpeeps.com',
+            quote: "Help me spread awareness about the censorship-resistant decentralized web and our collaborative effort to #TakeTheWebBack for We The People. The patriots at PeepsLabs continue to donate their own resources to the development of a new web for everyone and that web is alive today. Help spread awareness, start using the decentralized web now and get 1,000 FREE RIX coins in the process at",
+            link: 'https://join.peepsx.com',
         }, (response) => {
             this.setState({ fbPostResponse: response });
         });
     }
 
     handleTweet = () => {
-        const text = "I just joined the all-new decentralized web and @peepsx fight against the %23censorshipofconservatives. You can too at https://dpeeps.com"
+        const text = "Help us %23TakeTheWebBack by spreading awareness about the all-new decentralized web %26 get 1,000 RIX coins in the process at https://join.peepsx.com"
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
     }
 
@@ -92,8 +92,8 @@ export default class Third extends React.Component {
         return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Spread the word about our fight to decentralize the world</span>
-                    <p className="w-75 m-auto">Help us spread the word about Peeps, Arisen, dWeb and RIX to your friends and followers. You must share on Facebook and Twitter to continue to step 4.</p>
+                    <span className="h4 d-block">Let's make #TakeTheWebBack go viral...</span>
+                    <p className="w-75 m-auto">Help us spread the word to your friends and followers. You must share on Facebook and Twitter to continue to step 4.</p>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
@@ -116,7 +116,7 @@ export default class Third extends React.Component {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 w-8"
+                    <button className="btn btn-custom h-2 min-w-10"
                         onClick={this.handleNextStep}
                     >
                         {
@@ -129,7 +129,7 @@ export default class Third extends React.Component {
                                     width={30}
                                 />
                                 :
-                                'Next Step'
+                                "I'm a supporter!"
                         }
                     </button>
                 </div>

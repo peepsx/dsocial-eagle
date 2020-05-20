@@ -107,7 +107,7 @@ export default class Signup extends Component {
                                     </div>
                                 </div>
                                 <div className="card-footer text-center">
-                                    <small>This code has been open-sourced
+                                    <small>This code has been open sourced
                                     <a style={{ marginLeft: 3 }} href="https://github.com/ArisenIO/air-drop-dapp" target="_blank">
                                             here
                                     </a>

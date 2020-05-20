@@ -147,7 +147,7 @@ export default class First extends React.Component {
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span className="h4 d-block">Let's start a revolution together...</span>
-                    <p className="w-75 m-auto">We need your help sharing our fight to decentralize the world and to raise awareness around the #censorshipofconservatives, but first, we need you to login to your Facebook, Twitter and Google accounts. We truly appreciate your support.</p>
+                    <p className="w-75 m-auto">We need your help spreading the word about the all-new decentralized web and to raise awareness about our revolution to #TakeTheWebBack. Login to each of your accounts below, to get started.</p>
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
@@ -199,7 +199,7 @@ export default class First extends React.Component {
                 </div>
                 <div className="d-flex justify-content-center pb-0 mt-2">
                     <button
-                        className="btn btn-custom h-2"
+                        className="btn btn-custom h-2 min-w-10"
                         onClick={this.checkTelegramUser}
                         disabled={!(this.state.nextBtnStatus === 'Telegram')}
                     >
@@ -213,7 +213,7 @@ export default class First extends React.Component {
                                     width={30}
                                 />
                                 :
-                                'Proceed to follow Peeps'
+                                'Proceed to follow us >'
                         }
                     </button>
                 </div>

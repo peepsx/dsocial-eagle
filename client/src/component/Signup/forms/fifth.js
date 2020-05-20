@@ -32,11 +32,13 @@ export default class Fifth extends React.Component {
                         <h2 className="mt-auto mb-auto ml-2">You Got Coins!</h2>
                     </div>
                     <span className="h5 d-block">{arisenMessage}</span>
-                    <a className="d-block mb-2 mt-2" href={`https://data.arisen.network/accounts/${username}`} target="_blank">Click here to see your transaction.</a>
+                    <a className="d-block mb-2 mt-2" href={`https://data.arisen.network/accounts/${username}`} target="_blank">Click here to see your transaction</a>
+                    <a className="d-block mb-2 mt-2" href="https://arisen.network/dwallet" target="_blank">Manage your coins with dWallet</a>
+                    <hr />
                     <span className="h4 d-block">Start Browsing The dWeb.</span>
                     <hr />
-                        <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://dbrowser.com",'_blank')} >Download dBrowser</button>
-                        <button type="button" className="btn btn-custom2 m-1 h-2" onClick={() => window.open("https://fund.dpeeps.com",'_blank')}>Help Fund The Revolution</button>
+                    <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://dbrowser.com", '_blank')} >Download dBrowser</button>
+                    <button type="button" className="btn btn-custom2 m-1 h-2" onClick={() => window.open("https://fund.dpeeps.com", '_blank')}>Help Fund The Revolution</button>
                 </div>
             </div>
         )
