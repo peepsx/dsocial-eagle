@@ -34,7 +34,7 @@ export default class Fourth extends React.Component {
 
     handleSignup = (e) => {
         e.preventDefault();
-        window.open('https://id.dpeeps.com', '_blank', 'width=400,height=600')
+        window.open('https://signup.peepsid.com', '_blank', 'width=400,height=600')
     }
 
     handleChange = (e) => {
