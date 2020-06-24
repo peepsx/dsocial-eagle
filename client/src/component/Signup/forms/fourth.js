@@ -5,6 +5,8 @@ import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import Loader from 'react-loader-spinner';
+import AlreadyHave from '../../SignupSystem/AlreadyHave';
+import NewUser from '../../SignupSystem/NewUser';
 
 export default class Fourth extends React.Component {
     constructor(props) {
@@ -12,15 +14,34 @@ export default class Fourth extends React.Component {
         this.state = {
             arisen_username: '',
             error: false,
+            title: 'Your Account',
+            description: 'A dSocial account is known as a PeepsID and you will need to create one or enter an already existant account, in order to proceed.',
             ip: {
                 v4: '',
                 v6: ''
             },
             loading: false,
+            isOpenModal: false,
+            isOpenForNewUser: false,
         }
     }
 
+    handleAdd = (e) => {
+        e.preventDefault()
+        this.setState({isOpenModal: true, title: "Enter Your PeepsID", description: "We're glad to hear you already have a PeepsID. Please enter it below."})
+    }
+    handleForNewOne = (e) => {
+        e.preventDefault()
+        this.setState({isOpenForNewUser: true, title: "Create An Account", description: "Enter a username below to proceed. A PeepsID must be up to 12 characters, lowercase and can only use a-z and 1-5. No special characters are allowed."})
+    }
+    handleError = (e) => {
+        this.setState({title: "Username Doesn't Exist!", description: "That username is not registered. Please try again."})
+    }
+    handleErrorForNewOne = (e) => {
+        this.setState({title: "Username Taken!", description: "The username is taken. Please try again."})
+    }
     async componentDidMount() {
+
         const ip = { v4: '', v6: '' }
         await fetch('https://api.ipify.org/')
             .then(res => res.text())
@@ -127,60 +148,53 @@ export default class Fourth extends React.Component {
     }
 
     render() {
+
         return (
             <div className="p-0 d-flex bg-white align-items-lg-center">
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
-                        <h1 className="h4 text-center">Enter Email Address & PeepsID</h1>
-                        <p className="small text-center noteStyle">NOTE :-  A PeepsID is an Arisen account, so if you already have an Arisen account, simply enter your Arisen username below.</p>
-                        <form autoComplete="off">
-                            <div className="form-group">
-                                <label htmlFor="email">Email:</label>
-                                <input
-                                    name="email"
-                                    id="email"
-                                    type="email"
-                                    className="form-control b-none disable-white"
-                                    placeholder="Enter your email address"
-                                    defaultValue={localStorage.getItem('googleEmail')}
-                                    disabled={true}
-                                />
-                                {this.state.error && <p className="c-red fs-12">Please enter the valid email.</p>}
-                            </div>
-                            <div className="form-group mb-3">
-                                <div className="d-flex justify-content-between">
-                                    <label htmlFor="password" className="text-dark">PeepsID:</label>
+                        <h1 className="h4 text-center">{this.state.title}</h1>
+                        <p className="small text-center noteStyle">{this.state.description}</p>
+                        {this.state.isOpenModal ?
+                            <AlreadyHave errorOn = {this.handleError}/> : (<form autoComplete="off">
+                            {
+                                this.state.isOpenForNewUser ? <NewUser errorOn = {this.handleErrorForNewOne}/> : <div className="form-group mb-3">
+                                <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleForNewOne}>
+                                        {
+                                            this.state.loading ?
+                                                <Loader
+                                                    type="TailSpin"
+                                                    className=""
+                                                    color="#fff"
+                                                    height={30}
+                                                    width={30}
+                                                />
+                                                :
+                                                'Create New PeepsID'
+                                        }
+                                    </button>
                                 </div>
-                                <input
-                                    name="arisen_username"
-                                    id="username"
-                                    type="text"
-                                    className="form-control b-none"
-                                    placeholder="Enter your PeepsID or Arisen username"
-                                    value={this.state.arisen_username}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleTransaction}>
-                                    {
-                                        this.state.loading ?
-                                            <Loader
-                                                type="TailSpin"
-                                                className=""
-                                                color="#fff"
-                                                height={30}
-                                                width={30}
-                                            />
-                                            :
-                                            'Send Me 1000.0000 RIX'
-                                    }
-                                </button>
-                            </div>
-                        </form>
-                        <div className="text-center text-small mt-3">
-                            <span>Don't have a PeepsID? <button className="btn btn-sm btn-lg btn-info" onClick={this.handleSignup}>Create PeepsID</button></span>
-                        </div>
+                            }
+                            {
+                               !this.state.isOpenForNewUser &&  <div className="form-group">
+                               <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleAdd}>
+                                   {
+                                       this.state.loading ?
+                                           <Loader
+                                               type="TailSpin"
+                                               className=""
+                                               color="#fff"
+                                               height={30}
+                                               width={30}
+                                           />
+                                           :
+                                           'I Already Have A PeepsID'
+                                   }
+                               </button>
+                           </div>
+                            }
+                        </form>)
+                        }
                     </div>
                 </div>
             </div>

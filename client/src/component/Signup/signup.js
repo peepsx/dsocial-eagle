@@ -67,22 +67,22 @@ export default class Signup extends Component {
                         <div className="row justify-content-center">
                             <div className="col-xl-11 col-lg-12">
                                 <div className="text-center">
-                                    <img className="w-15" src="assets/img/arisen/arisenLogo.png" alt="Logo" />
+                                    <img className="w-15" src="assets/img/arisen/dsocial.png" alt="Logo" />
                                     {/* <p className="color-white h2">Arisen Air-Drop</p> */}
                                 </div>
                                 <div className="wizard card" autoComplete="off" name="signup">
                                     <ul className="nav nav-tabs card-header text-center bg-light p-0" id="navActive">
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#first">1. Join The Revolution</a>
+                                            <a className="nav-link noClick" href="#first">1. Your Account</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#second">2. Follow Arisen</a>
+                                            <a className="nav-link noClick" href="#second">2. Join The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#third">3. Share The Revolution</a>
+                                            <a className="nav-link noClick" href="#third">3. Follow Arisen</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#fourth">4. Your PeepsID</a>
+                                            <a className="nav-link noClick" href="#fourth">4. Share The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fifth">5. You Got Coins!</a>
@@ -90,16 +90,16 @@ export default class Signup extends Component {
                                     </ul>
                                     <div className="tab-content">
                                         <div id="first">
-                                            <First />
+                                            <Fourth />
                                         </div>
                                         <div id="second">
-                                            <Second />
+                                            <First />
                                         </div>
                                         <div id="third">
-                                            <Third />
+                                            <Second />
                                         </div>
                                         <div id="fourth">
-                                            <Fourth />
+                                            <Third />
                                         </div>
                                         <div id="fifth">
                                             <Fifth />

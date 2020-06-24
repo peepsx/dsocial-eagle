@@ -9485,4 +9485,99 @@ img.zoom-img {
   .demo-pages a {
     transition: opacity 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease; }
 
+  /* Custom CSS addeded */
+  .key-container {
+    margin: 1em 0;
+}
+  .random-mnemonic {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 20px;
+}
+.random-mnemonic span {
+  border-bottom: 1px solid #e0e0e0;
+  color: #999;
+  font-size: 18px;
+  padding: 10px 0;
+  text-align: center;
+}
+.spacer {
+  padding: .3em;
+}
+
+.key-input {
+  display: flex;
+  font-size: 1em;
+  position: relative;
+  font-weight: 400;
+  font-style: normal;
+  display: -ms-inline-flexbox;
+  color: rgba(0,0,0,.87);
+}
+.key-input input {
+  margin: 0;
+  max-width: 100%;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  text-align: left;
+  line-height: 1.21428571em;
+  padding: .67857143em 1em;
+  background: #fff;
+  border: 1px solid rgba(34,36,38,.15);
+  color: rgba(0,0,0,.87);
+  border-radius: .28571429rem;
+}
+.green-label-input {
+  font-size: .78571429em;
+  display: flex;
+  opacity: .45;
+  position: relative;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(0,0,0,.87);
+}
+.green-label-input input {
+  margin: 0;
+  max-width: 100%;
+  flex: 1 0 auto;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  text-align: left;
+  line-height: 1.21428571em;
+  padding: .67857143em 1em;
+  background: #fff;
+  border: 1px solid rgba(34,36,38,.15);
+  color: rgba(0,0,0,.87);
+  border-radius: .28571429rem;
+  padding-right: 2.5em!important;
+}
+.green-label {
+  position: absolute;
+  text-align: center;
+  width: 4em;
+  height: 4em;
+  z-index: 1;
+  border-color: #21ba45!important;
+  /* color: #fff!important; */
+  background-color: transparent!important;
+  /* font-size: .64285714em; */
+  border-radius: 0 .28571429rem 0 0;
+  top: 1px;
+  right: 1px;
+}
+.green-label .key {
+  cursor: default;
+  position: relative;
+  top: .64285714em;
+  left: .78571429em;
+  font-size: 1.14285714em;
+  margin: 0;
+}
+.wizard.card{
+  margin: 0 !important;
+}
 /*# sourceMappingURL=theme.css.map */

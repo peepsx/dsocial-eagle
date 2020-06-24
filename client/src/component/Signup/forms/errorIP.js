@@ -22,7 +22,7 @@ export default class Ipexist extends React.Component {
                                             Join our Telegram Community
                                         </a>
                                     </small>
-                                    <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank"><img className="w30" src="/assets/img/arisen/arisenLogo.png" alt="logo"/></a> </p>
+                                    <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank"><img className="w30" src="/assets/img/arisen/dsocial.png" alt="logo"/></a> </p>
                                 </div>
                             </div>
                         </div>
