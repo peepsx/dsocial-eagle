@@ -12,5 +12,6 @@ export const env = {
     telegram_chat_id                : -1001334359449,
     facebook_client_id              : process.env.REACT_APP_FACEBOOK_CLIENT_ID,
     API_URL                         : process.env.REACT_APP_API_URL,
-    google_api_key                  : process.env.REACT_APP_GOOGLE_API_KEY
+    google_api_key                  : process.env.REACT_APP_GOOGLE_API_KEY,
+    SERVER_LESS                     : process.env.SERVER_LESS
 }

@@ -1,4 +1,4 @@
-const url = process.env.REACT_APP_API_URL;
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' :  process.env.REACT_APP_API_URL;
 
 export const API = {
     ip_check                : url+'/',
@@ -9,5 +9,7 @@ export const API = {
     user_share_validation   : url+'/validation/share-social-status',
     arisen_user_detail      : url+'/users/users-details',
     telegram_user_detail    : url+'/details/telegram',
-    validation_follower     : url+'/validation/follower'
+    validation_follower     : url+'/validation/follower',
+    registerUser            : url+'/users/register',
+    passPhrase              : url+'/users/pass/phrase',
 }

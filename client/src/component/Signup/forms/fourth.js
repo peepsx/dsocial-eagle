@@ -37,8 +37,8 @@ export default class Fourth extends React.Component {
     handleError = (e) => {
         this.setState({title: "Username Doesn't Exist!", description: "That username is not registered. Please try again."})
     }
-    handleErrorForNewOne = (e) => {
-        this.setState({title: "Username Taken!", description: "The username is taken. Please try again."})
+    handleErrorForNewOne = (title = "Username Taken!", description = "The username is taken. Please try again.") => {
+        this.setState({title: title, description: description})
     }
     async componentDidMount() {
 
@@ -84,7 +84,8 @@ export default class Fourth extends React.Component {
                             googleEmail: localStorage.getItem('googleEmail'),
                             instaUserId: localStorage.getItem('instaUserId'),
                             teleUserId: localStorage.getItem('teleUserId'),
-                            twitterScreenName: localStorage.getItem('twitterName')
+                            twitterScreenName: localStorage.getItem('twitterName'),
+                            username: localStorage.getItem('username')
                         }
                     },
                     headers: {
@@ -156,9 +157,9 @@ export default class Fourth extends React.Component {
                         <h1 className="h4 text-center">{this.state.title}</h1>
                         <p className="small text-center noteStyle">{this.state.description}</p>
                         {this.state.isOpenModal ?
-                            <AlreadyHave errorOn = {this.handleError}/> : (<form autoComplete="off">
+                            <AlreadyHave errorOn={this.handleError}/> : (<form autoComplete="off">
                             {
-                                this.state.isOpenForNewUser ? <NewUser errorOn = {this.handleErrorForNewOne}/> : <div className="form-group mb-3">
+                                this.state.isOpenForNewUser ? <NewUser errorOn={this.handleErrorForNewOne}/> : <div className="form-group mb-3">
                                 <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleForNewOne}>
                                         {
                                             this.state.loading ?

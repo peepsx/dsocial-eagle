@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
-import { Link } from 'react-router-dom' 
+import { API } from '../js/api_list';
+import { toast } from 'react-toastify';
 
 class AlreadyHave extends React.Component {
     constructor(props) {
@@ -17,13 +18,32 @@ class AlreadyHave extends React.Component {
     
     handleTransaction = (e) => {
         console.log("Clicked")
+        this.setState({loading: true})
             e.preventDefault();
+            if(!/^[a-z1-5_]+$/.test(this.state.arisen_username) || this.state.arisen_username.length !== 12) {
+                toast("A PeepsID must be up to 12 characters", {
+                type: 'error',
+                autoClose: 3000,
+            })
+        }
             axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${this.state.arisen_username}`)
                     .then(user => {
-                        window.location.hash = "#second";
+                        this.setState({loading: false})
+                        // window.location.hash = "#second";
+                        axios.post(API.registerUser, {username: this.state.arisen_username})
+                        .then(user_res => {
+                            localStorage.setItem('token', user_res.data.token);
+                            window.location.hash = "#second"
+                        })
+                        .catch(e => {
+                            console.log("ERROR", e)
+                            window.location.hash = '/'
+                        })
                     })
                     .catch(e => {
-                        this.setState({error: e.response.data.error})
+                        this.setState({loading: false})
+                        console.log('ERROR', e)
+                        // this.setState({error: e.response.data.error})
                         this.props.errorOn();
                     })
 
