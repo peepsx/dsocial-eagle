@@ -31,6 +31,7 @@
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "eosjs": "^20.0.3",
+    "ethers": "^4.0.27",
     "express": "~4.16.1",
     "generate-password": "^1.5.1",
     "get-twitter-followers": "^2.0.0",

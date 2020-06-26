@@ -7,8 +7,9 @@ const { TempFacebook } = require('../models/TempFacebook');
 let generator = require('generate-password');
 let bcrypt = require('bcryptjs');
 let { Token } = require('../middleware/Token');
+let { Access_Token } = require('../middleware/RSN_TRANSFER')
 
-router.post('/facebook_detail', async (req, res)=>{
+router.post('/facebook_detail', [Access_Token], async (req, res)=>{
     var password = generator.generate({
         length: 10,
         numbers: true
@@ -21,7 +22,7 @@ router.post('/facebook_detail', async (req, res)=>{
 
         if(TempFb) return res.status(200).send({
                   success: true,
-                  token: TempFb.token,
+                //   token: TempFb.token,
                   message:'You have logging successfully!',
             })
         
@@ -30,8 +31,8 @@ router.post('/facebook_detail', async (req, res)=>{
                 message: 'You have already register with us!'
             })
         
-        let salt = await bcrypt.genSalt(10);
-        let hash = await bcrypt.hash(password, salt);
+        // let salt = await bcrypt.genSalt(10);
+        // let hash = await bcrypt.hash(password, salt);
         
         if(fbPhoto && fbUserName && id && access_token) {
 
@@ -47,20 +48,20 @@ router.post('/facebook_detail', async (req, res)=>{
                     fbPhoto: fbPhoto,
                     fbUserName: fbUserName,
                 })
-                newFbUser.password = hash;
+                // newFbUser.password = hash;
                 newFbUser.save()
                     .then(async (us) => {
-                        let jsonToken = await Token(password, us.id);
-                        newFbUser.token = jsonToken.token;
-                        await newFbUser.save();
-                        if(jsonToken.success !== true) return res.status(401).send({success: false, message: 'Password in valid'});
+                        // let jsonToken = await Token(password, us.id);
+                        // newFbUser.token = jsonToken.token;
+                        // await newFbUser.save();
+                        // if(jsonToken.success !== true) return res.status(401).send({success: false, message: 'Password in valid'});
 
                         res.status(200).send(
                             {
                                 success: true,
                                 message: 'You have logged in successfully!',
-                                token: jsonToken.token,
-                                access_token: true
+                                // token: jsonToken.token,
+                                // access_token: true
                             }
                         )
                     })

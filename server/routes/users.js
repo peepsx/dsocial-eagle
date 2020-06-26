@@ -1,8 +1,14 @@
 var express = require('express');
 var router = express.Router();
 /**MAIN DB */
+const ethers = require('ethers');
+let generator = require('generate-password');
+let bcrypt = require('bcryptjs');
+let { Token } = require('../middleware/Token');
 const { UserAuth } = require('../models/user');
 const { faceAuth } = require('../models/facebook');
+const { userAuthTemp } = require('../models/authTemp');
+const { userAuth } = require('../models/auth');
 const { TwitterAuth } = require('../models/twitter');
 // const { InstaAuth } = require('../models/instagram');
 const { googleAuth } = require('../models/google');
@@ -23,10 +29,11 @@ let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
     let { email, arisen_username, ip } = req.body;
-    let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName } = req.body.userDetails
+    let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName, username } = req.body.userDetails
     console.log(email, arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, 'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
+    let TempUser = await userAuthTemp.findOne({username: username});
     let TempTwit = await TempTwitter.findOne({username: twitterScreenName}).select('-_id -__v');
     // let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
@@ -75,6 +82,10 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                                 ip_address: address
                                             })
                                             await ipv4.save();
+                                            let userRegister = new userAuth({
+                                                username: TempUser.username,
+                                                password: TempUser.password,
+                                            })
                                             let FaceBook = new faceAuth({
                                                 follower: TempFace.follower,
                                                 facebookid: TempFace.facebookid,
@@ -100,6 +111,11 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                             //     telegram_id: TempTele.telegram_id,
                                             //     username: TempTele.username
                                             // });
+                                            userRegister.save()
+                                                .then(async user => {
+                                                    await TempUser.findOneAndDelete({username: user.username})
+                                                })
+                                                .catch(err => console.log("while DELETING TEMP USER", err));
                                              Twitter.save()
                                                 .then(async user => {
                                                     await TempTwitter.findOneAndDelete({username: user.username});
@@ -161,4 +177,65 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     }
 })
 
+router.post('/register', async (req, res) => {
+    try {
+        let { username } = req.body;
+        if(username.length !== 12 || username === null || username === undefined || username === '') 
+            return res.status(200).send({success: false, message: 'username is invalid'})
+        let findOne = await userAuth.findOne({username: username})
+        let TempFb = await userAuthTemp.findOne({username: username})
+
+        if(TempFb) return res.status(200).send({
+                    success: true,
+                    token: TempFb.token,
+                    message:'You have logging successfully!',
+            })
+        
+        if(findOne) return res.status(403).send({
+                success: false,
+                message: 'You have already register with us!'
+            })
+        
+        var password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+        let salt = await bcrypt.genSalt(10);
+        let hash = await bcrypt.hash(password, salt);
+        let newTempUser = new userAuthTemp({
+            username: username
+        })
+        newTempUser.password = hash;
+        newTempUser.save()
+            .then(async (us) => {
+                let jsonToken = await Token(password, us.id);
+                newTempUser.token = jsonToken.token;
+                await newTempUser.save();
+                if(jsonToken.success !== true) return res.status(401).send({success: false, message: 'Password in valid'});
+
+                res.status(200).send(
+                    {
+                        success: true,
+                        message: 'You have logged in successfully!',
+                        token: jsonToken.token,
+                        access_token: true
+                    }
+                )
+            })
+            .catch(e => {
+                console.error("USER REGISTER", e)
+                return res.status(401).send(e)
+            })
+    } catch (error) {
+        console.log('REGISTER USER', error)
+        return res.status(500).send({success: false, message: "server error"})
+    }
+})
+
+router.get('/pass/phrase', async (req, res) => {
+    let wallet = ethers.Wallet.createRandom();
+    let Mnemonic_List = wallet.mnemonic
+    return res.send({Mnemonic_List: Mnemonic_List});
+
+})
 module.exports = router
