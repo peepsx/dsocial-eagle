@@ -20,10 +20,6 @@ let TempFace = new Schema({
         type: Boolean,
         default: false
     },
-    password: {
-        type: String,
-        required: true
-    },
     token: String
 },{timestamps: true});
 
