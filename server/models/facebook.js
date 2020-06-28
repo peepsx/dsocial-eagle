@@ -17,10 +17,6 @@ let Facebook = new Scehma({
     follower: {
         type: Boolean,
         default: false
-    },
-    password: {
-        type: String,
-        required: true
     }
 }, {
     timestamps: true
