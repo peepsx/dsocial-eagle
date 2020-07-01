@@ -28,32 +28,25 @@ let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
-    let { email, arisen_username, ip } = req.body;
+    let { arisen_username, ip } = req.body;
     let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName, username } = req.body.userDetails
-    console.log(email, arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, 'USER IDS');
+    console.log(arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, userna,'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
     let TempUser = await userAuthTemp.findOne({username: username});
     let TempTwit = await TempTwitter.findOne({username: twitterScreenName}).select('-_id -__v');
     // let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
-    // let TempTele = await TempTelegram.findOne({telegram_id: teleUserId}).select('-_id -__v');
+    // let TempTele = await TempTelegram.f ndOne({telegram_id: teleUserId}).select('-_id -__v');
     let address = ip.v4 === ip.v6 ? ip.v4 : [ip.v4, ip.v6]
-
-    if(address.length === 2) {
-        address = address.map(address_ip => address_ip);
-    } else {
         address = [address];
     }
     if(arisen_username.length !== 12) return res.status(200).send({message: 'A PeepsID must be 12 characters or less', success: false});
-    if(!email || !arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
+    if(!arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
     let ipAddress = await UserAuth.find({ ip_address: {$in: address}})
 
-    if (!validator.isEmail(email)) {
-        return res.status(400).json("Invalid Email id")
-    }
-    else if (UserOne) {
+    if (UserOne) {
         return res.status(403).json("You have already register with us!")
     }
     else if (ipAddress[0]) {

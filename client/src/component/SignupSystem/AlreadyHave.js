@@ -25,6 +25,8 @@ class AlreadyHave extends React.Component {
                 type: 'error',
                 autoClose: 3000,
             })
+            this.setState({loading: false})
+            return;
         }
             axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${this.state.arisen_username}`)
                     .then(user => {

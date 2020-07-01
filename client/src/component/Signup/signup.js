@@ -108,12 +108,12 @@ export default class Signup extends Component {
                                 </div>
                                 <div className="card-footer text-center">
                                     <small>This code has been open sourced
-                                    <a style={{ marginLeft: 3 }} href="https://github.com/ArisenIO/air-drop-dapp" target="_blank">
+                                    <a style={{ marginLeft: 3 }} href="https://github.com/ArisenIO/air-drop-dapp" target="_blank" rel="noopener noreferrer">
                                             here
                                     </a>
                                     </small>
-                                    <a id="helpRef" href="#" data-toggle="modal" data-target="#help" target="_blank" className="position-absolute r-3 btn btn-sm btn-lg btn-warning">Help</a>
-                                    <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank"><img className="w30" src="/assets/img/arisen/arisenLogo.png" alt="logo"/></a> </p>
+                                    <a id="helpRef" href="/#" data-toggle="modal" data-target="#help" target="_blank" className="position-absolute r-3 btn btn-sm btn-lg btn-warning">Help</a>
+                                    <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank " rel="noopener noreferrer"><img className="w30" src="/assets/img/arisen/arisenLogo.png" alt="logo"/></a> </p>
                                 </div>
                                 <hr />
                             </div>

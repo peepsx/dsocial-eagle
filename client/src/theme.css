@@ -8222,8 +8222,8 @@ article pre[class*='language-'] {
 
 @font-face {
   font-family: 'Socicon';
-  src: url("../public/assets/fonts/Socicon.eot?484r1f");
-  src: url("../public/assets/fonts/Socicon.eot?484r1f#iefix") format("embedded-opentype"), url("../public/assets/fonts/Socicon.woff2?484r1f") format("woff2"), url("../public/assets/fonts/Socicon.ttf?484r1f") format("truetype"), url("../public/assets/fonts/Socicon.woff?484r1f") format("woff"), url("../public/assets/fonts/Socicon.svg?484r1f#Socicon") format("svg");
+  src: url("./public/assets/fonts/Socicon.eot?484r1f");
+  src: url("./public/assets/fonts/Socicon.eot?484r1f#iefix") format("embedded-opentype"), url("./public/assets/fonts/Socicon.woff2?484r1f") format("woff2"), url("./public/assets/fonts/Socicon.ttf?484r1f") format("truetype"), url("./public/assets/fonts/Socicon.woff?484r1f") format("woff"), url("./public/assets/fonts/Socicon.svg?484r1f#Socicon") format("svg");
   font-weight: normal;
   font-style: normal; }
 
