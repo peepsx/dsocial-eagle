@@ -32,6 +32,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName, username } = req.body.userDetails
     console.log(arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, username,'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
+    let UserTwo = await userAuth.findOne({arisen_username: arisen_username })
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
     let TempUser = await userAuthTemp.findOne({username: username});
     let TempTwit = await TempTwitter.findOne({username: twitterScreenName}).select('-_id -__v');
@@ -48,6 +49,9 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     if (UserOne) {
         return res.status(403).json("You have already register with us!")
     }
+    else if (UserTwo) {
+        return res.status(403).json("You have already register with us!")
+    }
     else if (ipAddress[0]) {
         return res.status(403).send({
             success: false,
@@ -59,7 +63,6 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
         axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${arisen_username}`)
             .then(async (lookup) => {
                 let NewUser = new UserAuth({
-                    email: email,
                     arisen_username: arisen_username,
                     ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6
                 })
@@ -158,7 +161,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
             .catch((e) => {
                 return res.status(200).send({
                     success: false,
-                    message: 'User not found'
+                    message: 'User not found ERROR'
                 })
             })
     }

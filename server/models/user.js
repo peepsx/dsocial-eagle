@@ -3,10 +3,6 @@ const Scehma = mongoose.Schema;
 
 
 let User = new Scehma({
-    email:{
-        type:String,
-        required: true
-    },
     arisen_username:{
         type:String,
         required: true
