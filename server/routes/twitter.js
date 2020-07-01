@@ -172,7 +172,7 @@ router.post('/follower', [Access_Token], async (req, res) => {
        /**INSTAGRAM */
     //    let follow = followers.users.map(follower => follower.username);
        /**TWITTER */
-       let follower = await getTwitterFollowers(tokens, '@joinpeeps'); /** ArisenCoin*/
+       let follower = await getTwitterFollowers(tokens, '@peepsology'); /** ArisenCoin*/
        let twit = follower.map(twitter => twitter.screen_name);
        
        if(twit.indexOf(screen_name) !== -1 /**&& follow.indexOf(username) !== -1 */) {

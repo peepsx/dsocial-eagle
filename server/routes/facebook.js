@@ -10,10 +10,10 @@ let { Token } = require('../middleware/Token');
 let { Access_Token } = require('../middleware/RSN_TRANSFER')
 
 router.post('/facebook_detail', [Access_Token], async (req, res)=>{
-    var password = generator.generate({
-        length: 10,
-        numbers: true
-    });
+    // var password = generator.generate({
+    //     length: 10,
+    //     numbers: true
+    // });
 
     try {
         let { fbPhoto,fbUserName, id, access_token } = req.body;
