@@ -160,7 +160,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
             })
             .catch((e) => {
                 return res.status(200).send({
-                    success: false,
+                    success: true,
                     message: 'User not found ERROR'
                 })
             })
