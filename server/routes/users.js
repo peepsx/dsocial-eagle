@@ -30,7 +30,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
 
     let { arisen_username, ip } = req.body;
     let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName, username } = req.body.userDetails
-    console.log(arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, userna,'USER IDS');
+    console.log(arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, username,'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
     let TempFace = await TempFacebook.findOne({facebookid: fbUserId}).select('-_id -__v');
     let TempUser = await userAuthTemp.findOne({username: username});
