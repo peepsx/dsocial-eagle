@@ -68,7 +68,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                 })
                 let user = await NewUser.save();
                 if(lookup.data.details.account_name === arisen_username) {
-                    if (email && arisen_username && UserOne == null) {
+                    if (arisen_username && UserOne == null) {
                            Rsn_Transfer(arisen_username, user.id)
                                     .then(async TRANSFER => {
                                         if(TRANSFER.success) {
