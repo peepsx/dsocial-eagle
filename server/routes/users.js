@@ -39,8 +39,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     // let TempInsta = await TempInstagram.findOne({username: instaUserId}).select('-_id -__v');
     let TempGo = await TempGoogle.findOne({GmailAddress: googleEmail}).select('-_id -__v');
     // let TempTele = await TempTelegram.f ndOne({telegram_id: teleUserId}).select('-_id -__v');
-    let address = ip.v4 === ip.v6 ? ip.v4 : [ip.v4, ip.v6]
-        address = [address];
+    let address = ip.v4 === ip.v6 ? ip.v4 : ip.v6
     if(arisen_username.length !== 12) return res.status(200).send({message: 'A PeepsID must be 12 characters or less', success: false});
     if(!arisen_username || !ip || ip == undefined) return res.status(400).send({success: false, message: 'Fields are missing!'})
     
