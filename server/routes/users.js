@@ -159,9 +159,10 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                 }
             })
             .catch((e) => {
+                console.log("ERROR IN LOOKUP", e)
                 return res.status(200).send({
-                    success: true,
-                    message: 'User not found ERROR'
+                    success: false,
+                    message: 'User not found'
                 })
             })
     }
