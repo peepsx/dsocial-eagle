@@ -4,6 +4,7 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let twitter = require('./routes/twitter');
+let newTwitter = require('./routes/newTwitter');
 let fbRouter = require('./routes/facebook');
 let instagramRouter = require('./routes/instagram')
 let google = require('./routes/google');
@@ -36,7 +37,7 @@ app.use('/validation', twitter)
 // app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
 app.use('/rsn-bts', BtsTransfer);
-
+app.use('/new', newTwitter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(404);
