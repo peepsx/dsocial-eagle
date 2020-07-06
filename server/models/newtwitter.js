@@ -4,10 +4,9 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
   var UserSchema = new Schema({
-    email: {
+   screen_name: {
       type: String,
-      trim: true, unique: true,
-      match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+      trim: true,
     },
     twitterProvider: {
       type: {
@@ -21,7 +20,7 @@ var mongoose = require('mongoose'),
   UserSchema.set('toJSON', {getters: true, virtuals: true});
 
   UserSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb) {
-    console.log("USER PROFILE", profile)
+
     var that = this;
     return this.findOne({
       'twitterProvider.id': profile.id
@@ -29,7 +28,7 @@ var mongoose = require('mongoose'),
       // no user was found, lets create a new one
       if (!user) {
         var newUser = new that({
-          email: profile.emails[0].value || undefined,
+          screen_name: profile.username,
           twitterProvider: {
             id: profile.id,
             token: token,
