@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
   var UserSchema = new Schema({
     email: {
-      type: String, required: true,
+      type: String
       trim: true, unique: true,
       match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     },
