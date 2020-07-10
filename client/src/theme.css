@@ -6868,13 +6868,8 @@ section {
   background: linear-gradient(90deg, #e83e8c 0%, #6f42c1 100%); }
 
 .bg-gradient-3 {
-  /* background: linear-gradient(90deg, #dc3545 0%, #fd7e14 100%);  */
-  background-color: rgb(73,79,82);
-}
-.bg-gradient-4 {
-  /* background: linear-gradient(90deg, #dc3545 0%, #fd7e14 100%);  */
-  background-color: rgb(242,240,216);
-}
+  background: linear-gradient(90deg, #dc3545 0%, #fd7e14 100%); }
+
 .text-white p a {
   color: #fff; }
 
@@ -9585,11 +9580,4 @@ img.zoom-img {
 .wizard.card{
   margin: 0 !important;
 }
-.change button {
-    width: 100%;
-    border: none;
-    background-color: #fff;
-}
-
-
 /*# sourceMappingURL=theme.css.map */

@@ -18,7 +18,7 @@ export default class Ipexist extends React.Component {
                                     </div> */}
                                     <hr />
                                     <small>
-                                        <a href="https://t.me/peepsology" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://t.me/arisenio" target="_blank" rel="noopener noreferrer">
                                             Join our Telegram Community
                                         </a>
                                     </small>

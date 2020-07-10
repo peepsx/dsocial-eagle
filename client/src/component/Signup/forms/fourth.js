@@ -98,7 +98,7 @@ export default class Fourth extends React.Component {
                             if (res.data.success) {
                                 localStorage.clear();
                                 localStorage.setItem('s4', true);
-                                localStorage.setItem('message', res.data.message)
+                                localStorage.setItem('a_user', res.data.message)
                                 localStorage.setItem('username', this.state.arisen_username)
                                 window.location.hash = '#fifth'
                             } else {

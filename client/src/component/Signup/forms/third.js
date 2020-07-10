@@ -19,15 +19,15 @@ export default class Third extends React.Component {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
-            quote: "I just created an account on dSocial, the world's first decentralized and censorship-resistant social network, joined the #dweb revolution and received 1000 RIX coins in the process. Join us at",
-            link: 'https://dsocial.network',
+            quote: "Help me spread awareness about the censorship-resistant decentralized web and our collaborative effort to #TakeTheWebBack for We The People. The patriots at PeepsLabs continue to donate their own resources to the development of a new web for everyone and that web is alive today. Help spread awareness, start using the decentralized web now and get 1,000 FREE RIX coins in the process at",
+            link: 'https://join.peepsx.com',
         }, (response) => {
             this.setState({ fbPostResponse: response });
         });
     }
 
     handleTweet = () => {
-        const text = "I just joined dSocial, a %23decentralized social network that cannot censor its users. Join the %23dweb revolution at https://dsocial.network"
+        const text = "Help us %23TakeTheWebBack by spreading awareness about the all-new decentralized web %26 get 1,000 RIX coins in the process at https://join.peepsx.com"
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
     }
 
@@ -50,7 +50,7 @@ export default class Third extends React.Component {
                     .then(res => {
                         this.setState({ loading: false })
                         if (res.data.success) {
-                            window.location.hash = "#fifth";
+                            window.location.hash = "#fourth";
                             localStorage.setItem('s3', true)
                         } else if(!res.data.success) {
                             Swal.fire({
@@ -89,7 +89,7 @@ export default class Third extends React.Component {
     }
 
     render() {
-        return localStorage.getItem('username') && localStorage.getItem('twitterName') && localStorage.getItem('googleEmail') && localStorage.getItem('fbUserId') ? (
+        return (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span className="h4 d-block">Let's make #TakeTheWebBack go viral...</span>
@@ -134,15 +134,6 @@ export default class Third extends React.Component {
                     </button>
                 </div>
             </div>
-        ) : (<div className="card-body p-4 px-lg-5">
-        <div className="mb-4 text-center">
-        <div className="column justify-content-center mb-3">
-            <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
-            <h2 className="mt-auto mb-auto ml-2">Error</h2>
-        </div>
-        <span className="h4 d-block">Please Complete Previous Step</span>
-        </div>
-        </div>
-)
+        )
     }
 }

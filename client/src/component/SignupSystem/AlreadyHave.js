@@ -17,7 +17,7 @@ class AlreadyHave extends React.Component {
     }
     
     handleTransaction = (e) => {
-        
+        console.log("Clicked")
         this.setState({loading: true})
             e.preventDefault();
             if(!/^[a-z1-5_]+$/.test(this.state.arisen_username) || this.state.arisen_username.length !== 12) {
@@ -34,8 +34,7 @@ class AlreadyHave extends React.Component {
                         // window.location.hash = "#second";
                         axios.post(API.registerUser, {username: this.state.arisen_username})
                         .then(user_res => {
-                            localStorage.setItem('token', user_res.data.token)
-                            localStorage.setItem('username', this.state.arisen_username)
+                            localStorage.setItem('token', user_res.data.token);
                             window.location.hash = "#second"
                         })
                         .catch(e => {
