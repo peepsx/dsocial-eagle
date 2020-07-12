@@ -152,9 +152,9 @@ export default class Fourth extends React.Component {
 
         return (
             <div className="p-0 d-flex bg-white align-items-lg-center">
+                <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
-                        <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
                         <h1 className="h4 text-center">{this.state.title}</h1>
                         <p className="small text-center noteStyle">{this.state.description}</p>
                         {this.state.isOpenModal ?
