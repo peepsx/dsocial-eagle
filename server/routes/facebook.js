@@ -23,7 +23,7 @@ router.post('/facebook_detail', [Access_Token], async (req, res)=>{
         if(TempFb) return res.status(200).send({
                   success: true,
                 //   token: TempFb.token,
-                  message:'You have logging successfully!',
+                  message:'You have logged in successfully!',
             })
         
         if(findOne) return res.status(403).send({

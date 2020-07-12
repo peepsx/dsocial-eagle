@@ -79,7 +79,7 @@ export default class Signup extends Component {
                                             <a className="nav-link noClick" href="#second">2. Join The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#third">3. Follow Arisen</a>
+                                            <a className="nav-link noClick" href="#third">3. Follow Peeps</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fourth">4. Share The Revolution</a>

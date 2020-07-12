@@ -24,7 +24,7 @@
 
 //         if(TempInsta) return res.status(200).send({
 //             success: true,
-//             message:'You have logging successfully!'
+//             message:'You have logged in successfully!'
 //         })
 
 //         let instaUser = await InstaAuth.findOne({username: username});

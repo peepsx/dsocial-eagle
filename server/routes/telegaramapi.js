@@ -14,7 +14,7 @@
 //     let TempTele = await TempTelegram.findOne({telegram_id: id});
 //     if(TempTele)  return res.status(200).send({
 //         success: true,
-//         message:'You have logging successfully!'
+//         message:'You have logged in successfully!'
 //     });
     
 //     let checkTelegram = await TelegramDetail.findOne({telegram_id: id});
