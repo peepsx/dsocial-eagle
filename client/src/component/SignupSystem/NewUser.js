@@ -163,7 +163,7 @@ class NewUser extends React.Component {
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-11 col-lg-11 col-xl-11 py-4 p-3 custom-border gradient-color">
                         <div className="key-container">
-                            <h5>private public key &nbsp;</h5>
+                            <h5>owner public key &nbsp;</h5>
                                 <div className="spacer"></div>
                                 <div className="key-input">
                                     <input type="text" placeholder="" defaultValue={this.state.ownerPub}/>

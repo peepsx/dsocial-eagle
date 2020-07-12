@@ -19,7 +19,7 @@ export default class Third extends React.Component {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
-            quote: "I just created an account on dSocial, the world's first decentralized and censorship-resistant social network, joined the #dweb revolution and received 1000 RIX coins in the process. Join us at",
+            quote: "I just created an account on dSocial, the world's first decentralized and %23censorshipresistant social network. You can join the social revolution and earn 1000 coins in the process. Join us at https://dsocial.network",
             link: 'https://dsocial.network',
         }, (response) => {
             this.setState({ fbPostResponse: response });
