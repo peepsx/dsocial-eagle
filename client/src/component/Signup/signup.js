@@ -12,7 +12,7 @@ import Ipexist from './forms/errorIP';
 import Help from '../help';
 import { env } from '../config/config';
 import { Redirect } from 'react-router-dom';
-
+import ConfirmUser from '../SignupSystem/ConfirmUser'
 
 export default class Signup extends Component {
     constructor(props) {
@@ -61,7 +61,7 @@ export default class Signup extends Component {
             return <Ipexist />;
         } else {
             return (
-                <section className="bg-gradient-3 height-100 p-3">
+                <section className="bg-gradient-4 height-100 p-3">
                     <img src="assets/img/header-17.jpg" alt="bg" className="bg-image opacity-10" />
                     <div className="container">
                         <div className="row justify-content-center">
@@ -79,13 +79,16 @@ export default class Signup extends Component {
                                             <a className="nav-link noClick" href="#second">2. Join The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#third">3. Follow Peeps</a>
+                                            <a className="nav-link noClick" href="#third">3. Follow Arisen</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fourth">4. Share The Revolution</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#fifth">5. You Got Coins!</a>
+                                            <a className="nav-link noClick" href="#fifth">5. Confirm Username</a>
+                                        </li>
+                                        <li className="nav-item flex-fill noClick">
+                                            <a className="nav-link noClick" href="#sixth">6. You Got Coins!</a>
                                         </li>
                                     </ul>
                                     <div className="tab-content">
@@ -102,6 +105,9 @@ export default class Signup extends Component {
                                             <Third />
                                         </div>
                                         <div id="fifth">
+                                            <ConfirmUser />
+                                        </div>
+                                        <div id="sixth">
                                             <Fifth />
                                         </div>
                                     </div>
@@ -112,7 +118,7 @@ export default class Signup extends Component {
                                             here
                                     </a>
                                     </small>
-                                    <a id="helpRef" href="/#" data-toggle="modal" data-target="#help" target="_blank" className="position-absolute r-3 btn btn-sm btn-lg btn-warning">Help</a>
+                                    <a  href="https://t.me/peepsology"  data-target="#help" target="_blank" className="position-absolute r-3 btn btn-sm btn-lg btn-warning" rel="noopener noreferrer">Help</a>
                                     <p className="m-0 mt-2">Powered By: <a href="https://explorer.arisen.network" target="_blank " rel="noopener noreferrer"><img className="w30" src="/assets/img/arisen/arisenLogo.png" alt="logo"/></a> </p>
                                 </div>
                                 <hr />

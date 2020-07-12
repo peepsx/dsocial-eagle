@@ -28,7 +28,6 @@ class NewUser extends React.Component {
     handleTransaction = (e) => {
         console.log("Clicked")
             e.preventDefault();
-            this.setState({loading: true});
             if(!/^[a-z1-5_]+$/.test(this.state.arisen_username) || this.state.arisen_username.length !== 12) {
                 toast("A PeepsID must be up to 12 characters", {
                 type: 'error',
@@ -36,6 +35,7 @@ class NewUser extends React.Component {
             })
             return;
         }
+            this.setState({loading: true});
             axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${this.state.arisen_username}`)
                     .then(user => {
                         this.setState({loading: false});
@@ -61,16 +61,22 @@ class NewUser extends React.Component {
                     this.setState({loading: false})
                     axios.post(API.registerUser, {username: this.state.arisen_username})
                     .then(user_res => {
-                        localStorage.setItem('token', user_res.data.token, 'username', this.state.arisen_username)
+                        localStorage.setItem('token', user_res.data.token)
+                        localStorage.setItem('username', this.state.arisen_username)
                         window.location.hash = "#second"
                     })
-                    .catch(e => window.location.hash = '/')
+                    .catch(e => {
+                        this.setState({loading: true});    
+                        window.location.hash = '/'
+                    })
                 }
                 else {
+                    this.setState({loading: true});
                     window.location.hash = "/"
                 }
 
             } catch (e) {
+                this.setState({loading: true});
                 this.props.errorOn("User not register", "User is not registered");
             }
     }
@@ -157,7 +163,7 @@ class NewUser extends React.Component {
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-11 col-lg-11 col-xl-11 py-4 p-3 custom-border gradient-color">
                         <div className="key-container">
-                            <h5>owner public key &nbsp;</h5>
+                            <h5>private public key &nbsp;</h5>
                                 <div className="spacer"></div>
                                 <div className="key-input">
                                     <input type="text" placeholder="" defaultValue={this.state.ownerPub}/>

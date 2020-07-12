@@ -24,21 +24,21 @@ export default class Second extends React.Component {
     // }
 
     handleFacebookLink = () => {
-        window.open('https://www.facebook.com/joinpeeps/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+        window.open('https://www.facebook.com/peepsology/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
     }
 
     handleYoutubeLink = () => {
-        window.open('https://www.youtube.com/channel/UCSA8YUDeXWEYHl54XdFO6_w', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://www.youtube.com/channel/UCoknUFNMUF9ciA_WGmm8pxQ', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
     }
 
     handleTwitClick = () => {
-        window.open('https://twitter.com/joinpeeps', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+        window.open('https://twitter.com/peepsology', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
@@ -60,7 +60,7 @@ export default class Second extends React.Component {
                     .then((response) => {
                         if (response.data.items) {
                             for (let item of response.data.items) {
-                                if (item.snippet.title === 'PeepsTV') {
+                                if (item.snippet.title === 'Peeps') {
                                     youtubeTitle = item.snippet.title;
                                 }
                             }
@@ -80,7 +80,7 @@ export default class Second extends React.Component {
                         window.open(env.liveStatus)
                     })
             }
-            if (youtubeTitle === 'PeepsTV' && this.state.clickCounter >= 3) {
+            if (youtubeTitle === 'Peeps' && this.state.clickCounter >= 3) {
                 this.apiCall();
             } else {
                 this.setState({ loading: false })
@@ -110,7 +110,7 @@ export default class Second extends React.Component {
             method: 'POST',
             data: {
                 screen_name: localStorage.getItem('twitterName'),
-                username: localStorage.getItem('instaUserId'),
+                // username: localStorage.getItem('instaUserId'),
             },
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -121,7 +121,7 @@ export default class Second extends React.Component {
                 if (response.data.success) {
                     localStorage.setItem('s2', true);
                     localStorage.removeItem('goggle-access');
-                    window.location.hash = "#third";
+                    window.location.hash = "#fourth";
                 } else {
                     Swal.fire({
                         title: 'Whoops!',
@@ -139,11 +139,11 @@ export default class Second extends React.Component {
     }
 
     render() {
-        return (
+        return localStorage.getItem('username') && localStorage.getItem('twitterName') && localStorage.getItem('googleEmail') && localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Tune in to our fight to decentralize the world...</span>
-                    <p className="w-75 m-auto">To continue, please like, follow and subscribe to all of our pages below.</p>
+                    <span className="h4 d-block">Tune in to our fight to decentralize the web...</span>
+                    <p className="w-75 m-auto">Like, follow and subscribe to @Peepsology on the platforms below and earn 100 RIX for EACH platform you follow us on.</p>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
@@ -180,10 +180,10 @@ export default class Second extends React.Component {
                         <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
                                 <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
-                                <span className="h6 mb-0 d-block">PeepsTv On YouTube</span>
+                                <span className="h6 mb-0 d-block">Peeps On YouTube</span>
                                 <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
                                     <i className="fab fa-youtube mr-1" />
-                                    Subscribe To PeepsTV
+                                    Subscribe To Peeps
                                 </button>
                             </div>
                         </div>
@@ -207,6 +207,15 @@ export default class Second extends React.Component {
                     </button>
                 </div>
             </div>
-        )
+        ) : (<div className="card-body p-4 px-lg-5">
+        <div className="mb-4 text-center">
+        <div className="column justify-content-center mb-3">
+            <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
+            <h2 className="mt-auto mb-auto ml-2">Error</h2>
+        </div>
+        <span className="h4 d-block">Please Complete Previous Step</span>
+        </div>
+        </div>
+    )
     }
 }

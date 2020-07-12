@@ -1,14 +1,15 @@
 import React from 'react';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
-import TwitterLogin from "react-twitter-login";
-
+// import TwitterLogin from "react-twitter-login";
+import TwitterLogin from "react-twitter-auth";
+import gold from '../../assets/img/gold_img.png'
 import Twitter from './login_buttons/twitter';
 import Facebook from './login_buttons/facebook';
 // import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 // import Telegram from './login_buttons/telegram';
-import { env } from '../../config/config';
+// import { env } from '../../config/config';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
@@ -21,13 +22,18 @@ export default class First extends React.Component {
             googleData: '',
             nextBtnStatus: '',
             teleUserid: '',
+            amount: '',
             twitStatus: false,
             loading: false,
         }
     }
 
     twitterHandler = (err, authData) => {
-        this.handleTwitDataSave(authData);
+        this.setState({loading: true})
+        if(authData) {
+            this.setState({loading: false})
+            this.handleTwitDataSave(authData);
+        }
     }
 
     getTelegramValue = (teleData) => {
@@ -58,7 +64,7 @@ export default class First extends React.Component {
             })
         } else {
             localStorage.setItem('s1', true)
-            window.location.hash = "#second";
+            window.location.hash = "#third";
         }
 
         // TO ENABLE TELEGRAM CHECK - UNCOMMENT THE CODE GIVEN BELOW AND COMMENT ABOVE ELSE STATEMENT
@@ -98,7 +104,44 @@ export default class First extends React.Component {
         //     })
         // }
     }
-
+    onSuccess = (result) => {
+        result.json().then(user => {
+            if (user.screen_name) {
+                Axios({
+                    url: API.twitter_detail,
+                    method: 'POST',
+                    data: {
+                        username: user.screen_name,
+                        id: localStorage.getItem('fbUserId')
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                }).then(response => {
+                        localStorage.setItem('twitterName', user.screen_name);
+                        let toastType = "error";
+                        if (response.data.success) {
+                            this.setState({ twitStatus: true })
+                            toastType = "success";
+                            this.handleNextShowBtn('Google')
+                        }
+                        toast(response.data.message, {
+                            type: toastType,
+                            autoClose: 3000,
+                        })
+                    })
+                    .catch(err => {
+                        if (err.response && err.response.status === 403) {
+                            toast("User already registered !!!", {
+                                type: 'warning',
+                                autoClose: 3000,
+                            })
+                        }
+                    })
+            }
+        });
+      };
+      
     handleTwitDataSave = (userData) => {
         if (userData && userData.screen_name) {
             Axios({
@@ -141,13 +184,18 @@ export default class First extends React.Component {
             nextBtnStatus: status
         })
     }
-
+    onFailed = (error) => {
+        alert(error);
+      };
+      
     render() {
-        return (
+
+        return localStorage.getItem('username') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span className="h4 d-block">Let's start a revolution together...</span>
-                    <p className="w-75 m-auto">We need your help spreading the word about the all-new decentralized web and to raise awareness about our revolution to #TakeTheWebBack. Login to each of your accounts below, to get started.</p>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
+                    <span className="h4 d-block">Let's start a social revolution</span>
+                    <p className="w-75 m-auto">We need your help spreading the word about dSocial to the world and we're going to pay you with the dWeb's all-new cryptocurrency to do it. For EACH platform you login with below, you will earn 100 RIX. You must choose at least one platform to proceed to Step 3 of the signup wizard.</p>
                 </div>
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
@@ -156,8 +204,8 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className={!(this.state.nextBtnStatus === 'Twitter') ? 'noClick col-sm mb-3 mb-sm-0' : 'col-sm mb-3 mb-sm-0'}>
-                        <TwitterLogin
+                    <div className={!(this.state.nextBtnStatus === 'Twitter') ? 'noClick col-sm mb-3 mb-sm-0 change' : 'col-sm mb-3 mb-sm-0 change'}>
+                        {/* <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
                             className="h-100"
@@ -169,7 +217,18 @@ export default class First extends React.Component {
                                     twitStatus={this.state.twitStatus}
                                 />
                             }
-                        />
+                        /> */}
+                    <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
+                    onFailure={this.onFailed}
+                    onSuccess={this.onSuccess}
+                    requestTokenUrl="https://api.arisen.network/new/auth/twitter/reverse"
+                    children={
+                        <Twitter
+                                nextBtnStatus={this.state.nextBtnStatus}
+                                twitStatus={this.state.twitStatus}
+                            />
+                    }
+                    />
                     </div>
                     {/* <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
@@ -218,6 +277,15 @@ export default class First extends React.Component {
                     </button>
                 </div>
             </div>
-        )
+        ) : (<div className="card-body p-4 px-lg-5">
+            <div className="mb-4 text-center">
+            <div className="column justify-content-center mb-3">
+                <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
+                <h2 className="mt-auto mb-auto ml-2">Error</h2>
+            </div>
+            <span className="h4 d-block">Please Complete Previous Step</span>
+            </div>
+            </div>
+    )
     }
 }

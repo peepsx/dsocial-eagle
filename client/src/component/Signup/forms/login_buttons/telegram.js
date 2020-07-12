@@ -11,7 +11,7 @@ export default class Telegram extends React.Component {
     componentDidMount() {
         window.TelegramLoginWidget = {
             dataOnauth: user => {
-                window.open('https://t.me/arisenio', '_blank');
+                window.open('https://t.me/peepsology', '_blank');
                 this.handleTelegramResponse(user)
             }
         };
