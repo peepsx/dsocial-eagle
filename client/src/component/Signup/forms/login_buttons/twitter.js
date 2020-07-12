@@ -7,7 +7,7 @@ export default function Button(props) {
             type="button"
             disabled={!(props.nextBtnStatus === 'Twitter')}
         >   
-            <p className='warning'style={{color: 'black'}}>+<span> 100 RIX</span></p>
+            <p className='warning'style={{color: 'black', position: 'absolute', top: 0, right: '20px'}}>+<span> 100 RIX</span></p>
             <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
             <span className="h6 mb-0 d-block">Login w/ Twitter</span>
             {(props.twitStatus) && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
