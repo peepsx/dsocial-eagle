@@ -6,6 +6,10 @@ let Scehma = mongoose.Schema;
 let Google = new Scehma({
     GmailAddress:{
         type:String
+    },
+    amount: {
+        type:Number,
+        default: 100
     }
 }, {
     timestamps: true

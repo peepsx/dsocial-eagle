@@ -16,6 +16,10 @@ let Twitter = new Schema({
     follower: {
         type: Boolean,
         default: false
+    },
+    amount: {
+        type:Number,
+        default: 100
     }
 }, {
     timestamps: true

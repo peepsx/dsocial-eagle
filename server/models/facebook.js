@@ -14,6 +14,10 @@ let Facebook = new Scehma({
         type: String,
         index: true
     },
+    amount: {
+        type: Number,
+        default: 100
+    },
     follower: {
         type: Boolean,
         default: false
