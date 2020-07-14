@@ -218,6 +218,7 @@ export default class First extends React.Component {
                                 />
                             }
                         /> */}
+                    { this.state.nextBtnStatus === 'Twitter' &&
                     <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
                     onFailure={this.onFailed}
                     onSuccess={this.onSuccess}
@@ -229,6 +230,7 @@ export default class First extends React.Component {
                             />
                     }
                     />
+                    }
                     </div>
                     {/* <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
@@ -237,10 +239,12 @@ export default class First extends React.Component {
                         />
                     </div> */}
                     <div className="col-sm mb-3 mb-sm-0">
+                        { this.state.nextBtnStatus === 'Google' &&
                         <Google
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
+                        }
                     </div>
                 </div>
                 {/* <div className="columnd-flex justify-content-center mt-2">
@@ -260,7 +264,7 @@ export default class First extends React.Component {
                     <button
                         className="btn btn-custom h-2 min-w-10"
                         onClick={this.checkTelegramUser}
-                        disabled={!(this.state.nextBtnStatus === 'Telegram')}
+                        disabled={(!this.state.nextBtnStatus === 'Twitter' || !this.state.nextBtnStatus === 'Facebook', !this.state.nextBtnStatus === 'Google')}
                     >
                         {
                             this.state.loading ?
@@ -272,7 +276,7 @@ export default class First extends React.Component {
                                     width={30}
                                 />
                                 :
-                                'Proceed to follow us >'
+                                'Proceed To Step 3'
                         }
                     </button>
                 </div>
