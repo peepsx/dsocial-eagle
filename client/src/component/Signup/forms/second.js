@@ -147,7 +147,7 @@ export default class Second extends React.Component {
                 </div>
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-sm mb-3 mb-sm-0">
+                        {localStorage.getItem('fbUserId') && <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white">
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
@@ -157,16 +157,19 @@ export default class Second extends React.Component {
                                 </button>
                             </div>
                         </div>
-                        <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
-                                <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
-                                <span className="h6 mb-0 d-block">Peeps On Twitter</span>
-                                <button onClick={this.handleTwitClick} className=" color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
-                                    <i className="fab fa-twitter mr-1" />
-                                    Follow @peepsx
-                                </button>
+                        }
+                        { localStorage.getItem('twitterName') &&
+                            <div className="col-sm mb-3 mb-sm-0">
+                                <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
+                                    <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
+                                    <span className="h6 mb-0 d-block">Peeps On Twitter</span>
+                                    <button onClick={this.handleTwitClick} className=" color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
+                                        <i className="fab fa-twitter mr-1" />
+                                        Follow @peepsx
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        }
                         {/* <div className="col-sm mb-3 mb-sm-0">
                             <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
                                 <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
@@ -177,16 +180,18 @@ export default class Second extends React.Component {
                                 </button>
                             </div>
                         </div> */}
-                        <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
-                                <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
-                                <span className="h6 mb-0 d-block">Peeps On YouTube</span>
-                                <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
-                                    <i className="fab fa-youtube mr-1" />
-                                    Subscribe To Peeps
-                                </button>
+                        {localStorage.getItem('googleEmail') && 
+                            <div className="col-sm mb-3 mb-sm-0">
+                                <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
+                                    <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
+                                    <span className="h6 mb-0 d-block">Peeps On YouTube</span>
+                                    <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
+                                        <i className="fab fa-youtube mr-1" />
+                                        Subscribe To Peeps
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">

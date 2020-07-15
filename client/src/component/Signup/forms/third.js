@@ -97,22 +97,29 @@ export default class Third extends React.Component {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
-                        <div className="list-group">
-                            <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
+                        {
+                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) && 
+                            <div className="list-group">
+                            {localStorage.getItem('fbUserId') && 
+                             <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Share The Revolution On Facebook</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
-                            </a>
-                            <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
+                             </a>
+                            }
+                            {localStorage.getItem('twitterName') && 
+                              <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
                                     <span className="mb-0 h6 mb-0">Tweet About The Revolution On Twitter</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
-                            </a>
+                              </a>
+                            }
                         </div>
+                        }
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">
