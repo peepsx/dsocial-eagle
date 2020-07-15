@@ -49,22 +49,22 @@ export default class First extends React.Component {
         const googleEmail = localStorage.getItem('googleEmail');
         // const instaUserId = localStorage.getItem('instaUserId');
         const twitterName = localStorage.getItem('twitterName');
-        if (!fbData ||
-            !googleEmail ||
+        if (fbData ||
+            googleEmail ||
             // !instaUserId ||
-            !twitterName
+            twitterName
         ) {
+            localStorage.setItem('s1', true)
+            window.location.hash = "#third";
+        } else {
             this.setState({ loading: false })
             Swal.fire({
                 title: 'Error',
-                text: 'You must login to all platforms beforing continuing to step 2',
+                text: 'You must login to all platforms beforing continuing to step 3',
                 icon: "error",
                 showCancelButton: false,
                 confirmButtonText: 'Okay',
             })
-        } else {
-            localStorage.setItem('s1', true)
-            window.location.hash = "#third";
         }
 
         // TO ENABLE TELEGRAM CHECK - UNCOMMENT THE CODE GIVEN BELOW AND COMMENT ABOVE ELSE STATEMENT
