@@ -47,50 +47,51 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        const googleAccessToken = localStorage.getItem('goggle-access')
+        // const googleAccessToken = localStorage.getItem('goggle-access')
         if (localStorage.getItem('s1')) {
             this.setState({ loading: true });
-            let youtubeTitle = false;
-            if (window.gapi.client.youtube) {
-                await Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
-                    headers: {
-                        Authorization: 'Bearer ' + googleAccessToken
-                    }
-                })
-                    .then((response) => {
-                        if (response.data.items) {
-                            for (let item of response.data.items) {
-                                if (item.snippet.title === 'Peeps') {
-                                    youtubeTitle = item.snippet.title;
-                                }
-                            }
-                        }
-                    })
-                    .catch(err => console.error('Subscribe error', err))
-            } else {
-                this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Data Lost, due to roloading of the page !! ',
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
-                    .then(() => {
-                        window.open(env.liveStatus)
-                    })
-            }
-            if (youtubeTitle === 'Peeps' && this.state.clickCounter >= 3) {
+            // let youtubeTitle;
+            // if (window.gapi.client.youtube) {
+                // await Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
+                //     headers: {
+                //         Authorization: 'Bearer ' + googleAccessToken
+                //     }
+                // })
+                //     .then((response) => {
+                //         if (response.data.items) {
+                //             for (let item of response.data.items) {
+                //                 if (item.snippet.title === 'Peeps') {
+                //                     youtubeTitle = item.snippet.title;
+                //                 }
+                //             }
+                //         }
+                //     })
+                //     .catch(err => console.error('Subscribe error', err))
+            // } else {
+            //     this.setState({ loading: false })
+            //     Swal.fire({
+            //         title: 'Error',
+            //         text: 'Data Lost, due to roloading of the page !! ',
+            //         icon: "warning",
+            //         showCancelButton: false,
+            //         confirmButtonText: 'Okay',
+            //     })
+            //         .then(() => {
+            //             window.open(env.liveStatus)
+            //         })
+            // }
+            if (localStorage.getItem('twitterName') && this.state.clickCounter) {
                 this.apiCall();
             } else {
                 this.setState({ loading: false })
-                Swal.fire({
-                    title: 'Whoops!',
-                    text: "You must follow all of Peeps' social media pages before continuing!!",
-                    icon: "warning",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
+                window.location.hash = '#fourth'    
+            //     Swal.fire({
+            //         title: 'Whoops!',
+            //         text: "You must follow all of Peeps' social media pages before continuing!!",
+            //         icon: "warning",
+            //         showCancelButton: false,
+            //         confirmButtonText: 'Okay',
+            //     })
             }
         } else {
             Swal.fire({
