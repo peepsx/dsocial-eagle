@@ -89,7 +89,7 @@ export default class Third extends React.Component {
     }
 
     render() {
-        return localStorage.getItem('username') && localStorage.getItem('twitterName') && localStorage.getItem('googleEmail') && localStorage.getItem('fbUserId') ? (
+        return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span className="h4 d-block">Spread the word about dSocial...</span>
