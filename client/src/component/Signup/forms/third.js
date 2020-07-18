@@ -23,6 +23,35 @@ export default class Third extends React.Component {
             link: 'https://dsocial.network',
         }, (response) => {
             this.setState({ fbPostResponse: response });
+            Axios({
+                method: 'POST',
+                url: API.share_with_fb,
+                data: {
+                    status: this.state.fbPostResponse,
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+                .then(res => {
+                    this.setState({ loading: false })
+                    if (res.data.success) {
+                        window.location.hash = "#fifth";
+                        localStorage.setItem('s3', true)
+                    } else if(!res.data.success) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'You must share on facebook',
+                            icon: "error",
+                            showCancelButton: false,
+                            confirmButtonText: 'Okay',
+                        })
+                    }
+                })
+                .catch(err => {
+                    this.setState({ loading: false })
+                    window.location.hash = '#fifth'
+                })
         });
     }
 
@@ -98,7 +127,7 @@ export default class Third extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
                         {
-                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) && 
+                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) ? 
                             <div className="list-group">
                             {localStorage.getItem('fbUserId') && 
                              <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
@@ -119,7 +148,7 @@ export default class Third extends React.Component {
                               </a>
                             }
                         </div>
-                        }
+                        : window.location.hash = '#fifth'}
                     </div>
                 </div>
                 <div className="d-flex justify-content-center pb-0 pt-3">

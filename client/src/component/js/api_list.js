@@ -12,4 +12,5 @@ export const API = {
     validation_follower     : url+'/validation/follower',
     registerUser            : url+'/users/register',
     passPhrase              : url+'/users/pass/phrase',
+    share_with_fb           : url+'/validation//share-facebook-media'
 }
