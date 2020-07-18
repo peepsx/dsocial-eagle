@@ -134,7 +134,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     }
 })
 
-router.post('/share-facebok-media', [Access_Token], async (req, res) => {
+router.post('/share-facebook-media', [Access_Token], async (req, res) => {
     let { status } = req.body;
 
     if(!status || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
