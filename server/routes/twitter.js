@@ -87,13 +87,12 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
 router.post('/share-social-status', [Access_Token], async (req, res) => {
     let {status, screenname } = req.body;
 
-    if(!status || status == null || !screenname || screenname == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
+    if(!screenname || screenname == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
     
-    if(status === undefined || screenname === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
+    if(screenname === undefined ) return res.status(200).send({success: false, message: 'Please share with your friends!'})
     
     let TempTwit = await TempTwitter.findOne({username: screenname});
     let api  = await T.get('statuses/user_timeline', {screen_name: screenname, count:100  })
-    console.log('TEXT ', api.data[0].text)
     if(!TempTwit || TempTwit == null) return res.status(404).send({
             success:false,
             message: 'Please complete first steps'
@@ -106,7 +105,7 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
     if(!api.data[0].text.includes(process.env.text) && TempTwit.username !== api.data[0].user.screen_name) {
         return res.status(200).send({
             success: false,
-            message: 'You must share on Facebook and Twitter before continuing to Step 4'
+            message: 'You must share with your friends on twitter'
         })
     }
 
@@ -123,6 +122,36 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
             return res.status(200).send({
                 success: false,
                 message: 'You must share on Facebook and Twitter before continuing to Step 4'
+            });
+        }
+
+    } catch(e) {
+        console.log('ERROR WHILE SHARE_WITH_FACEBOOK', e)
+      return  res.status(401).send({
+                success: false,
+                message: 'Something went wrong'
+            })
+    }
+})
+
+router.post('/share-facebok-media', [Access_Token], async (req, res) => {
+    let { status } = req.body;
+
+    if(!status || status == null) return res.status(200).send({success: false, message: 'Fields is missing!'})
+    
+    if(status === undefined) return res.status(200).send({success: false, message: 'Please share with your friends!'})
+
+    try {
+
+        if(Array.isArray(status) && !status.length) {
+               return res.status(200).send({
+                    success: true,
+                    message: 'You have successfully share with your friends'
+                })
+        } else {
+            return res.status(200).send({
+                success: false,
+                message: 'You must share on Facebook'
             });
         }
 
