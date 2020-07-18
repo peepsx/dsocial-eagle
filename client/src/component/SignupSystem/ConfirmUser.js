@@ -156,7 +156,7 @@ class ConfirmUSer extends React.Component {
 
     render() {
         
-        return localStorage.getItem('username') && localStorage.getItem('twitterName') && localStorage.getItem('googleEmail') && localStorage.getItem('fbUserId') ? (
+        return localStorage.getItem('username') && (localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId')) ? (
             <div className="p-0 d-flex bg-white align-items-lg-center">
             <div className="row no-gutters flex-fill justify-content-center">
                 <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
