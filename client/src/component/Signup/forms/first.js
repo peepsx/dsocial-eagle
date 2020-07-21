@@ -218,7 +218,7 @@ export default class First extends React.Component {
                                 />
                             }
                         /> */}
-                    { this.state.nextBtnStatus === 'Twitter' &&
+                    { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) &&
                     <TwitterLogin loginUrl="https://devserver.dsocial.network/new/auth/twitter"
                     onFailure={this.onFailed}
                     onSuccess={this.onSuccess}
@@ -239,7 +239,7 @@ export default class First extends React.Component {
                         />
                     </div> */}
                     <div className="col-sm mb-3 mb-sm-0">
-                        { this.state.nextBtnStatus === 'Google' &&
+                        { (this.state.nextBtnStatus === 'Google' || localStorage.getItem('googleEmail')) &&
                         <Google
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
