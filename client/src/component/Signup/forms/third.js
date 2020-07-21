@@ -37,7 +37,7 @@ export default class Third extends React.Component {
                 .then(res => {
                     this.setState({ loading: false })
                     if (res.data.success) {
-                        window.location.hash = "#fifth";
+                        // window.location.hash = "#fifth";
                         localStorage.setItem('s3', true)
                     } else if(!res.data.success) {
                         Swal.fire({
