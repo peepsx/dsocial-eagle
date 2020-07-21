@@ -218,7 +218,7 @@ export default class First extends React.Component {
                                 />
                             }
                         /> */}
-                    { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) &&
+                    {/* { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) && */}
                     <TwitterLogin loginUrl="https://devserver.dsocial.network/new/auth/twitter"
                     onFailure={this.onFailed}
                     onSuccess={this.onSuccess}
@@ -230,7 +230,7 @@ export default class First extends React.Component {
                             />
                     }
                     />
-                    }
+                    {/*  } */}
                     </div>
                     {/* <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
@@ -239,12 +239,12 @@ export default class First extends React.Component {
                         />
                     </div> */}
                     <div className="col-sm mb-3 mb-sm-0">
-                        { (this.state.nextBtnStatus === 'Google' || localStorage.getItem('googleEmail')) &&
+                        {/* { (this.state.nextBtnStatus === 'Google' || localStorage.getItem('googleEmail')) && */}
                         <Google
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
-                        }
+                        {/* } */}
                     </div>
                 </div>
                 {/* <div className="columnd-flex justify-content-center mt-2">
@@ -260,7 +260,9 @@ export default class First extends React.Component {
                 <div className="mt-3">
                     <p className="small text-center noteStyle m-auto width-fit-content">NOTE :- Make sure your browser didn't block popups.</p>
                 </div>
-                <div className="d-flex justify-content-center pb-0 mt-2">
+                {
+                    (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail')) &&
+                    <div className="d-flex justify-content-center pb-0 mt-2">
                     <button
                         className="btn btn-custom h-2 min-w-10"
                         onClick={this.checkTelegramUser}
@@ -280,6 +282,7 @@ export default class First extends React.Component {
                         }
                     </button>
                 </div>
+                }
             </div>
         ) : (<div className="card-body p-4 px-lg-5">
             <div className="mb-4 text-center">

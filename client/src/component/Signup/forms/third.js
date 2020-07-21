@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
 import Loader from 'react-loader-spinner';
+import gold from '../../assets/img/gold_img.png'
 
 export default class Third extends React.Component {
     constructor(props) {
@@ -121,6 +122,7 @@ export default class Third extends React.Component {
     render() {
         return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
+                <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
                 <div className="mb-4 text-center">
                     <span className="h4 d-block">Spread the word about dSocial...</span>
                     <p className="w-75 m-auto">Help us spread the word about dSocial to your friends and earn 200 RIX for each platform you post on. Click the buttons below to spread the word.</p>
