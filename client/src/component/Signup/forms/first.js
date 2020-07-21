@@ -204,7 +204,7 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className='noClick col-sm mb-3 mb-sm-0 change'>
+                    <div className='col-sm mb-3 mb-sm-0 change'>
                         {/* <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
