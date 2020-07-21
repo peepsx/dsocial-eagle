@@ -136,6 +136,7 @@ export default class Third extends React.Component {
                              <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
+                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
                                     <span className="mb-0 h6 mb-0">Share The Revolution On Facebook</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
@@ -145,6 +146,7 @@ export default class Third extends React.Component {
                               <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
+                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
                                     <span className="mb-0 h6 mb-0">Tweet About The Revolution On Twitter</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
