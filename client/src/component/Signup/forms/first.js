@@ -196,7 +196,9 @@ export default class First extends React.Component {
             this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')})
         } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
             this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')})
-        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) {
+        } 
+        else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) 
+        {
             this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount')})
         }    
 
