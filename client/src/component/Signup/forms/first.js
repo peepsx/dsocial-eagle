@@ -28,7 +28,7 @@ export default class First extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         if(localStorage.getItem('fb_amount')){
             this.setState({amount: localStorage.getItem('fb_amount')})
         } else if (localStorage.getItem('go_amount')) {
