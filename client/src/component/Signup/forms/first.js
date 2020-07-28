@@ -204,11 +204,12 @@ export default class First extends React.Component {
         let amt = this.state.amount;
         if(localStorage.getItem('fbUserId')){
             amt = 100;
+            this.setState({amount: amt}) 
         }
         if(status) {
             amt = amt + 100
+            this.setState({amount: amt}) 
         }
-        this.setState({amount: amt})    
     }
     onFailed = (error) => {
         alert(error);
