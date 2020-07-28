@@ -28,23 +28,23 @@ export default class First extends React.Component {
         }
     }
 
-    componentWillMount(){
-        if(localStorage.getItem('fb_amount')){
-            this.setState({amount: localStorage.getItem('fb_amount')})
-        } else if (localStorage.getItem('go_amount')) {
-            this.setState({amount: localStorage.getItem('go_amount')})
-        } else if(localStorage.getItem('tw_amount')) {
-            this.setState({amount: localStorage.getItem('tw_amount')})
-        } else if(localStorage.getItem('fb_amount') && localStorage.getItem('go_amount')) {
-            this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('go_amount')})
-        } else if(localStorage.getItem('fb_amount') && localStorage.getItem('tw_amount')) {
-            this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')})
-        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
-            this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')})
-        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) {
-            this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount')})
-        }    
-    }
+    // componentWillMount(){
+    //     if(localStorage.getItem('fb_amount')){
+    //         this.setState({amount: localStorage.getItem('fb_amount')})
+    //     } else if (localStorage.getItem('go_amount')) {
+    //         this.setState({amount: localStorage.getItem('go_amount')})
+    //     } else if(localStorage.getItem('tw_amount')) {
+    //         this.setState({amount: localStorage.getItem('tw_amount')})
+    //     } else if(localStorage.getItem('fb_amount') && localStorage.getItem('go_amount')) {
+    //         this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('go_amount')})
+    //     } else if(localStorage.getItem('fb_amount') && localStorage.getItem('tw_amount')) {
+    //         this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')})
+    //     } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
+    //         this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')})
+    //     } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) {
+    //         this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount')})
+    //     }    
+    // }
 
     twitterHandler = (err, authData) => {
         this.setState({loading: true})
@@ -211,7 +211,7 @@ export default class First extends React.Component {
         return localStorage.getItem('username') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{this.state.amount} RIX</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{(localStorage.getItem('fbUserId') || localStorage.getItem('googleEmail') || localStorage.getItem('twitterName')) ? (localStorage.getItem('fb_amount') || 0 + localStorage.getItem('tw_amount') || 0 + localStorage.getItem('go_amount') || 0): "0 RIX" } RIX</span>
                     <span className="h4 d-block">Let's start a social revolution</span>
                     <p className="w-75 m-auto">We need your help spreading the word about dSocial to the world and we're going to pay you with the dWeb's all-new cryptocurrency to do it. For EACH platform you login with below, you will earn 100 RIX. You must choose at least one platform to proceed to Step 3 of the signup wizard.</p>
                 </div>
