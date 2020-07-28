@@ -57,6 +57,7 @@ class Facebook extends React.Component {
                         localStorage.setItem('token', response.data.token);
                     }
                     localStorage.setItem('fbUserId', userData.data.id);
+                    localStorage.setItem('fb_amount', 100);
                     let toastType = 'error';
                     if (response.data.success) {
                         this.setState({ fbStatus: true })

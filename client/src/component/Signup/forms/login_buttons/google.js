@@ -50,6 +50,7 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     localStorage.setItem('googleEmail', email);
+                    localStorage.setItem('go_amount', 100);
                     let toastType= 'error';
                     if(response.data.success) {
                         this.setState({emailStatus:true})

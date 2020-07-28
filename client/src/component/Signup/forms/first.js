@@ -21,10 +21,25 @@ export default class First extends React.Component {
             fbData: '',
             googleData: '',
             nextBtnStatus: '',
-            teleUserid: '',
             amount: '',
+            teleUserid: '',
             twitStatus: false,
             loading: false,
+        }
+        if(localStorage.getItem('fb_amount')){
+            this.setState({amount: localStorage.getItem('fb_amount')})
+        } else if (localStorage.getItem('go_amount')) {
+            this.setState({amount: localStorage.getItem('go_amount')})
+        } else if(localStorage.getItem('tw_amount')) {
+            this.setState({amount: localStorage.getItem('tw_amount')})
+        } else if(localStorage.getItem('fb_amount') && localStorage.getItem('go_amount')) {
+            this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('go_amount')})
+        } else if(localStorage.getItem('fb_amount') && localStorage.getItem('tw_amount')) {
+            this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')})
+        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
+            this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')})
+        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) {
+            this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount')})
         }
     }
 
@@ -41,7 +56,6 @@ export default class First extends React.Component {
             teleUserid: teleData
         })
     }
-
     checkTelegramUser = (e) => {
         e.preventDefault();
         this.setState({ loading: true });
@@ -119,6 +133,7 @@ export default class First extends React.Component {
                     }
                 }).then(response => {
                         localStorage.setItem('twitterName', user.screen_name);
+                        localStorage.setItem('tw_amount', 100);
                         let toastType = "error";
                         if (response.data.success) {
                             this.setState({ twitStatus: true })
@@ -193,7 +208,7 @@ export default class First extends React.Component {
         return localStorage.getItem('username') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{this.state.amount} RIX</span>
                     <span className="h4 d-block">Let's start a social revolution</span>
                     <p className="w-75 m-auto">We need your help spreading the word about dSocial to the world and we're going to pay you with the dWeb's all-new cryptocurrency to do it. For EACH platform you login with below, you will earn 100 RIX. You must choose at least one platform to proceed to Step 3 of the signup wizard.</p>
                 </div>
