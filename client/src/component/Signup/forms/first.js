@@ -201,6 +201,14 @@ export default class First extends React.Component {
         this.setState({
             nextBtnStatus: status
         })
+        let amt = this.state.amount;
+        if(localStorage.getItem('fbUserId')){
+            amt = 100;
+        }
+        if(status) {
+            amt = amt + 100
+        }
+        this.setState({amount: amt})    
     }
     onFailed = (error) => {
         alert(error);
