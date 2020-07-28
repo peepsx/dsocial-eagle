@@ -28,24 +28,6 @@ export default class First extends React.Component {
         }
     }
 
-    // componentWillMount(){
-    //     if(localStorage.getItem('fb_amount')){
-    //         this.setState({amount: localStorage.getItem('fb_amount')})
-    //     } else if (localStorage.getItem('go_amount')) {
-    //         this.setState({amount: localStorage.getItem('go_amount')})
-    //     } else if(localStorage.getItem('tw_amount')) {
-    //         this.setState({amount: localStorage.getItem('tw_amount')})
-    //     } else if(localStorage.getItem('fb_amount') && localStorage.getItem('go_amount')) {
-    //         this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('go_amount')})
-    //     } else if(localStorage.getItem('fb_amount') && localStorage.getItem('tw_amount')) {
-    //         this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')})
-    //     } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
-    //         this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')})
-    //     } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) {
-    //         this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount')})
-    //     }    
-    // }
-
     twitterHandler = (err, authData) => {
         this.setState({loading: true})
         if(authData) {
@@ -201,15 +183,23 @@ export default class First extends React.Component {
         this.setState({
             nextBtnStatus: status
         })
-        let amt = this.state.amount;
-        if(localStorage.getItem('fbUserId')){
-            amt = 100;
-            this.setState({amount: amt}) 
-        }
-        if(status) {
-            amt = amt + 100
-            this.setState({amount: amt}) 
-        }
+        
+        if(localStorage.getItem('fb_amount')){
+            this.setState({amount: localStorage.getItem('fb_amount')})
+        } else if (localStorage.getItem('go_amount')) {
+            this.setState({amount: localStorage.getItem('go_amount')})
+        } else if(localStorage.getItem('tw_amount')) {
+            this.setState({amount: localStorage.getItem('tw_amount')})
+        } else if(localStorage.getItem('fb_amount') && localStorage.getItem('go_amount')) {
+            this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('go_amount')})
+        } else if(localStorage.getItem('fb_amount') && localStorage.getItem('tw_amount')) {
+            this.setState({amount: localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')})
+        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
+            this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')})
+        } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) {
+            this.setState({amount: localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount')})
+        }    
+
     }
     onFailed = (error) => {
         alert(error);
