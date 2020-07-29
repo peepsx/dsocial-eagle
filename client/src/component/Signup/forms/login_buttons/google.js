@@ -50,11 +50,11 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     localStorage.setItem('googleEmail', email);
-                    this.props.amountSave(100);
                     let toastType= 'error';
                     if(response.data.success) {
                         this.setState({emailStatus:true})
                         toastType = 'success'
+                        this.props.amountSave(100);
                         this.props.handleNextShowBtn('Telegram')
                     }
                     toast(response.data.message, {
