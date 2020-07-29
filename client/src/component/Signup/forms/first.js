@@ -203,6 +203,7 @@ export default class First extends React.Component {
                 <div className="row">
                     <div className="col-sm mb-3 mb-sm-0">
                         <Facebook
+                            amountSave = {this.amountSave}
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
@@ -244,6 +245,7 @@ export default class First extends React.Component {
                     <div className="col-sm mb-3 mb-sm-0">
                         {/* { (this.state.nextBtnStatus === 'Google' || localStorage.getItem('googleEmail')) && */}
                         <Google
+                            amountSave = {this.amountSave}
                             handleNextShowBtn={this.handleNextShowBtn}
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
