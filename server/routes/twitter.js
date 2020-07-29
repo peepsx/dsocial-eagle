@@ -27,7 +27,7 @@ const { TempInstagram } = require('../models/TempInstagram');
 router.post('/twitter-details', [Access_Token],  async(req,res)=>{
     let {username, id} = req.body
 
-    if(!username || !id) return res.status(400).send({success: false, message: 'Fields are missing'})
+    if(!username) return res.status(400).send({success: false, message: 'Fields are missing'})
     try{
 
         let description = await T.get('users/search', { q: `@${username}` });
@@ -49,11 +49,11 @@ router.post('/twitter-details', [Access_Token],  async(req,res)=>{
 
           TwitterNew.save()
           .then(async ()=>{
-
-              await TempFacebook.findOneAndUpdate({facebookid: id},
+            if(id) {
+                await TempFacebook.findOneAndUpdate({facebookid: id},
                     {$set: {fbUserLocation: description.data[0].location}},
                     {new: true});
-
+            }
               res.status(200).send({
                   success: true,
                   message:'You have logged in successfully!'
