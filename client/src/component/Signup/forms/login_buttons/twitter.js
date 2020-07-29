@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Button(props) {
-    console.log('STATUS', props.nextBtnStatus)
+    console.log('STATUS Tw', props.nextBtnStatus, props.nextBtnStatus !== '')
     return (
         <button
             className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"

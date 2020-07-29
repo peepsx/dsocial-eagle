@@ -75,7 +75,7 @@ export default class Google extends React.Component {
     }
 
     render() {
-        console.log('STATUS', this.props.nextBtnStatus)
+        console.log('STATUS GO', this.props.nextBtnStatus)
         return (
             <button
                 onClick={this.handleGoogleClick}
