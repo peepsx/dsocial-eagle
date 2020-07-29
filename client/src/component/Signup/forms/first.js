@@ -21,7 +21,7 @@ export default class First extends React.Component {
             fbData: '',
             googleData: '',
             nextBtnStatus: '',
-            amount: '',
+            amount: 0,
             teleUserid: '',
             twitStatus: false,
             loading: false,
@@ -35,8 +35,8 @@ export default class First extends React.Component {
             this.handleTwitDataSave(authData);
         }
     }
-    amountSave = (amount) => {
-        let amt = amount + this.state.amount;
+    amountSave = (reward) => {
+        let amt = reward + this.state.amount;
         this.setState({amount: amt});
     }
     getTelegramValue = (teleData) => {
