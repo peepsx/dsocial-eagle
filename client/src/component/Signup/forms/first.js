@@ -58,6 +58,7 @@ export default class First extends React.Component {
         ) {
             localStorage.setItem('s1', true)
             window.location.hash = "#third";
+            localStorage.setItem('login_reward', this.state.amount);
         } else {
             this.setState({ loading: false })
             Swal.fire({
@@ -121,7 +122,8 @@ export default class First extends React.Component {
                     }
                 }).then(response => {
                         localStorage.setItem('twitterName', user.screen_name);
-                        localStorage.setItem('tw_amount', 100);
+                        let amt = this.state.amount + 100;
+                        this.setState({amount: amt});
                         let toastType = "error";
                         if (response.data.success) {
                             this.setState({ twitStatus: true })
