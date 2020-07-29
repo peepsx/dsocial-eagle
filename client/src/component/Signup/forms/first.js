@@ -35,7 +35,10 @@ export default class First extends React.Component {
             this.handleTwitDataSave(authData);
         }
     }
-
+    amountSave = (amount) => {
+        let amt = amount + this.state.amount;
+        this.setState({amount: amt});
+    }
     getTelegramValue = (teleData) => {
         this.setState({
             teleUserid: teleData
@@ -183,29 +186,6 @@ export default class First extends React.Component {
         this.setState({
             nextBtnStatus: status
         })
-        setInterval(() => {
-            if(localStorage.getItem('fb_amount')){
-                this.setState({amount: localStorage.getItem('fb_amount')})
-            } else if (localStorage.getItem('go_amount')) {
-                this.setState({amount: localStorage.getItem('go_amount')})
-            } else if(localStorage.getItem('tw_amount')) {
-                this.setState({amount: localStorage.getItem('tw_amount')})
-            } else if(localStorage.getItem('fb_amount') && localStorage.getItem('go_amount')) {
-                let  amt = localStorage.getItem('fb_amount') + localStorage.getItem('go_amount');
-                this.setState({amount: amt})
-            } else if(localStorage.getItem('fb_amount') && localStorage.getItem('tw_amount')) {
-                let amt = localStorage.getItem('fb_amount') + localStorage.getItem('tw_amount')
-                this.setState({amount: amt})
-            } else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount')) {
-                let amt = localStorage.getItem('tw_amount') + localStorage.getItem('go_amount')
-                this.setState({amount: amt})
-            } 
-            else if(localStorage.getItem('tw_amount') && localStorage.getItem('go_amount') && localStorage.getItem('fb_amount')) 
-            {
-                let amt = localStorage.getItem('tw_amount') + localStorage.getItem('go_amount') + localStorage.getItem('fb_amount');
-                this.setState({amount: amt})
-            }  
-        }, 0);
     }
     onFailed = (error) => {
         alert(error);
