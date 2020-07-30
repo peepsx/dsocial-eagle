@@ -1,12 +1,11 @@
 import React from 'react';
 
 export default function Button(props) {
-    console.log('STATUS Tw', props.nextBtnStatus, props.nextBtnStatus !== '')
     return (
         <button
             className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
             type="button"
-            disabled={(props.nextBtnStatus !== '')}
+            disabled={localStorage.getItem('twitter_login')}
         >   
             <p className='warning'style={{color: 'black', position: 'absolute', top: 0, right: '20px'}}>+<span> 100 RIX</span></p>
             <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />

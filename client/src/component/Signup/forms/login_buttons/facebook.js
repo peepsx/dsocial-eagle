@@ -62,6 +62,7 @@ class Facebook extends React.Component {
                         this.setState({ fbStatus: true })
                         toastType = 'success'
                         this.props.amountSave(100);
+                        localStorage.setItem('facebooK_login', true)
                         this.props.handleNextShowBtn('Twitter')
                     }
                     toast(response.data.message, {
@@ -88,7 +89,7 @@ class Facebook extends React.Component {
                 onClick={this.handleFbClick}
                 type="button"
                 className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
-                disabled={(this.props.nextBtnStatus) !== ''}
+                disabled={localStorage.getItem('facebooK_login')}
             >
                 <p className='warning' style={{color: 'black', position: 'absolute',top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />

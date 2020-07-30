@@ -50,6 +50,7 @@ export default class Google extends React.Component {
             })
                 .then(response => {
                     localStorage.setItem('googleEmail', email);
+                    localStorage.setItem('google_login', true)
                     let toastType= 'error';
                     if(response.data.success) {
                         this.setState({emailStatus:true})
@@ -75,13 +76,12 @@ export default class Google extends React.Component {
     }
 
     render() {
-        console.log('STATUS GO', this.props.nextBtnStatus)
         return (
             <button
                 onClick={this.handleGoogleClick}
                 className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
                 type="button"
-                disabled={(this.props.nextBtnStatus !== '')}
+                disabled={localStorage.getItem('google_login')}
             >
                 <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
