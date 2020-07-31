@@ -80,27 +80,48 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                                 username: TempUser.username,
                                                 password: TempUser.password,
                                             })
-                                            let FaceBook = new faceAuth({
-                                                follower: TempFace.follower,
-                                                facebookid: TempFace.facebookid,
-                                                fbPhoto: TempFace.fbPhoto,
-                                                fbUserName: TempFace.fbUserName,
-                                                password: TempFace.password
-                                            });
-                                            let Twitter = new TwitterAuth({
-                                                username: TempTwit.username,
-                                                follower: TempTwit.follower,
-                                                profileDescription: TempTwit.profileDescription,
-                                                followerscount: TempTwit.followerscount
-                                            });
+                                            if(fbUserId){
+                                                let FaceBook = new faceAuth({
+                                                    follower: TempFace.follower,
+                                                    facebookid: TempFace.facebookid,
+                                                    fbPhoto: TempFace.fbPhoto,
+                                                    fbUserName: TempFace.fbUserName,
+                                                    password: TempFace.password
+                                                });
+                                                FaceBook.save()
+                                                .then(async user => {   
+                                                    await TempFacebook.findOneAndDelete({facebookid: user.facebookid});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                            }
+                                            if(twitterScreenName) {
+                                                let Twitter = new TwitterAuth({
+                                                    username: TempTwit.username,
+                                                    follower: TempTwit.follower,
+                                                    profileDescription: TempTwit.profileDescription,
+                                                    followerscount: TempTwit.followerscount
+                                                });
+                                                Twitter.save()
+                                                .then(async user => {
+                                                    await TempTwitter.findOneAndDelete({username: user.username});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                            }
                                             // let Instagram = new InstaAuth({
                                             //     instaid: TempInsta.instaid,
                                             //     follower: TempInsta.follower,
                                             //     username: TempInsta.username
                                             // });
-                                            let Google = new googleAuth({
-                                                GmailAddress: TempGo.GmailAddress
-                                            });
+                                            if(googleEmail) {
+                                                let Google = new googleAuth({
+                                                    GmailAddress: TempGo.GmailAddress
+                                                });
+                                                Google.save()
+                                                .then(async user => {
+                                                    await TempGoogle.findOneAndDelete({GmailAddress: user.GmailAddress});
+                                                })
+                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
+                                            }
                                             // let Telegram = new TelegramDetail({
                                             //     telegram_id: TempTele.telegram_id,
                                             //     username: TempTele.username
@@ -110,31 +131,16 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                                                     await TempUser.findOneAndDelete({username: user.username})
                                                 })
                                                 .catch(err => console.log("while DELETING TEMP USER", err));
-                                             Twitter.save()
-                                                .then(async user => {
-                                                    await TempTwitter.findOneAndDelete({username: user.username});
-                                                })
-                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                             //  Instagram.save()
                                             //     .then(async user => {
                                             //         await TempInstagram.findOneAndDelete({username: user.username});
                                             //     })
                                             //     .catch(e => console.log('WHILE DELETING TEMP USER', e))
-                                             Google.save()
-                                                .then(async user => {
-                                                    await TempGoogle.findOneAndDelete({GmailAddress: user.GmailAddress});
-                                                })
-                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                             //  Telegram.save()
                                             //     .then(async user => {   
                                             //         await TempTelegram.findOneAndDelete({username: user.username});
                                             //     })
                                             //     .catch(e => console.log('WHILE DELETING TEMP USER', e))
-                                             FaceBook.save()
-                                                .then(async user => {   
-                                                    await TempFacebook.findOneAndDelete({facebookid: user.facebookid});
-                                                })
-                                                .catch(e => console.log('WHILE DELETING TEMP USER', e))
                                              await NewUser.save();
 
                                             return res.status(200).send({
