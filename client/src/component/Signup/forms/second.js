@@ -90,7 +90,7 @@ export default class Second extends React.Component {
             // }
             if (localStorage.getItem('twitterName') && this.state.clickCounter) {
                 this.apiCall();
-                localStorage.setItem('link', this.state.amount)
+                localStorage.setItem('like_reward', this.state.amount)
             } else {
                 this.setState({ loading: false })
                 window.location.hash = '#fourth'
@@ -153,7 +153,7 @@ export default class Second extends React.Component {
         return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{this.state.amount} RIX</span>
                     <span className="h4 d-block">Tune in to our fight to decentralize the web...</span>
                     <p className="w-75 m-auto">Like, follow and subscribe to @Peepsology on the platforms below and earn 100 RIX for EACH platform you follow us on.</p>
                 </div>
