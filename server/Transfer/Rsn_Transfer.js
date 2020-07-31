@@ -9,7 +9,7 @@ const fetch = require('node-fetch');                                    // node 
 const { TextEncoder, TextDecoder } = require('util');
 
 module.exports = {
-    Rsn_Transfer: async (arisen_username, id) => {
+    Rsn_Transfer: async (arisen_username, id, amount) => {
       return  new Promise(async (resolve, reject) => {
             try {
                 let rsn = new RSN(config);
@@ -19,7 +19,7 @@ module.exports = {
                             message: `Fields are missing !`
                         })
                 }
-                  rsn.transfer(process.env.TRANSFER_USER, arisen_username, process.env.AMOUNT, '', config)
+                  rsn.transfer(process.env.TRANSFER_USER, arisen_username, amount, '', config)
                       .then(async (transfer) => {
                           let rsn_transfered = new Rsn_Transfer({
                               user: id,

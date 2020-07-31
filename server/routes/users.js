@@ -28,7 +28,7 @@ let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
-    let { arisen_username, ip } = req.body;
+    let { arisen_username, ip, amount } = req.body;
     let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName, username } = req.body.userDetails
     console.log(arisen_username, ip, fbUserId, googleEmail,/** instaUserId, teleUserId, */ twitterScreenName, username,'USER IDS');
     let UserOne = await UserAuth.findOne({arisen_username: arisen_username })
@@ -68,7 +68,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
                 let user = await NewUser.save();
                 if(lookup.data.details.account_name === arisen_username) {
                     if (arisen_username && UserOne == null) {
-                           Rsn_Transfer(arisen_username, user.id)
+                           Rsn_Transfer(arisen_username, user.id, amount)
                                     .then(async TRANSFER => {
                                         if(TRANSFER.success) {
 
