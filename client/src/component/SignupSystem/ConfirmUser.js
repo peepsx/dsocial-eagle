@@ -89,7 +89,7 @@ class ConfirmUSer extends React.Component {
                     data: {
                         arisen_username: this.state.arisen_username,
                         ip: this.state.ip,
-                        amount: amt.toFixed(4) + 'RIX',
+                        amount: `${amt.toFixed(4)} RIX`,
                         userDetails: {
                             fbUserId: localStorage.getItem('fbUserId'),
                             googleEmail: localStorage.getItem('googleEmail'),
