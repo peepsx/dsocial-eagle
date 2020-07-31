@@ -82,14 +82,14 @@ class ConfirmUSer extends React.Component {
             // this.setState({ loading: true })
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
-                let amt = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0) + 0.0000;
+                let amt = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0);
                 axios({
                     method: 'post',
                     url: API.arisen_user_detail,
                     data: {
                         arisen_username: this.state.arisen_username,
                         ip: this.state.ip,
-                        amount: amt,
+                        amount: amt.toFixed(4),
                         userDetails: {
                             fbUserId: localStorage.getItem('fbUserId'),
                             googleEmail: localStorage.getItem('googleEmail'),
