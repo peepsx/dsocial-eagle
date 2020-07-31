@@ -71,7 +71,7 @@ export default class Third extends React.Component {
         e.preventDefault();
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
-            if (Array.isArray(this.state.fbPostResponse) && localStorage.getItem('twitterName')) {
+            if (Array.isArray(this.state.fbPostResponse) || localStorage.getItem('twitterName')) {
                 Axios({
                     method: 'POST',
                     url: API.user_share_validation,
