@@ -82,14 +82,14 @@ class ConfirmUSer extends React.Component {
             // this.setState({ loading: true })
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
-                let amt = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0);
+                let amt = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0) + 0.0000;
                 axios({
                     method: 'post',
                     url: API.arisen_user_detail,
                     data: {
                         arisen_username: this.state.arisen_username,
                         ip: this.state.ip,
-                        amount: amt+0.0000,
+                        amount: amt,
                         userDetails: {
                             fbUserId: localStorage.getItem('fbUserId'),
                             googleEmail: localStorage.getItem('googleEmail'),
@@ -185,7 +185,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            `That's me. Send me ${parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0)} RIX`
+                            `That's me. Send me ${parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0)}.0000 RIX`
                     }
                 </button>
                 </div>
