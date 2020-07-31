@@ -74,7 +74,6 @@ class ConfirmUSer extends React.Component {
         e.preventDefault();
         this.setState({ loading: true })
         this.setState({arisen_username: localStorage.getItem('username')});
-        console.log('STATE', this.state.arisen_username, localStorage.getItem('username'))
         let userValidation = await axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${localStorage.getItem('username')}`)
         
         if(!userValidation) return; 
