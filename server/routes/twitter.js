@@ -111,20 +111,14 @@ router.post('/share-social-status', [Access_Token], async (req, res) => {
 
     try {
 
-        if(Array.isArray(status) && !status.length) {
+        
                await TempTwitter.findOneAndUpdate({username: screenname}, {$set: {follower: true}})
                
                return res.status(200).send({
                     success: true,
-                    message: 'You have successfully share with your friends'
+                    message: 'You have successfully share with your twitter'
                 })
-        } else {
-            return res.status(200).send({
-                success: false,
-                message: 'You must share on Facebook and Twitter before continuing to Step 4'
-            });
-        }
-
+    
     } catch(e) {
         console.log('ERROR WHILE SHARE_WITH_FACEBOOK', e)
       return  res.status(401).send({
