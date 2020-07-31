@@ -185,7 +185,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            `That's me. Send me ${localStorage.getItem('login_reward') + localStorage.getItem('like_reward') + localStorage.getItem('share_reword') + 0.0000} RIX`
+                            `That's me. Send me ${localStorage.getItem('login_reward') + localStorage.getItem('like_reward') + localStorage.getItem('share_reward') + 0.0000} RIX`
                     }
                 </button>
                 </div>
