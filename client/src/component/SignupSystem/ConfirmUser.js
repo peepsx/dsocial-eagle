@@ -82,14 +82,14 @@ class ConfirmUSer extends React.Component {
             // this.setState({ loading: true })
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
-                let amt = localStorage.getItem('login_reward') + (localStorage.getItem('like_reward') || 0) + (localStorage.getItem('share_reword') || 0);
+                let amt = localStorage.getItem('login_reward') + localStorage.getItem('like_reward') + localStorage.getItem('share_reward');
                 axios({
                     method: 'post',
                     url: API.arisen_user_detail,
-                    amount: amt+0.0000,
                     data: {
                         arisen_username: this.state.arisen_username,
                         ip: this.state.ip,
+                        amount: amt+0.0000,
                         userDetails: {
                             fbUserId: localStorage.getItem('fbUserId'),
                             googleEmail: localStorage.getItem('googleEmail'),
@@ -185,7 +185,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            `That's me. Send me ${localStorage.getItem('login_reward') + (localStorage.getItem('like_reward') || 0) + (localStorage.getItem('share_reword') || 0) + 0.0000} RIX`
+                            `That's me. Send me ${localStorage.getItem('login_reward') + localStorage.getItem('like_reward') + localStorage.getItem('share_reword') + 0.0000} RIX`
                     }
                 </button>
                 </div>
