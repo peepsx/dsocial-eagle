@@ -83,7 +83,8 @@ class ConfirmUSer extends React.Component {
             // this.setState({ loading: true })
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
-                let amt = localStorage.getItem('login_reward') + (localStorage.getItem('like_reward') || 0) + (localStorage.getItem('share_reword'));
+                let amt = localStorage.getItem('login_reward') + (localStorage.getItem('like_reward') || 0) + (localStorage.getItem('share_reword') || 0);
+                console.log('total_reward', amt+0.0000)
                 this.setState({total_reward: amt+0.0000})
                 axios({
                     method: 'post',
