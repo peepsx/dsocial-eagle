@@ -14,6 +14,7 @@ export default class Second extends React.Component {
             clickCounter:0,
             loading: false,
             subscriber: '',
+            amount: 0
         }
     }
 
@@ -29,6 +30,8 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
+        let amt = this.state.amount + 100
+        this.setState({amount: amt})
     }
 
     handleYoutubeLink = () => {
@@ -36,6 +39,8 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
+        let amt = this.state.amount + 100
+        this.setState({amount: amt})
     }
 
     handleTwitClick = () => {
@@ -43,6 +48,8 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
+        let amt = this.state.amount + 100
+        this.setState({amount: amt})
     }
 
 
@@ -83,9 +90,11 @@ export default class Second extends React.Component {
             // }
             if (localStorage.getItem('twitterName') && this.state.clickCounter) {
                 this.apiCall();
+                localStorage.setItem('link', this.state.amount)
             } else {
                 this.setState({ loading: false })
-                window.location.hash = '#fourth'    
+                window.location.hash = '#fourth'
+                localStorage.setItem('like_reward', this.state.amount)
             //     Swal.fire({
             //         title: 'Whoops!',
             //         text: "You must follow all of Peeps' social media pages before continuing!!",
@@ -155,7 +164,7 @@ export default class Second extends React.Component {
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
                                 <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
-                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
+                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> {this.state.amount} RIX</span></p>
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like Peeps
                                 </button>

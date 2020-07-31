@@ -13,6 +13,7 @@ export default class Third extends React.Component {
         this.state = {
             fbPostResponse: '',
             loading: false,
+            amount: 0
         }
     }
 
@@ -39,6 +40,8 @@ export default class Third extends React.Component {
                     if (res.data.success) {
                         // window.location.hash = "#fifth";
                         localStorage.setItem('s3', true)
+                        let amt = this.state.amount + 100;
+                        this.setState({amount: amt})
                     } else if(!res.data.success) {
                         Swal.fire({
                             title: 'Error',
@@ -60,6 +63,8 @@ export default class Third extends React.Component {
     handleTweet = () => {
         const text = "I just joined dSocial, a %23decentralized social network that cannot censor its users. Join the %23dweb revolution at https://dsocial.network"
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
+        let amt = this.state.amount + 100;
+        this.setState({amount: amt})
     }
 
     handleNextStep = (e) => {
@@ -83,6 +88,7 @@ export default class Third extends React.Component {
                         if (res.data.success) {
                             window.location.hash = "#fifth";
                             localStorage.setItem('s3', true)
+                            localStorage.setItem('share_reward', this.state.amount)
                         } else if(!res.data.success) {
                             Swal.fire({
                                 title: 'Error',
