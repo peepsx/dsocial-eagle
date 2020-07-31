@@ -82,9 +82,12 @@ class ConfirmUSer extends React.Component {
             // this.setState({ loading: true })
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
+                let amt = localStorage.getItem('login_reward') + (localStorage.getItem('like_reward') || 0) + (localStorage.getItem('share_reword'));
+
                 axios({
                     method: 'post',
                     url: API.arisen_user_detail,
+                    amount: amt,
                     data: {
                         arisen_username: this.state.arisen_username,
                         ip: this.state.ip,
