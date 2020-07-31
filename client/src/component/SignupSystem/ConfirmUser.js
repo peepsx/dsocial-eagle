@@ -11,6 +11,7 @@ class ConfirmUSer extends React.Component {
         this.state = {
             loading: false,
             arisen_username: '',
+            total_reward: 0,
             error: '',
             ip: {
                 v4: '',
@@ -83,11 +84,11 @@ class ConfirmUSer extends React.Component {
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
                 let amt = localStorage.getItem('login_reward') + (localStorage.getItem('like_reward') || 0) + (localStorage.getItem('share_reword'));
-
+                this.setState({total_reward: amt+0.0000})
                 axios({
                     method: 'post',
                     url: API.arisen_user_detail,
-                    amount: amt,
+                    amount: amt+0.0000,
                     data: {
                         arisen_username: this.state.arisen_username,
                         ip: this.state.ip,
@@ -186,7 +187,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            "That's me. Send me 1000.0000 RIX"
+                            `That's me. Send me ${this.state.total_reward} RIX`
                     }
                 </button>
                 </div>
