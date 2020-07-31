@@ -10,11 +10,6 @@ module.exports = {
     RSN_TRANSFER: async (req, res, next) => {
         let { fbUserId, googleEmail, /**instaUserId, teleUserId, */ twitterScreenName } = req.body.userDetails;
 
-        if(fbUserId == undefined  || googleEmail == undefined || /**instaUserId == undefined || */ twitterScreenName == undefined) {
-            return res.status(200).send({
-                message: 'Fields are missing'
-            })
-        }
         if(fbUserId) {
             let facebook = await TempFacebook.findOne({facebookid: fbUserId});
             if(!facebook.facebookid || !facebook.fbUserName || facebook === null ) {
@@ -44,7 +39,6 @@ module.exports = {
         }
         if(fbUserId || googleEmail || twitterScreenName) {
             next();
-
         }
         else {
             return res.status(200).send({
