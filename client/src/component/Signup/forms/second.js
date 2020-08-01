@@ -86,7 +86,7 @@ export default class Second extends React.Component {
         e.preventDefault();
         if (localStorage.getItem('s1')) {
             this.setState({ loading: true });
-            if (localStorage.getItem('twitterName') && this.state.clickCounter) {
+            if ((localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId')) && this.state.clickCounter) {
                 this.apiCall();
                 localStorage.setItem('like_reward', this.state.amount)
             } else {
