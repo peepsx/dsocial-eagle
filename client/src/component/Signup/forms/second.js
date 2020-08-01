@@ -84,7 +84,7 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        if(!localStorage.getItem('twitterName') && !localStorage.getItem('facebook')) {
+        if(!localStorage.getItem('twitterName') && !localStorage.getItem('fbUserId')) {
             localStorage.setItem('s2', true);
             localStorage.setItem('s3', true);
             localStorage.setItem('like_reward', this.state.amount)
