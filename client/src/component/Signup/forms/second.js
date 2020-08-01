@@ -84,6 +84,7 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
+        console.log('NEXT', localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null)
         if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
             window.location.hash = '#fifth'
             localStorage.setItem('s2', true);
