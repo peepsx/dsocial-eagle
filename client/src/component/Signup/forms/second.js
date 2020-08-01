@@ -158,7 +158,7 @@ export default class Second extends React.Component {
         return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{this.state.amount} RIX</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(this.state.amount)} RIX</span>
                     <span className="h4 d-block">Tune in to our fight to decentralize the web...</span>
                     <p className="w-75 m-auto">Like, follow and subscribe to @Peepsology on the platforms below and earn 100 RIX for EACH platform you follow us on.</p>
                 </div>
@@ -169,7 +169,7 @@ export default class Second extends React.Component {
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
                                 <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
-                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> {this.state.amount} RIX</span></p>
+                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like Peeps
                                 </button>
