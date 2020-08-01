@@ -32,7 +32,7 @@ export default class Fifth extends React.Component {
                         </div>
                         <h2 className="mt-auto mb-auto ml-2">You Got Coins!</h2>
                     </div>
-                    <p>1000.0000 RIX has been sent to {localStorage.getItem('username')} successfully.</p>
+                    <p>{parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0)}.0000 RIX has been sent to {localStorage.getItem('username')} successfully.</p>
                     <span className="h5 d-block">{arisenMessage}</span>
                     <a className="d-block mb-2 mt-2" href={`https://data.arisen.network/accounts/${username || localStorage.getItem('username')}`} target="_blank" rel="noopener noreferrer">Click here to see your transaction</a>
                     <a className="d-block mb-2 mt-2" href="https://arisen.network/dwallet" target="_blank" rel="noopener noreferrer">Manage your coins with dWallet</a>

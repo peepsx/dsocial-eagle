@@ -39,8 +39,37 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
-        let amt = this.state.amount + 100
-        this.setState({amount: amt})
+        const googleAccessToken = localStorage.getItem('goggle-access')
+    if (window.gapi.client.youtube) {
+        Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
+            headers: {
+                Authorization: 'Bearer ' + googleAccessToken
+            }
+        })
+            .then((response) => {
+                if (response.data.items) {
+                    for (let item of response.data.items) {
+                        if (item.snippet.title === 'Peeps') {
+                            let amt = this.state.amount + 100
+                            this.setState({amount: amt})
+                        }
+                    }
+                }
+            })
+            .catch(err => console.error('Subscribe error', err))
+    } else {
+        this.setState({ loading: false })
+        Swal.fire({
+            title: 'Error',
+            text: 'Data Lost, due to roloading of the page !! ',
+            icon: "warning",
+            showCancelButton: false,
+            confirmButtonText: 'Okay',
+        })
+            .then(() => {
+                window.open(env.liveStatus)
+            })
+    }
     }
 
     handleTwitClick = () => {
@@ -55,39 +84,8 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        // const googleAccessToken = localStorage.getItem('goggle-access')
         if (localStorage.getItem('s1')) {
             this.setState({ loading: true });
-            // let youtubeTitle;
-            // if (window.gapi.client.youtube) {
-                // await Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
-                //     headers: {
-                //         Authorization: 'Bearer ' + googleAccessToken
-                //     }
-                // })
-                //     .then((response) => {
-                //         if (response.data.items) {
-                //             for (let item of response.data.items) {
-                //                 if (item.snippet.title === 'Peeps') {
-                //                     youtubeTitle = item.snippet.title;
-                //                 }
-                //             }
-                //         }
-                //     })
-                //     .catch(err => console.error('Subscribe error', err))
-            // } else {
-            //     this.setState({ loading: false })
-            //     Swal.fire({
-            //         title: 'Error',
-            //         text: 'Data Lost, due to roloading of the page !! ',
-            //         icon: "warning",
-            //         showCancelButton: false,
-            //         confirmButtonText: 'Okay',
-            //     })
-            //         .then(() => {
-            //             window.open(env.liveStatus)
-            //         })
-            // }
             if (localStorage.getItem('twitterName') && this.state.clickCounter) {
                 this.apiCall();
                 localStorage.setItem('like_reward', this.state.amount)

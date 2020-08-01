@@ -83,6 +83,7 @@ class ConfirmUSer extends React.Component {
             if (this.state.arisen_username !== '') {
                 this.setState({ error: false })
                 let amt = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0);
+                this.setState({total_reward: amt})
                 axios({
                     method: 'post',
                     url: API.arisen_user_detail,
@@ -185,7 +186,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            `That's me. Send me ${parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0)}.0000 RIX`
+                            `That's me. Send me ${this.state.total_reward}.0000 RIX`
                     }
                 </button>
                 </div>
