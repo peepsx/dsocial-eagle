@@ -92,6 +92,7 @@ export default class Second extends React.Component {
             } else {
                 this.setState({ loading: false })
                 window.location.hash = '#fourth'
+                localStorage.setItem('s2', true);
                 localStorage.setItem('like_reward', this.state.amount)
             //     Swal.fire({
             //         title: 'Whoops!',
