@@ -85,12 +85,6 @@ export default class Second extends React.Component {
     nextButtonValidation = async (e) => {
         e.preventDefault();
         console.log('NEXT', localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null)
-        if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
-            window.location.hash = '#fifth'
-            localStorage.setItem('s2', true);
-            localStorage.setItem('s3', true);
-            localStorage.setItem('like_reward', this.state.amount)
-        }
         if (localStorage.getItem('s1')) {
             this.setState({ loading: true });
             if (localStorage.getItem('twitterName')  && this.state.clickCounter) {
@@ -98,9 +92,15 @@ export default class Second extends React.Component {
                 localStorage.setItem('like_reward', this.state.amount)
             } else {
                 this.setState({ loading: false })
-                window.location.hash = '#fourth'
-                localStorage.setItem('s2', true);
-                localStorage.setItem('like_reward', this.state.amount)
+                if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
+                    window.location.hash = '#fifth'
+                    localStorage.setItem('s2', true);
+                    localStorage.setItem('s3', true);
+                    localStorage.setItem('like_reward', this.state.amount)
+                }
+                // window.location.hash = '#fourth'
+                // localStorage.setItem('s2', true);
+                // localStorage.setItem('like_reward', this.state.amount)
             //     Swal.fire({
             //         title: 'Whoops!',
             //         text: "You must follow all of Peeps' social media pages before continuing!!",
