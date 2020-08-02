@@ -105,13 +105,15 @@ export default class Third extends React.Component {
                     })
             } else {
                 this.setState({loading: false})
-                Swal.fire({
-                    title: 'Error',
-                    text: 'You must share on Facebook and Twitter before continuing to Step 4.',
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonText: 'Okay',
-                })
+                window.location.hash = "#fifth";
+                localStorage.setItem('s3', true)
+                // Swal.fire({
+                //     title: 'Error',
+                //     text: 'You must share on Facebook and Twitter before continuing to Step 4.',
+                //     icon: "error",
+                //     showCancelButton: false,
+                //     confirmButtonText: 'Okay',
+                // })
             }
         } else {
             Swal.fire({
