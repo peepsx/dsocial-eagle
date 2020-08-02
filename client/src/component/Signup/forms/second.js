@@ -98,6 +98,10 @@ export default class Second extends React.Component {
                 //     localStorage.setItem('s3', true);
                 //     localStorage.setItem('like_reward', this.state.amount)
                 // }
+                    window.location.hash = '#fourth'
+                    localStorage.setItem('s2', true);
+                    // localStorage.setItem('s3', true);
+                    localStorage.setItem('like_reward', this.state.amount)
                 // window.location.hash = '#fourth'
                 // localStorage.setItem('s2', true);
                 // localStorage.setItem('like_reward', this.state.amount)
