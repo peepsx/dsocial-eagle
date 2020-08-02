@@ -92,12 +92,12 @@ export default class Second extends React.Component {
                 localStorage.setItem('like_reward', this.state.amount)
             } else {
                 this.setState({ loading: false })
-                if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
-                    window.location.hash = '#fifth'
-                    localStorage.setItem('s2', true);
-                    localStorage.setItem('s3', true);
-                    localStorage.setItem('like_reward', this.state.amount)
-                }
+                // if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
+                //     window.location.hash = '#fifth'
+                //     localStorage.setItem('s2', true);
+                //     localStorage.setItem('s3', true);
+                //     localStorage.setItem('like_reward', this.state.amount)
+                // }
                 // window.location.hash = '#fourth'
                 // localStorage.setItem('s2', true);
                 // localStorage.setItem('like_reward', this.state.amount)

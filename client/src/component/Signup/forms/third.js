@@ -136,7 +136,7 @@ export default class Third extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
                         {
-                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) &&
+                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) ? 
                             <div className="list-group">
                             {localStorage.getItem('fbUserId') && 
                              <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
@@ -158,7 +158,9 @@ export default class Third extends React.Component {
                                 <i className="fas fa-chevron-right" />
                               </a>
                             }
-                        </div>
+                        </div> : <p>
+                        Sorry, you have to be logged in with either Twitter, Facebook or both to take part in this step.
+                        </p>
                         }
                     </div>
                 </div>
@@ -176,7 +178,7 @@ export default class Third extends React.Component {
                                     width={30}
                                 />
                                 :
-                                "I'm a supporter!"
+                                "Proceed to Step 5"
                         }
                     </button>
                 </div>
