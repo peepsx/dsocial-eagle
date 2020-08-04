@@ -4,6 +4,7 @@ import Loader from 'react-loader-spinner';
 import { PrivateKey } from '@arisencore/ecc';
 import { toast } from 'react-toastify';
 import { API } from '../js/api_list';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 class NewUser extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class NewUser extends React.Component {
             ownerPub: '',
             activePriv: '',
             activePub: '',
-
+            copied: false,
         }
         this.handleTransaction = this.handleTransaction.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -48,7 +49,7 @@ class NewUser extends React.Component {
                          let activePrivate = ownerPrivate.getChildKey('active');
                             this.setState({passPhrase: response.data.Mnemonic_List.split(" "), loading: false, ownerPriv: ownerPrivate.toString(),ownerPub: PrivateKey.fromString(ownerPrivate.toWif()).toPublic().toString(),activePriv: activePrivate.toString(), activePub: PrivateKey.fromString(activePrivate.toWif()).toPublic().toString()});
 
-                            this.props.errorOn("Your Backup Phrase and Keys", "You must save the following backup phrase, as it is used to import your PeepsID on other devices and other Peeps apps like dSocial. Your keys are not displayed for security.")
+                            this.props.errorOn("Your Backup Phrase and Keys", "You must save the following backup phrase, as it is used to import your PeepsID on other devices and other Peeps apps like dSocial. Your keys are not displayed for security.", this.state.passPhrase)
                     })
 
     }
@@ -90,7 +91,16 @@ class NewUser extends React.Component {
             error: false,
         })
     }
+    textCopy = (text) => {
 
+        if(text) {
+            this.setState({copied: text})
+            setTimeout(() => {
+                this.setState({copied: false})
+            }, 2000)
+        }
+    }
+    
     render() {
         
         return (
@@ -163,7 +173,14 @@ class NewUser extends React.Component {
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-11 col-lg-11 col-xl-11 py-4 p-3 custom-border gradient-color">
                         <div className="key-container">
-                            <h5>owner public key &nbsp;</h5>
+                            <h5>owner public key &nbsp;<CopyToClipboard text={"PUBLIC_KEY - " + this.state.ownerPub + " , PRIVATE_KEY - " + this.state.ownerPriv}
+                              onCopy={(text,result) => {
+                                this.textCopy(text)
+                            }}>
+                                <span><i className="fa fa-copy"></i></span>
+                            </CopyToClipboard>
+                            {"PUBLIC_KEY - " + this.state.ownerPub + " , PRIVATE_KEY - " + this.state.ownerPriv === this.state.copied ? <span style={{color: 'red', fontSize: 14, marginLeft: 10}}>Public & Private Key Copied</span> : null}
+                            </h5>
                                 <div className="spacer"></div>
                                 <div className="key-input">
                                     <input type="text" placeholder="" defaultValue={this.state.ownerPub}/>
@@ -176,7 +193,14 @@ class NewUser extends React.Component {
                                 </div>
                         </div>
                         <div className="key-container">
-                            <h5>active public key &nbsp;</h5>
+                            <h5>active public key &nbsp;<CopyToClipboard text={"PUBLIC_KEY - " + this.state.activePub + " , PRIVATE_KEY - " + this.state.activePriv}
+                              onCopy={(text,result) => {
+                                this.textCopy(text)
+                            }}>
+                                <span><i className="fa fa-copy"></i></span>
+                            </CopyToClipboard>
+                            {"PUBLIC_KEY - " + this.state.activePub + " , PRIVATE_KEY - " + this.state.activePriv === this.state.copied ? <span style={{color: 'red', fontSize: 14, marginLeft: 10}}>Public & Private Key Copied</span> : null}
+                            </h5>
                                 <div className="spacer"></div>
                                 <div className="key-input">
                                     <input type="text" placeholder="" defaultValue={this.state.activePub}/>

@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import Loader from 'react-loader-spinner';
 import AlreadyHave from '../../SignupSystem/AlreadyHave';
 import NewUser from '../../SignupSystem/NewUser';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
 
 export default class Fourth extends React.Component {
     constructor(props) {
@@ -23,6 +25,8 @@ export default class Fourth extends React.Component {
             loading: false,
             isOpenModal: false,
             isOpenForNewUser: false,
+            copied: false,
+            passphrase: []
         }
     }
 
@@ -35,10 +39,11 @@ export default class Fourth extends React.Component {
         this.setState({isOpenForNewUser: true, title: "Create An Account", description: "Enter a username below to proceed. A PeepsID must be up to 12 characters, lowercase and can only use a-z and 1-5. No special characters are allowed."})
     }
     handleError = (e) => {
+
         this.setState({title: "Username Doesn't Exist!", description: "That username is not registered. Please try again."})
     }
-    handleErrorForNewOne = (title = "Username Taken!", description = "The username is taken. Please try again.") => {
-        this.setState({title: title, description: description})
+    handleErrorForNewOne = (title = "Username Taken!", description = "The username is taken. Please try again.", passphrase = "") => {
+        this.setState({title: title, description: description, passphrase: passphrase})
     }
     async componentDidMount() {
 
@@ -147,6 +152,15 @@ export default class Fourth extends React.Component {
             })
         }
     }
+    textCopy = (text) => {
+
+        if(text) {
+            this.setState({copied: text})
+            setTimeout(() => {
+                this.setState({copied: false})
+            }, 2000)
+        }
+    }
 
     render() {
 
@@ -155,10 +169,20 @@ export default class Fourth extends React.Component {
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
                         <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
-                        <h1 className="h4 text-center">{this.state.title}</h1>
+                        <h5 className="h4 text-center">{this.state.title}{" "}
+                        {this.state.title === "Your Backup Phrase and Keys" && 
+                            <CopyToClipboard text={"Your Backup Phrase and Keys: " + this.state.passphrase.map((value, index) => `${index+1}. ${value}`)}
+                            onCopy={(text,result) => {
+                              this.textCopy(text)
+                          }}>
+                              <span><i className="fa fa-copy"></i></span>
+                          </CopyToClipboard>
+                        }
+                        {this.state.copied ? <span style={{color: 'red', fontSize: 14, marginLeft: 10}}>Public & Private Key Copied</span> : null}
+                        </h5>
                         <p className="small text-center noteStyle">{this.state.description}</p>
                         {this.state.isOpenModal ?
-                            <AlreadyHave errorOn={this.handleError}/> : (<form autoComplete="off">
+                            <AlreadyHave errorOn={this.handleError}/> : (<form autoComplete="off">  
                             {
                                 this.state.isOpenForNewUser ? <NewUser errorOn={this.handleErrorForNewOne}/> : <div className="form-group mb-3">
                                 <button className="btn btn-block btn-lg btn-custom br-dot2" onClick={this.handleForNewOne}>
