@@ -63,7 +63,7 @@ export default class Third extends React.Component {
 
     handleTweet = () => {
         const text = "I just joined dSocial, a %23decentralized social network that cannot censor its users. Join the %23dweb revolution at https://dsocial.network"
-        let twitter_res = window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
+        window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
             if (Array.isArray(this.state.fbPostResponse) || localStorage.getItem('twitterName')) {
