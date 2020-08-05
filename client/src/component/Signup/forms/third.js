@@ -41,8 +41,10 @@ export default class Third extends React.Component {
                     if (res.data.success) {
                         // window.location.hash = "#fifth";
                         localStorage.setItem('s3', true)
-                        let amt = this.state.facebook_share_reward + 200;
-                        this.setState({facebook_share_reward: amt})
+                        if(!this.state.facebook_share_reward) {
+                            let amt = this.state.facebook_share_reward + 200;
+                            this.setState({facebook_share_reward: amt})
+                        }
                     } else if(!res.data.success) {
                         Swal.fire({
                             title: 'Error',
