@@ -13,7 +13,9 @@ export default class Third extends React.Component {
         this.state = {
             fbPostResponse: '',
             loading: false,
-            amount: 0
+            amount: 0,
+            facebook_share_reward: 0,
+            twitter_share_reward: 0
         }
     }
 
@@ -40,8 +42,8 @@ export default class Third extends React.Component {
                     if (res.data.success) {
                         // window.location.hash = "#fifth";
                         localStorage.setItem('s3', true)
-                        let amt = this.state.amount + 200;
-                        this.setState({amount: amt})
+                        let amt = this.state.facebook_share_reward + 200;
+                        this.setState({facebook_share_reward: amt})
                     } else if(!res.data.success) {
                         Swal.fire({
                             title: 'Error',
@@ -62,9 +64,64 @@ export default class Third extends React.Component {
 
     handleTweet = () => {
         const text = "I just joined dSocial, a %23decentralized social network that cannot censor its users. Join the %23dweb revolution at https://dsocial.network"
-        window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
-        let amt = this.state.amount + 200;
-        this.setState({amount: amt})
+        let twitter_res = window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
+        if (localStorage.getItem('s2')) {
+            this.setState({ loading: true })
+            if (Array.isArray(this.state.fbPostResponse) || localStorage.getItem('twitterName')) {
+                Axios({
+                    method: 'POST',
+                    url: API.user_share_validation,
+                    data: {
+                        status: this.state.fbPostResponse,
+                        screenname: localStorage.getItem('twitterName')
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                })
+                    .then(res => {
+                        this.setState({ loading: false })
+                        if (res.data.success) {
+                            if(!this.state.twitter_share_reward){
+                                let amt = this.state.twitter_share_reward + 200;
+                                this.setState({twitter_share_reward: amt})
+                            }
+                        } else if(!res.data.success) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'You must share on Facebook and Twitter before continuing to Step 4.',
+                                icon: "error",
+                                showCancelButton: false,
+                                confirmButtonText: 'Okay',
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        this.setState({ loading: false })
+                        console.error('Error', err)
+                    })
+            } else {
+                this.setState({loading: false})
+                window.location.hash = "#fifth";
+                localStorage.setItem('s3', true)
+                // Swal.fire({
+                //     title: 'Error',
+                //     text: 'You must share on Facebook and Twitter before continuing to Step 4.',
+                //     icon: "error",
+                //     showCancelButton: false,
+                //     confirmButtonText: 'Okay',
+                // })
+            }
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'Please complete step 2!!',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+                .then(() => window.location.hash = '#second')
+        }
     }
 
     handleNextStep = (e) => {
