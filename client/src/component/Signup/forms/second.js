@@ -14,7 +14,10 @@ export default class Second extends React.Component {
             clickCounter:0,
             loading: false,
             subscriber: '',
-            amount: 0
+            amount: 0,
+            facebook_reward: 0,
+            twitter_reward: 0,
+            youtube_reward: 0,
         }
     }
 
@@ -30,8 +33,10 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
-        let amt = this.state.amount + 100
-        this.setState({amount: amt})
+        let amt = this.state.facebook_reward + 100
+        if(!this.state.facebook_reward) {
+            this.setState({facebook_reward: amt})
+        }
     }
 
     handleYoutubeLink = () => {
@@ -50,8 +55,10 @@ export default class Second extends React.Component {
                 if (response.data.items) {
                     for (let item of response.data.items) {
                         if (item.snippet.title === 'Peeps') {
-                            let amt = this.state.amount + 100
-                            this.setState({amount: amt})
+                            let amt = this.state.youtube_reward + 100
+                            if(!this.youtube_reward) {
+                                this.setState({youtube_reward: amt})
+                            }
                         }
                     }
                 }
@@ -77,8 +84,38 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
-        let amt = this.state.amount + 100
-        this.setState({amount: amt})
+        Axios({
+            url: API.validation_follower,
+            method: 'POST',
+            data: {
+                screen_name: localStorage.getItem('twitterName'),
+                // username: localStorage.getItem('instaUserId'),
+            },
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+            .then(response => {
+                this.setState({ loading: false })
+                if (response.data.success) {
+                    if(!this.state.twitter_reward) {
+                        let amt = this.state.twitter_reward + 100
+                        this.setState({twitter_reward: amt})
+                    }
+                } else {
+                    Swal.fire({
+                        title: 'Whoops!',
+                        text: "You must follow twitter page of Peeps' social media before continuing!!",
+                        icon: "Error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    })
+                }
+            })
+            .catch(err => {
+                this.setState({ loading: false })
+                console.log(err);
+            })
     }
 
 
@@ -89,7 +126,7 @@ export default class Second extends React.Component {
             this.setState({ loading: true });
             if (localStorage.getItem('twitterName')  && this.state.clickCounter) {
                 this.apiCall();
-                localStorage.setItem('like_reward', this.state.amount)
+                localStorage.setItem('like_reward', ((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))
             } else {
                 this.setState({ loading: false })
                 // if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
@@ -101,7 +138,7 @@ export default class Second extends React.Component {
                     window.location.hash = '#fourth'
                     localStorage.setItem('s2', true);
                     // localStorage.setItem('s3', true);
-                    localStorage.setItem('like_reward', this.state.amount)
+                    localStorage.setItem('like_reward', ((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))
                 // window.location.hash = '#fourth'
                 // localStorage.setItem('s2', true);
                 // localStorage.setItem('like_reward', this.state.amount)
@@ -163,7 +200,7 @@ export default class Second extends React.Component {
         return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(this.state.amount)} RIX</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))} RIX</span>
                     <span className="h4 d-block">Tune in to our fight to decentralize the web...</span>
                     <p className="w-75 m-auto">Like, follow and subscribe to @Peepsology on the platforms below and earn 100 RIX for EACH platform you follow us on.</p>
                 </div>
