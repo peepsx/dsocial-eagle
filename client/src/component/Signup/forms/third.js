@@ -25,7 +25,7 @@ export default class Third extends React.Component {
             quote: "I just created an account on dSocial, the world's first decentralized and %23censorshipresistant social network. You can join the social revolution and earn 1000 coins in the process. Join us at https://dsocial.network",
             link: 'https://dsocial.network',
             size: {width:500, height:400},
-            top: "3.5px"
+            top: "3.5px" 
         }, (response) => {
             this.setState({ fbPostResponse: response });
             Axios({
