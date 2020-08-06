@@ -29,7 +29,8 @@ export default class Second extends React.Component {
     // }
 
     handleFacebookLink = () => {
-        window.open('https://www.facebook.com/peepsology/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+        let face_like = window.open('https://www.facebook.com/peepsology/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+        console.log('CONSOLE LOG', face_like)
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
