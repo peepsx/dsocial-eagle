@@ -24,8 +24,7 @@ export default class Third extends React.Component {
             method: 'feed',
             quote: "I just created an account on dSocial, the world's first decentralized and %23censorshipresistant social network. You can join the social revolution and earn 1000 coins in the process. Join us at https://dsocial.network",
             link: 'https://dsocial.network',
-            size: {width:500, height:400},
-            top: "3.5px" 
+            size:{width:625,height:515}, width:625, height:515,
         }, (response) => {
             this.setState({ fbPostResponse: response });
             Axios({
@@ -204,7 +203,7 @@ export default class Third extends React.Component {
                              <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <p className='warning' style={{color: 'black', position: 'absolute', top: "3.5px", right: "20px"}}>+<span> 200 RIX</span></p>
+                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 200 RIX</span></p>
                                     <span className="mb-0 h6 mb-0">Share The Revolution On Facebook</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
