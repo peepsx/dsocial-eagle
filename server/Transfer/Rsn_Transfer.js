@@ -23,7 +23,7 @@ module.exports = {
                       .then(async (transfer) => {
                           let rsn_transfered = new Rsn_Transfer({
                               user: id,
-                              amount: process.env.AMOUNT,
+                              amount: amount,
                               account_from_transfer: process.env.TRANSFER_USER,
                               transaction_id: transfer.transaction_id
                           })
