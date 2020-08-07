@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
+import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
 import gold from '../../assets/img/gold_img.png'
 
@@ -18,6 +19,7 @@ export default class Second extends React.Component {
             facebook_reward: 0,
             twitter_reward: 0,
             youtube_reward: 0,
+            you_tube: false,
         }
     }
 
@@ -29,8 +31,7 @@ export default class Second extends React.Component {
     // }
 
     handleFacebookLink = () => {
-        let face_like = window.open('https://www.facebook.com/peepsology/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
-        console.log('CONSOLE LOG', face_like)
+        window.open('https://www.facebook.com/peepsology/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
@@ -41,11 +42,7 @@ export default class Second extends React.Component {
     }
 
     handleYoutubeLink = () => {
-        window.open('https://www.youtube.com/channel/UCoknUFNMUF9ciA_WGmm8pxQ', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-        this.setState({
-            clickCounter: this.state.clickCounter +1
-        })
-        const googleAccessToken = localStorage.getItem('goggle-access')
+    const googleAccessToken = localStorage.getItem('goggle-access')
     if (window.gapi.client.youtube) {
         Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
             headers: {
@@ -55,11 +52,21 @@ export default class Second extends React.Component {
             .then((response) => {
                 if (response.data.items) {
                     for (let item of response.data.items) {
+                        let amt = this.state.youtube_reward + 100
                         if (item.snippet.title === 'Peeps') {
-                            let amt = this.state.youtube_reward + 100
-                            if(!this.youtube_reward) {
+                            if(!this.state.youtube_reward) {
                                 this.setState({youtube_reward: amt})
                             }
+                            toast("You already like our page", {
+                                type: "success",
+                                autoClose: 3000,
+                            })
+                        } else {
+                            window.open('https://www.youtube.com/channel/UCoknUFNMUF9ciA_WGmm8pxQ', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+                            this.setState({
+                                clickCounter: this.state.clickCounter +1, you_tube: true
+                            })                    
+                            this.setState({youtube_reward: amt})
                         }
                     }
                 }
@@ -81,10 +88,6 @@ export default class Second extends React.Component {
     }
 
     handleTwitClick = () => {
-        window.open('https://twitter.com/peepsology', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-        this.setState({
-            clickCounter: this.state.clickCounter +1
-        })
         Axios({
             url: API.validation_follower,
             method: 'POST',
@@ -98,19 +101,23 @@ export default class Second extends React.Component {
         })
             .then(response => {
                 this.setState({ loading: false })
+                let amt = this.state.twitter_reward + 100
                 if (response.data.success) {
                     if(!this.state.twitter_reward) {
-                        let amt = this.state.twitter_reward + 100
                         this.setState({twitter_reward: amt})
                     }
-                } else {
-                    Swal.fire({
-                        title: 'Whoops!',
-                        text: "You must follow twitter page of Peeps' social media before continuing!!",
-                        icon: "Error",
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
+                    toast("You already like our page", {
+                        type: "success",
+                        autoClose: 3000,
                     })
+                } else {
+                    window.open('https://twitter.com/peepsology', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+                    this.setState({
+                        clickCounter: this.state.clickCounter +1
+                    })
+                    if(!this.state.twitter_reward) {
+                        this.setState({twitter_reward: amt})
+                    }
                 }
             })
             .catch(err => {
@@ -122,7 +129,49 @@ export default class Second extends React.Component {
 
     nextButtonValidation = async (e) => {
         e.preventDefault();
-        console.log('NEXT', localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null)
+        if(this.state.you_tube) {
+                const googleAccessToken = localStorage.getItem('goggle-access')
+            if (window.gapi.client.youtube) {
+            Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
+                headers: {
+                    Authorization: 'Bearer ' + googleAccessToken
+                }
+            })
+                .then((response) => {
+                    if (response.data.items) {
+                        for (let item of response.data.items) {
+                            if (item.snippet.title === 'Peeps') {
+                                toast("You have successfully subscribed our channel", {
+                                    type: "success",
+                                    autoClose: 3000,
+                                })
+                            } else {
+                                let amt = this.state.twitter_reward - 100
+                                this.setState({youtube_reward: amt})
+                                toast("Please subscribe our channel if you want to earn 100 RIX", {
+                                    type: "success",
+                                    autoClose: 3000,
+                                })
+                                this.setState({you_tube: false})
+                            }
+                        }
+                    }
+                })
+                .catch(err => console.error('Subscribe error', err))
+            } else {
+            this.setState({ loading: false })
+            Swal.fire({
+                title: 'Error',
+                text: 'Data Lost, due to roloading of the page !! ',
+                icon: "warning",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+                .then(() => {
+                    window.open(env.liveStatus)
+                })
+            }
+        }
         if (localStorage.getItem('s1')) {
             this.setState({ loading: true });
             if (localStorage.getItem('twitterName')  && this.state.clickCounter) {
