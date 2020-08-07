@@ -50,25 +50,28 @@ export default class Second extends React.Component {
             }
         })
             .then((response) => {
+                let channel;
+                let amt = this.state.youtube_reward + 100
                 if (response.data.items) {
                     for (let item of response.data.items) {
-                        let amt = this.state.youtube_reward + 100
                         if (item.snippet.title === 'Peeps') {
+                            channel = item.snippet.title
                             if(!this.state.youtube_reward) {
                                 this.setState({youtube_reward: amt})
                             }
-                            toast("You already like our page", {
+                            toast("You already subscribed our page", {
                                 type: "success",
                                 autoClose: 3000,
                             })
-                        } else {
-                            window.open('https://www.youtube.com/channel/UCoknUFNMUF9ciA_WGmm8pxQ', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-                            this.setState({
-                                clickCounter: this.state.clickCounter +1, you_tube: true
-                            })                    
-                            this.setState({youtube_reward: amt})
                         }
                     }
+                }
+                if(!channel) {
+                        window.open('https://www.youtube.com/channel/UCoknUFNMUF9ciA_WGmm8pxQ', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
+                        this.setState({
+                            clickCounter: this.state.clickCounter +1, you_tube: true
+                        })                    
+                        this.setState({youtube_reward: amt})
                 }
             })
             .catch(err => console.error('Subscribe error', err))
@@ -106,7 +109,7 @@ export default class Second extends React.Component {
                     if(!this.state.twitter_reward) {
                         this.setState({twitter_reward: amt})
                     }
-                    toast("You already like our page", {
+                    toast("You already follow our page", {
                         type: "success",
                         autoClose: 3000,
                     })
