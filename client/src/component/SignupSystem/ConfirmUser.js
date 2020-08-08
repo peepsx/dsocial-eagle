@@ -159,8 +159,8 @@ class ConfirmUSer extends React.Component {
 
     render() {
         let confrim_reward = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0)
-        this.setState({confirm_reward_amount: confrim_reward})
-        
+        // this.setState({confirm_reward_amount: confrim_reward})
+
         return localStorage.getItem('username') && (localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId')) ? (
             <div className="p-0 d-flex bg-white align-items-lg-center">
             <div className="row no-gutters flex-fill justify-content-center">
@@ -188,7 +188,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            `That's me. Send me ${this.state.confirm_reward_amount.toFixed(4)} RIX`
+                            `That's me. Send me ${confrim_reward.toFixed(4)} RIX`
                     }
                 </button>
                 </div>
