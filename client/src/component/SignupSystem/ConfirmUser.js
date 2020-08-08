@@ -34,10 +34,8 @@ class ConfirmUSer extends React.Component {
             .then(res => res.text())
             .then(res => ip.v6 = res)
         this.setState({ ip });
-        setTimeout(() => {
             let confrim_reward = parseInt(localStorage.getItem('login_reward') || 0) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(localStorage.getItem('share_reward') || 0)
             this.setState({confirm_reward_amount: confrim_reward})
-        }, 0)
     }
 
     // handleTransaction = (e) => {
