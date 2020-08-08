@@ -38,7 +38,13 @@ class AlreadyHave extends React.Component {
                             localStorage.setItem('username', this.state.arisen_username)
                             window.location.hash = "#second"
                         })
-                        .catch(e => {
+                        .catch(err => {
+                            if (err.response && err.response.status === 403) {
+                                toast("this id is already been used", {
+                                    type: 'warning',
+                                    autoClose: 3000,
+                                })
+                            }
                             console.log("ERROR", e)
                             window.location.hash = '/'
                         })
