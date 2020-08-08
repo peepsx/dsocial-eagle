@@ -26,7 +26,6 @@ export default class Third extends React.Component {
             link: 'https://dsocial.network',
             size:{width:625,height:515}, width:625, height:515,
         }, (response) => {
-            console.log("SHARE FB", response)
             this.setState({ fbPostResponse: response });
             Axios({
                 method: 'POST',
@@ -70,7 +69,7 @@ export default class Third extends React.Component {
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
-            if (Array.isArray(this.state.fbPostResponse) || localStorage.getItem('twitterName')) {
+            if (localStorage.getItem('twitterName')) {
                 Axios({
                     method: 'POST',
                     url: API.user_share_validation,
@@ -130,48 +129,15 @@ export default class Third extends React.Component {
         e.preventDefault();
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
-            if (localStorage.getItem('twitterName')) {
-                Axios({
-                    method: 'POST',
-                    url: API.user_share_validation,
-                    data: {
-                        screenname: localStorage.getItem('twitterName')
-                    },
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
-                    }
-                })
-                    .then(res => {
-                        this.setState({ loading: false })
-                        if (res.data.success) {
-                            window.location.hash = "#fifth";
-                            localStorage.setItem('s3', true)
-                            localStorage.setItem('share_reward', this.state.facebook_share_reward + this.state.twitter_share_reward)
-                        } else if(!res.data.success) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: 'You must share on Facebook and Twitter before continuing to Step 4.',
-                                icon: "error",
-                                showCancelButton: false,
-                                confirmButtonText: 'Okay',
-                            })
-                        }
-                    })
-                    .catch(err => {
-                        this.setState({ loading: false })
-                        console.error('Error', err)
-                    })
+            if (this.state.facebook_share_reward || this.state.twitter_share_reward) {                
+                this.setState({ loading: false })
+                window.location.hash = "#fifth";
+                localStorage.setItem('s3', true)
+                localStorage.setItem('share_reward', this.state.facebook_share_reward + this.state.twitter_share_reward)
             } else {
                 this.setState({loading: false})
                 window.location.hash = "#fifth";
                 localStorage.setItem('s3', true)
-                // Swal.fire({
-                //     title: 'Error',
-                //     text: 'You must share on Facebook and Twitter before continuing to Step 4.',
-                //     icon: "error",
-                //     showCancelButton: false,
-                //     confirmButtonText: 'Okay',
-                // })
             }
         } else {
             Swal.fire({
