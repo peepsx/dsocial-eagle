@@ -74,7 +74,6 @@ export default class Third extends React.Component {
                     method: 'POST',
                     url: API.user_share_validation,
                     data: {
-                        status: this.state.fbPostResponse,
                         screenname: localStorage.getItem('twitterName')
                     },
                     headers: {
@@ -130,12 +129,11 @@ export default class Third extends React.Component {
         e.preventDefault();
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
-            if (Array.isArray(this.state.fbPostResponse) || localStorage.getItem('twitterName')) {
+            if (localStorage.getItem('twitterName')) {
                 Axios({
                     method: 'POST',
                     url: API.user_share_validation,
                     data: {
-                        status: this.state.fbPostResponse,
                         screenname: localStorage.getItem('twitterName')
                     },
                     headers: {
