@@ -149,7 +149,7 @@ export default class Second extends React.Component {
                                     autoClose: 3000,
                                 })
                             } else {
-                                let amt = this.state.twitter_reward - 100
+                                let amt = this.state.youtube_reward - 100
                                 this.setState({youtube_reward: amt})
                                 toast("Please subscribe our channel if you want to earn 100 RIX", {
                                     type: "success",
