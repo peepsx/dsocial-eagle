@@ -21,7 +21,7 @@ export default class Third extends React.Component {
     handleFbShare = () => {
         window.FB.ui({
             appID: env.facebook_client_id,
-            method: 'feed',
+            method: 'share',
             quote: "I just created an account on dSocial, the world's first decentralized and %23censorshipresistant social network. You can join the social revolution and earn 1000 coins in the process. Join us at https://dsocial.network",
             link: 'https://dsocial.network',
             size:{width:12,height:12}, width:12, height:12,
