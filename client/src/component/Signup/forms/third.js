@@ -26,6 +26,7 @@ export default class Third extends React.Component {
             link: 'https://dsocial.network',
             size:{width:625,height:515}, width:625, height:515,
         }, (response) => {
+            console.log("SHARE FB", response)
             this.setState({ fbPostResponse: response });
             Axios({
                 method: 'POST',
