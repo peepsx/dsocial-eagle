@@ -123,8 +123,10 @@ export default class First extends React.Component {
                 }).then(response => {
                         localStorage.setItem('twitterName', user.screen_name);
                         localStorage.setItem('twitter_login', true)
-                        let amt = this.state.amount + 100;
-                        this.setState({amount: amt});
+                        if(!this.state.twitStatus) {
+                            let amt = this.state.amount + 100;
+                            this.setState({amount: amt});
+                        }
                         let toastType = "error";
                         if (response.data.success) {
                             this.setState({ twitStatus: true })
