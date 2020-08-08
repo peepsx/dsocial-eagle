@@ -189,7 +189,7 @@ class ConfirmUSer extends React.Component {
                                 width={30}
                             />
                             :
-                            `That's me. Send me ${this.state.confirm_reward_amount} RIX`
+                            `That's me. Send me ${this.state.confirm_reward_amount.toFixed(4)} RIX`
                     }
                 </button>
                 </div>
