@@ -68,7 +68,7 @@ class NewUser extends React.Component {
                     })
                     .catch(err => {
                         if (err.response && err.response.status === 403) {
-                            toast("this id is already been used", {
+                            toast("This id is already been used", {
                                 type: 'warning',
                                 autoClose: 3000,
                             })
