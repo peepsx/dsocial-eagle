@@ -228,11 +228,11 @@ export default class First extends React.Component {
                             }
                         /> */}
                     {/* { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) && */}
-                    <TwitterLogin loginUrl="https://devserver.dsocial.network/new/auth/twitter"
+                    <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
                     onFailure={this.onFailed}
                     className="h-100"
                     onSuccess={this.onSuccess}
-                    requestTokenUrl="https://devserver.dsocial.network/new/auth/twitter/reverse"
+                    requestTokenUrl="https://api.arisen.network/new/auth/twitter/reverse"
                     children={
                         <Twitter
                                 nextBtnStatus={this.state.nextBtnStatus}

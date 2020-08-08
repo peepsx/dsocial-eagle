@@ -1,4 +1,4 @@
-const status = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://dev.dsocial.network/'
+const status = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://signup.dsocial.network/'
 export const env = {
     liveStatus                      : status,
     twitter_consumer_key            : process.env.REACT_APP_TWITTER_CONSUMER_KEY,
