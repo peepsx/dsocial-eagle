@@ -9,8 +9,7 @@ export default class Fifth extends React.Component {
     render() {
         const arisenMessage = localStorage.getItem('message');
         const username = localStorage.getItem('username');
-        console.log('FINAL CHECK', arisenMessage, username, localStorage.getItem('message'), !arisenMessage, !localStorage.getItem('a_user'));
-        if (!username) { /**arisenMessage || !localStorage.getItem('message') */
+        if (!localStorage.getItem('twitterName') && !localStorage.getItem('googleEmail') && !localStorage.getItem('fbUserId')) { /**arisenMessage || !localStorage.getItem('message') */
             return (
                 <div className="card-body p-4 px-lg-5">
                     <div className="mb-4 text-center">
@@ -18,7 +17,7 @@ export default class Fifth extends React.Component {
                             <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
                             <h2 className="mt-auto mb-auto ml-2">Error</h2>
                         </div>
-                        <span className="h4 d-block">Please Complete All The Steps First</span>
+                        <span className="h4 d-block">Please Complete Previous The Steps First</span>
                     </div>
                 </div>
             )

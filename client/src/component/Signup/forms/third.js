@@ -151,7 +151,7 @@ export default class Third extends React.Component {
     }
 
     render() {
-        return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
+        return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>

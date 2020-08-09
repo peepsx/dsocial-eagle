@@ -250,7 +250,7 @@ export default class Second extends React.Component {
     }
 
     render() {
-        return localStorage.getItem('username') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
+        return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))} RIX</span>
