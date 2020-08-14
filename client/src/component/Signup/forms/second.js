@@ -40,7 +40,7 @@ export default class Second extends React.Component {
             this.setState({facebook_reward: amt})
         }
     }
-
+    
     handleYoutubeLink = () => {
     const googleAccessToken = localStorage.getItem('goggle-access')
     if (window.gapi.client.youtube) {
@@ -253,6 +253,7 @@ export default class Second extends React.Component {
         return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
+                    <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))} RIX</span>
                     <span className="h4 d-block">Tune in to our fight to decentralize the web...</span>
                     <p className="w-75 m-auto">Like, follow and subscribe to @Peepsology on the platforms below and earn 100 RIX for EACH platform you follow us on.</p>

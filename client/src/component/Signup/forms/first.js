@@ -201,6 +201,7 @@ export default class First extends React.Component {
         return localStorage.getItem('username') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
+                    <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ this.state.amount } RIX</span>
                     <span className="h4 d-block">Let's start a social revolution</span>
                     <p className="w-75 m-auto">We need your help spreading the word about dSocial to the world and we're going to pay you with the dWeb's all-new cryptocurrency to do it. For EACH platform you login with below, you will earn 100 RIX. You must choose at least one platform to proceed to Step 3 of the signup wizard.</p>

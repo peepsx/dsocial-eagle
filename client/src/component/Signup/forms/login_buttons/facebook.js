@@ -91,9 +91,10 @@ class Facebook extends React.Component {
                 className="btn btn-block btn-outline-light border py-4 h-100 socialBtn"
                 disabled={localStorage.getItem('facebooK_login')}
             >
-                <p className='warning' style={{color: 'black', position: 'absolute',top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
+                {/* <p className='warning' style={{color: 'black', position: 'absolute',top: 0, right: "20px"}}>+<span> 100 RIX</span></p> */}
                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                 <span className="h6 mb-0 d-block">Login w/ Facebook</span>
+                <span>+ 100 RIX</span>
                 {this.state.fbStatus && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
             </button>
         )

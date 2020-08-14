@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios';
-import gold from '../../assets/img/gold_img.png';
+// import gold from '../../assets/img/gold_img.png';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -168,7 +168,7 @@ export default class Fourth extends React.Component {
             <div className="p-0 d-flex bg-white align-items-lg-center">
                 <div className="row no-gutters flex-fill justify-content-center">
                     <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 mb-4 gradient-color">
-                        <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span>
+                        {/* <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>0 RIX</span> */}
                         <h5 className="h4 text-center">{this.state.title}{" "}
                         {this.state.title === "Your Backup Phrase and Keys" && 
                             <CopyToClipboard text={"Your Backup Phrase and Keys: " + this.state.passphrase.map((value, index) => `${index+1}. ${value}`)}

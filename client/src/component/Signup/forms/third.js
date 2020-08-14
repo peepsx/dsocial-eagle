@@ -154,6 +154,7 @@ export default class Third extends React.Component {
         return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
+                    <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>
                     <span className="h4 d-block">Spread the word about dSocial...</span>
                     <p className="w-75 m-auto">Help us spread the word about dSocial to your friends and earn 200 RIX for each platform you post on. Click the buttons below to spread the word.</p>
