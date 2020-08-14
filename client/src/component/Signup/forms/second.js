@@ -265,7 +265,7 @@ export default class Second extends React.Component {
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
                                 <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
-                                    <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
+                                    <p className='warning' style={{color: 'black',position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 100 RIX</span></p>
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like Peeps
                                 </button>
@@ -278,7 +278,7 @@ export default class Second extends React.Component {
                                     <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
                                     <span className="h6 mb-0 d-block">Peeps On Twitter</span>
                                     <button onClick={this.handleTwitClick} className=" color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
-                                        <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
+                                        <p className='warning' style={{color: 'black', position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 100 RIX</span></p>
                                         <i className="fab fa-twitter mr-1" />
                                         Follow @peepsx
                                     </button>
@@ -301,7 +301,7 @@ export default class Second extends React.Component {
                                     <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
                                     <span className="h6 mb-0 d-block">Peeps On YouTube</span>
                                     <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
-                                        <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p>
+                                        <p className='warning' style={{color: 'black', position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 100 RIX</span></p>
                                         <i className="fab fa-youtube mr-1" />
                                         Subscribe To Peeps
                                     </button>
