@@ -62,7 +62,7 @@ export default class Signup extends Component {
         } else {
             return (
                 <section className="bg-gradient-4 height-100 p-3">
-                    <img src="assets/img/header-17.jpg" alt="bg" className="bg-image opacity-10" />
+                    {/* <img src="assets/img/header-17.jpg" alt="bg" className="bg-image opacity-10" /> */}
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-xl-11 col-lg-12">
