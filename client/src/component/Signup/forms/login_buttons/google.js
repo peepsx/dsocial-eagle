@@ -83,10 +83,9 @@ export default class Google extends React.Component {
                 type="button"
                 disabled={localStorage.getItem('google_login')}
             >
-                {/* <p className='warning' style={{color: 'black', position: 'absolute', top: 0, right: "20px"}}>+<span> 100 RIX</span></p> */}
+                <p className='warning' style={{color: 'black', position: 'absolute', right: '0px', left: '0px', bottom: '0px'}}>+<span> 100 RIX</span></p>
                 <img className="icon mb-3" src="assets/img/arisen/google.png" alt="google" />
                 <span className="h6 mb-0 d-block">Login w/ Google</span>
-                <span>+ 100 RIX</span>
                 {(this.state.emailStatus) && <p className="h6 mt-2 mb-0 color-grey">Logged in</p>}
             </button>
         )
