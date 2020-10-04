@@ -44,7 +44,6 @@ router.route('/auth/twitter/reverse')
         consumer_secret: twitterConfig.consumerSecret
       }
     }, function (err, r, body) {
-      console.log("ERROR", err.message, "BODY", body);
       if (err) {
         return res.send(500, { message: err.message });
       }
