@@ -38,6 +38,7 @@ router.route('/auth/twitter/reverse')
   .post(function(req, res) {
     request.post({
       url: 'https://api.twitter.com/oauth/request_token',
+      mode: 'no-cors',
       oauth: {
         oauth_callback: "http%3A%2F%2Flocalhost%3A3000%2Ftwitter-callback",
         consumer_key: twitterConfig.consumerKey,
