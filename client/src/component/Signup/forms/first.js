@@ -9,7 +9,7 @@ import Facebook from './login_buttons/facebook';
 // import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 // import Telegram from './login_buttons/telegram';
-// import { env } from '../../config/config';
+import { env } from '../../config/config';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
