@@ -48,6 +48,7 @@ router.route('/auth/twitter/reverse')
         return res.send(500, { message: err.message });
       }
       var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
+      console.log(jsonStr, twitterConfig.consumerKey,twitterConfig.consumerSecret);
       res.send(JSON.parse(jsonStr));
     });
   });

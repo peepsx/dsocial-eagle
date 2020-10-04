@@ -19,9 +19,6 @@ const bodyParser = require('body-parser');
 // view engine setup
 app.use(bodyParser.json());
 app.use(CORS());
-let twitterCors  = {
-  origin: 'https://api.arisen.network'
-}
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,7 +37,7 @@ app.use('/validation', twitter)
 // app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
 app.use('/rsn-bts', BtsTransfer);
-app.use('/new', CORS(twitterCors), newTwitter)
+app.use('/new', newTwitter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(404);
