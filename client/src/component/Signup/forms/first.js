@@ -215,7 +215,7 @@ export default class First extends React.Component {
                         />
                     </div>
                     <div className='col-sm mb-3 mb-sm-0 change' disabled={localStorage.getItem('twitter_login')}>
-                        {/* <TwitterLogin
+                        <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
                             className="h-100"
@@ -227,9 +227,9 @@ export default class First extends React.Component {
                                     twitStatus={this.state.twitStatus}
                                 />
                             }
-                        /> */}
+                        />
                     {/* { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) && */}
-                    <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
+                    {/* <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
                     onFailure={this.onFailed}
                     className="h-100"
                     onSuccess={this.onSuccess}
@@ -240,7 +240,7 @@ export default class First extends React.Component {
                                 twitStatus={this.state.twitStatus}
                             />
                     }
-                    />
+                    /> */}
                     {/*  } */}
                     </div>
                     {/* <div className="col-sm mb-3 mb-sm-0">
