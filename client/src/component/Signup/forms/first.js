@@ -9,7 +9,7 @@ import Facebook from './login_buttons/facebook';
 // import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 // import Telegram from './login_buttons/telegram';
-// import { env } from '../../config/config';
+import { env } from '../../config/config';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
@@ -215,7 +215,7 @@ export default class First extends React.Component {
                         />
                     </div>
                     <div className='col-sm mb-3 mb-sm-0 change' disabled={localStorage.getItem('twitter_login')}>
-                        {/* <TwitterLogin
+                        <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
                             className="h-100"
@@ -227,21 +227,20 @@ export default class First extends React.Component {
                                     twitStatus={this.state.twitStatus}
                                 />
                             }
-                        /> */}
+                        />
                     {/* { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) && */}
-                    <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
+                    {/* <TwitterLogin loginUrl="http://localhost:3001/new/auth/twitter"
                     onFailure={this.onFailed}
                     className="h-100"
                     onSuccess={this.onSuccess}
-                    requestTokenUrl="https://api.arisen.network/new/auth/twitter/reverse"
+                    requestTokenUrl="http://localhost:3001/new/auth/twitter/reverse"
                     children={
                         <Twitter
                                 nextBtnStatus={this.state.nextBtnStatus}
                                 twitStatus={this.state.twitStatus}
                             />
                     }
-                    />
-                    {/*  } */}
+                    /> */}
                     </div>
                     {/* <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
