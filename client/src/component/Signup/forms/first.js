@@ -2,14 +2,14 @@ import React from 'react';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 // import TwitterLogin from "react-twitter-login";
-import TwitterLogin from "react-twitter-auth";
+// import TwitterLogin from "react-twitter-auth";
 import gold from '../../assets/img/gold_img.png'
-import Twitter from './login_buttons/twitter';
+// import Twitter from './login_buttons/twitter';
 import Facebook from './login_buttons/facebook';
 // import Instagram from './login_buttons/instagram'
 import Google from './login_buttons/google';
 // import Telegram from './login_buttons/telegram';
-import { env } from '../../config/config';
+// import { env } from '../../config/config';
 import { API } from '../../js/api_list';
 import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
@@ -214,8 +214,8 @@ export default class First extends React.Component {
                             nextBtnStatus={this.state.nextBtnStatus}
                         />
                     </div>
-                    <div className='col-sm mb-3 mb-sm-0 change' disabled={localStorage.getItem('twitter_login')}>
-                        <TwitterLogin
+                    {/* <div className='col-sm mb-3 mb-sm-0 change' disabled={localStorage.getItem('twitter_login')}> */}
+                        {/* <TwitterLogin
                             authCallback={this.twitterHandler}
                             consumerKey={env.twitter_consumer_key}
                             className="h-100"
@@ -227,7 +227,7 @@ export default class First extends React.Component {
                                     twitStatus={this.state.twitStatus}
                                 />
                             }
-                        />
+                        /> */}
                     {/* { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) && */}
                     {/* <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
                     onFailure={this.onFailed}
@@ -242,7 +242,7 @@ export default class First extends React.Component {
                     }
                     /> */}
                     {/*  } */}
-                    </div>
+                    {/* </div> */}
                     {/* <div className="col-sm mb-3 mb-sm-0">
                         <Instagram
                             handleNextShowBtn={this.handleNextShowBtn}
