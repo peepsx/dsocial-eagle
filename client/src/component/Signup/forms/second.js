@@ -35,7 +35,7 @@ export default class Second extends React.Component {
         this.setState({
             clickCounter: this.state.clickCounter +1
         })
-        let amt = this.state.facebook_reward + 100
+        let amt = this.state.facebook_reward + 200
         if(!this.state.facebook_reward) {
             this.setState({facebook_reward: amt})
         }
@@ -51,7 +51,7 @@ export default class Second extends React.Component {
         })
             .then((response) => {
                 let channel;
-                let amt = this.state.youtube_reward + 100
+                let amt = this.state.youtube_reward + 200
                 if (response.data.items) {
                     for (let item of response.data.items) {
                         if (item.snippet.title === 'Peeps') {
@@ -265,7 +265,7 @@ export default class Second extends React.Component {
                                 <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
                                 <span className="h6 mb-0 d-block">Peeps On Facebook</span>
                                 <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
-                                    <p className='warning' style={{color: 'black',position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 100 RIX</span></p>
+                                    <p className='warning' style={{color: 'black',position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 200 RIX</span></p>
                                     <i className="fas fa-thumbs-up mr-1" />
                                     Like Peeps
                                 </button>
@@ -301,7 +301,7 @@ export default class Second extends React.Component {
                                     <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
                                     <span className="h6 mb-0 d-block">Peeps On YouTube</span>
                                     <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
-                                        <p className='warning' style={{color: 'black', position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 100 RIX</span></p>
+                                        <p className='warning' style={{color: 'black', position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 200 RIX</span></p>
                                         <i className="fab fa-youtube mr-1" />
                                         Subscribe To Peeps
                                     </button>
