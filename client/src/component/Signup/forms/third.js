@@ -42,7 +42,7 @@ export default class Third extends React.Component {
                         // window.location.hash = "#fifth";
                         localStorage.setItem('s3', true)
                         if(!this.state.facebook_share_reward) {
-                            let amt = this.state.facebook_share_reward + 200;
+                            let amt = this.state.facebook_share_reward + 400;
                             this.setState({facebook_share_reward: amt})
                         }
                     } else if(!res.data.success) {
@@ -157,7 +157,7 @@ export default class Third extends React.Component {
                     <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>
                     <span className="h4 d-block">Spread the word about dSocial...</span>
-                    <p className="w-75 m-auto">Help us spread the word about dSocial to your friends and earn 200 RIX for each platform you post on. Click the buttons below to spread the word.</p>
+                    <p className="w-75 m-auto">Help us spread the word about dSocial to your friends and earn 400 RIX for  platform you post on. Click the buttons below to spread the word.</p>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-xl-8 col-lg-8">
@@ -178,7 +178,7 @@ export default class Third extends React.Component {
                               <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
                                 <div className="d-flex align-items-center">
                                     <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
-                                    <p className='warning' style={{color: 'black', position: "absolute", right: '35px', bottom: '6px'}}>+<span> 200 RIX</span></p>
+                                    <p className='warning' style={{color: 'black', position: "absolute", right: '35px', bottom: '6px'}}>+<span> 400 RIX</span></p>
                                     <span className="mb-0 h6 mb-0">Tweet About The Revolution On Twitter</span>
                                 </div>
                                 <i className="fas fa-chevron-right" />
