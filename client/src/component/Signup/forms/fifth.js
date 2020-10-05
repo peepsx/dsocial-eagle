@@ -3,7 +3,9 @@ import React from 'react'
 export default class Fifth extends React.Component {
 
     componentWillUnmount() {
-        localStorage.clear();
+        setTimeout(() => {
+            localStorage.clear();
+        }, 2000);
     }
 
     render() {
