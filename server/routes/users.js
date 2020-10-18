@@ -63,7 +63,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
             .then(async (lookup) => {
                 let NewUser = new UserAuth({
                     arisen_username: arisen_username,
-                    ip_address: ip.v4 === ip.v6 ? ip.v4 : ip.v6
+                    ip_address: ip.v4 ? ip.v4 : ip.v6
                 })
                 let user = await NewUser.save();
                 if(lookup.data.details.account_name === arisen_username) {
