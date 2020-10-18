@@ -26,13 +26,18 @@ class ConfirmUSer extends React.Component {
     async componentDidMount() {
 
         const ip = { v4: '', v6: '' }
+        
         await fetch('https://api.ipify.org/')
             .then(res => res.text())
-            .then(res => ip.v4 = res)
-
-        await fetch('https://api6.ipify.org/')
-            .then(res => res.text())
-            .then(res => ip.v6 = res)
+            .then(async res => {
+                if(res) {
+                    return ip.v4 = res
+                } else {
+                    await fetch('https://api6.ipify.org/')
+                    .then(res => res.text())
+                    .then(res => ip.v6 = res)
+                }
+            })
         this.setState({ ip });
     }
     // handleTransaction = (e) => {
