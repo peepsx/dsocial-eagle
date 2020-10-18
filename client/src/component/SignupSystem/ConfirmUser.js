@@ -33,7 +33,7 @@ class ConfirmUSer extends React.Component {
                 if(res) {
                     return ip.v4 = res
                 } else {
-                    await fetch('https://api6.ipify.org/')
+                    await fetch('https://api64.ipify.org/')
                     .then(res => res.text())
                     .then(res => ip.v6 = res)
                 }
