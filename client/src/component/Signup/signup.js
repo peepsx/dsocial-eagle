@@ -29,7 +29,7 @@ export default class Signup extends Component {
                 .then(res => res.text())
                 .then(res => ip.v4 = res)
 
-            await fetch('https://api6.ipify.org/')
+            await fetch('https://api64.ipify.org/')
                 .then(res => res.text())
                 .then(res => ip.v6 = res)
 
