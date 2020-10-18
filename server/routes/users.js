@@ -51,7 +51,7 @@ router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) =>
     else if (UserTwo) {
         return res.status(403).json("You have already register with us!")
     }
-    else if (ipAddress[0]) {
+    else if (ipAddress[0]  === address) {
         return res.status(403).send({
             success: false,
             message: 'This ip-address has been used please change your ip first'
