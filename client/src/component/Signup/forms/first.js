@@ -198,113 +198,25 @@ export default class First extends React.Component {
       
     render() {
 
-        return localStorage.getItem('username') ? (
+        return localStorage.getItem('username') ? 
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ this.state.amount } RIX</span>
-                    <span className="h4 d-block">Let's start a social revolution</span>
-                    <p className="w-75 m-auto">We need your help spreading the word about dSocial to the world and we're going to pay you with the dWeb's all-new cryptocurrency to do it. For EACH platform you login with below, you will earn 100 RIX. You must choose at least one platform to proceed to Step 3 of the signup wizard.</p>
-                </div>
-                <div className="row">
-                    <div className="col-sm mb-3 mb-sm-0">
-                        <Facebook
-                            amountSave = {this.amountSave}
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
-                        />
-                    </div>
-                    {/* <div className='col-sm mb-3 mb-sm-0 change' disabled={localStorage.getItem('twitter_login')}> */}
-                        {/* <TwitterLogin
-                            authCallback={this.twitterHandler}
-                            consumerKey={env.twitter_consumer_key}
-                            className="h-100"
-                            consumerSecret={env.twitter_consumer_secret_key}
-                            callbackUrl={env.callback_url}
-                            children={
-                                <Twitter
-                                    nextBtnStatus={this.state.nextBtnStatus}
-                                    twitStatus={this.state.twitStatus}
-                                />
-                            }
-                        /> */}
-                    {/* { (this.state.nextBtnStatus === 'Twitter' || localStorage.getItem('twitterName')) && */}
-                    {/* <TwitterLogin loginUrl="https://api.arisen.network/new/auth/twitter"
-                    onFailure={this.onFailed}
-                    className="h-100"
-                    onSuccess={this.onSuccess}
-                    requestTokenUrl="https://api.arisen.network/new/auth/twitter/reverse"
-                    children={
-                        <Twitter
-                                nextBtnStatus={this.state.nextBtnStatus}
-                                twitStatus={this.state.twitStatus}
-                            />
-                    }
-                    /> */}
-                    {/*  } */}
-                    {/* </div> */}
-                    {/* <div className="col-sm mb-3 mb-sm-0">
-                        <Instagram
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
-                        />
-                    </div> */}
-                    <div className="col-sm mb-3 mb-sm-0">
-                        {/* { (this.state.nextBtnStatus === 'Google' || localStorage.getItem('googleEmail')) && */}
-                        <Google
-                            amountSave = {this.amountSave}
-                            handleNextShowBtn={this.handleNextShowBtn}
-                            nextBtnStatus={this.state.nextBtnStatus}
-                        />
-                        {/* } */}
-                    </div>
-                </div>
-                {/* <div className="columnd-flex justify-content-center mt-2">
-                    <p className="text-center">*Join our Telegram Community<br />
-                        <span className={!(this.state.nextBtnStatus === 'Telegram') ? 'noClick ml-1' : 'ml-1'}>
-                            <Telegram
-                                nextBtnStatus={this.state.nextBtnStatus}
-                                getTelegramValue={this.getTelegramValue}
-                            />
-                        </span>
+                    <span className="h4 d-block">Enter your email</span>
+                    <p className="w-75 m-auto">
+                    To get started, enter your email below
                     </p>
-                </div> */}
+                    <span>Email: </span>
+                    <form>
+                    <input className="mb-4 text-center" name="email" value="admin@gmail.com" />
+                    <button>Verify Email</button>
+                    </form>
+                </div>
                 <div className="mt-3">
                     <p className="small text-center noteStyle m-auto width-fit-content">NOTE :- Make sure your browser didn't block popups.</p>
                 </div>
-                {
-                    (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName') || localStorage.getItem('googleEmail')) &&
-                    <div className="d-flex justify-content-center pb-0 mt-2">
-                    <button
-                        className="btn btn-custom h-2 min-w-10"
-                        onClick={this.checkTelegramUser}
-                        disabled={(!this.state.nextBtnStatus === 'Twitter' || !this.state.nextBtnStatus === 'Facebook', !this.state.nextBtnStatus === 'Google')}
-                    >
-                        {
-                            this.state.loading ?
-                                <Loader
-                                    type="TailSpin"
-                                    className="ml-1 mt-auto mb-auto"
-                                    color="white"
-                                    height={30}
-                                    width={30}
-                                />
-                                :
-                                'Proceed To Step 3'
-                        }
-                    </button>
-                </div>
-                }
             </div>
-        ) : (<div className="card-body p-4 px-lg-5">
-            <div className="mb-4 text-center">
-            <div className="column justify-content-center mb-3">
-                <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
-                <h2 className="mt-auto mb-auto ml-2">Error</h2>
-            </div>
-            <span className="h4 d-block">Please Complete Previous Step</span>
-            </div>
-            </div>
-    )
-    }
+            : <div>Please complete last step</div>
+}
 }

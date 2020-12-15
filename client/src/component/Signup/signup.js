@@ -76,13 +76,13 @@ export default class Signup extends Component {
                                             <a className="nav-link noClick" href="#first">1. Your Account</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#second">2. Join The Revolution</a>
+                                            <a className="nav-link noClick" href="#second">2. Verify Email</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#third">3. Follow Peeps</a>
+                                            <a className="nav-link noClick" href="#third">3. Verify Phone</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#fourth">4. Promote dSocial</a>
+                                            <a className="nav-link noClick" href="#fourth">4. Agree To Terms</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fifth">5. Confirm Username</a>
