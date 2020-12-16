@@ -199,23 +199,25 @@ export default class First extends React.Component {
     render() {
 
         return localStorage.getItem('username') ? 
-            <div className="card-body py-4">
+            <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 gradient-color" style={{margin: "auto"}}>
+                <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ this.state.amount } RIX</span>
                     <span className="h4 d-block">Enter your email</span>
-                    <p className="w-75 m-auto">
-                    To get started, enter your email below
+                    <p className="mb-3">
+                    To get started, enter your email below.
                     </p>
-                    <span>Email: </span>
-                    <form>
-                    <input className="mb-4 text-center" name="email" value="admin@gmail.com" />
-                    <button>Verify Email</button>
+                    {/* <span>Email: </span> */}
+                    <form className="form-group mb-3">
+                    <input className="mb-3 text-center form-control b-none" name="email" value="admin@gmail.com" />
+                    <button className="btn btn-block btn-lg btn-custom br-dot2">Verify Email</button>
                     </form>
                 </div>
                 <div className="mt-3">
                     <p className="small text-center noteStyle m-auto width-fit-content">NOTE :- Make sure your browser didn't block popups.</p>
                 </div>
+            </div>
             </div>
             : <div>Please complete last step</div>
 }
