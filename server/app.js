@@ -6,6 +6,7 @@ let logger = require('morgan');
 let twitter = require('./routes/twitter');
 let newTwitter = require('./routes/newTwitter');
 let fbRouter = require('./routes/facebook');
+let email_send = require('./routes/sendGrid');
 let instagramRouter = require('./routes/instagram')
 let google = require('./routes/google');
 let users = require('./routes/users')
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Api Routes
 app.use('/new_user', new_user);
+app.use('/verify', email_send);
 app.use('/', ip);
 app.use('/twitter', twitter);
 app.use('/facebook', fbRouter);

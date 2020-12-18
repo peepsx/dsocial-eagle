@@ -22,7 +22,7 @@ let tronWeb = require('tronweb');
 let HttpProvider = tronWeb.providers.HttpProvider;
 let fullNode = new HttpProvider(tronConfig.TRON_FULL_SOLIDITY_EVENT_NODE);
 let { Tron } = require('../models/Tron');
-let { Ether } = require('../models/Ethereum');
+let { Ether } = require('../models/Email');
 let axios = require('axios');
 let web3 = require('../web3');
 
