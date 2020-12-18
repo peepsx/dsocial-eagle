@@ -250,7 +250,7 @@ export default class Second extends React.Component {
     }
 
     render() {
-        return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
+        return localStorage.getItem('email') && localStorage.getItem('username') ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
