@@ -23,7 +23,7 @@ web3.eth.net.isListening()
                         .catch(e => console.log("ERROR IN GETTING ID", e))
                 }
             })
-            .catch(e => console.log("ERROR WHILE CONNECTED TO ETH NETWORK"));
+            .catch(e => console.log("ERROR WHILE CONNECTED TO ETH NETWORK", e));
 
 module.exports = {
     web3

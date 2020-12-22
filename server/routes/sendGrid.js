@@ -3,6 +3,7 @@ var router = express.Router();
 const sgMail = require('@sendgrid/mail');
 let bcrypt = require('bcryptjs');
 const  { EVerify } = require('../models/Email')
+const { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 const { body, validationResult } = require('express-validator');
 let {EMAIL_KEY} = require('../config/index');
 
@@ -12,31 +13,31 @@ router.post('/send-email',[
     body('email').isEmail(),
 ], async (req, res) => {
     try {
-        let { email } = req.body;
+        let { email, username } = req.body;
         let errors = validationResult(req);
 
         if(!errors.isEmpty()) {
             return res.status(200).json({errors: errors.array()});
         }
         let findOne = await EVerify.findOne({email})
-        console.log('sss', findOne, EMAIL_KEY)
         if(findOne !== null) {
-            return res.status(200).json({status: false, message: 'Email already exit'});
+            return res.status(200).json({success: false, message: 'Email already exit'});
         }
       
         var password = generator.generate({
-            length: 10,
+            length: 4,
             numbers: true
         });
-        let salt = await bcrypt.genSalt(10);
+        let salt = await bcrypt.genSalt(4);
         let hash = await bcrypt.hash(password, salt);
         let newTempUser = new EVerify({
             email: email,
-            token: password
+            token: password,
+            username: username
         })
         newTempUser.token = hash;
-        newTempUser.save()
-            .then(async (us) => {
+        // newTempUser.save()
+            // .then(async (us) => {
                 sgMail.setApiKey(EMAIL_KEY);
                 const msg = {
                   to: email,
@@ -80,7 +81,7 @@ router.post('/send-email',[
                                       </div>
                                       <h2>Your Email Verification Code</h2>
                                       <p>Please enter the following verification code into the dSocial signup wizard:</p>
-                                      <p><b>${us.token}</b></p>
+                                      <p><b>${newTempUser.token}</b></p>
                                   </div>
                               </div>
                   
@@ -93,7 +94,8 @@ router.post('/send-email',[
                 //ES6
                 sgMail
                   .send(msg)
-                  .then((send) => {
+                  .then(async (send) => {
+                   await newTempUser.save()
                     res.status(200).send(
                         {
                             success: true,
@@ -108,15 +110,46 @@ router.post('/send-email',[
                       console.error(error.response.body)
                     }
                   });                
-            })
-            .catch(e => {
-                console.error("SEND EMAIL", e)
-                return res.status(401).send(e)
-            })
+            // })
+            // .catch(e => {
+            //     console.error("SEND EMAIL", e)
+            //     return res.status(401).send(e)
+            // })
     } catch (error) {
         console.log('SENDING EMAIL', error)
         return res.status(500).send({success: false, message: "server error"})
     }
+})
+
+router.post('/send-token', async (req, res) => {
+    let { code, amount } = req.body;
+
+    try {
+        let token = await EVerify.findOne({token: code})
+        if(token) {
+            Rsn_Transfer(token.username, token.id, amount)
+                .then(data => {
+                    return res.status(200).json({
+                        data: data,
+                        success: true,
+                        message:   `Congratulations! You just earned ${amount} RIX!`
+                    })
+                })
+                .catch(e => {
+                    console.error("TRANSFER ERROR", e)
+                })
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: 'Sorry, the verification code was incorrect. Please try again.'
+            })
+        }
+
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({error: 'Internal Server Error'})
+    }
+     
 })
 
 module.exports = router

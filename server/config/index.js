@@ -8,5 +8,7 @@ module.exports = {
     PRIVATE_KEY: process.env.BTS_PRIVATE_KEY,
     BTS_TESTNET_PRIVATE_KEY: process.env.BTS_TESTNET_PRIVATE_KEY,
     SERVER_LESS: process.env.SERVER_LESS,
-    EMAIL_KEY: process.env.SENDGRID_API_KEY
+    EMAIL_KEY: process.env.SENDGRID_API_KEY,
+    Account_SID: process.env.Account_SID,
+    Auth_Token: process.env.Auth_Token
 }

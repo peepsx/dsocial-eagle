@@ -7,6 +7,11 @@ let EmailCode = new Schema({
         unique: true,
         required:true,
     },
+    username: {
+        type:String,
+        required: true,
+        unique: true
+    },
     token:{
       type:String,
       required:true
@@ -17,7 +22,7 @@ let EmailCode = new Schema({
     }
 }, {timestamps: true})
 
-let EVerify = mongoose.model('verify', EmailCode);
+let EVerify = mongoose.model('email_verifies', EmailCode);
 
 module.exports = {
     EVerify

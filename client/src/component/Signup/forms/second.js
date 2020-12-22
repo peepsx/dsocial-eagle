@@ -1,342 +1,333 @@
 import React from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import Swal from 'sweetalert2';
-
+// import TwitterLogin from "react-twitter-login";
+// import TwitterLogin from "react-twitter-auth";
+import gold from '../../assets/img/gold_img.png'
+// import Twitter from './login_buttons/twitter';
+import Facebook from './login_buttons/facebook';
+// import Instagram from './login_buttons/instagram'
+import Google from './login_buttons/google';
+// import Telegram from './login_buttons/telegram';
+// import { env } from '../../config/config';
 import { API } from '../../js/api_list';
-import { env } from '../../config/config';
 import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
-import gold from '../../assets/img/gold_img.png'
 
-export default class Second extends React.Component {
+export default class First extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clickCounter:0,
-            loading: false,
-            subscriber: '',
+            mobileNumber: '',
             amount: 0,
-            facebook_reward: 0,
-            twitter_reward: 0,
-            youtube_reward: 0,
-            you_tube: false,
+            code: '',
+            twitStatus: false,
+            nextBtnStatus: '',
+            loading: false,
         }
     }
 
-    // handleInstagramLink = () => {
-    //     window.open('https://www.instagram.com/arisencoin/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-    //     this.setState({
-    //         clickCounter: this.state.clickCounter +1
-    //     })
-    // }
-
-    handleFacebookLink = () => {
-        window.open('https://www.facebook.com/peepsology/', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=800, height=600")
+    onChangeHandle = (e) => {
+        e.preventDefault();
         this.setState({
-            clickCounter: this.state.clickCounter +1
+            [e.target.name]: e.target.value
         })
-        let amt = this.state.facebook_reward + 200
-        if(!this.state.facebook_reward) {
-            this.setState({facebook_reward: amt})
-        }
     }
-    
-    handleYoutubeLink = () => {
-    const googleAccessToken = localStorage.getItem('goggle-access')
-    if (window.gapi.client.youtube) {
-        Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
-            headers: {
-                Authorization: 'Bearer ' + googleAccessToken
-            }
+    onCodeHandle = (e) => {
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.value
         })
-            .then((response) => {
-                let channel;
-                let amt = this.state.youtube_reward + 200
-                if (response.data.items) {
-                    for (let item of response.data.items) {
-                        if (item.snippet.title === 'Peeps') {
-                            channel = item.snippet.title
-                            if(!this.state.youtube_reward) {
-                                this.setState({youtube_reward: amt})
-                            }
-                            toast("You already subscribed our page", {
-                                type: "success",
-                                autoClose: 3000,
-                            })
-                        }
-                    }
-                }
-                if(!channel) {
-                        window.open('https://www.youtube.com/channel/UCoknUFNMUF9ciA_WGmm8pxQ', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-                        this.setState({
-                            clickCounter: this.state.clickCounter +1, you_tube: true
-                        })                    
-                        this.setState({youtube_reward: amt})
-                }
+    }
+    onVerificationCode =(e) => {
+        e.preventDefault();
+        if(!this.state.code) {
+            toast("Please enter a code", {
+                type: 'error',
+                autoClose: 3000,
             })
-            .catch(err => console.error('Subscribe error', err))
-    } else {
-        this.setState({ loading: false })
-        Swal.fire({
-            title: 'Error',
-            text: 'Data Lost, due to roloading of the page !! ',
-            icon: "warning",
-            showCancelButton: false,
-            confirmButtonText: 'Okay',
-        })
-            .then(() => {
-                window.open(env.liveStatus)
-            })
-    }
-    }
-
-    handleTwitClick = () => {
-        Axios({
-            url: API.validation_follower,
-            method: 'POST',
-            data: {
-                screen_name: localStorage.getItem('twitterName'),
-                // username: localStorage.getItem('instaUserId'),
-            },
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        })
-            .then(response => {
-                this.setState({ loading: false })
-                let amt = this.state.twitter_reward + 100
-                if (response.data.success) {
-                    if(!this.state.twitter_reward) {
-                        this.setState({twitter_reward: amt})
+            return;
+        } else {
+            let amt = 1;
+            axios({
+                url: API.mobile_verify,
+                method: 'POST',
+                data: {
+                    code: this.state.code,
+                    amount: `${amt.toFixed(4)} RIX`
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
+                    let toastType = "error";
+                    console.log('ddddd', response, response.data.asuccess)
+                    if(this.state.twitStatus) {
+                        let amt = this.state.amount + 500;
+                        this.setState({amount: amt});
                     }
-                    toast("You already follow our page", {
-                        type: "success",
+                    if (response.data.success) {
+                        this.setState({ twitStatus: true })
+                        toastType = "success";
+                        window.location.hash = '#third'
+                    }
+                
+                    toast(response.data.message, {
+                        type: toastType,
                         autoClose: 3000,
                     })
-                } else {
-                    window.open('https://twitter.com/peepsology', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,width=400, height=600")
-                    this.setState({
-                        clickCounter: this.state.clickCounter +1
-                    })
-                    if(!this.state.twitter_reward) {
-                        this.setState({twitter_reward: amt})
+                })
+                .catch(err => {
+                    if (err.response && err.response.status === 403) {
+                        toast("User already registered !!!", {
+                            type: 'warning',
+                            autoClose: 3000,
+                        })
                     }
-                }
-            })
-            .catch(err => {
-                this.setState({ loading: false })
-                console.log(err);
-            })
+                })
+        }
     }
-
-
-    nextButtonValidation = async (e) => {
+    onVerification = (e) => {
         e.preventDefault();
-        if(this.state.you_tube) {
-                const googleAccessToken = localStorage.getItem('goggle-access')
-            if (window.gapi.client.youtube) {
-            Axios.get(`https://www.googleapis.com/youtube/v3/subscriptions?part=snippet%2CcontentDetails&maxResults=50&key=${env.google_api_key} HTTP/1.1&mine=true`, {
+    
+            axios({
+                url: API.mobile_verifier,
+                method: 'POST',
+                data: {
+                    mobile: this.state.mobileNumber,
+                    username: localStorage.getItem('username')
+                },
                 headers: {
-                    Authorization: 'Bearer ' + googleAccessToken
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
-            })
-                .then((response) => {
-                    if (response.data.items) {
-                        for (let item of response.data.items) {
-                            if (item.snippet.title === 'Peeps') {
-                                toast("You have successfully subscribed our channel", {
-                                    type: "success",
-                                    autoClose: 3000,
-                                })
-                            } else {
-                                let amt = this.state.youtube_reward - 100
-                                this.setState({youtube_reward: amt})
-                                toast("Please subscribe our channel if you want to earn 100 RIX", {
-                                    type: "success",
-                                    autoClose: 3000,
-                                })
-                                this.setState({you_tube: false})
-                            }
-                        }
+            }).then(response => {
+                    localStorage.setItem('mobileNumber', this.state.mobileNumber);
+                    let toastType = "error";
+                    console.log('ddddd', response, response.data.success)
+                    if (response.data.success) {
+                        this.setState({ twitStatus: true })
+                        toastType = "success";
+                    }
+
+                    toast(response.data.message, {
+                        type: toastType,
+                        autoClose: 3000,
+                    })
+                })
+                .catch(err => {
+                    if (err.response && err.response.status === 403) {
+                        toast("User already registered !!!", {
+                            type: 'warning',
+                            autoClose: 3000,
+                        })
                     }
                 })
-                .catch(err => console.error('Subscribe error', err))
-            } else {
-            this.setState({ loading: false })
-            Swal.fire({
-                title: 'Error',
-                text: 'Data Lost, due to roloading of the page !! ',
-                icon: "warning",
-                showCancelButton: false,
-                confirmButtonText: 'Okay',
-            })
-                .then(() => {
-                    window.open(env.liveStatus)
-                })
-            }
-        }
-        if (localStorage.getItem('s1')) {
-            this.setState({ loading: true });
-            if (localStorage.getItem('twitterName')  && this.state.clickCounter) {
-                this.apiCall();
-                localStorage.setItem('like_reward', ((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))
-            } else {
-                this.setState({ loading: false })
-                // if(localStorage.getItem('twitterName') === null && localStorage.getItem('fbUserId') === null) {
-                //     window.location.hash = '#fifth'
-                //     localStorage.setItem('s2', true);
-                //     localStorage.setItem('s3', true);
-                //     localStorage.setItem('like_reward', this.state.amount)
-                // }
-                    window.location.hash = '#fourth'
-                    localStorage.setItem('s2', true);
-                    // localStorage.setItem('s3', true);
-                    localStorage.setItem('like_reward', ((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))
-                // window.location.hash = '#fourth'
-                // localStorage.setItem('s2', true);
-                // localStorage.setItem('like_reward', this.state.amount)
-            //     Swal.fire({
-            //         title: 'Whoops!',
-            //         text: "You must follow all of Peeps' social media pages before continuing!!",
-            //         icon: "warning",
-            //         showCancelButton: false,
-            //         confirmButtonText: 'Okay',
-            //     })
-            }
-        } else {
-            Swal.fire({
-                title: 'Error',
-                text: 'Please complete step 1!!',
-                icon: "error",
-                showCancelButton: false,
-                confirmButtonText: 'Okay',
-            })
-            .then(() => window.open(env.liveStatus, '_self'))
-        }
+        
     }
+    // twitterHandler = (err, authData) => {
+    //     this.setState({loading: true})
+    //     if(authData) {
+    //         this.setState({loading: false})
+    //         this.handleTwitDataSave(authData);
+    //     }
+    // }
+    // amountSave = (reward) => {
+    //     let amt = reward + this.state.amount;
+    //     this.setState({amount: amt});
+    // }
+    // getTelegramValue = (teleData) => {
+    //     this.setState({
+    //         teleUserid: teleData
+    //     })
+    // }
+    // checkTelegramUser = (e) => {
+    //     e.preventDefault();
+    //     this.setState({ loading: true });
+    //     const fbData = localStorage.getItem('fbUserId');
+    //     const googleEmail = localStorage.getItem('googleEmail');
+    //     // const instaUserId = localStorage.getItem('instaUserId');
+    //     const twitterName = localStorage.getItem('twitterName');
+    //     if (fbData ||
+    //         googleEmail ||
+    //         // !instaUserId ||
+    //         twitterName
+    //     ) {
+    //         localStorage.setItem('s1', true)
+    //         window.location.hash = "#third";
+    //         localStorage.setItem('login_reward', this.state.amount);
+    //     } else {
+    //         this.setState({ loading: false })
+    //         Swal.fire({
+    //             title: 'Error',
+    //             text: 'You must login to all platforms beforing continuing to step 3',
+    //             icon: "error",
+    //             showCancelButton: false,
+    //             confirmButtonText: 'Okay',
+    //         })
+    //     }
 
-    apiCall = () => {
-        Axios({
-            url: API.validation_follower,
-            method: 'POST',
-            data: {
-                screen_name: localStorage.getItem('twitterName'),
-                // username: localStorage.getItem('instaUserId'),
-            },
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
+        // TO ENABLE TELEGRAM CHECK - UNCOMMENT THE CODE GIVEN BELOW AND COMMENT ABOVE ELSE STATEMENT
+
+
+        // else if (this.state.teleUserid !== '') {
+        //     Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
+        //         .then(res => {
+        //             this.setState({ loading: false })
+        //             const title = res.data.ok ? 'Success' : 'Error';
+        //             const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
+        //             const icon = res.data.ok ? 'success' : 'error';
+        //             Swal.fire({
+        //                 title,
+        //                 text,
+        //                 icon,
+        //                 showCancelButton: false,
+        //                 confirmButtonText: 'Proceed',
+        //             })
+        //             if (res.data.ok) {
+        //                 localStorage.setItem('s1', true)
+        //                 window.location.hash = "#second";
+        //             }
+        //         })
+        //         .catch(err => {
+        //             this.setState({ loading: false })
+        //             console.error('Bot Error : ', err)
+        //         })
+        // } else {
+        //     this.setState({ loading: false })
+        //     Swal.fire({
+        //         title: 'Error',
+        //         text: 'Please Login with Telegram !!',
+        //         icon: "error",
+        //         showCancelButton: false,
+        //         confirmButtonText: 'Okay',
+        //     })
+        // }
+
+    // onSuccess = (result) => {
+    //     result.json().then(user => {
+    //         if (user.screen_name) {
+    //             Axios({
+    //                 url: API.twitter_detail,
+    //                 method: 'POST',
+    //                 data: {
+    //                     username: user.screen_name,
+    //                     id: localStorage.getItem('fbUserId')
+    //                 },
+    //                 headers: {
+    //                     Authorization: 'Bearer ' + localStorage.getItem('token')
+    //                 }
+    //             }).then(response => {
+    //                     localStorage.setItem('twitterName', user.screen_name);
+    //                     localStorage.setItem('twitter_login', true)
+    //                     if(!this.state.twitStatus) {
+    //                         let amt = this.state.amount + 100;
+    //                         this.setState({amount: amt});
+    //                     }
+    //                     let toastType = "error";
+    //                     if (response.data.success) {
+    //                         this.setState({ twitStatus: true })
+    //                         toastType = "success";
+    //                         this.handleNextShowBtn('Google')
+    //                     }
+    //                     toast(response.data.message, {
+    //                         type: toastType,
+    //                         autoClose: 3000,
+    //                     })
+    //                 })
+    //                 .catch(err => {
+    //                     if (err.response && err.response.status === 403) {
+    //                         toast("User already registered !!!", {
+    //                             type: 'warning',
+    //                             autoClose: 3000,
+    //                         })
+    //                     }
+    //                 })
+    //         }
+    //     });
+    //   };
+      
+    // handleTwitDataSave = (userData) => {
+    //     if (userData && userData.screen_name) {
+    //         Axios({
+    //             url: API.twitter_detail,
+    //             method: 'POST',
+    //             data: {
+    //                 username: userData.screen_name,
+    //                 id: localStorage.getItem('fbUserId')
+    //             },
+    //             headers: {
+    //                 Authorization: 'Bearer ' + localStorage.getItem('token')
+    //             }
+    //         })
+    //             .then(response => {
+    //                 localStorage.setItem('twitterName', userData.screen_name);
+    //                 let toastType = "error";
+    //                 if (response.data.success) {
+    //                     this.setState({ twitStatus: true })
+    //                     toastType = "success";
+    //                     this.handleNextShowBtn('Google')
+    //                 }
+    //                 toast(response.data.message, {
+    //                     type: toastType,
+    //                     autoClose: 3000,
+    //                 })
+    //             })
+    //             .catch(err => {
+    //                 if (err.response && err.response.status === 403) {
+    //                     toast("User already registered !!!", {
+    //                         type: 'warning',
+    //                         autoClose: 3000,
+    //                     })
+    //                 }
+    //             })
+    //     }
+    // }
+
+    handleNextShowBtn = (status) => {
+        this.setState({
+            nextBtnStatus: status
         })
-            .then(response => {
-                this.setState({ loading: false })
-                if (response.data.success) {
-                    localStorage.setItem('s2', true);
-                    localStorage.removeItem('goggle-access');
-                    window.location.hash = "#fourth";
-                } else {
-                    Swal.fire({
-                        title: 'Whoops!',
-                        text: "You must follow all of Peeps' social media pages before continuing!!",
-                        icon: "Error",
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
-                    })
-                }
-            })
-            .catch(err => {
-                this.setState({ loading: false })
-                console.log(err);
-            })
     }
-
+    // onFailed = (error) => {
+    //     alert(error);
+    //   };
+      
     render() {
-        return localStorage.getItem('email') && localStorage.getItem('username') ? (
-            <div className="card-body py-4">
-                <div className="mb-4 text-center">
-                    <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(((this.state.facebook_reward || 0) + (this.state.twitter_reward || 0) + (this.state.youtube_reward || 0)))} RIX</span>
-                    <span className="h4 d-block">Tune in to our fight to decentralize the web...</span>
-                    <p className="w-75 m-auto">Like, follow and subscribe to @Peepsology on the platforms below and earn 100 RIX for EACH platform you follow us on.</p>
+
+        return localStorage.getItem('username') ? 
+            <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 gradient-color" style={{margin: "auto"}}>
+                <div className="card-body py-4">
+                {this.state.twitStatus ?   <div className="mb-4 text-center">
+                    <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ this.state.amount } RIX</span>
+                    <span className="h4 d-block">Enter Verification Code</span>
+                    <p className="mb-3">
+                    We just sent you a text message to number {localStorage.getItem('mobileNumber')}, with a verification code. Please enter it below.
+                    </p>
+                    {/* <span>Email: </span> */}
+                    <form className="form-group mb-3" onSubmit={this.onVerificationCode.bind(this)}>
+                    <input className="mb-3 text-center form-control b-none" name="code" value={this.state.code} onChange={this.onCodeHandle.bind(this)} />
+                    <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>Verify Code</button>
+                    </form>
+                </div> :   <div className="mb-4 text-center">
+                    <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ this.state.amount } RIX</span>
+                    <span className="h4 d-block">Enter your mobile phone number</span>
+                    <p className="mb-3">
+                    Please enter your mobile phone number below.
+                    </p>
+                    {/* <span>Email: </span> */}
+                    <form className="form-group mb-3" onSubmit={this.onVerification.bind(this)}>
+                    <input className="mb-3 text-center form-control b-none" name="mobileNumber" value={this.state.mobileNumber} onChange={this.onChangeHandle.bind(this)} />
+                    <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>Verify Number</button>
+                    </form>
                 </div>
-                <div className="col-md-12">
-                    <div className="row">
-                        {localStorage.getItem('fbUserId') && <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white">
-                                <img className="icon mb-3" src="assets/img/arisen/facebook.png" alt="facebook" />
-                                <span className="h6 mb-0 d-block">Peeps On Facebook</span>
-                                <button onClick={this.handleFacebookLink} className=" btn btn-sm btn-facebook mt-2 hover-white color-white" type="button">
-                                    <p className='warning' style={{color: 'black',position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 200 RIX</span></p>
-                                    <i className="fas fa-thumbs-up mr-1" />
-                                    Like Peeps
-                                </button>
-                            </div>
-                        </div>
-                        }
-                        { localStorage.getItem('twitterName') &&
-                            <div className="col-sm mb-3 mb-sm-0">
-                                <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
-                                    <img className="icon mb-3" src="assets/img/arisen/twitter.png" alt="twitter" />
-                                    <span className="h6 mb-0 d-block">Peeps On Twitter</span>
-                                    <button onClick={this.handleTwitClick} className=" color-white btn btn-sm btn-twitter mt-2 hover-white" type="button">
-                                        <p className='warning' style={{color: 'black', position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 100 RIX</span></p>
-                                        <i className="fab fa-twitter mr-1" />
-                                        Follow @peepsx
-                                    </button>
-                                </div>
-                            </div>
-                        }
-                        {/* <div className="col-sm mb-3 mb-sm-0">
-                            <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white" type="button">
-                                <img className="icon mb-3" src="assets/img/arisen/instagram.png" alt="instagram" />
-                                <span className="h6 mb-0 d-block">Instagram Page</span>
-                                <button onClick={this.handleInstagramLink} className="color-white btn btn-sm btn-instagram mt-2 hover-white" type="button">
-                                    <i className="fab fa-instagram mr-1" />
-                                    Follow
-                                </button>
-                            </div>
-                        </div> */}
-                        {localStorage.getItem('googleEmail') && 
-                            <div className="col-sm mb-3 mb-sm-0">
-                                <div className="btn btn-block btn-outline-light border py-4 h-100 hover-white bg-white" >
-                                    <img className="icon mb-3" src="assets/img/arisen/youtube.png" alt="google" />
-                                    <span className="h6 mb-0 d-block">Peeps On YouTube</span>
-                                    <button onClick={this.handleYoutubeLink} className=" color-white btn btn-sm btn-red mt-2 hover-white" type="button">
-                                        <p className='warning' style={{color: 'black', position: "absolute", bottom: "0px", right: "0px", left: "0px"}}>+<span> 200 RIX</span></p>
-                                        <i className="fab fa-youtube mr-1" />
-                                        Subscribe To Peeps
-                                    </button>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-                <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 min-w-10"
-                        onClick={this.nextButtonValidation}>
-                        {
-                            this.state.loading ?
-                                <Loader
-                                    type="TailSpin"
-                                    className="ml-1 mt-auto mb-auto"
-                                    color="white"
-                                    height={30}
-                                    width={30}
-                                />
-                                :
-                                "I'm Tuned In"
-                        }
-                    </button>
+                }
+                <div className="mt-3">
+                    <p className="small text-center noteStyle m-auto width-fit-content">NOTE :- Make sure your browser didn't block popups.</p>
                 </div>
             </div>
-        ) : (<div className="card-body p-4 px-lg-5">
-        <div className="mb-4 text-center">
-        <div className="column justify-content-center mb-3">
-            <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
-            <h2 className="mt-auto mb-auto ml-2">Error</h2>
-        </div>
-        <span className="h4 d-block">Please Complete Previous Step</span>
-        </div>
-        </div>
-    )
-    }
+            </div>
+            : <div>Please complete last step</div>
+}
 }

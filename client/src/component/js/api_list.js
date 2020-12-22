@@ -13,5 +13,9 @@ export const API = {
     registerUser            : url+'/users/register',
     passPhrase              : url+'/users/pass/phrase',
     share_with_fb           : url+'/validation//share-facebook-media',
-    email_verifier          : url+'/verify/send-email'
+    email_verifier          : url+'/verify/send-email',
+    code_verify             : url+'/verify/send-token',
+    mobile_verifier         : url+'/mobile/send-sms',
+    mobile_verify           : url+'/mobile/mobile-token'
+    
 }

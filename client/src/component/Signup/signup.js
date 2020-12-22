@@ -84,11 +84,11 @@ export default class Signup extends Component {
                                         <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fourth">4. Agree To Terms</a>
                                         </li>
-                                        <li className="nav-item flex-fill noClick">
+                                        {/* <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fifth">5. Confirm Username</a>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#sixth">6. You Got Coins!</a>
+                                            <a className="nav-link noClick" href="#sixth">5. You Got Coins!</a>
                                         </li>
                                     </ul>
                                     <div className="tab-content">
