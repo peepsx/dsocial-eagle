@@ -152,7 +152,8 @@ export default class Third extends React.Component {
 
     render() {
         return localStorage.getItem('email') && localStorage.getItem('username')  ? (
-            <div className="card-body py-4">
+           <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 gradient-color" style={{margin: "auto"}}>
+                <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>
@@ -181,13 +182,14 @@ export default class Third extends React.Component {
                 <p>You agree to abide by the <a href="https://constitution.dwebx.org" target="_blank">dWeb Constitution</a>.</p>
 
                 </div>
-                <form action="/action_page.php">
+                <form action="/action_page.php" className="termagree">
                     <input type="checkbox" id="iagree" name="iagree" value=""/>
                     <label htmlFor="iagree">{'  '}I agree to dSocial's Terms of Service.</label><br/>
                     <input className="btn btn-block btn-lg btn-custom br-dot2" type="submit" value="Create Account & Send Coins"/>
                 </form>
             </div>
             </div>
+           </div>
         ) : (<div className="card-body p-4 px-lg-5">
         <div className="mb-4 text-center">
         <div className="column justify-content-center mb-3">

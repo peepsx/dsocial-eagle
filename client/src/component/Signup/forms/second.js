@@ -300,7 +300,7 @@ export default class First extends React.Component {
                 {this.state.twitStatus ?   <div className="mb-4 text-center">
                     <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ this.state.amount } RIX</span>
-                    <span className="h4 d-block">Enter Verification Code</span>
+                    <span className="h4 d-block">Enter SMS verification code</span>
                     <p className="mb-3">
                     We just sent you a text message to number {localStorage.getItem('mobileNumber')}, with a verification code. Please enter it below.
                     </p>
