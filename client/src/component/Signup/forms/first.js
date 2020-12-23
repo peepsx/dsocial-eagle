@@ -42,6 +42,7 @@ export default class First extends React.Component {
     }
     onVerificationCode =(e) => {
         e.preventDefault();
+        this.setState({loading: true})
         if(!this.state.code) {
             toast("Please enter a code", {
                 type: 'error',
@@ -66,10 +67,11 @@ export default class First extends React.Component {
                     if(this.state.twitStatus) {
                         let amt = this.state.amount + 500;
                         this.setState({amount: amt});
+                        localStorage.setItem('emailReward', amt)
                     }
                    
                     if (response.data.success) {
-                        this.setState({ twitStatus: true })
+                        this.setState({ twitStatus: true, loading: false})
                         toastType = "success";
                         toast(response.data.message, {
                             type: toastType,
@@ -86,6 +88,7 @@ export default class First extends React.Component {
                 })
                 .catch(err => {
                     if (err.response && err.response.status === 403) {
+                        this.setState({ loading: false})
                         toast("User already registered !!!", {
                             type: 'warning',
                             autoClose: 3000,
@@ -96,6 +99,7 @@ export default class First extends React.Component {
     }
     onVerification = (e) => {
         e.preventDefault();
+        this.setState({loading: true})
         if(!validator.isEmail(this.state.email)) {
             toast("Email id is Invalid", {
                 type: 'error',
@@ -118,7 +122,7 @@ export default class First extends React.Component {
                     let toastType = "error";
                     console.log('ddddd', response, response.data.success)
                     if (response.data.success) {
-                        this.setState({ twitStatus: true })
+                        this.setState({ twitStatus: true, loading: false})
                         toastType = "success";
                     }
 
@@ -129,6 +133,7 @@ export default class First extends React.Component {
                 })
                 .catch(err => {
                     if (err.response && err.response.status === 403) {
+                        this.setState({ loading: false})
                         toast("User already registered !!!", {
                             type: 'warning',
                             autoClose: 3000,
@@ -320,7 +325,20 @@ export default class First extends React.Component {
                     {/* <span>Email: </span> */}
                     <form className="form-group mb-3" onSubmit={this.onVerificationCode.bind(this)}>
                     <input className="mb-3 text-center form-control b-none" name="code" value={this.state.code} onChange={this.onCodeHandle.bind(this)} />
-                    <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>Verify Code</button>
+                    <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>
+                    {
+                        this.state.loading ?
+                            <Loader
+                                type="TailSpin"
+                                className=""
+                                color="#fff"
+                                height={30}
+                                width={30}
+                            />
+                            :
+                            'Verify Code'
+                    }
+                    </button>
                     </form>
                 </div> :   <div className="mb-4 text-center">
                     <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
@@ -332,7 +350,20 @@ export default class First extends React.Component {
                     {/* <span>Email: </span> */}
                     <form className="form-group mb-3" onSubmit={this.onVerification.bind(this)}>
                     <input className="mb-3 text-center form-control b-none" name="email" value={this.state.email} onChange={this.onChangeHandle.bind(this)} />
-                    <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>Verify Email</button>
+                    <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>
+                    {
+                        this.state.loading ?
+                            <Loader
+                                type="TailSpin"
+                                className=""
+                                color="#fff"
+                                height={30}
+                                width={30}
+                            />
+                            :
+                            'Verify Email'
+                    }
+                    </button>
                     </form>
                 </div>
                 }

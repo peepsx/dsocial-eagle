@@ -1,7 +1,7 @@
 import React from 'react'
 import Axios from 'axios';
 import Swal from 'sweetalert2';
-
+import axios from 'axios';
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
 import Loader from 'react-loader-spinner';
@@ -14,7 +14,8 @@ export default class Third extends React.Component {
             fbPostResponse: '',
             loading: false,
             facebook_share_reward: 0,
-            twitter_share_reward: 0
+            twitter_share_reward: 0,
+            check: false
         }
     }
 
@@ -150,13 +151,65 @@ export default class Third extends React.Component {
         }
     }
 
+    handleClick = (e) => {
+        e.preventDefault();
+        if(this.state.check){
+            this.setState({check: false})
+        } else {
+            this.setState({check: true})
+        }
+
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        // let  amt =  localStorage.getItem('totalReward')
+        let  amt =  1
+        if(!this.state.check){
+            Swal.fire({
+                title: 'Error',
+                text: 'Please select term and condition',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+            return;
+        } else {
+            axios({
+                url: API.earn_reward,
+                method: 'POST',
+                data: {
+                    status: this.state.check,
+                    amount: `${amt.toFixed(4)} RIX`,
+                    username: localStorage.getItem('username')
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then((result) => {
+                window.location.hash = '#sixth'
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Internal server error',
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                }) 
+            })
+           
+        }
+    }
+
     render() {
         return localStorage.getItem('email') && localStorage.getItem('username')  ? (
            <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 gradient-color" style={{margin: "auto"}}>
                 <div className="card-body py-4">
                 <div className="mb-4 text-center">
                     <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{localStorage.getItem('totalReward')} RIX</span>
                     <span className="h4 d-block">Agree To Terms</span>
                 </div>
             <div className="main">
@@ -182,10 +235,18 @@ export default class Third extends React.Component {
                 <p>You agree to abide by the <a href="https://constitution.dwebx.org" target="_blank">dWeb Constitution</a>.</p>
 
                 </div>
-                <form action="/action_page.php" className="termagree">
-                    <input type="checkbox" id="iagree" name="iagree" value=""/>
-                    <label htmlFor="iagree">{'  '}I agree to dSocial's Terms of Service.</label><br/>
-                    <input className="btn btn-block btn-lg btn-custom br-dot2" type="submit" value="Create Account & Send Coins"/>
+                <form  className="termagree" onSubmit={e=> this.handleSubmit(e)}>
+                    <input 
+                        type="checkbox"
+                        id="iagree"
+                        name="check"
+                        value={this.state.check}
+                        inline={true}
+                        defaultChecked={this.state.check} 
+                        onChange={this.handleClick.bind(this)}
+                    />
+                    <label htmlFor="iagree">I agree to dSocial's Terms of Service.</label><br/>
+                    <input className="btn btn-block btn-lg btn-custom br-dot2" type="submit"  value="Create Account & Send Coins"/>
                 </form>
             </div>
             </div>

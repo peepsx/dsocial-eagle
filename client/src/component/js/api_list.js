@@ -16,6 +16,7 @@ export const API = {
     email_verifier          : url+'/verify/send-email',
     code_verify             : url+'/verify/send-token',
     mobile_verifier         : url+'/mobile/send-sms',
-    mobile_verify           : url+'/mobile/mobile-token'
+    mobile_verify           : url+'/mobile/mobile-token',
+    earn_reward             : url+'/mobile/send/reward'
     
 }

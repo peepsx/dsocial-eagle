@@ -11,7 +11,7 @@ export default class Fifth extends React.Component {
     render() {
         const arisenMessage = localStorage.getItem('message');
         const username = localStorage.getItem('username');
-        if (!localStorage.getItem('s4') /*!localStorage.getItem('twitterName') || !localStorage.getItem('googleEmail') || !localStorage.getItem('fbUserId')*/) { /**arisenMessage || !localStorage.getItem('message') */
+        if (!localStorage.getItem('email') || !localStorage.getItem('username') || !localStorage.getItem('mobileNumber')) { 
             return (
                 <div className="card-body p-4 px-lg-5">
                     <div className="mb-4 text-center">
