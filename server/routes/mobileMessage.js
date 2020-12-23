@@ -30,7 +30,8 @@ router.post('/send-sms',[
       
         var password = generator.generate({
             length: 6,
-            numbers: true
+            numbers: true,
+            uppercase: false
         });
   
         let newTempUser = new MVerify({
@@ -83,6 +84,41 @@ router.post('/mobile-token', async (req, res) => {
             return res.status(200).json({
                 success: false,
                 message: 'token is wrong'
+            })
+        }
+
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({error: 'Internal Server Error'})
+    }
+     
+})
+
+router.post('/send/reward', async (req, res) => {
+    let { status, amount, username } = req.body;
+
+    try {
+        let token = await MVerify.findOne({username: username})
+        if(status) {
+            Rsn_Transfer(username, token._id, amount)
+                    .then(() => {
+                        return res.status(200).json({
+                            success: true,
+                            message: 'Reward successfully send'
+                        })
+                    })
+                    .catch(() =>{
+                        return res.status(200).json({
+                            success: false,
+                            message: 'Unable to send reward'
+                        })
+                    })
+                    
+              
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: 'Please select terms and conditions'
             })
         }
 

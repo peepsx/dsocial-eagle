@@ -3,7 +3,6 @@ var router = express.Router();
 const sgMail = require('@sendgrid/mail');
 let bcrypt = require('bcryptjs');
 const  { EVerify } = require('../models/Email')
-const { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 const { body, validationResult } = require('express-validator');
 let {EMAIL_KEY} = require('../config/index');
 
@@ -26,7 +25,8 @@ router.post('/send-email',[
       
         var password = generator.generate({
             length: 6,
-            numbers: true
+            numbers: true,
+            uppercase: false
         });
 
         let newTempUser = new EVerify({
@@ -34,8 +34,7 @@ router.post('/send-email',[
             token: password,
             username: username
         })
-        // newTempUser.save()
-            // .then(async (us) => {
+    
                 sgMail.setApiKey(EMAIL_KEY);
                 const msg = {
                   to: email,
@@ -108,11 +107,6 @@ router.post('/send-email',[
                       console.error(error.response.body)
                     }
                   });                
-            // })
-            // .catch(e => {
-            //     console.error("SEND EMAIL", e)
-            //     return res.status(401).send(e)
-            // })
     } catch (error) {
         console.log('SENDING EMAIL', error)
         return res.status(500).send({success: false, message: "server error"})
