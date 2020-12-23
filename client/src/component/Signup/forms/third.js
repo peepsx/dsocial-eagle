@@ -151,63 +151,42 @@ export default class Third extends React.Component {
     }
 
     render() {
-        return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
+        return localStorage.getItem('email') && localStorage.getItem('username')  ? (
             <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
+                    <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>
-                    <span className="h4 d-block">Spread the word about dSocial...</span>
-                    <p className="w-75 m-auto">Help us spread the word about dSocial to your friends and earn 400 RIX for  platform you post on. Click the buttons below to spread the word.</p>
+                    <span className="h4 d-block">Agree To Terms</span>
                 </div>
-                <div className="row justify-content-center">
-                    <div className="col-xl-8 col-lg-8">
-                        {
-                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) ? 
-                            <div className="list-group">
-                            {localStorage.getItem('fbUserId') && 
-                             <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
-                                <div className="d-flex align-items-center">
-                                    <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <p className='warning' style={{color: 'black', position: "absolute", right: '35px', bottom: '6px'}}>+<span> 400 RIX</span></p>
-                                    <span className="mb-0 h6 mb-0">Share The Revolution On Facebook</span>
-                                </div>
-                                <i className="fas fa-chevron-right" />
-                             </a>
-                            }
-                            {localStorage.getItem('twitterName') && 
-                              <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
-                                <div className="d-flex align-items-center">
-                                    <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
-                                    <p className='warning' style={{color: 'black', position: "absolute", right: '35px', bottom: '6px'}}>+<span> 400 RIX</span></p>
-                                    <span className="mb-0 h6 mb-0">Tweet About The Revolution On Twitter</span>
-                                </div>
-                                <i className="fas fa-chevron-right" />
-                              </a>
-                            }
-                        </div> : <p>
-                        Sorry, you have to be logged in with either Twitter, Facebook or both to take part in this step.
-                        </p>
-                        }
-                    </div>
+            <div className="main">
+                <div className="scroll-box">
+                    <b>dSocial Terms of Service</b>
+                <br/>
+                <br/>
+                <b>I. Your Privacy</b>
+                <p>Your personal information WILL NEVER be sold to anyone, under any circumstance. We will only utilize your phone number and email address for the purpose of communicating with you about your Peeps account (PeepsID) or other Peeps products and services.</p>
+                <br/>
+                <br/>
+                <b>II. Your Data</b>
+                <p>You are always in control of your data. dSocial is not centralized or powered from within a data center, nor does dSocial store a copy of your data for any reason. If you would like to remove your data from dSocial, you have the ability to do so via the dSocial application. Once your data is removed from dSocial, it will no longer exist on the network. Users of dWeb-based applications like dSocial, store and broadcast their own data to others. dSocial and other Peeps applications make it easy for users to remove their data from these applications (i.e. stop broadcasting the data). Once removed, a user can choose to republish their data at a later time.</p>
+                <br/>
+                
+                <b>III. American Values</b>
+                <br/>
+                <p>dSocial represents American values - life, liberty and happiness - and you agree to honor and respect the American values and the Constitutional rights of all other dSocial users. No user on dSocial may be censored for any reason, nor shall their God-given rights be entrenched upon.</p>
+                <br/>
+                
+                <b>IV. dWeb Constitution</b>
+                <br/>
+                <p>You agree to abide by the <a href="https://constitution.dwebx.org" target="_blank">dWeb Constitution</a>.</p>
+
                 </div>
-                <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 min-w-10"
-                        onClick={this.handleNextStep}
-                    >
-                        {
-                            this.state.loading ?
-                                <Loader
-                                    type="TailSpin"
-                                    className="ml-1 mt-auto mb-auto"
-                                    color="white"
-                                    height={30}
-                                    width={30}
-                                />
-                                :
-                                "Proceed to Step 5"
-                        }
-                    </button>
-                </div>
+                <form action="/action_page.php">
+                    <input type="checkbox" id="iagree" name="iagree" value=""/>
+                    <label htmlFor="iagree">{'  '}I agree to dSocial's Terms of Service.</label><br/>
+                    <input className="btn btn-block btn-lg btn-custom br-dot2" type="submit" value="Create Account & Send Coins"/>
+                </form>
+            </div>
             </div>
         ) : (<div className="card-body p-4 px-lg-5">
         <div className="mb-4 text-center">

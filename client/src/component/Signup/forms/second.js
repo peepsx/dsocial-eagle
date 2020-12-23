@@ -61,7 +61,7 @@ export default class First extends React.Component {
                 }
             }).then(response => {
                     let toastType = "error";
-                    console.log('ddddd', response, response.data.asuccess)
+                    console.log('dddddONe', response, response.data)
                     if(this.state.twitStatus) {
                         let amt = this.state.amount + 500;
                         this.setState({amount: amt});
@@ -69,7 +69,7 @@ export default class First extends React.Component {
                     if (response.data.success) {
                         this.setState({ twitStatus: true })
                         toastType = "success";
-                        window.location.hash = '#third'
+                        window.location.hash = '#fourth'
                     }
                 
                     toast(response.data.message, {

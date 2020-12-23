@@ -62,18 +62,19 @@ export default class First extends React.Component {
                 }
             }).then(response => {
                     let toastType = "error";
-                    console.log('ddddd', response, response.data.asuccess)
+                    console.log('dddddTwo', response, response.data.success)
                     if(this.state.twitStatus) {
                         let amt = this.state.amount + 500;
                         this.setState({amount: amt});
                     }
-                    toast(response.data.message, {
-                        type: toastType,
-                        autoClose: 3000,
-                    })
+                   
                     if (response.data.success) {
                         this.setState({ twitStatus: true })
                         toastType = "success";
+                        toast(response.data.message, {
+                            type: toastType,
+                            autoClose: 3000,
+                        })
                         window.location.hash = '#third'
                     } else {
                         toast(response.data.message, {

@@ -9596,3 +9596,10 @@ img.zoom-img {
 } */
 
 /*# sourceMappingURL=theme.css.map */
+.scroll-box {
+  height: 200px;
+  width: 500px;
+  overflow: auto;
+  margin: auto;
+  margin-bottom: 20px;
+}
