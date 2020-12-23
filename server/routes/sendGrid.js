@@ -25,17 +25,15 @@ router.post('/send-email',[
         }
       
         var password = generator.generate({
-            length: 4,
+            length: 6,
             numbers: true
         });
-        let salt = await bcrypt.genSalt(4);
-        let hash = await bcrypt.hash(password, salt);
+
         let newTempUser = new EVerify({
             email: email,
             token: password,
             username: username
         })
-        newTempUser.token = hash;
         // newTempUser.save()
             // .then(async (us) => {
                 sgMail.setApiKey(EMAIL_KEY);
@@ -127,17 +125,11 @@ router.post('/send-token', async (req, res) => {
     try {
         let token = await EVerify.findOne({token: code})
         if(token) {
-            Rsn_Transfer(token.username, token.id, amount)
-                .then(data => {
+           
                     return res.status(200).json({
-                        data: data,
                         success: true,
-                        message:   `Congratulations! You just earned ${amount} RIX!`
+                        message:   `Code successfully verified`
                     })
-                })
-                .catch(e => {
-                    console.error("TRANSFER ERROR", e)
-                })
         } else {
             return res.status(200).json({
                 success: false,

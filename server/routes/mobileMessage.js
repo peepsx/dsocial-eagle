@@ -29,21 +29,20 @@ router.post('/send-sms',[
         }
       
         var password = generator.generate({
-            length: 4,
+            length: 6,
             numbers: true
         });
-        let salt = await bcrypt.genSalt(4);
-        let hash = await bcrypt.hash(password, salt);
+  
         let newTempUser = new MVerify({
             mobile: mobile,
             token: password,
             username: username
         })
-        newTempUser.token = hash;
+        
         client.messages
                     .create({
-                        to: '+12517664817',
-                        from: '+14697221209',
+                        to: '+91'+mobile,
+                        from: '+12517664817',
                         body: `Your dSocial SMS Verification Code Is ${newTempUser.token}`,
                     })
                     .then(async (sms) => {
@@ -74,17 +73,12 @@ router.post('/mobile-token', async (req, res) => {
     try {
         let token = await MVerify.findOne({token: code})
         if(token) {
-            Rsn_Transfer(token.username, token.id, amount)
-                .then(data => {
+            
                     return res.status(200).json({
-                        data: data,
-                        status: true,
-                        message: 'Successfully transfer'
+                        success: true,
+                        message: 'Token successfully verified'
                     })
-                })
-                .catch(e => {
-                    console.error("TRANSFER ERROR", e)
-                })
+              
         } else {
             return res.status(200).json({
                 success: false,
