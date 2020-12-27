@@ -41,7 +41,7 @@ export default class Fifth extends React.Component {
                     <span className="h4 d-block">Start Browsing The dWeb.</span>
                     <hr />
                     <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://peepsx.com/dwallet", '_blank')} >Download dWallet</button>
-                    <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://dbrowser.com", '_blank')} >Download dBrowser</button>
+                    <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://peepsx.com/dbrowser", '_blank')} >Download dBrowser</button>
                 </div>
             </div>
         )
