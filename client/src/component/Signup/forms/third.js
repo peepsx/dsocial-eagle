@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
-import Loader from 'react-loader-spinner';
 import gold from '../../assets/img/gold_img.png'
 
 export default class Third extends React.Component {
@@ -232,7 +231,7 @@ export default class Third extends React.Component {
                 
                 <b>IV. dWeb Constitution</b>
                 <br/>
-                <p>You agree to abide by the <a href="https://constitution.dwebx.org" target="_blank">dWeb Constitution</a>.</p>
+                <p>You agree to abide by the <a href="https://constitution.dwebx.org" target="_blank" rel="noopener noreferrer">dWeb Constitution</a>.</p>
 
                 </div>
                 <form  className="termagree" onSubmit={e=> this.handleSubmit(e)}>

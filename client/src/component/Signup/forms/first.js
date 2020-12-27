@@ -1,13 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 // import TwitterLogin from "react-twitter-login";
 // import TwitterLogin from "react-twitter-auth";
 import gold from '../../assets/img/gold_img.png'
 // import Twitter from './login_buttons/twitter';
-import Facebook from './login_buttons/facebook';
 // import Instagram from './login_buttons/instagram'
-import Google from './login_buttons/google';
 // import Telegram from './login_buttons/telegram';
 // import { env } from '../../config/config';
 import { API } from '../../js/api_list';
