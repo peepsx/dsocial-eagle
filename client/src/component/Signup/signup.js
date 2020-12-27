@@ -114,7 +114,7 @@ export default class Signup extends Component {
                                 </div>
                                 <div className="card-footer text-center">
                                     <small>This code has been open sourced
-                                    <a style={{ marginLeft: 3 }} href="https://github.com/ArisenIO/air-drop-dapp" target="_blank" rel="noopener noreferrer">
+                                    <a style={{ marginLeft: 3 }} href="https://github.com/peepsx/dsocial-eagle" target="_blank" rel="noopener noreferrer">
                                             here
                                     </a>
                                     </small>

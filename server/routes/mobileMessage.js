@@ -25,7 +25,7 @@ router.post('/send-sms',[
         let findOne = await MVerify.findOne({mobile})
         
         if(findOne !== null) {
-            return res.status(200).json({success: false, message: 'Mobile already exit'});
+            return res.status(200).json({success: false, message: 'Mobile number already exist'});
         }
       
         var password = generator.generate({
@@ -43,7 +43,7 @@ router.post('/send-sms',[
         client.messages
                     .create({
                         to: '+91'+mobile,
-                        from: '+12517664817',
+                        from: '+1 4697221209',
                         body: `Your dSocial SMS Verification Code Is ${newTempUser.token}`,
                     })
                     .then(async (sms) => {
