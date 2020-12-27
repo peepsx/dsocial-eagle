@@ -1,4 +1,4 @@
-const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' :  process.env.REACT_APP_API_URL;
+const url = 'https://test.dsocial.network/api';
 
 export const API = {
     ip_check                : url+'/',
