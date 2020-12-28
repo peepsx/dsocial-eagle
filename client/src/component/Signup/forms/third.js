@@ -162,8 +162,8 @@ export default class Third extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        // let  amt =  localStorage.getItem('totalReward')
-        let  amt =  1
+        let  amt =  localStorage.getItem('totalReward')
+       // let  amt =  1000
         if(!this.state.check){
             Swal.fire({
                 title: 'Error',
