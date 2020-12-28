@@ -1,4 +1,4 @@
-const url = 'http://api.dsocial.network';
+const url = 'https://api.dsocial.network';
 
 export const API = {
     ip_check                : url+'/',
