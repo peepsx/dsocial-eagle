@@ -162,8 +162,7 @@ export default class Third extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let  amt =  localStorage.getItem('totalReward')
-       // let  amt =  1000
+        let amts =  1000
         if(!this.state.check){
             Swal.fire({
                 title: 'Error',
@@ -179,7 +178,7 @@ export default class Third extends React.Component {
                 method: 'POST',
                 data: {
                     status: this.state.check,
-                    amount: `${amt.toFixed(4)} RIX`,
+                    amount: `${amts.toFixed(4)} RIX`,
                     username: localStorage.getItem('username')
                 },
                 headers: {
@@ -187,7 +186,69 @@ export default class Third extends React.Component {
                 }
             })
             .then((result) => {
-                window.location.hash = '#sixth'
+                let respCode = result.data.respCode;
+
+                if(respCode == 1002){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Already Claimed',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    }) 
+                }
+                if(respCode == 1001){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please try later',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    }) 
+                }
+                if(respCode == 1003){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please verify Email and Phone Number',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    }) 
+                }
+
+                const asyncLocalStorage = {
+                    setItem: function (key, value) {
+                        return Promise.resolve().then(function () {
+                            localStorage.setItem(key, value);
+                        });
+                    },
+                    getItem: function (key) {
+                        return Promise.resolve().then(function () {
+                            return localStorage.getItem(key);
+                        });
+                    }
+                };
+                
+                // Demo
+                asyncLocalStorage.setItem('respCode', respCode).then(function () {
+                    return asyncLocalStorage.getItem('respCode');
+                }).then(function (value) {
+                    window.location.hash = '#sixth'
+
+                });
+
+
+                // localStorage.setItem("respCode",respCode).then((res)=>{
+
+                //     if(res){
+                //         window.location.hash = '#sixth'
+                //     }
+
+                // }).catch((err)=>{
+                //     console.log("sssxxx",err);
+                // })
+                
+                
             })
             .catch(error => {
                 Swal.fire({

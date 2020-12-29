@@ -7,10 +7,20 @@ let User = new Scehma({
         type:String,
         required: true
     },
-    ip_address:{
-        type: [String],
-        required: true,
-        unique: true
+    amount: {
+        type: String,
+    },
+    account_from_transfer: {
+        type: String,
+        required: true
+    },
+    transaction_id: {
+        type: String,
+        required: true
+    },
+    claimed:{
+        type:Boolean,
+        default:false
     }
 }, {
     timestamps: true

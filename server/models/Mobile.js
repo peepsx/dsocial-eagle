@@ -19,6 +19,10 @@ let MobileCode = new Schema({
     claimed:{
         type:Boolean,
         default:false
+    },
+    tokenverified:{
+        type:Boolean,
+        default:false
     }
 }, {timestamps: true})
 

@@ -59,7 +59,6 @@ export default class First extends React.Component {
                 }
             }).then(response => {
                     let toastType = "error";
-                    console.log('dddddONe', response, response.data)
                     if(this.state.twitStatus) {
                         let amt = this.state.amount +parseInt(localStorage.getItem('emailReward'))+ 500;
                         this.setState({amount: amt});
@@ -103,7 +102,6 @@ export default class First extends React.Component {
             }).then(response => {
                     localStorage.setItem('mobileNumber', this.state.mobileNumber);
                     let toastType = "error";
-                    console.log('ddddd', response, response.data.success)
                     if (response.data.success) {
                         this.setState({ twitStatus: true, loading: false})
                         toastType = "success";
@@ -328,7 +326,7 @@ export default class First extends React.Component {
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ localStorage.getItem('emailReward') } RIX</span>
                     <span className="h4 d-block">Enter your mobile phone number</span>
                     <p className="mb-3">
-                    Please enter your mobile phone number below.
+                    Please enter your mobile phone number below in a format eg. +1xxxxxxxxxx (country code and number)
                     </p>
                     {/* <span>Email: </span> */}
                     <form className="form-group mb-3" onSubmit={this.onVerification.bind(this)}>

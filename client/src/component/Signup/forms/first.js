@@ -47,7 +47,7 @@ export default class First extends React.Component {
             })
             return;
         } else {
-            let amt = 1;
+            let amt = 1000;
             axios({
                 url: API.code_verify,
                 method: 'POST',
@@ -60,7 +60,6 @@ export default class First extends React.Component {
                 }
             }).then(response => {
                     let toastType = "error";
-                    console.log('dddddTwo', response, response.data.success)
                     if(this.state.twitStatus) {
                         let amt = this.state.amount + 500;
                         this.setState({amount: amt});
@@ -117,7 +116,7 @@ export default class First extends React.Component {
             }).then(response => {
                     localStorage.setItem('email', this.state.email);
                     let toastType = "error";
-                    console.log('ddddd', response, response.data.success)
+                    this.setState({loading: false})
                     if (response.data.success) {
                         this.setState({ twitStatus: true, loading: false})
                         toastType = "success";

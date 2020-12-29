@@ -36,7 +36,8 @@ export default class Fourth extends React.Component {
     }
     handleForNewOne = (e) => {
         e.preventDefault()
-        this.setState({isOpenForNewUser: true, title: "Create An Account", description: "Enter a username below to proceed. A PeepsID must be up to 12 characters, lowercase and can only use a-z and 1-5. No special characters are allowed."})
+        window.open('https://signup.peepsid.com/', "_blank")
+        //this.setState({isOpenForNewUser: true, title: "Create An Account", description: "Enter a username below to proceed. A PeepsID must be up to 12 characters, lowercase and can only use a-z and 1-5. No special characters are allowed."})
     }
     handleError = (e) => {
 
@@ -196,7 +197,7 @@ export default class Fourth extends React.Component {
                                                     width={30}
                                                 />
                                                 :
-                                                'Create New PeepsID'
+                                                'Create New PeepsID From Here'
                                         }
                                     </button>
                                 </div>

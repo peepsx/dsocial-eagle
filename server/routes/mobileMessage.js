@@ -3,6 +3,10 @@ var router = express.Router();
 let bcrypt = require('bcryptjs');
 const  { MVerify } = require('../models/Mobile')
 const { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
+const { Rsn_Transfers } = require('../models/transfer')
+const  { EVerify } = require('../models/Email')
+
+
 const { body, validationResult } = require('express-validator');
 let {Account_SID, Auth_Token} = require('../config/index');
 
@@ -42,7 +46,7 @@ router.post('/send-sms',[
         
         client.messages
                     .create({
-                        to: '+91'+mobile,
+                        to: mobile,
                         from: '+1 4697221209',
                         body: `Your dSocial SMS Verification Code Is ${newTempUser.token}`,
                     })
@@ -74,7 +78,8 @@ router.post('/mobile-token', async (req, res) => {
     try {
         let token = await MVerify.findOne({token: code})
         if(token) {
-            
+            let verified =  await MVerify.findOneAndUpdate({username:token.username}, {$set: {tokenverified: true}}, {new: true})
+
                     return res.status(200).json({
                         success: true,
                         message: 'Token successfully verified'
@@ -99,20 +104,53 @@ router.post('/send/reward', async (req, res) => {
 
     try {
         let token = await MVerify.findOne({username: username})
+
         if(status) {
-            Rsn_Transfer(username, token._id, amount)
+            let claimed = await Rsn_Transfers.findOne({user:username})
+            console.log("cklaimed",claimed);
+            if(claimed){
+                return res.status(200).json({
+                    success: false,
+                    message: 'Already Claimed',
+                    respCode:1002
+                })
+            }
+            else{
+                let m_verified = await MVerify.findOne({username: username});
+                let e_verified = await EVerify.findOne({username: username})
+
+                console.log("m_verified",m_verified);
+                console.log("e_verified",e_verified);
+
+                if(!m_verified && !e_verified){
+                    
+                    return res.status(200).json({
+                        success: false,
+                        message: 'Please verify Both Phone number and Email',
+                        respCode:1003
+                        })
+                    
+                     }
+                else{
+                     Rsn_Transfer(username, token._id, amount)
                     .then(() => {
+
                         return res.status(200).json({
                             success: true,
-                            message: 'Reward successfully send'
+                            message: 'Reward successfully send',
+                            respCode:10000
                         })
                     })
                     .catch(() =>{
                         return res.status(200).json({
                             success: false,
-                            message: 'Unable to send reward'
+                            message: 'Unable to send reward',
+                            respCode:1001
+
                         })
                     })
+                }
+                }
                     
               
         } else {

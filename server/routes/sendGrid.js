@@ -20,7 +20,7 @@ router.post('/send-email',[
         }
         let findOne = await EVerify.findOne({email})
         if(findOne !== null) {
-            return res.status(200).json({success: false, message: 'Email already exit'});
+            return res.status(200).json({success: false, message: 'Email already exist'});
         }
       
         var password = generator.generate({
@@ -119,7 +119,9 @@ router.post('/send-token', async (req, res) => {
     try {
         let token = await EVerify.findOne({token: code})
         if(token) {
+          let verified =  await EVerify.findOneAndUpdate({username:token.username}, {$set: {tokenverified: true}}, {new: true})
            
+            console.log("email token verified",token);
                     return res.status(200).json({
                         success: true,
                         message:   `Code successfully verified`
