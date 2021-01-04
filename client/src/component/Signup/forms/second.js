@@ -346,6 +346,9 @@ export default class First extends React.Component {
                     }
                     </button>
                     </form>
+                    <div className="Resend-box">
+                        <a href="">I didn't receive the text, please resend</a>
+                    </div>
                 </div>
                 }
                 <div className="mt-3">
