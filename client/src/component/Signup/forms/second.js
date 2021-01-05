@@ -69,6 +69,8 @@ export default class First extends React.Component {
                         toastType = "success";
                         window.location.hash = '#fourth'
                     }
+                    this.setState({ loading: false})
+
                 
                     toast(response.data.message, {
                         type: toastType,
@@ -100,17 +102,31 @@ export default class First extends React.Component {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(response => {
+                if(response.data.count == 3){
+                    this.setState({
+                        count : 3
+                    })
+                }
                     localStorage.setItem('mobileNumber', this.state.mobileNumber);
                     let toastType = "error";
                     if (response.data.success) {
                         this.setState({ twitStatus: true, loading: false})
                         toastType = "success";
-                    }
 
-                    toast(response.data.message, {
-                        type: toastType,
-                        autoClose: 3000,
-                    })
+                        toast("SMS sent please check your Mobile inbox", {
+                            type: toastType,
+                            autoClose: 3000,
+                        })
+                    }
+                    else{
+                        this.setState({ loading: false})
+
+                        toast(response.data.message, {
+                            type: toastType,
+                            autoClose: 3000,
+                        })
+                    }
+                    
                 })
                 .catch(err => {
                     if (err.response && err.response.status === 403) {
@@ -123,164 +139,7 @@ export default class First extends React.Component {
                 })
         
     }
-    // twitterHandler = (err, authData) => {
-    //     this.setState({loading: true})
-    //     if(authData) {
-    //         this.setState({loading: false})
-    //         this.handleTwitDataSave(authData);
-    //     }
-    // }
-    // amountSave = (reward) => {
-    //     let amt = reward + this.state.amount;
-    //     this.setState({amount: amt});
-    // }
-    // getTelegramValue = (teleData) => {
-    //     this.setState({
-    //         teleUserid: teleData
-    //     })
-    // }
-    // checkTelegramUser = (e) => {
-    //     e.preventDefault();
-    //     this.setState({ loading: true });
-    //     const fbData = localStorage.getItem('fbUserId');
-    //     const googleEmail = localStorage.getItem('googleEmail');
-    //     // const instaUserId = localStorage.getItem('instaUserId');
-    //     const twitterName = localStorage.getItem('twitterName');
-    //     if (fbData ||
-    //         googleEmail ||
-    //         // !instaUserId ||
-    //         twitterName
-    //     ) {
-    //         localStorage.setItem('s1', true)
-    //         window.location.hash = "#third";
-    //         localStorage.setItem('login_reward', this.state.amount);
-    //     } else {
-    //         this.setState({ loading: false })
-    //         Swal.fire({
-    //             title: 'Error',
-    //             text: 'You must login to all platforms beforing continuing to step 3',
-    //             icon: "error",
-    //             showCancelButton: false,
-    //             confirmButtonText: 'Okay',
-    //         })
-    //     }
-
-        // TO ENABLE TELEGRAM CHECK - UNCOMMENT THE CODE GIVEN BELOW AND COMMENT ABOVE ELSE STATEMENT
-
-
-        // else if (this.state.teleUserid !== '') {
-        //     Axios.get(`https://api.telegram.org/${env.telegram_bot_hash}/getChatMember?chat_id=${env.telegram_chat_id}&user_id=${this.state.teleUserid}`)
-        //         .then(res => {
-        //             this.setState({ loading: false })
-        //             const title = res.data.ok ? 'Success' : 'Error';
-        //             const text = res.data.ok ? 'Step 1 completed successfully' : 'Please join our Telegram community !!';
-        //             const icon = res.data.ok ? 'success' : 'error';
-        //             Swal.fire({
-        //                 title,
-        //                 text,
-        //                 icon,
-        //                 showCancelButton: false,
-        //                 confirmButtonText: 'Proceed',
-        //             })
-        //             if (res.data.ok) {
-        //                 localStorage.setItem('s1', true)
-        //                 window.location.hash = "#second";
-        //             }
-        //         })
-        //         .catch(err => {
-        //             this.setState({ loading: false })
-        //             console.error('Bot Error : ', err)
-        //         })
-        // } else {
-        //     this.setState({ loading: false })
-        //     Swal.fire({
-        //         title: 'Error',
-        //         text: 'Please Login with Telegram !!',
-        //         icon: "error",
-        //         showCancelButton: false,
-        //         confirmButtonText: 'Okay',
-        //     })
-        // }
-
-    // onSuccess = (result) => {
-    //     result.json().then(user => {
-    //         if (user.screen_name) {
-    //             Axios({
-    //                 url: API.twitter_detail,
-    //                 method: 'POST',
-    //                 data: {
-    //                     username: user.screen_name,
-    //                     id: localStorage.getItem('fbUserId')
-    //                 },
-    //                 headers: {
-    //                     Authorization: 'Bearer ' + localStorage.getItem('token')
-    //                 }
-    //             }).then(response => {
-    //                     localStorage.setItem('twitterName', user.screen_name);
-    //                     localStorage.setItem('twitter_login', true)
-    //                     if(!this.state.twitStatus) {
-    //                         let amt = this.state.amount + 100;
-    //                         this.setState({amount: amt});
-    //                     }
-    //                     let toastType = "error";
-    //                     if (response.data.success) {
-    //                         this.setState({ twitStatus: true })
-    //                         toastType = "success";
-    //                         this.handleNextShowBtn('Google')
-    //                     }
-    //                     toast(response.data.message, {
-    //                         type: toastType,
-    //                         autoClose: 3000,
-    //                     })
-    //                 })
-    //                 .catch(err => {
-    //                     if (err.response && err.response.status === 403) {
-    //                         toast("User already registered !!!", {
-    //                             type: 'warning',
-    //                             autoClose: 3000,
-    //                         })
-    //                     }
-    //                 })
-    //         }
-    //     });
-    //   };
-      
-    // handleTwitDataSave = (userData) => {
-    //     if (userData && userData.screen_name) {
-    //         Axios({
-    //             url: API.twitter_detail,
-    //             method: 'POST',
-    //             data: {
-    //                 username: userData.screen_name,
-    //                 id: localStorage.getItem('fbUserId')
-    //             },
-    //             headers: {
-    //                 Authorization: 'Bearer ' + localStorage.getItem('token')
-    //             }
-    //         })
-    //             .then(response => {
-    //                 localStorage.setItem('twitterName', userData.screen_name);
-    //                 let toastType = "error";
-    //                 if (response.data.success) {
-    //                     this.setState({ twitStatus: true })
-    //                     toastType = "success";
-    //                     this.handleNextShowBtn('Google')
-    //                 }
-    //                 toast(response.data.message, {
-    //                     type: toastType,
-    //                     autoClose: 3000,
-    //                 })
-    //             })
-    //             .catch(err => {
-    //                 if (err.response && err.response.status === 403) {
-    //                     toast("User already registered !!!", {
-    //                         type: 'warning',
-    //                         autoClose: 3000,
-    //                     })
-    //                 }
-    //             })
-    //     }
-    // }
+ 
 
     handleNextShowBtn = (status) => {
         this.setState({
@@ -321,6 +180,9 @@ export default class First extends React.Component {
                     }
                     </button>
                     </form>
+                    {this.state.count != 3 ?<div style={{marginTop : "15px"}} className="Resend-box" onClick={this.onVerification.bind(this)}>
+                        <a href="">I didn't receive the text, please resend</a>
+                        </div> : null}
                 </div> :   <div className="mb-4 text-center">
                     <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
                     <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{ localStorage.getItem('emailReward') } RIX</span>
@@ -346,9 +208,7 @@ export default class First extends React.Component {
                     }
                     </button>
                     </form>
-                    <div className="Resend-box">
-                        <a href="">I didn't receive the text, please resend</a>
-                    </div>
+                    
                 </div>
                 }
                 <div className="mt-3">

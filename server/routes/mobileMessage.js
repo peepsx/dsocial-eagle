@@ -26,29 +26,30 @@ router.post('/send-sms',[
             return res.status(200).json({errors: errors.array()});
         }
 
-        let findOne = await MVerify.findOne({mobile})
-        
-        if(findOne !== null) {
-            return res.status(200).json({success: false, message: 'Mobile number already exist'});
-        }
-      
         var password = generator.generate({
             length: 6,
             numbers: true,
             uppercase: false
         });
-  
-        let newTempUser = new MVerify({
-            mobile: mobile,
-            token: password,
-            username: username
-        })
-        
-        client.messages
+
+        MVerify.findOne({mobile:mobile}).then((r_db)=>{
+
+                 console.log("r_db",r_db);
+
+                 if(r_db == null){
+                      console.log("r_db null");
+                      let newTempUser = new MVerify({
+                        mobile: mobile,
+                        token: password,
+                        username: username,
+                        count:1
+                    })
+
+                    client.messages
                     .create({
                         to: mobile,
                         from: '+1 4697221209',
-                        body: `Your dSocial SMS Verification Code Is ${newTempUser.token}`,
+                        body: `Your dSocial SMS Verification Code Is ${password}`,
                     })
                     .then(async (sms) => {
                         console.log(client.httpClient.lastResponse.statusCode)
@@ -66,6 +67,44 @@ router.post('/send-sms',[
                             message: 'Mobile number is invalid'
                         })
                     })
+
+                 }
+                 else if(r_db && r_db.count < 3){
+                    let count_ = r_db.count +1;
+
+                    client.messages
+                    .create({
+                        to: mobile,
+                        from: '+1 4697221209',
+                        body: `Your dSocial SMS Verification Code Is ${password}`,
+                    })
+                    .then(async (sms) => {
+                        console.log(client.httpClient.lastResponse.statusCode)
+                        await MVerify.findOneAndUpdate({mobile:mobile},{$set: {"token":password , "count":count_}},{new :true})
+
+                        return res.status(200).send({
+                            count : count_,
+                            success: true,
+                            sms
+                        })
+                    })
+                    .catch(e => {
+                        console.log('ssss', e)
+                        return res.status(200).send({
+                            success: false,
+                            message: 'Mobile number is invalid'
+                        })
+                    })
+
+                 }
+                 else {
+                    return res.status(200).json({success: false, message: 'Please check your mobile inbox for code'});
+
+                 }
+                }).catch((ex)=>{
+
+                })
+
     } catch (error) {
         console.log('SENDING SMS', error)
         return res.status(500).send({success: false, message: "server error"})

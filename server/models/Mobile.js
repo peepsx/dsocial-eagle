@@ -23,6 +23,10 @@ let MobileCode = new Schema({
     tokenverified:{
         type:Boolean,
         default:false
+    },
+    count:{
+        type:Number,
+        default:0
     }
 }, {timestamps: true})
 

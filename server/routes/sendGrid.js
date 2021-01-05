@@ -18,23 +18,21 @@ router.post('/send-email',[
         if(!errors.isEmpty()) {
             return res.status(200).json({errors: errors.array()});
         }
-        let findOne = await EVerify.findOne({email})
-        if(findOne !== null) {
-            return res.status(200).json({success: false, message: 'Email already exist'});
-        }
-      
+
         var password = generator.generate({
             length: 6,
             numbers: true,
             uppercase: false
         });
 
-        let newTempUser = new EVerify({
-            email: email,
-            token: password,
-            username: username
-        })
-    
+        EVerify.findOne({email:email}).then((r_db)=>{
+
+            console.log("r_db",r_db);
+
+            if(r_db == null){
+                console.log("r_db null");
+
+
                 sgMail.setApiKey(EMAIL_KEY);
                 const msg = {
                   to: email,
@@ -78,7 +76,7 @@ router.post('/send-email',[
                                       </div>
                                       <h2>Your Email Verification Code</h2>
                                       <p>Please enter the following verification code into the dSocial signup wizard:</p>
-                                      <p><b>${newTempUser.token}</b></p>
+                                      <p><b>${password}</b></p>
                                   </div>
                               </div>
                   
@@ -92,7 +90,15 @@ router.post('/send-email',[
                 sgMail
                   .send(msg)
                   .then(async (send) => {
-                   await newTempUser.save()
+                  // await newTempUser.save()
+
+                          let newTempUser = new EVerify({
+                             email: email,
+                              token: password,
+                              username: username,
+                              count: 1
+                              })
+                              newTempUser.save();
                     res.status(200).send(
                         {
                             success: true,
@@ -106,7 +112,103 @@ router.post('/send-email',[
                     if (error.response) {
                       console.error(error.response.body)
                     }
-                  });                
+                  }); 
+
+            }
+            else if(r_db && r_db.count < 3){
+
+                let count_ = r_db.count +1;
+
+                sgMail.setApiKey(EMAIL_KEY);
+                const msg = {
+                  to: email,
+                  from: 'noreply@peepsx.com', // Use the email address or domain you verified above
+                  subject: 'Email Verification Code | dSocial',
+                  text: 'and easy to do anywhere, even with Node.js',
+                  html: `<!DOCTYPE html>
+                  <html lang="en">
+                  <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  
+                  <style type="text/css">
+                  .container{
+                      max-width: 60%;
+                      border: 0px solid #ddd;
+                      background: #f3f6ff;
+                      text-align: center;
+                      margin: auto;
+                      padding: 50px;
+                  }
+                  .mail-body{
+                      background: #fff;
+                      padding: 5%;
+                      border-radius: 5%;
+                  }
+                  .logo img {
+                      max-width: 100px;
+                  }
+                  
+                  
+                  </style>
+                  </head>
+                  <body>
+                      <div class="main">
+                          <div class="container">
+                              <div class="main-temp">
+                                  <div class="mail-body">
+                                      <div class="logo">
+                                          <img src="https://signup.dsocial.network/assets/img/arisen/dsocial.png" alt="dsocial logo">
+                                      </div>
+                                      <h2>Your Email Verification Code</h2>
+                                      <p>Please enter the following verification code into the dSocial signup wizard:</p>
+                                      <p><b>${password}</b></p>
+                                  </div>
+                              </div>
+                  
+                          </div>
+                      </div>
+                  </body>
+                  </html>
+                  `,
+                };
+                //ES6
+                sgMail
+                  .send(msg)
+                  .then(async (send) => {
+
+
+                await EVerify.findOneAndUpdate({email:email},{$set: {"token":password , "count":count_}},{new :true})
+
+                    res.status(200).send(
+                        {
+                            success: true,
+                            message: 'Email successfully sent',
+                            data: send,
+                            count : count_
+                        }
+                    )
+                  }, error => {
+                    console.error(error);
+                
+                    if (error.response) {
+                      console.error(error.response.body)
+                    }
+                  }); 
+
+            }
+            else {
+                return res.status(200).json({success: false, message: 'Please check your email inbox or spam for code'});
+            }
+
+
+        }).catch((e)=>{
+            console.log("e_db",e);
+            return res.status(500).send({success: false, message: "server error"})
+
+
+        })
+
     } catch (error) {
         console.log('SENDING EMAIL', error)
         return res.status(500).send({success: false, message: "server error"})
