@@ -141,6 +141,8 @@ router.post('/mobile-token', async (req, res) => {
 router.post('/send/reward', async (req, res) => {
     let { status, amount, username } = req.body;
 
+    console.log("amount to send",amount);
+    amount = "1000.0000 RIX"
     try {
         let token = await MVerify.findOne({username: username})
 

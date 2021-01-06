@@ -60,12 +60,9 @@ export default class First extends React.Component {
                 }
             }).then(response => {
                     let toastType = "error";
-                    if(this.state.twitStatus) {
-                        let amt = this.state.amount + 500;
-                        this.setState({amount: amt});
-                        localStorage.setItem('emailReward', amt)
-                    }
                    
+                    this.setState({loading: false})
+
                     if (response.data.success) {
                         this.setState({ twitStatus: true, loading: false})
                         toastType = "success";
@@ -73,7 +70,11 @@ export default class First extends React.Component {
                             type: toastType,
                             autoClose: 3000,
                         })
+                        let amt = this.state.amount + 500;
+                        this.setState({amount: amt});
+                        localStorage.setItem('emailReward', amt)
                         window.location.hash = '#third'
+
                     } else {
                         toast(response.data.message, {
                             type: toastType,
@@ -114,7 +115,6 @@ export default class First extends React.Component {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(response => {
-                console.log("response from email sent",response.data.count);
                 if(response.data.count == 3){
                     this.setState({
                         count : 3
