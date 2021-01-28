@@ -39,8 +39,15 @@ class NewUser extends React.Component {
             this.setState({loading: true});
             axios.get(`https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/lookup/${this.state.arisen_username}`)
                     .then(user => {
-                        this.setState({loading: false});
-                        this.props.errorOn();
+
+                        if(user.success){
+                          console.log("hereee");
+                            this.setState({loading: false});
+                            this.props.errorOn();
+
+                        }
+
+                    
                     })
                     .catch(async e => {
                         let response = await axios.get(API.passPhrase);

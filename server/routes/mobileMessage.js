@@ -69,7 +69,15 @@ router.post('/send-sms',[
                     })
 
                  }
-                 else if(r_db && r_db.count < 3){
+                 else if(r_db.claimed){
+
+                    return res.status(200).json({
+                        success: false,
+                        message: 'This Phone Number Has Already Claimed RIX, please use other Number'
+                    })
+    
+                }
+                 else if(!(r_db.claimed) && r_db.count < 3){
                     let count_ = r_db.count +1;
 
                     client.messages
@@ -176,11 +184,26 @@ router.post('/send/reward', async (req, res) => {
                      Rsn_Transfer(username, token._id, amount)
                     .then(() => {
 
-                        return res.status(200).json({
-                            success: true,
-                            message: 'Reward successfully send',
-                            respCode:10000
+                        MVerify.findOneAndUpdate({username:username}, {$set:{claimed:true}}, {new: true}, (err, doc) => {
+                            if (err) {
+                                console.log("Something wrong when updating data!");
+                            }
+
+                            EVerify.findOneAndUpdate({username:username}, {$set:{claimed:true}}, {new: true}, (err, doc) => {
+                                if (err) {
+                                    console.log("Something wrong when updating data!");
+                                }
+
+                                return res.status(200).json({
+                                    success: true,
+                                    message: 'Reward successfully send',
+                                    respCode:10000
+                                })
+                            
+                            })
+                        
                         })
+                        
                     })
                     .catch(() =>{
                         return res.status(200).json({

@@ -102,6 +102,7 @@ export default class First extends React.Component {
                 type: 'error',
                 autoClose: 3000,
             })
+            this.setState({ loading: false})
             return;
         } else {
             axios({

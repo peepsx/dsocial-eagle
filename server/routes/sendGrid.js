@@ -19,6 +19,8 @@ router.post('/send-email',[
             return res.status(200).json({errors: errors.array()});
         }
 
+
+
         var password = generator.generate({
             length: 6,
             numbers: true,
@@ -115,7 +117,16 @@ router.post('/send-email',[
                   }); 
 
             }
-            else if(r_db && r_db.count < 3){
+            else if(r_db.claimed){
+
+                return res.status(200).json({
+                    success: false,
+                    message: 'This Email Address Has Already Claimed RIX, please use other EmailID'
+                })
+
+            }
+
+            else if(!(r_db.claimed) && r_db.count < 3){
 
                 let count_ = r_db.count +1;
 
