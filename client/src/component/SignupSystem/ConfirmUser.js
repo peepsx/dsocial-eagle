@@ -41,7 +41,7 @@ class ConfirmUSer extends React.Component {
         this.setState({ ip });
     }
     
-    handleTransaction = async (e) => {
+    async handleTransaction (e) {
         e.preventDefault();
         this.setState({ loading: true })
         this.setState({arisen_username: localStorage.getItem('username')});
@@ -121,7 +121,7 @@ class ConfirmUSer extends React.Component {
         }
     }
 
-    handleChange = (e) => {
+    handleChange (e){
         this.setState({
             [e.target.name]: e.target.value,
             error: false,

@@ -28,24 +28,37 @@ export default class Fourth extends React.Component {
             copied: false,
             passphrase: []
         }
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleForNewOne = this.handleForNewOne.bind(this);
+        this.handleError = this.handleError.bind(this);
+        this.handleErrorForNewOne = this.handleErrorForNewOne.bind(this);
+        this.handleSignup = this.handleSignup.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleTransaction = this.handleTransaction.bind(this);
+        this.formValidation = this.formValidation.bind(this);
+        this.textCopy = this.textCopy.bind(this);
     }
 
-    handleAdd = (e) => {
+    handleAdd(e){
         e.preventDefault()
         this.setState({isOpenModal: true, title: "Enter Your PeepsID", description: "We're glad to hear you already have a PeepsID. Please enter it below."})
     }
-    handleForNewOne = (e) => {
+    handleForNewOne (e) {
         e.preventDefault()
         window.open('https://signup.peepsid.com/', "_blank")
         //this.setState({isOpenForNewUser: true, title: "Create An Account", description: "Enter a username below to proceed. A PeepsID must be up to 12 characters, lowercase and can only use a-z and 1-5. No special characters are allowed."})
     }
-    handleError = (e) => {
+
+    handleError(e) {
 
         this.setState({title: "Username Doesn't Exist!", description: "That username is not registered. Please try again."})
     }
-    handleErrorForNewOne = (title = "Username Taken!", description = "The username is taken. Please try again.", passphrase = "") => {
+
+
+    handleErrorForNewOne(title = "Username Taken!", description = "The username is taken. Please try again.", passphrase = ""){
         this.setState({title: title, description: description, passphrase: passphrase})
     }
+
     async componentDidMount() {
 
         const ip = { v4: '', v6: '' }
@@ -59,19 +72,19 @@ export default class Fourth extends React.Component {
         this.setState({ ip });
     }
 
-    handleSignup = (e) => {
+    handleSignup(e) {
         e.preventDefault();
         window.open('https://signup.peepsid.com', '_blank', 'width=400,height=600')
     }
 
-    handleChange = (e) => {
+    handleChange (e) {
         this.setState({
             [e.target.name]: e.target.value,
             error: false,
         })
     }
 
-    handleTransaction = (e) => {
+    handleTransaction(e){
         e.preventDefault();
         const email = localStorage.getItem('googleEmail');
         if (localStorage.getItem('s3')) {
@@ -145,7 +158,7 @@ export default class Fourth extends React.Component {
         }
     }
 
-    formValidation = () => {
+    formValidation() {
         if (this.state.arisen_username === '') {
             toast("PeepsID missing !!", {
                 type: 'error',
@@ -153,8 +166,7 @@ export default class Fourth extends React.Component {
             })
         }
     }
-    textCopy = (text) => {
-
+    textCopy (text) {
         if(text) {
             this.setState({copied: text})
             setTimeout(() => {

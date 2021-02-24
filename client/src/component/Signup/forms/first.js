@@ -23,21 +23,26 @@ export default class First extends React.Component {
             nextBtnStatus: '',
             loading: false,
         }
+
+        this.onChangeHandle = this.onChangeHandle.bind(this);
+        this.onCodeHandle = this.onCodeHandle.bind(this);
+this.onVerificationCode = this.onVerificationCode.bind(this);
+this.onVerification = this.onVerification.bind(this);
     }
 
-    onChangeHandle = (e) => {
+    onChangeHandle(e){
         e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    onCodeHandle = (e) => {
+    onCodeHandle (e) {
         e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    onVerificationCode =(e) => {
+    onVerificationCode (e) {
         e.preventDefault();
         this.setState({loading: true})
         if(!this.state.code) {
@@ -94,7 +99,7 @@ export default class First extends React.Component {
                 })
         }
     }
-    onVerification = (e) => {
+    onVerification(e){
         e.preventDefault();
         this.setState({loading: true})
         if(!validator.isEmail(this.state.email)) {
@@ -148,7 +153,7 @@ export default class First extends React.Component {
    
    
 
-    handleNextShowBtn = (status) => {
+    handleNextShowBtn (status){
         this.setState({
             nextBtnStatus: status
         })
@@ -170,8 +175,8 @@ export default class First extends React.Component {
                     We just sent an email to {localStorage.getItem('email')} with a verification code. Please enter verification code below.
                     </p>
                     {/* <span>Email: </span> */}
-                    <form className="form-group mb-3" onSubmit={this.onVerificationCode.bind(this)}>
-                    <input className="mb-3 text-center form-control b-none" name="code" value={this.state.code} onChange={this.onCodeHandle.bind(this)} />
+                    <form className="form-group mb-3" onSubmit={this.onVerificationCode}>
+                    <input className="mb-3 text-center form-control b-none" name="code" value={this.state.code} onChange={this.onCodeHandle} />
                     <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>
                     {
                         this.state.loading ?
@@ -198,8 +203,8 @@ export default class First extends React.Component {
                     To get started, enter your email below.
                     </p>
                     {/* <span>Email: </span> */}
-                    <form className="form-group mb-3" onSubmit={this.onVerification.bind(this)}>
-                    <input className="mb-3 text-center form-control b-none" name="email" value={this.state.email} onChange={this.onChangeHandle.bind(this)} />
+                    <form className="form-group mb-3" onSubmit={this.onVerification}>
+                    <input className="mb-3 text-center form-control b-none" name="email" value={this.state.email} onChange={this.onChangeHandle} />
                     <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>
                     {
                         this.state.loading ?

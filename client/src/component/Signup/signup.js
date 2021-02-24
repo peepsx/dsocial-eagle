@@ -20,6 +20,7 @@ export default class Signup extends Component {
         this.state = {
             ip: true
         }
+        this.handleIpCheck = this.handleIpCheck.bind(this);
     }
 
     async componentDidMount() {
@@ -37,7 +38,7 @@ export default class Signup extends Component {
         }
     }
 
-    handleIpCheck = async(ipData) => {
+    async handleIpCheck(ipData){
         await Axios({
             url: API.ip_check,
             method: 'post',

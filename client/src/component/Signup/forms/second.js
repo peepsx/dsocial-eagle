@@ -22,21 +22,27 @@ export default class First extends React.Component {
             nextBtnStatus: '',
             loading: false,
         }
+        this.onChangeHandle= this.onChangeHandle.bind(this);
+        this.onCodeHandle= this.onCodeHandle.bind(this);
+        this.onVerificationCode= this.onVerificationCode.bind(this);
+        this.onVerification= this.onVerification.bind(this);
+        this.handleNextShowBtn= this.handleNextShowBtn.bind(this);
+
     }
 
-    onChangeHandle = (e) => {
+    onChangeHandle (e) {
         e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    onCodeHandle = (e) => {
+    onCodeHandle (e){
         e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    onVerificationCode =(e) => {
+    onVerificationCode (e) {
         e.preventDefault();
         this.setState({loading: true})
         if(!this.state.code) {
@@ -88,7 +94,7 @@ export default class First extends React.Component {
                 })
         }
     }
-    onVerification = (e) => {
+    onVerification (e) {
         e.preventDefault();
             this.setState({loading: true})
             axios({
@@ -141,7 +147,7 @@ export default class First extends React.Component {
     }
  
 
-    handleNextShowBtn = (status) => {
+    handleNextShowBtn (status){
         this.setState({
             nextBtnStatus: status
         })
@@ -163,8 +169,8 @@ export default class First extends React.Component {
                     We just sent you a text message to number {localStorage.getItem('mobileNumber')}, with a verification code. Please enter it below.
                     </p>
                     {/* <span>Email: </span> */}
-                    <form className="form-group mb-3" onSubmit={this.onVerificationCode.bind(this)}>
-                    <input className="mb-3 text-center form-control b-none" name="code" value={this.state.code} onChange={this.onCodeHandle.bind(this)} />
+                    <form className="form-group mb-3" onSubmit={this.onVerificationCode}>
+                    <input className="mb-3 text-center form-control b-none" name="code" value={this.state.code} onChange={this.onCodeHandle} />
                     <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>
                     {
                         this.state.loading ?
@@ -180,7 +186,7 @@ export default class First extends React.Component {
                     }
                     </button>
                     </form>
-                    {this.state.count != 3 ?<div style={{marginTop : "15px"}} className="Resend-box" onClick={this.onVerification.bind(this)}>
+                    {this.state.count != 3 ?<div style={{marginTop : "15px"}} className="Resend-box" onClick={this.onVerification}>
                         <a href="">I didn't receive the text, please resend</a>
                         </div> : null}
                 </div> :   <div className="mb-4 text-center">
@@ -191,8 +197,8 @@ export default class First extends React.Component {
                     Please enter your mobile phone number below in a format eg. +1xxxxxxxxxx (country code and number)
                     </p>
                     {/* <span>Email: </span> */}
-                    <form className="form-group mb-3" onSubmit={this.onVerification.bind(this)}>
-                    <input className="mb-3 text-center form-control b-none" name="mobileNumber" value={this.state.mobileNumber} onChange={this.onChangeHandle.bind(this)} />
+                    <form className="form-group mb-3" onSubmit={this.onVerification}>
+                    <input className="mb-3 text-center form-control b-none" name="mobileNumber" value={this.state.mobileNumber} onChange={this.onChangeHandle} />
                     <button className="btn btn-block btn-lg btn-custom br-dot2" type='submit'>
                     {
                         this.state.loading ?

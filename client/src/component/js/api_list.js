@@ -1,4 +1,4 @@
- const url = 'https://api.dsocial.network';
+const url = 'https://api.dsocial.network';
 //const url = 'http://localhost:3001';
 
 export const API = {

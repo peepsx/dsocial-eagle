@@ -16,9 +16,14 @@ export default class Third extends React.Component {
             twitter_share_reward: 0,
             check: false
         }
+        this.handleFbShare = this.handleFbShare.bind(this);
+        this.handleTweet = this.handleTweet.bind(this);
+        this.handleNextStep = this.handleNextStep.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleFbShare = () => {
+    handleFbShare () {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
@@ -63,7 +68,7 @@ export default class Third extends React.Component {
         });
     }
 
-    handleTweet = () => {
+    handleTweet() {
         const text = "I just joined dSocial, a %23decentralized social network that cannot censor its users. Join the %23dweb revolution at https://dsocial.network"
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
         if (localStorage.getItem('s2')) {
@@ -124,7 +129,7 @@ export default class Third extends React.Component {
         }
     }
 
-    handleNextStep = (e) => {
+    handleNextStep (e) {
         e.preventDefault();
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
@@ -150,7 +155,7 @@ export default class Third extends React.Component {
         }
     }
 
-    handleClick = (e) => {
+    handleClick (e) {
         e.preventDefault();
         if(this.state.check){
             this.setState({check: false})
@@ -160,7 +165,7 @@ export default class Third extends React.Component {
 
     }
 
-    handleSubmit = (e) => {
+    handleSubmit(e) {
         e.preventDefault()
         let amts =  1000
         if(!this.state.check){
@@ -303,7 +308,7 @@ export default class Third extends React.Component {
                         value={this.state.check}
                         inline={true}
                         defaultChecked={this.state.check} 
-                        onChange={this.handleClick.bind(this)}
+                        onChange={this.handleClick}
                     />
                     <label htmlFor="iagree">I agree to dSocial's Terms of Service.</label><br/>
                     <input className="btn btn-block btn-lg btn-custom br-dot2" type="submit"  value="Create Account & Send Coins"/>
