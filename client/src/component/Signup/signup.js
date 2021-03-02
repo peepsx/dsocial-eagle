@@ -57,7 +57,7 @@ export default class Signup extends Component {
 
     render() {
         if (!sessionStorage.getItem('user')) {
-            return <Redirect to="/welcome" />
+            return <Redirect to="/" />
         } else if (!this.state.ip) {
             return <Ipexist />;
         } else {
