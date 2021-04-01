@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
 export default function Welcome() {
-    useEffect(() => {
-        sessionStorage.setItem('user', true);
-        localStorage.clear();
-    }, [])
+    // useEffect(() => {
+    //     sessionStorage.setItem('user', true);
+    //     localStorage.clear();
+    // }, [])
     return (
         <section className="bg-gradient-3 height-100 overlay-top welSec">
             <img src="assets/img/header-13.jpg" alt="Background" className="bg-image bg-image opacity-20"/>
