@@ -56,9 +56,9 @@ export default class Signup extends Component {
     }
 
     render() {
-        if (!sessionStorage.getItem('user')) {
-            return <Redirect to="/welcome" />
-        } else {
+        // if (!sessionStorage.getItem('user')) {
+        //     return <Redirect to="/welcome" />
+        // } else {
             return (
                 <section className="bg-gradient-4 height-100 p-3">
                     {/* <img src="assets/img/header-17.jpg" alt="bg" className="bg-image opacity-10" /> */}
@@ -127,6 +127,6 @@ export default class Signup extends Component {
                     <Help />
                 </section>
             )
-        }
+       // }
     }
 }
