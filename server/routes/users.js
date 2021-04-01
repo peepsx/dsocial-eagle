@@ -6,25 +6,16 @@ let generator = require('generate-password');
 let bcrypt = require('bcryptjs');
 let { Token } = require('../middleware/Token');
 const { UserAuth } = require('../models/user');
-const { faceAuth } = require('../models/facebook');
 const { userAuthTemp } = require('../models/authTemp');
 const { userAuth } = require('../models/auth');
-const { TwitterAuth } = require('../models/twitter');
-// const { InstaAuth } = require('../models/instagram');
-const { googleAuth } = require('../models/google');
+const { Rsn_Transfers } = require('../models/transfer')
 const { Ip } = require('../models/ip');
 // const { TelegramDetail } = require('../models/telegram');
 /**TEMP MODEL */
-const { TempFacebook } = require('../models/TempFacebook');
-const { TempTwitter } = require('../models/TempTwitter');
-// const { TempInstagram } = require('../models/TempInstagram');
-const { TempGoogle } = require('../models/TempGoogle');
-// const { TempTelegram } = require('../models/TempTelegram');
 
 var validator = require('validator');
 let axios = require('axios');
 let { RSN_TRANSFER, Access_Token } = require('../middleware/RSN_TRANSFER'); 
-let { Rsn_Transfer } = require('../Transfer/Rsn_Transfer')
 
 router.post('/users-details', [RSN_TRANSFER, Access_Token],  async (req, res) => {
 
@@ -183,50 +174,25 @@ router.post('/register', async (req, res) => {
         let { username } = req.body;
         if(username.length !== 12 || username === null || username === undefined || username === '') 
             return res.status(200).send({success: false, message: 'username is invalid'})
-        let findOne = await userAuth.findOne({username: username})
-        let TempFb = await userAuthTemp.findOne({username: username})
 
-        if(TempFb) return res.status(200).send({
-                    success: true,
-                    token: TempFb.token,
-                    message:'You have logged in successfully!',
-            })
-        
-        if(findOne) return res.status(403).send({
-                success: false,
-                message: 'You have already register with us!'
-            })
-        
-        var password = generator.generate({
-            length: 10,
-            numbers: true
-        });
-        let salt = await bcrypt.genSalt(10);
-        let hash = await bcrypt.hash(password, salt);
-        let newTempUser = new userAuthTemp({
-            username: username
-        })
-        newTempUser.password = hash;
-        newTempUser.save()
-            .then(async (us) => {
-                let jsonToken = await Token(password, us.id);
-                newTempUser.token = jsonToken.token;
-                await newTempUser.save();
-                if(jsonToken.success !== true) return res.status(401).send({success: false, message: 'Password in valid'});
+               let finding_user = await Rsn_Transfers.findOne({user: username})
 
-                res.status(200).send(
-                    {
+                if(finding_user){
+                    return res.send({
+                    success: false,
+                    message: 'You have already registerd with us!'
+                })
+            }
+                else{
+
+                    return res.send({
                         success: true,
-                        message: 'You have logged in successfully!',
-                        token: jsonToken.token,
-                        access_token: true
-                    }
-                )
-            })
-            .catch(e => {
-                console.error("USER REGISTER", e)
-                return res.status(401).send(e)
-            })
+                        message: 'success account is new'
+                    })
+                }
+            
+
+        
     } catch (error) {
         console.log('REGISTER USER', error)
         return res.status(500).send({success: false, message: "server error"})

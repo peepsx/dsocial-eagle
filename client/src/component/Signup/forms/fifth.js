@@ -11,7 +11,8 @@ export default class Fifth extends React.Component {
     render() {
         const arisenMessage = localStorage.getItem('message');
         const username = localStorage.getItem('username');
-        if (!localStorage.getItem('s4') /*!localStorage.getItem('twitterName') || !localStorage.getItem('googleEmail') || !localStorage.getItem('fbUserId')*/) { /**arisenMessage || !localStorage.getItem('message') */
+        const respCode = localStorage.getItem('respCode');
+        if (!localStorage.getItem('email') || !localStorage.getItem('username') || !localStorage.getItem('mobileNumber')) { 
             return (
                 <div className="card-body p-4 px-lg-5">
                     <div className="mb-4 text-center">
@@ -20,6 +21,45 @@ export default class Fifth extends React.Component {
                             <h2 className="mt-auto mb-auto ml-2">Error</h2>
                         </div>
                         <span className="h4 d-block">Please Complete Previous The Steps First</span>
+                    </div>
+                </div>
+            )
+        }
+        if (respCode == 1001) { 
+            return (
+                <div className="card-body p-4 px-lg-5">
+                    <div className="mb-4 text-center">
+                        <div className="column justify-content-center mb-3">
+                            <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
+                            <h2 className="mt-auto mb-auto ml-2">Error</h2>
+                        </div>
+                        <span className="h4 d-block">Unable to send Reward Please try Later</span>
+                    </div>
+                </div>
+            )
+        }
+        if (respCode == 1002) { 
+            return (
+                <div className="card-body p-4 px-lg-5">
+                    <div className="mb-4 text-center">
+                        <div className="column justify-content-center mb-3">
+                            <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
+                            <h2 className="mt-auto mb-auto ml-2">Error</h2>
+                        </div>
+                        <span className="h4 d-block">You have already claimed</span>
+                    </div>
+                </div>
+            )
+        }
+        if (respCode == 1003) { 
+            return (
+                <div className="card-body p-4 px-lg-5">
+                    <div className="mb-4 text-center">
+                        <div className="column justify-content-center mb-3">
+                            <img src="/assets/img/arisen/alert.svg" className="w-15 mb-2" alt="warning" />
+                            <h2 className="mt-auto mb-auto ml-2">Error</h2>
+                        </div>
+                        <span className="h4 d-block">You have to verify your email and phone number</span>
                     </div>
                 </div>
             )
@@ -41,7 +81,7 @@ export default class Fifth extends React.Component {
                     <span className="h4 d-block">Start Browsing The dWeb.</span>
                     <hr />
                     <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://peepsx.com/dwallet", '_blank')} >Download dWallet</button>
-                    <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://dbrowser.com", '_blank')} >Download dBrowser</button>
+                    <button type="button" className="btn btn-custom m-1 h-2" onClick={() => window.open("https://peepsx.com/dbrowser", '_blank')} >Download dBrowser</button>
                 </div>
             </div>
         )

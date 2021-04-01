@@ -3,13 +3,9 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-let twitter = require('./routes/twitter');
-let newTwitter = require('./routes/newTwitter');
-let fbRouter = require('./routes/facebook');
-let instagramRouter = require('./routes/instagram')
-let google = require('./routes/google');
+let email_send = require('./routes/sendGrid');
+let mobile_send = require('./routes/mobileMessage');
 let users = require('./routes/users')
-let telgramapi = require('./routes/telegaramapi');
 let new_user = require('./routes/newuser');
 let ip = require('./routes/ip');
 let BtsTransfer = require('./routes/bit-share-transfer');
@@ -27,17 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Api Routes
 app.use('/new_user', new_user);
+app.use('/verify', email_send);
+app.use('/mobile', mobile_send);
 app.use('/', ip);
-app.use('/twitter', twitter);
-app.use('/facebook', fbRouter);
-// app.use('/instagram', instagramRouter)
-app.use('/google',google)
 app.use('/users',users)
-app.use('/validation', twitter)
 // app.use('/details',  telgramapi)
 /** TOKEN_EXCHANGE_API */
 app.use('/rsn-bts', BtsTransfer);
-app.use('/new', newTwitter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(404);

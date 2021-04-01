@@ -1,9 +1,5 @@
 require('dotenv').config();
-let { TempFacebook } = require('../models/TempFacebook')
-let { TempGoogle } = require('../models/TempGoogle')
-// let { TempInstagram } = require('../models/TempInstagram')
-let { TempTwitter } = require('../models/TempTwitter')
-// let { TempTelegram } = require('../models/TempTelegram')
+
 let jwt = require('jsonwebtoken');
 
 module.exports = {

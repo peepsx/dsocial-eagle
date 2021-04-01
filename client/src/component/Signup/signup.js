@@ -20,6 +20,7 @@ export default class Signup extends Component {
         this.state = {
             ip: true
         }
+        this.handleIpCheck = this.handleIpCheck.bind(this);
     }
 
     async componentDidMount() {
@@ -37,7 +38,7 @@ export default class Signup extends Component {
         }
     }
 
-    handleIpCheck = async(ipData) => {
+    async handleIpCheck(ipData){
         await Axios({
             url: API.ip_check,
             method: 'post',
@@ -57,8 +58,6 @@ export default class Signup extends Component {
     render() {
         if (!sessionStorage.getItem('user')) {
             return <Redirect to="/welcome" />
-        } else if (!this.state.ip) {
-            return <Ipexist />;
         } else {
             return (
                 <section className="bg-gradient-4 height-100 p-3">
@@ -76,19 +75,19 @@ export default class Signup extends Component {
                                             <a className="nav-link noClick" href="#first">1. Your Account</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#second">2. Join The Revolution</a>
+                                            <a className="nav-link noClick" href="#second">2. Verify Email</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#third">3. Follow Peeps</a>
+                                            <a className="nav-link noClick" href="#third">3. Verify Phone</a>
                                         </li>
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#fourth">4. Promote dSocial</a>
+                                            <a className="nav-link noClick" href="#fourth">4. Agree To Terms</a>
                                         </li>
-                                        <li className="nav-item flex-fill noClick">
+                                        {/* <li className="nav-item flex-fill noClick">
                                             <a className="nav-link noClick" href="#fifth">5. Confirm Username</a>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item flex-fill noClick">
-                                            <a className="nav-link noClick" href="#sixth">6. You Got Coins!</a>
+                                            <a className="nav-link noClick" href="#sixth">5. You Got Coins!</a>
                                         </li>
                                     </ul>
                                     <div className="tab-content">
@@ -114,7 +113,7 @@ export default class Signup extends Component {
                                 </div>
                                 <div className="card-footer text-center">
                                     <small>This code has been open sourced
-                                    <a style={{ marginLeft: 3 }} href="https://github.com/ArisenIO/air-drop-dapp" target="_blank" rel="noopener noreferrer">
+                                    <a style={{ marginLeft: 3 }} href="https://github.com/peepsx/dsocial-eagle" target="_blank" rel="noopener noreferrer">
                                             here
                                     </a>
                                     </small>

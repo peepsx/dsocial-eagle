@@ -4,8 +4,8 @@ let Schema = mongoose.Schema;
 
 let RSN = new Schema({
     user: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
+        type:String,
+        required: true
     },
     amount: {
         type: String,
@@ -17,13 +17,17 @@ let RSN = new Schema({
     transaction_id: {
         type: String,
         required: true
+    },
+    claimed:{
+        type:Boolean,
+        default:false
     }
 }, {
     timestamps: true
 })
 
-let Rsn_Transfer = mongoose.model('rsntransfer', RSN)
+let Rsn_Transfers = mongoose.model('rsntransfers', RSN)
 
 module.exports = {
-    Rsn_Transfer
+    Rsn_Transfers
 }

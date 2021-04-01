@@ -2,7 +2,7 @@ require('dotenv').config();
 let config = require('../config/arisen');
 let RSN = require('arisenjsv1');
 let { UserAuth } = require('../models/user');
-let { Rsn_Transfer } = require('../models/transfer');
+let { Rsn_Transfers } = require('../models/transfer');
 const { Api, JsonRpc, RpcError } = require('@arisencore/js');
 const { JsSignatureProvider } = require('@arisencore/js/dist/rixjs-jssig');      // development only
 const fetch = require('node-fetch');                                    // node only; not needed in browsers
@@ -21,11 +21,12 @@ module.exports = {
                 }
                   rsn.transfer(process.env.TRANSFER_USER, arisen_username, amount, '', config)
                       .then(async (transfer) => {
-                          let rsn_transfered = new Rsn_Transfer({
-                              user: id,
+                          let rsn_transfered = new Rsn_Transfers({
+                              user: arisen_username,
                               amount: amount,
                               account_from_transfer: process.env.TRANSFER_USER,
-                              transaction_id: transfer.transaction_id
+                              transaction_id: transfer.transaction_id,
+                              claimed: true
                           })
                             await rsn_transfered.save();
                               return resolve({

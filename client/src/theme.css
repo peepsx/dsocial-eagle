@@ -9596,3 +9596,19 @@ img.zoom-img {
 } */
 
 /*# sourceMappingURL=theme.css.map */
+.scroll-box {
+  height: 200px;
+  max-width: 430px;
+  overflow: auto;
+  margin: auto;
+  margin-bottom: 20px;
+}
+form.termagree {
+  text-align: center;
+}
+.termagree label {
+  margin-left: 5px;
+}
+.Resend-box{
+  text-align: center;
+}

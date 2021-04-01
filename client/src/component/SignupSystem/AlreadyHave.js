@@ -16,7 +16,7 @@ class AlreadyHave extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
     
-    handleTransaction = (e) => {
+    handleTransaction (e) {
         
         this.setState({loading: true})
             e.preventDefault();
@@ -34,13 +34,22 @@ class AlreadyHave extends React.Component {
                         // window.location.hash = "#second";
                         axios.post(API.registerUser, {username: this.state.arisen_username})
                         .then(user_res => {
-                            localStorage.setItem('token', user_res.data.token)
+                            if(user_res.data.success){
                             localStorage.setItem('username', this.state.arisen_username)
                             window.location.hash = "#second"
+                            }
+                            else{
+                                toast("This UserName is already been used", {
+                                    type: 'warning',
+                                    autoClose: 3000,
+                                })
+                            }
+                            
                         })
                         .catch(err => {
+
                             if (err.response && err.response.status === 403) {
-                                toast("This id is already been used", {
+                                toast("Some error please try later", {
                                     type: 'warning',
                                     autoClose: 3000,
                                 })
@@ -51,14 +60,17 @@ class AlreadyHave extends React.Component {
                     })
                     .catch(e => {
                         this.setState({loading: false})
-                        console.log('ERROR', e)
                         // this.setState({error: e.response.data.error})
                         this.props.errorOn();
+                        toast("Account Name doesn't exist", {
+                            type: 'warning',
+                            autoClose: 3000,
+                        })
                     })
 
     }
     
-    handleChange = (e) => {
+    handleChange (e) {
         this.setState({
             [e.target.name]: e.target.value,
             error: false,

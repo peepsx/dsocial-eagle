@@ -1,4 +1,5 @@
-const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' :  process.env.REACT_APP_API_URL;
+const url = 'https://api.dsocial.network';
+//const url = 'http://localhost:3001';
 
 export const API = {
     ip_check                : url+'/',
@@ -12,5 +13,11 @@ export const API = {
     validation_follower     : url+'/validation/follower',
     registerUser            : url+'/users/register',
     passPhrase              : url+'/users/pass/phrase',
-    share_with_fb           : url+'/validation//share-facebook-media'
+    share_with_fb           : url+'/validation//share-facebook-media',
+    email_verifier          : url+'/verify/send-email',
+    code_verify             : url+'/verify/send-token',
+    mobile_verifier         : url+'/mobile/send-sms',
+    mobile_verify           : url+'/mobile/mobile-token',
+    earn_reward             : url+'/mobile/send/reward'
+    
 }

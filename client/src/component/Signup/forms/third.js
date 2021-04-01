@@ -1,10 +1,9 @@
 import React from 'react'
 import Axios from 'axios';
 import Swal from 'sweetalert2';
-
+import axios from 'axios';
 import { API } from '../../js/api_list';
 import { env } from '../../config/config';
-import Loader from 'react-loader-spinner';
 import gold from '../../assets/img/gold_img.png'
 
 export default class Third extends React.Component {
@@ -14,11 +13,17 @@ export default class Third extends React.Component {
             fbPostResponse: '',
             loading: false,
             facebook_share_reward: 0,
-            twitter_share_reward: 0
+            twitter_share_reward: 0,
+            check: false
         }
+        this.handleFbShare = this.handleFbShare.bind(this);
+        this.handleTweet = this.handleTweet.bind(this);
+        this.handleNextStep = this.handleNextStep.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleFbShare = () => {
+    handleFbShare () {
         window.FB.ui({
             appID: env.facebook_client_id,
             method: 'feed',
@@ -63,7 +68,7 @@ export default class Third extends React.Component {
         });
     }
 
-    handleTweet = () => {
+    handleTweet() {
         const text = "I just joined dSocial, a %23decentralized social network that cannot censor its users. Join the %23dweb revolution at https://dsocial.network"
         window.open(`https://twitter.com/intent/tweet?&text=${text}`, '_blank', 'height=500,width=400')
         if (localStorage.getItem('s2')) {
@@ -124,7 +129,7 @@ export default class Third extends React.Component {
         }
     }
 
-    handleNextStep = (e) => {
+    handleNextStep (e) {
         e.preventDefault();
         if (localStorage.getItem('s2')) {
             this.setState({ loading: true })
@@ -150,65 +155,167 @@ export default class Third extends React.Component {
         }
     }
 
+    handleClick (e) {
+        e.preventDefault();
+        if(this.state.check){
+            this.setState({check: false})
+        } else {
+            this.setState({check: true})
+        }
+
+    }
+
+    handleSubmit(e) {
+        e.preventDefault()
+        let amts =  1000
+        if(!this.state.check){
+            Swal.fire({
+                title: 'Error',
+                text: 'Please select term and condition',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: 'Okay',
+            })
+            return;
+        } else {
+            axios({
+                url: API.earn_reward,
+                method: 'POST',
+                data: {
+                    status: this.state.check,
+                    amount: `${amts.toFixed(4)} RIX`,
+                    username: localStorage.getItem('username')
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then((result) => {
+                let respCode = result.data.respCode;
+
+                if(respCode == 1002){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Already Claimed',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    }) 
+                }
+                if(respCode == 1001){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please try later',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    }) 
+                }
+                if(respCode == 1003){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Please verify Email and Phone Number',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonText: 'Okay',
+                    }) 
+                }
+
+                const asyncLocalStorage = {
+                    setItem: function (key, value) {
+                        return Promise.resolve().then(function () {
+                            localStorage.setItem(key, value);
+                        });
+                    },
+                    getItem: function (key) {
+                        return Promise.resolve().then(function () {
+                            return localStorage.getItem(key);
+                        });
+                    }
+                };
+                
+                // Demo
+                asyncLocalStorage.setItem('respCode', respCode).then(function () {
+                    return asyncLocalStorage.getItem('respCode');
+                }).then(function (value) {
+                    window.location.hash = '#sixth'
+
+                });
+
+
+                // localStorage.setItem("respCode",respCode).then((res)=>{
+
+                //     if(res){
+                //         window.location.hash = '#sixth'
+                //     }
+
+                // }).catch((err)=>{
+                //     console.log("sssxxx",err);
+                // })
+                
+                
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Internal server error',
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                }) 
+            })
+           
+        }
+    }
+
     render() {
-        return localStorage.getItem('twitterName') || localStorage.getItem('googleEmail') || localStorage.getItem('fbUserId') ? (
-            <div className="card-body py-4">
+        return localStorage.getItem('email') && localStorage.getItem('username')  ? (
+           <div className="col-11 col-md-8 col-lg-6 col-xl-6 py-4 p-3 custom-border mt-4 gradient-color" style={{margin: "auto"}}>
+                <div className="card-body py-4">
                 <div className="mb-4 text-center">
-                    <span style={{"font-family": 'sans-serif'}}>You have earned:</span>
-                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{parseInt(localStorage.getItem('login_reward')) + parseInt(localStorage.getItem('like_reward') || 0) + parseInt(this.state.facebook_share_reward) + parseInt(this.state.twitter_share_reward)} RIX</span>
-                    <span className="h4 d-block">Spread the word about dSocial...</span>
-                    <p className="w-75 m-auto">Help us spread the word about dSocial to your friends and earn 400 RIX for  platform you post on. Click the buttons below to spread the word.</p>
+                    <span style={{"fontFamily": 'sans-serif'}}>You have earned:</span>
+                    <img src={gold} alt='gold' width="15 px" height="auto"></img> <span>{localStorage.getItem('totalReward')} RIX</span>
+                    <span className="h4 d-block">Agree To Terms</span>
                 </div>
-                <div className="row justify-content-center">
-                    <div className="col-xl-8 col-lg-8">
-                        {
-                        (localStorage.getItem('fbUserId') || localStorage.getItem('twitterName')) ? 
-                            <div className="list-group">
-                            {localStorage.getItem('fbUserId') && 
-                             <a onClick={this.handleFbShare} className="mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
-                                <div className="d-flex align-items-center">
-                                    <img src="assets/img/icons/icon13.svg" alt="assets/img/icons/icon01.svg" className="d-block mr-3 icon" />
-                                    <p className='warning' style={{color: 'black', position: "absolute", right: '35px', bottom: '6px'}}>+<span> 400 RIX</span></p>
-                                    <span className="mb-0 h6 mb-0">Share The Revolution On Facebook</span>
-                                </div>
-                                <i className="fas fa-chevron-right" />
-                             </a>
-                            }
-                            {localStorage.getItem('twitterName') && 
-                              <a onClick={this.handleTweet} id="fakeTweetBtn" className="mt-2 mb-2 b-1 list-group-item list-group-item-action d-flex justify-content-between align-items-center c-pointer" href="/#">
-                                <div className="d-flex align-items-center">
-                                    <img src="assets/img/icons/icon57.svg" alt="assets/img/icons/icon02.svg" className="d-block mr-3 icon" />
-                                    <p className='warning' style={{color: 'black', position: "absolute", right: '35px', bottom: '6px'}}>+<span> 400 RIX</span></p>
-                                    <span className="mb-0 h6 mb-0">Tweet About The Revolution On Twitter</span>
-                                </div>
-                                <i className="fas fa-chevron-right" />
-                              </a>
-                            }
-                        </div> : <p>
-                        Sorry, you have to be logged in with either Twitter, Facebook or both to take part in this step.
-                        </p>
-                        }
-                    </div>
+            <div className="main">
+                <div className="scroll-box">
+                    <b>dSocial Terms of Service</b>
+                <br/>
+                <br/>
+                <b>I. Your Privacy</b>
+                <p>Your personal information WILL NEVER be sold to anyone, under any circumstance. We will only utilize your phone number and email address for the purpose of communicating with you about your Peeps account (PeepsID) or other Peeps products and services.</p>
+                <br/>
+                <br/>
+                <b>II. Your Data</b>
+                <p>You are always in control of your data. dSocial is not centralized or powered from within a data center, nor does dSocial store a copy of your data for any reason. If you would like to remove your data from dSocial, you have the ability to do so via the dSocial application. Once your data is removed from dSocial, it will no longer exist on the network. Users of dWeb-based applications like dSocial, store and broadcast their own data to others. dSocial and other Peeps applications make it easy for users to remove their data from these applications (i.e. stop broadcasting the data). Once removed, a user can choose to republish their data at a later time.</p>
+                <br/>
+                
+                <b>III. American Values</b>
+                <br/>
+                <p>dSocial represents American values - life, liberty and happiness - and you agree to honor and respect the American values and the Constitutional rights of all other dSocial users. No user on dSocial may be censored for any reason, nor shall their God-given rights be entrenched upon.</p>
+                <br/>
+                
+                <b>IV. dWeb Constitution</b>
+                <br/>
+                <p>You agree to abide by the <a href="https://constitution.dwebx.org" target="_blank" rel="noopener noreferrer">dWeb Constitution</a>.</p>
+
                 </div>
-                <div className="d-flex justify-content-center pb-0 pt-3">
-                    <button className="btn btn-custom h-2 min-w-10"
-                        onClick={this.handleNextStep}
-                    >
-                        {
-                            this.state.loading ?
-                                <Loader
-                                    type="TailSpin"
-                                    className="ml-1 mt-auto mb-auto"
-                                    color="white"
-                                    height={30}
-                                    width={30}
-                                />
-                                :
-                                "Proceed to Step 5"
-                        }
-                    </button>
-                </div>
+                <form  className="termagree" onSubmit={e=> this.handleSubmit(e)}>
+                    <input 
+                        type="checkbox"
+                        id="iagree"
+                        name="check"
+                        value={this.state.check}
+                        inline={true}
+                        defaultChecked={this.state.check} 
+                        onChange={this.handleClick}
+                    />
+                    <label htmlFor="iagree">I agree to dSocial's Terms of Service.</label><br/>
+                    <input className="btn btn-block btn-lg btn-custom br-dot2" type="submit"  value="Create Account & Send Coins"/>
+                </form>
             </div>
+            </div>
+           </div>
         ) : (<div className="card-body p-4 px-lg-5">
         <div className="mb-4 text-center">
         <div className="column justify-content-center mb-3">
